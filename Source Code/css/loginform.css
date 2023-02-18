@@ -1,0 +1,488 @@
+:root {
+    --fs-text1: 1.4rem;
+    --fs-text2: 1rem;
+    --fs-text3: .80rem;
+}
+
+*, 
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;   
+}
+
+main {
+    min-height: 100vh;
+    background: linear-gradient(to right top, #65dfc9, #7af3cf, #6cdbeb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* 
+ Status Message */
+ .statusmessagesuccess {
+    background-color: #96f5b6;
+    margin: .5em;
+    border-radius: 5px;
+    display: flex;
+    padding: 1em;
+    gap: 33em;
+    position: absolute;
+    justify-content: right;
+    margin-left: 21em;
+}
+
+.statusmessagesuccess button {
+    background: transparent;
+}
+
+
+/*  Glass Login Form  */
+.logintext {
+    margin-top: -.5em;
+    font-family: 'Questrial', sans-serif;
+    font-size: 30px;
+    color:#30b69d;
+    letter-spacing: .1em;
+    margin-bottom: .5em;
+}
+
+
+.logintext {
+    text-align: center;
+    font-size: 40px
+}
+
+/* signupright style */
+.signupleft {
+    position: absolute;
+    left: 20;
+    padding: 5em;
+    width: 65%;
+    height: 80vh;
+}
+
+.signupright {
+    background-color: rgb(105, 240, 195);
+    height: 80vh;
+    width: 40%;
+    float: right;
+    border-radius: 0 35px 35px 0;
+}
+
+.input-box {
+    margin-top: 1.2em;
+}
+
+.input-box input {
+    width: 63%;
+    padding: 10px;
+    border: 1px solid rgba(11, 90, 136, 0.3);
+    background: #dcebfa;
+    border-radius: 12px;
+    outline: none;
+    color: #35776c;
+    font-size: 1em;
+    margin-left: 9%;
+    margin-top: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+img {
+    height: 370px;
+    border-radius: 0 35px 0 0;
+}
+
+.systemdescription{
+    padding: 2em;
+    padding-left: 3.5em;
+    line-height: 2em;
+    letter-spacing: .2em;
+    font-family: 'Questrial', sans-serif;
+    color:azure;
+}
+
+.input-box span {
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    padding-left: 1em;
+    pointer-events: none;
+    font-size: .85em;
+    color: #5c817a;
+    margin-left: 32%;
+    margin-top: 32px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: poppins, sans-serif;
+    letter-spacing: .05em;
+    text-align: center;
+}
+
+.input-box input:valid ~ span, 
+.input-box input:focus ~ span {
+    color: #30b69d;
+    transform: translateX(-20px) translateY(-10px);
+    font-size: 0.73em;
+    padding: 0 5px;
+    padding-bottom: 0;
+    transition: 99ms;
+    border-left: 2px solid  rgba(11, 90, 136, 0.3);
+    border-right: 2px solid  rgba(11, 90, 136, 0.3);
+    background: #ACF7E1;
+    margin-left: 18em;
+}
+
+.radiobtn {
+    margin-top: 2em;
+    position: relative;
+    color: #5c817a;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: poppins, sans-serif;
+    letter-spacing: .05em;
+    padding: .5em 2em;
+    background: #dcebfa;
+    border-radius: 10px;
+    margin: 2em 8em;
+}
+/*  Text Properties   */
+
+
+.fa-solid {
+    font-size: 25px;
+    color: #30b69d;
+    position: relative;
+    left: 22%;
+}
+
+.login {
+    margin-top: 3em;
+}
+
+.login-btn {
+    width: 50%;
+    height: 4em;
+    border-radius: 2em;
+    border:  4px solid #6cdbeb;
+    color:#30b69d;
+    font-family: 'Questrial', sans-serif;
+    font-size: .95em;
+    background: transparent;
+    margin: 1em 6em;
+}
+
+.login-btn:hover {
+    background-color: #30b69d;
+    color: white;
+    transition: 200ms;
+}
+
+.social-links i{
+    text-align: left;
+    padding-top: 3.5em;
+    letter-spacing: 1.8em;
+    cursor: pointer;
+    color: rgb(61, 219, 195);
+    font-size: 30px;
+}
+
+.already, 
+.fpright {
+    margin: 0 4em;
+    color: #5c8178;;
+    font-weight: 600;
+    padding-top: .5em;
+    font-family: poppins, sans-serif;
+}
+
+.fpright {
+     text-align: right;
+}
+
+.faqs {
+    margin: 0 11.5em;
+    padding-top: 1em;
+}
+
+.show {
+    position: absolute;
+    left: 64%;
+    top: 33%;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a {
+    color: rgb(72, 148, 148);
+    text-shadow: black;
+}
+
+.error {
+    background: #f2dede;
+    color: #a94442;
+    padding: 5px;
+    margin: 0 5em;
+    margin-top: 1.5em;
+    width: 30%;
+    border-radius: 5px;
+    text-align: center;
+    font-family: poppins, sans-serif;
+    position: fixed;
+}
+
+.glassloginform {
+    margin-top: 2em;
+    min-height: 80vh;
+    width: 55%;
+    background: linear-gradient(to right bottom, 
+    rgba(255, 255, 255, 0.5), 
+    rgba(255, 255, 255, 0.2)
+    );
+    border-radius: 2rem;
+    z-index: 2;
+    backdrop-filter: blur(1rem); 
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+    width: 20%;
+}
+
+f
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    display: none;
+    box-shadow: 0 0 50rem var(--color-dark);
+}
+
+.modal-content {
+    background: var(--color-white);
+    margin-top: 100px;
+    width: 61%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px 24px;
+    border-radius: 10px;
+    z-index: 4;
+}
+
+.modal-header {
+    display: flex;
+}
+
+.modal-header .modal-close {
+    margin-left: 77%;
+    background: transparent;
+}
+
+.modal-header .modal-close span{
+    color: var(--color-dark);
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 1em 0;
+}
+
+.modal-footer {
+    padding: 1em;
+}
+
+.modal-footer .modal-close {
+    padding: .5em 1em;
+}
+
+#modal2 .modal-content {
+    width: 40%;
+}
+
+
+#modal2 .modal-body {
+    padding: 2em;
+}
+
+#modal2 .modal-header .modal-close {
+    margin-left: 50%;
+}
+
+#modal4 .modal-content {
+    width: 80%;
+}
+
+#modal4 .modal-header {
+    padding: 1em;
+    display: flex;
+    gap: 20em;
+}
+
+#modal5 .modal-header {
+    padding: 1em;
+    gap: 1em;
+}
+
+#modal3 {
+    z-index: 10;
+}
+
+#modal3 .modal-content {
+    width: 45%;
+}
+
+#modal3 .modal-body {
+    padding: 2em;
+}
+
+#modal3 .modal-header .modal-close {
+    margin-left: 50%;
+}
+
+
+
+.center {
+    height: 100px;
+    width: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+}
+
+.circle1, 
+.circle2 {
+    background: linear-gradient(to right bottom,  
+    rgba(171, 217, 238, 0.3),
+    rgba(209, 250, 250, 0.9)
+    );
+    height: 15rem;
+    width: 15rem;
+    position: absolute;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.circle1 {
+    top: 4%;
+    right: 21%;
+}
+
+.circle2 {
+    bottom: 4%;
+    left: 21%;
+}
+
+.circle3, 
+.circle4,
+.circle6 {
+    background: linear-gradient(to right bottom, 
+    rgba(157, 237, 243, 0.9), rgba(229, 246, 248, 0.9),
+    rgba(255, 255, 255, 0.1)
+    );
+    height: 10rem;
+    width: 10rem;
+    position: absolute;
+    border-radius: 40%;
+}
+
+.circle3 {
+    top: 7%;
+    left: 13%;
+}
+
+.circle4 {
+    bottom: 7%;
+    right: 13%;
+}
+
+.circle6 {
+    bottom: 60%;
+    right: 2%;
+
+}
+
+.circle5 {
+    background: linear-gradient(to right bottom, 
+    rgba(255, 255, 255, 0.9), rgba(201, 237, 253, 0.9), 
+    rgba(255, 255, 255, 0.1)
+    );
+    height: 23rem;
+    width: 23rem;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle5 {
+    top: 38%;
+    left: -15%;
+}
+/*  MEDIA QUERIES  */
+@media screen and (max-width: 600px) {
+    .logintext {
+        font-size: var(--fs-text1);
+    }
+    .login-btn {
+        margin: 1em 6em;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 700px) {
+    .glassloginform {
+        width: 50%;
+    }
+
+    .login-btn {
+        margin: 1em 8em;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .glassloginform {
+        width: 66%;
+    }
+
+    .input-box span {
+        font-size: var(--fs-text3);
+    }
+    
+    .circle1,
+    .circle2 {
+        height: 10rem;
+        width: 10rem;
+    }
+
+    .circle1 {
+        top: 2%;
+        right: 10%;
+    }
+
+    .circle2 {
+        bottom: 2%;
+        left: 3%;
+    }
+   
+    .circle4,
+    .circle5 {
+        display: none;
+    }
+
+    .circle6 {
+        bottom: 20%;
+    }
+
+    .circle3 {
+        top: 17%;
+        left: 2%;
+    }
+}

@@ -1,0 +1,338 @@
+:root {
+    --fs-text1: 1.4rem;
+    --fs-text2: 1rem;
+    --fs-text3: .80rem;
+}
+
+*, 
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;   
+}
+
+main {
+    min-height: 100vh;
+    background: linear-gradient(to right top, #65dfc9, #7af3cf, #6cdbeb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*  Glass Login Form  */
+.logintext {
+    text-align: center;
+    font-family: 'Questrial', sans-serif;
+    font-size: 30px;
+    color:#30b69d;
+    letter-spacing: .1em;
+}
+
+/*  Text Properties   */
+.input-box span {
+    position: relative;
+}
+
+.input-box input {
+    width: 45%;
+    padding: 10px;
+    border: 1px solid rgba(11, 90, 136, 0.3);
+    background: #dcebfa;
+    border-radius: 12px;
+    outline: none;
+    color: #35776c;
+    font-size: 1em;
+    margin-left: 27%;
+    margin-top: 2em;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.input-box span {
+    position: absolute;
+    left: 0;
+    padding: 13px;
+    pointer-events: none;
+    font-size: 0.8em;
+    color: #5c817a;
+    margin: 0 18em;
+    margin-top: 2.5em;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: poppins, sans-serif;
+    letter-spacing: .05em;
+}
+
+.input-box span:nth-child(1) {
+    margin-left: 4.5em;
+}
+
+.input-box input:valid ~ span, 
+.input-box input:focus ~ span {
+    color: #30b69d;
+    transform: translateX(15px) translateY(0);
+    font-size: 0.65em;
+    padding: 0 3px;
+    padding-bottom: 0;
+    transition: 99ms;
+    border-left: 2px solid  rgba(11, 90, 136, 0.3);
+    border-right: 2px solid  rgba(11, 90, 136, 0.3);
+    background: #ACF7E1;
+}
+
+.fa-solid {
+    font-size: 25px;
+    color: #30b69d;
+    position: relative;
+}
+
+.fa-regular {
+    font-size: 25px;
+    color: #30b69d;
+    position: relative;
+}
+
+.submitemail {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.login-btn {
+    width: 45%;
+    height: 4em;
+    border-radius: 2em;
+    border:  4px solid #6cdbeb;
+    color:#30b69d;
+    font-family: 'Questrial', sans-serif;
+    font-size: .95em;
+    background: transparent;
+    margin: 10em 11em;
+}
+
+.login-btn:hover {
+    background-color: #30b69d;
+    color: white;
+    transition: 200ms;
+}
+
+.error {
+    background: #f2dede;
+    color: #a94442;
+    padding: 0;
+    margin: 0 auto;
+    width: 60%;
+    border-radius: 5px;
+    text-align: center;
+    font-family: poppins, sans-serif;
+}
+
+.glassloginform {
+    margin-top: 2em;
+    min-height: 80vh;
+    width: 35%;
+    background: linear-gradient(to right bottom, 
+    rgba(255, 255, 255, 0.5), 
+    rgba(255, 255, 255, 0.2)
+    );
+    border-radius: 2rem;
+    z-index: 2;
+    backdrop-filter: blur(1rem); 
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.center {
+    height: 100px;
+    width: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+}
+
+
+.already, 
+.fpright {
+    margin: 0 8.5em;
+    color: #5c8178;
+    font-weight: 600;
+    padding-top: .5em;
+    font-family: poppins, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #5c8178;
+}
+
+.otp {
+    text-align: center;
+    margin-top: 3em;
+}
+
+
+/* 
+ Status Message */
+ .statusmessagesuccess {
+    background-color: #96f5b6;
+    margin: .5em;
+    border-radius: 5px;
+    display: flex;
+    padding: 1em;
+    gap: 33em;
+    position: absolute;
+    justify-content: right;
+    margin-left: 21em;
+    z-index: 10;
+}
+
+.statusmessageerror {
+    background-color: #f2dede;
+    margin: .5em;
+    border-radius: 5px;
+    display: flex;
+    padding: 1em;
+    gap: 33em;
+    position: absolute;
+    justify-content: right;
+    margin: 2em 30em;
+    z-index: 10;
+    color: #a94442;
+    font-size: .9em;
+    font-family: poppins, sans-serif;
+}
+
+
+
+.fpright {
+     text-align: right;
+}
+
+
+.circle1, 
+.circle2 {
+    background: linear-gradient(to right bottom,  
+    rgba(171, 217, 238, 0.3),
+    rgba(209, 250, 250, 0.9)
+    );
+    height: 15rem;
+    width: 15rem;
+    position: absolute;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.circle1 {
+    top: 4%;
+    right: 21%;
+}
+
+.circle2 {
+    bottom: 4%;
+    left: 21%;
+}
+
+.circle3, 
+.circle4,
+.circle6 {
+    background: linear-gradient(to right bottom, 
+    rgba(157, 237, 243, 0.9), rgba(229, 246, 248, 0.9),
+    rgba(255, 255, 255, 0.1)
+    );
+    height: 10rem;
+    width: 10rem;
+    position: absolute;
+    border-radius: 40%;
+}
+
+.circle3 {
+    top: 7%;
+    left: 13%;
+}
+
+.circle4 {
+    bottom: 7%;
+    right: 13%;
+}
+
+.circle6 {
+    bottom: 60%;
+    right: 2%;
+
+}
+
+.circle5 {
+    background: linear-gradient(to right bottom, 
+    rgba(255, 255, 255, 0.9), rgba(201, 237, 253, 0.9), 
+    rgba(255, 255, 255, 0.1)
+    );
+    height: 23rem;
+    width: 23rem;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle5 {
+    top: 38%;
+    left: -15%;
+}
+/*  MEDIA QUERIES  */
+@media screen and (max-width: 600px) {
+    .logintext {
+        font-size: var(--fs-text1);
+    }
+    .login-btn {
+        margin: 1em 6em;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 700px) {
+    .glassloginform {
+        width: 50%;
+    }
+
+    .login-btn {
+        margin: 1em 8em;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .glassloginform {
+        width: 66%;
+    }
+
+    .input-box span {
+        font-size: var(--fs-text3);
+    }
+    
+    .circle1,
+    .circle2 {
+        height: 10rem;
+        width: 10rem;
+    }
+
+    .circle1 {
+        top: 2%;
+        right: 10%;
+    }
+
+    .circle2 {
+        bottom: 2%;
+        left: 3%;
+    }
+   
+    .circle4,
+    .circle5 {
+        display: none;
+    }
+
+    .circle6 {
+        bottom: 20%;
+    }
+
+    .circle3 {
+        top: 17%;
+        left: 2%;
+    }
+}
