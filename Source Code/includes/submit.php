@@ -47,6 +47,7 @@
                         
                             <div> 
                             <select class="radiobtn" name="usertype" id="ut"> 
+                                    <option value="<?= $ut; ?>">Choose</option>
                               <?php 
                                     while ($r = mysqli_fetch_array($s)) {
                               ?>

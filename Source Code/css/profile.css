@@ -285,11 +285,6 @@ main h1 {
     opacity: .70;
 }
 
-.markdown {
-    color: var(--color-primary);
-    margin-left: 8.5em;
-}
-
 /* 
  Status Message */
 .statusmessagesuccess {
@@ -323,15 +318,15 @@ main h1 {
 }
 
 .table-profile-sample {
-    background: var(--color-danger);
+    background: var(--color-white);
     padding: 1em;
-    height: 90vh;
+    height: 48vh;
     border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
     transition: all 300ms ease;
 }
 
-.table-profile:hover {
+.table-profile-sample:hover {
     box-shadow: none;
 }
 

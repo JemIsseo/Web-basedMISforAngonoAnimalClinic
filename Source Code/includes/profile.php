@@ -1,21 +1,18 @@
 <?php 
     include 'connect.php'; 
 
-    if(isset($_POST['submit'])){
-    $pname = $_POST['petname'];
-    $age = $_POST['age'];
-    $sex = $_POST['sex'];
-    $weight = $_POST['weight'];
-    $owner = $_POST['owner'];
-    $phone = $_POST['phone']; 
-    $email = $_POST['email'];
+    if(isset($_POST['saveownersprofile'])){
+    $op = $_POST['ownersprofile'];
+    $cn = $_POST['contactno'];
+    $add = $_POST['address'];
+    $emailadd = $_POST['emailaddress'];
 
-    $sql = "insert into tblprofile(petname, age, sex, weight, ownername, phone, email) 
-            values('$pname','$age','$sex','$weight','$owner','$phone','$email')";
+    $sql = "insert into tblownersprofile(ownersname, contactno, address, emailaddress) 
+            values(' $op',' $cn',' $add','$emailadd')";
     $res = mysqli_query($conn,$sql);
     if($res) { ?>
             <div class="statusmessagesuccess" id="close">
-                  <h2>Profile Added Successfully!</h2>
+                  <h2>Owner Profile Added Successfully!</h2>
                   <button class="icon"><span class="material-symbols-sharp">close</span></button>
             </div>
 <?php 
@@ -158,7 +155,7 @@ if(isset($_POST['updateprofile'])){
             </div>
             <div class="buttons">
                 <div class="buttonmodify">
-                <button class="modal-open" data-modal="modal4" title="Pet Registration"><img src="../images/petprofile.jpg"></button> 
+                <button class="modal-open" data-modal="modal4" title="Pet Registration"><img src="../images/petregistration.png"></button> 
                     <h2>Pet Registration</h2>
                 </div>
             </div>
@@ -190,7 +187,7 @@ if(isset($_POST['updateprofile'])){
                         <form action="" method="POST" >
                             <div class="formprofile">
                                 <div> 
-                                    <input type="text" name="ownername" placeholder="Enter Name" required>
+                                    <input type="text" name="ownersprofile" placeholder="Enter Name" required>
                                     <span>Owner's Name</span>
                                 </div>
                                 <div> 
@@ -202,18 +199,58 @@ if(isset($_POST['updateprofile'])){
                                     <span>Address</span>
                                 </div>
                                 <div> 
-                                    <input type="text" name="prodname" placeholder="Enter Email Address" required>
+                                    <input type="text" name="emailaddress" placeholder="Enter Email Address" required>
                                     <span>Email Address</span>
                                 </div>
                             </div>
                                 <div class="buttonflexright">
-                                    <button name="saveproduct" type="submit" class="save" title="Save the record">Save</button>
-                                    <button class="cancel" title="Clear all inputs">Clear</button>
+                                    <button name="saveownersprofile" type="submit" class="save" title="Save the record">Save</button>
+                                    <button class="cancel" title="Clear all inputs" onclick="clearBtnOwnersProfile()">Clear</button>
                                 </div>
                         </form>
-                <div class="table-profile-sample">
+                        <div class="searchbar">
+                            <input type="text" placeholder="Search here"  onkeyup="searchUserAcc(this.value)"><span class="material-symbols-sharp">search</span>
+                        </div>
+                        <div class="table-profile-sample">
+                        <table class="content-table table-archive">
+                            <thead>
+                                <tr>
+                                    <th>Owner's Name</th>
+                                    <th>Contact No.</th>
+                                    <th>Address</th>
+                                    <th>Email Address</th>
+                                    <th>         </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                    $sql = "Select * from tblownersprofile";
+                                    $res= mysqli_query($conn,$sql);
+
+                                    if($res){
+                                    while($row=mysqli_fetch_assoc($res)){
+                                    $op=$row['ownersname'];
+                                    $cn=$row['contactno'];
+                                    $add=$row['address'];
+                                    $emailadd=$row['emailaddress']; 
+                                    echo '<tr>
+                                    <td>'.$op.'</td>
+                                    <td>'.$cn.'</td>
+                                    <td>'.$add.'</td>
+                                    <td>'.$emailadd.'</td>
+                                    <td>
+                                    <button class="modal-open viewRestoreProfile" data-modal="modal5" value="'.$op.'" >
+                                        <span class="material-symbols-sharp restore" title="Unarchiving">unarchive</span>
+                                    </button> 
+                                    </td>
+                                    </tr>';
+                                }
+                            } 
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
                     
-                </div>
                 </div>
 
             </div>

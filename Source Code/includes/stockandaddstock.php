@@ -139,12 +139,12 @@
             <div class="accrecsearch">
                     <h1>Products</h1>
                     <div class="searchbar">
-                        <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
+                        <input type="text" placeholder="Search here" onkeyup="searchStock(this.value)" ><span class="material-symbols-sharp">search</span>
                     </div>
-                </div>
-            <div class="table-profile">
+            </div>
+            <div class="table-profile" >
                
-                <div class="table-product" id="searchresult">
+                <div class="table-product" id="searchStock" >
                         <table class="content-table">
                             <thead>
                                 <tr>
@@ -159,7 +159,7 @@
                             </thead>
                             <tbody>
                             <?php 
-                                $sql = "Select * from tblstock";
+                                    $sql = "Select * from tblstock";
                                     $res= mysqli_query($conn,$sql);
 
                                     if($res){
@@ -233,7 +233,7 @@
                         </div>
                             <div class="buttonflex">
                                 <button name="saveproduct" type="submit" class="save" title="Save the record">Save</button>
-                                <button class="cancel" title="Clear all inputs">Clear</button>
+                                <button class="cancel" title="Clear all inputs" onclick="clearBtnStock()" >Clear</button>
                             </div>
                     </form>
                 </div>

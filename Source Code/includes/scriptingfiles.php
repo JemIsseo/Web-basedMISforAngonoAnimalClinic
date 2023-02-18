@@ -32,6 +32,27 @@
             }
         }
 
+        function reloadStock(){
+            $("#searchStock").load(window.location.href + " #searchStock");
+        };
+
+        function searchStock(str) {
+            if ( str == "") {
+            reloadStock();
+            return;
+            } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                 if (this.readyState == 4 && this.status == 200) { 
+                     document.getElementById("searchStock").innerHTML = this.responseText;
+                 }
+            };
+           
+            xmlhttp.open("GET", "searchFunction.php?searchStock=" + str, true);
+            xmlhttp.send();
+            }
+        }
+
         var state = "false";
         function toggle() {
             if (state) {
@@ -60,8 +81,28 @@
             }
         }
 
+        function clearBtnUserAccount() {
+            $un = "";
+            $pw = "";
+            $ea = "";
+            $ut = "Choose";
+            $img = "";
+        } 
 
+        function clearBtnStock() {
+            $proid = "";
+            $prodname = "";
+            $cat = "Select Category";
+            $desc = "";
+            $prc = "";
+            $qty = "";
+        } 
 
-
+        function clearBtnOwnersProfile() {
+            $op = "";
+            $cn = "";
+            $add = "";
+            $emailadd = "";
+        }
     </script>
     

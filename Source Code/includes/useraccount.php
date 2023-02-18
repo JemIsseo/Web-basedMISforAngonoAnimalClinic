@@ -260,17 +260,6 @@
                 </div>
             </section>
 
-
-            
-            <?php
-            // Search Function
-            // if (isset($_GET['searchUserAccount'])) {
-            //     $ua = $_GET['searchUserAccount'];
-            //     $sql = "Select * from tbluseraccount where username like '%$ua%'";
-            //     $res = mysqli_query($conn, $sql);
-            // } 
-            
-            ?>
             <!--  End of table useraccount   -->
             <section class="tableaccountrecords">
                 <h1>Create An Account</h1>
@@ -302,6 +291,7 @@
                             </div>
                             <div> 
                             <select class="radiobtn" name="usertype" id="ut"> 
+                                    <option value="">Choose</option>
                               <?php
                                     while ($r = mysqli_fetch_array($s)) {
                               ?>
@@ -317,7 +307,7 @@
                             </div>
                             <div class="buttonflex">
                                 <button name="saveaccount" type="submit" class="save" title="Save the record">Save</button>
-                                <button class="cancel" title="Clear all inputs">Clear</button>
+                                <button class="cancel" title="Clear all inputs" onclick="clearBtnUserAccount()">Clear</button>
                             </div>
                         </form>
                     </div>
