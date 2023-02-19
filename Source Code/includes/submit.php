@@ -204,6 +204,7 @@
                             </div>
                             <div>  
                             <select class="radiobtn" name="category" id="ut"> 
+                                    <option value="<?= $cat ?>">Select Category</option>
                               <?php
                                     while ($r = mysqli_fetch_array($s)) {
                               ?>
