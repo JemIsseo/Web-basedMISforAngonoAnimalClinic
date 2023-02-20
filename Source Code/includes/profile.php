@@ -169,7 +169,7 @@ if(isset($_POST['updateprofile'])){
         <!--  End of Main Tag  -->
         <?php   include 'systemaccountanddate.php'; ?>
         <!--  Start of Retrieve section  -->
-        <h1>Retrieve Profile</h1>
+        <h1>Retrieve Record</h1>
         <div class="buttons">
             <div class="buttonmodify">
                 <button class="modal-open" data-modal="modal4" title="View and Restore Record"><span class="material-symbols-sharp">table_view</span>View Archive Profile</button> 
@@ -210,7 +210,7 @@ if(isset($_POST['updateprofile'])){
                                 </div>
                         </form>
                         <div class="searchbar">
-                            <input type="text" placeholder="Search here"  onkeyup="searchUserAcc(this.value)"><span class="material-symbols-sharp">search</span>
+                            <input type="text" placeholder="Search here"  onkeyup="searchProfile    (this.value)"><span class="material-symbols-sharp">search</span>
                         </div>
                         <div class="table-profile-sample">
                         <table class="content-table table-archive">
@@ -240,9 +240,8 @@ if(isset($_POST['updateprofile'])){
                                     <td>'.$add.'</td>
                                     <td>'.$emailadd.'</td>
                                     <td>
-                                    <button class="modal-open viewRestoreProfile" data-modal="modal5" value="'.$op.'" >
-                                        <span class="material-symbols-sharp restore" title="Unarchiving">unarchive</span>
-                                    </button> 
+                                    <button class="modal-open showUpdateProfile" data-modal="modal1" value="'.$op.'" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showArchiveProfile" data-modal="modal2" value="'.$op.'"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
                                     </td>
                                     </tr>';
                                 }
@@ -273,72 +272,32 @@ if(isset($_POST['updateprofile'])){
 
  <!-- Modal of Restore Profile -->
     <div class="modal" id="modal4">
-            <div class="modal-content" >  
-            <div class="modal-header">
-                    <h1>Restore Profile</h1>
+            <div class="modal-content">  
+                <div class="modal-header">
+                    <h1>Pet Registration</h1>
                     <div class="accrecsearch">
                         <div class="searchbar">
-                        <input type="text" placeholder="Search here" id="live-search"><span class="material-symbols-sharp">search</span>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                         </div> 
                     </div>
                 </div> 
-                   
+                <?php 
+                       $s=mysqli_query($conn,"select * from tblownersprofile");
+                ?>
                 <div class="modal-body" id="viewArchive" >
-                <section class="tableprofile">
-                    <div class="table-profile">
-                        <table class="content-table table-archive">
-                            <thead>
-                                <tr>
-                                    <th>ProfileID</th>
-                                    <th>Name</th>
-                                    <th>Age</th>
-                                    <th>Sex</th>
-                                    <th>Weight</th>
-                                    <th>Owner</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>        </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                                    $sql = "Select * from tblarcprofile";
-                                    $res= mysqli_query($conn,$sql);
-
-                                    if($res){
-                                    while($row=mysqli_fetch_assoc($res)){
-                                    $proid=$row['profileid'];
-                                    $pname=$row['petname'];
-                                    $age=$row['age'];
-                                    $sex=$row['sex']; 
-                                    $weight=$row['weight'];
-                                    $owner=$row['owner'];
-                                    $phone=$row['phone'];
-                                    $email=$row['email'];
-                                    echo '<tr>
-                                    <td>'.$proid.'</td>
-                                    <td>'.$pname.'</td>
-                                    <td>'.$age.'</td>
-                                    <td>'.$sex.'</td>
-                                    <td>'.$weight.'</td>
-                                    <td>'.$owner.'</td>
-                                    <td>'.$phone.'</td>
-                                    <td>'.$email.'</td>
-                                    <td>
-                                    <button class="modal-open viewRestoreProfile" data-modal="modal5" value="'.$proid.'" >
-                                        <span class="material-symbols-sharp restore" title="Unarchiving">unarchive</span>
-                                    </button> 
-                                    </td>
-                                    </tr>';
-                                }
-                            } 
-                            ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                </section>
+                            <div class="radiobtn"> 
+                                <select class="radiobtn" name="ownersname" id="ut"> 
+                                        <option value="">Select Owners Name</option>
+                                <?php
+                                        while ($r = mysqli_fetch_array($s)) {
+                                ?>
+                                        <option value="<?php echo $r['ownersname']; ?>"><?php echo $r['ownersname']; ?> </option>
+                                        <?php
+                                            }
+                                        ?>
+                                </select>
+                            </div>  
+                <!-- PASTE REGISTRATION FORM HERE -->
                 </div>
                 <div class="modal-footer">
                         <div class="buttonflexright">

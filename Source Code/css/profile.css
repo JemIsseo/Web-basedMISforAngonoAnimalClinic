@@ -320,7 +320,7 @@ main h1 {
 .table-profile-sample {
     background: var(--color-white);
     padding: 1em;
-    height: 48vh;
+    height: 45vh;
     border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
     transition: all 300ms ease;
@@ -478,13 +478,18 @@ main h1 {
 }
 
 #modal4 .modal-content {
-    width: 80%;
+    width: 65%;
 }
+
 
 #modal4 .modal-header {
     padding: 1em;
     display: flex;
-    gap: 20em;
+    gap: 60em;
+}
+
+.radiobtn {
+   margin: 1em 30em;
 }
 
 #modal5 .modal-header {

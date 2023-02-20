@@ -205,16 +205,16 @@
                                 <span>Product Name</span>
                             </div>
                             <div>  
-                            <select class="radiobtn" name="category" id="ut" required> 
-                                <option value="">Select Category</option>
-                              <?php
-                                    while ($r = mysqli_fetch_array($s)) {
-                              ?>
-                                    <option value="<?php echo $r['category']; ?>"><?php echo $r['category']; ?> </option>
-                                    <?php
-                                        }
-                                    ?>
-                            </select>Category
+                                <select class="radiobtn" name="category" id="ut" required> 
+                                    <option value="">Select Category</option>
+                                <?php
+                                        while ($r = mysqli_fetch_array($s)) {
+                                ?>
+                                        <option value="<?php echo $r['category']; ?>"><?php echo $r['category']; ?> </option>
+                                        <?php
+                                            }
+                                        ?>
+                                </select>Category
                             </div>
 
                             <div>
