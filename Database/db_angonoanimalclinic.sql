@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 19, 2023 at 02:22 PM
--- Server version: 5.7.36
--- PHP Version: 7.4.26
+-- Generation Time: Feb 20, 2023 at 11:40 PM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,21 +29,21 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `tblarcstock`;
 CREATE TABLE IF NOT EXISTS `tblarcstock` (
-  `proid` int(11) NOT NULL,
+  `proid` int NOT NULL,
   `prodname` varchar(50) NOT NULL,
   `category` varchar(50) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `price` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `price` int NOT NULL,
+  `quantity` int NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblarcstock`
 --
 
 INSERT INTO `tblarcstock` (`proid`, `prodname`, `category`, `description`, `price`, `quantity`) VALUES
-(14, 'Betadine', 'Select Category', 'HEHEHEHE', 0, 13),
-(1, 'Pedigree', 'Select Category', 'Pagkain', 200, 200);
+(1, 'Pedigree', 'Medicine', 'Pagkain', 200, 200),
+(14, 'Betadine', 'Medicine', 'HEHEHEHE', 0, 13);
 
 -- --------------------------------------------------------
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `tblarcuseraccount` (
   `email` varchar(100) NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblarcuseraccount`
@@ -78,10 +78,10 @@ INSERT INTO `tblarcuseraccount` (`username`, `password`, `usertype`, `email`, `i
 
 DROP TABLE IF EXISTS `tblcategory`;
 CREATE TABLE IF NOT EXISTS `tblcategory` (
-  `catid` int(11) NOT NULL AUTO_INCREMENT,
+  `catid` int NOT NULL AUTO_INCREMENT,
   `category` varchar(45) NOT NULL,
   PRIMARY KEY (`catid`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblcategory`
@@ -105,20 +105,41 @@ CREATE TABLE IF NOT EXISTS `tblownersprofile` (
   `address` varchar(255) NOT NULL,
   `emailaddress` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ownersname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tblownersprofile`
 --
 
 INSERT INTO `tblownersprofile` (`ownersname`, `contactno`, `address`, `emailaddress`) VALUES
-(' ttyt', ' 097868676', ' awdwadwd', 'awdwadwa@wwewew'),
-(' awwew', ' 097868676', ' awdwadwd', 'awdwadwa@wwewew'),
-(' awaw', ' 097868676', ' awdwadwd', 'awdwadwa@wwewew'),
-(' rytyty', ' 097868676', ' awdwadwd', 'awdwadwa@wwewew'),
-(' retrtrrtt', ' 097868676', ' awdwadwd', 'awdwadwa@wwewew'),
-(' eerere', ' 56576766', ' #ereerre', '8wdwewe@wewew'),
-(' wrererere', ' 878787878788', ' ererererere', 'rererererer#ererer');
+(' Romar Chris Belmonte', ' 09123889132', ' 81 Sta. Catarina St. Taytay, Rizal', 'BelmonteRC@gmail.com'),
+(' Michelle Nervez', ' 09055459215', ' 38 Ynares St. Brgy. San Carlos Binangonan, Rizal', 'michelle.nervez@gmail.com'),
+(' Ivy Sanchez', ' 09889345681', ' #112 Brgy. San Vicente Angono, Rizal', 'SanchezIvy@gmail.com'),
+(' Jane Louise Pilapil', ' 09175546613', ' #218 Brgy. Poblacion ibaba Angono, Rizal', '01_JLouise@gmail.com'),
+(' Vinah Ericka Oliveros', ' 09179654408', ' 223 E. Dela Paz St. Brgy. San Pedro Angono, Rizal', 'vinaholiveros1069@gmail.com'),
+(' Kim Alexis Villaluz', ' 09963314522', ' 53 St. Clement Brgy. Bagumbayan Angono, Rizal', 'kim.alexis@gmail.com'),
+(' Jeremy Liberty', ' 09099223039', ' 39 Interior Lanete St. Brgy. Sta. Ana Taytay, Rizal', 'libertyjeremy23@gmail.com'),
+(' Divina Amio', ' 09178895502', ' 45 Molave St. Brgy. San Vicente Angono, Rizal', 'divinaamio01@gmail.com'),
+(' bobo', ' 09963314522', ' weweww', 'SanchezIvy@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblpet`
+--
+
+DROP TABLE IF EXISTS `tblpet`;
+CREATE TABLE IF NOT EXISTS `tblpet` (
+  `petid` int NOT NULL AUTO_INCREMENT,
+  `ownersname` varchar(45) NOT NULL,
+  `petname` varchar(45) NOT NULL,
+  `pettype` varchar(45) NOT NULL,
+  `age` int NOT NULL,
+  `sex` varchar(45) NOT NULL,
+  `breed` varchar(45) NOT NULL,
+  `weight` varchar(45) NOT NULL,
+  PRIMARY KEY (`petid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -128,14 +149,14 @@ INSERT INTO `tblownersprofile` (`ownersname`, `contactno`, `address`, `emailaddr
 
 DROP TABLE IF EXISTS `tblstock`;
 CREATE TABLE IF NOT EXISTS `tblstock` (
-  `proid` int(11) NOT NULL AUTO_INCREMENT,
+  `proid` int NOT NULL AUTO_INCREMENT,
   `prodname` varchar(45) NOT NULL,
   `category` varchar(45) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `price` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
+  `price` int NOT NULL,
+  `quantity` int NOT NULL,
   PRIMARY KEY (`proid`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblstock`
@@ -166,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `tbluseraccount` (
   `email` varchar(100) NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tbluseraccount`
@@ -175,7 +196,8 @@ CREATE TABLE IF NOT EXISTS `tbluseraccount` (
 INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `image`) VALUES
 ('assistant', 'asdf321', 'Assistant', 'animalassistant8@gmail.com', 'IMG-63f0e9772d0ee8.33758453.jpg'),
 ('secretary', 'abcde', 'Secretary', 'secretary019@gmail.com', 'IMG-63f0e94fdedff0.13164904.jpeg'),
-('veterinarian', '1234', 'Veterinarian', 'veterinarian23@gmail.com', 'IMG-63f0e91bea57b4.18675087.png');
+('veterinarian', '1234', 'Veterinarian', 'veterinarian23@gmail.com', 'IMG-63f0e91bea57b4.18675087.png'),
+('', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -185,10 +207,10 @@ INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `imag
 
 DROP TABLE IF EXISTS `tblusertype`;
 CREATE TABLE IF NOT EXISTS `tblusertype` (
-  `utid` int(11) NOT NULL AUTO_INCREMENT,
+  `utid` int NOT NULL AUTO_INCREMENT,
   `usertype` varchar(45) NOT NULL,
   PRIMARY KEY (`utid`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblusertype`

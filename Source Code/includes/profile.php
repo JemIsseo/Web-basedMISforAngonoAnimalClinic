@@ -8,21 +8,35 @@
     $add = $_POST['address'];
     $emailadd = $_POST['emailaddress'];
 
-    $sql = "insert into tblownersprofile(ownersname, contactno, address, emailaddress) 
-            values(' $op',' $cn',' $add','$emailadd')";
-    $res = mysqli_query($conn,$sql);
-    if($res) { ?>
-            <div class="statusmessagesuccess" id="close">
-                  <h2>Owner Profile Added Successfully!</h2>
-                  <button class="icon"><span class="material-symbols-sharp">close</span></button>
-            </div>
-<?php 
-    } 
-    else {
-        die(mysqli_error($conn));
-        }
-    }
+                        $sqls = "Select * from tblownersprofile where ownersname = '$op'"; 
+                        $result = mysqli_query($conn, $sqls);
+                        
+                        if ($result) {
+                            $num= mysqli_num_rows($result);
+                            if ($num > 0) { ?> 
+                                <div class="statusmessageerror" id="close">
+                                <h2>Sorry Owners Name already exist!</h2>
+                                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                                </div>
+                            <?php   
+                            } else {
+                                       // Insert into database
+                                       $sql = "insert into tblownersprofile(ownersname, contactno, address, emailaddress) 
+                                       values(' $op',' $cn',' $add','$emailadd')";
+                               $res = mysqli_query($conn,$sql);
+                               if($res) { ?>
+                                       <div class="statusmessagesuccess" id="close">
+                                             <h2>Owner Profile Added Successfully!</h2>
+                                             <button class="icon"><span class="material-symbols-sharp">close</span></button>
+                                       </div>
+                                       <?php
+                                         }
+                            } 
+                        }
 
+                }
+
+    // Owner Name Update Statement
 if(isset($_POST['updateprofile'])){
         $proid = $_POST['profileid'];
         $pname = $_POST['petname'];
@@ -209,8 +223,9 @@ if(isset($_POST['updateprofile'])){
                                     <button class="cancel" title="Clear all inputs" onclick="clearBtnOwnersProfile()">Clear</button>
                                 </div>
                         </form>
+                    <div>
                         <div class="searchbar">
-                            <input type="text" placeholder="Search here"  onkeyup="searchProfile    (this.value)"><span class="material-symbols-sharp">search</span>
+                            <input type="text" placeholder="Search here"  onkeyup="searchProfile(this.value)"><span class="material-symbols-sharp">search</span>
                         </div>
                         <div class="table-profile-sample">
                         <table class="content-table table-archive">
@@ -249,6 +264,7 @@ if(isset($_POST['updateprofile'])){
                             ?>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                     
                 </div>
@@ -285,6 +301,7 @@ if(isset($_POST['updateprofile'])){
                        $s=mysqli_query($conn,"select * from tblownersprofile");
                 ?>
                 <div class="modal-body" id="viewArchive" >
+                    <div class="table-profile-sample">
                             <div class="radiobtn"> 
                                 <select class="radiobtn" name="ownersname" id="ut"> 
                                         <option value="">Select Owners Name</option>
@@ -298,13 +315,40 @@ if(isset($_POST['updateprofile'])){
                                 </select>
                             </div>  
                 <!-- PASTE REGISTRATION FORM HERE -->
-                </div>
-                <div class="modal-footer">
-                        <div class="buttonflexright">
-                            <button class="modal-close cancel" ><span title="Cancel">Cancel</span></button>
-                        </div>
+                <form action="" method="POST" >
+                            <div class="formprofile">
+                                <div> 
+                                    <input type="text" name="petname" placeholder="Enter Pet Name" required>
+                                    <span>Pet Name</span>
+                                </div>
+                                <div> 
+                                    <input type="text" name="sex" placeholder="Enter Sex" required>
+                                    <span>Sex</span>
+                                </div>
+                                <div> 
+                                    <input type="text" name="pettype" placeholder="Enter Pet Type" required>
+                                    <span>Pet Type</span>
+                                </div>
+                                <div> 
+                                    <input type="text" name="breed" placeholder="Enter Breed" required>
+                                    <span>Breed</span>
+                                </div>
+                                <div> 
+                                    <input type="text" name="age" placeholder="Enter Age" required>
+                                    <span>Age</span>
+                                </div>
+                                <div> 
+                                    <input type="text" name="Weight" placeholder="Enter Weight" required>
+                                    <span>Weight</span>
+                                </div>
+                            </div>
+                                <div class="buttonflexright">
+                                    <button name="saveownersprofile" type="submit" class="yes" title="Add record">Add</button>
+                                    <button class="cancel" title="Clear all inputs" onclick="clearBtnOwnersProfile()">Clear</button>
+                                </div>
+                        </form>
                     </div>
-
+                </div>
             </div>
     </div>
                    
