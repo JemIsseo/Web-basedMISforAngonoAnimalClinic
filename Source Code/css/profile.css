@@ -517,17 +517,21 @@ main h1 {
 
 
 #modal2 .modal-content {
-    width: 40%;
+    width: 60%;
 }
 
 
 #modal2 .modal-body {
     padding: 2em;
+    height: 55vh;
 }
 
-#modal2 .modal-header .modal-close {
-    margin-left: 50%;
+#modal2 .modal-header {
+    padding: 1em;
+    display: flex;
+    gap: 25em;
 }
+
 
 #modal4 .modal-content {
     width: 65%;

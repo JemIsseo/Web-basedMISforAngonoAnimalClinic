@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `tblownersprofile` (
   `address` varchar(255) NOT NULL,
   `emailaddress` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ownersname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblownersprofile`

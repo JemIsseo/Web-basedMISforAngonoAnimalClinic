@@ -104,5 +104,20 @@
             $add = "";
             $emailadd = "";
         }
+
+        function clearBtnPetProfile() {
+            $op = "";
+            $pname = "";
+            $ptype = "";
+            $sex = "";
+            $breed = "";
+            $age = "";
+            $weight = "";
+        }
+
+
+
+
+
     </script>
     

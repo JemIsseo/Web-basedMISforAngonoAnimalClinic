@@ -2,6 +2,7 @@
     session_start();
     include 'connect.php'; 
 
+    // Save Owners Name Profile
     if(isset($_POST['saveownersprofile'])){
     $op = $_POST['ownersprofile'];
     $cn = $_POST['contactno'];
@@ -124,7 +125,45 @@ if(isset($_POST['updateprofile'])){
             die(mysqli_error($conn));
         }
     }
+
+
+    // Save Pet Profile
+    if(isset($_POST['savepetprofile'])){
+        $op = $_POST['ownersname'];
+        $pname = $_POST['petname'];
+        $ptype = $_POST['pettype'];
+        $sex = $_POST['sex'];
+        $breed  = $_POST['breed'];
+        $age = $_POST['age'];
+        $weight = $_POST['weight'];
+                       
+                // Insert into database
+        $sql = "insert into tblpet(ownersname, petname, pettype, age, sex, breed, weight) 
+        values('$op','$pname','$ptype','$age','$sex','$breed','$weight')";
+        $res = mysqli_query($conn,$sql);
+        if($res) { ?>
+                <div class="statusmessagesuccess" id="close">
+                      <h2>Pet Profile Added Successfully!</h2>
+                      <button class="icon"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <?php
+                  }
+                              
+                        
+    
+        }
+
+
+
+
+
+
 ?>
+
+
+
+
+
 
 
 
@@ -158,13 +197,13 @@ if(isset($_POST['updateprofile'])){
             </div>
             <div class="buttons">
                 <div class="buttonmodify">
-                    <button class="modal-open" data-modal="modal2" title="Pet Medical History"><img src="../images/medicalhistory.png"></button> 
+                    <button class="modal-open" data-modal="modal3" title="Pet Medical History"><img src="../images/medicalhistory.png"></button> 
                     <h2>Pet Medical History</h2>
                 </div>
             </div>
             <div class="buttons">
                 <div class="buttonmodify">
-                    <button class="modal-open" data-modal="modal3" title="Pet Profile"><img src="../images/petprofile.jpg"></button> 
+                    <button class="modal-open" data-modal="modal2" title="Pet Profile"><img src="../images/petprofile.jpg"></button> 
                     <h2>Pet Profile</h2>
                 </div>
             </div>
@@ -186,7 +225,12 @@ if(isset($_POST['updateprofile'])){
         <h1>Retrieve Record</h1>
         <div class="buttons">
             <div class="buttonmodify">
-                <button class="modal-open" data-modal="modal4" title="View and Restore Record"><span class="material-symbols-sharp">table_view</span>View Archive Profile</button> 
+                <button class="modal-open" data-modal="modal4" title="View and Restore Profile"><span class="material-symbols-sharp">table_view</span>View Archive Profile</button> 
+            </div>
+        </div>
+        <div class="buttons">
+            <div class="buttonmodify">
+                <button class="modal-open" data-modal="modal4" title="View and Restore Pet"><span class="material-symbols-sharp">table_view</span>View Archive Profile</button> 
             </div>
         </div>
         <!-- Start of Modal --> 
@@ -278,10 +322,67 @@ if(isset($_POST['updateprofile'])){
 <!-- Modal of Archive Profile MessageBox -->
 <div class="modal" id="modal2">
             <div class="modal-content">
-                <div class="modal-header"><h1>Archive Profile</h1>
-                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                </div>
+                <div class="modal-header">
+                    <h1>Pet Profile</h1>
+                    <div class="accrecsearch">
+                        <div class="searchbar">
+                            <input type="text" placeholder="Search here" ><span class="material-symbols-sharp">search</span>
+                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                        </div>
+                    </div>
+                </div> 
                 <div class="modal-body" id="archiveProfile">
+                       
+                        <div class="table-profile-sample">
+                        <table class="content-table table-archive">
+                            <thead>
+                                <tr>
+                                    <th>Pet ID</th>
+                                    <th>Owner's Name</th>
+                                    <th>Pet Name</th>
+                                    <th>Pet Type</th>
+                                    <th>Age</th>
+                                    <th>Sex</th>
+                                    <th>Breed</th>
+                                    <th>Weight</th>
+                                    <th>        </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                    $sql = "Select * from tblpet";
+                                    $res= mysqli_query($conn,$sql);
+
+                                    if($res){
+                                    while($row=mysqli_fetch_assoc($res)){
+                                    $ptid=$row['petid'];
+                                    $op=$row['ownersname'];
+                                    $pname=$row['petname'];
+                                    $ptype=$row['pettype']; 
+                                    $age=$row['age'];
+                                    $sex=$row['sex'];
+                                    $breed=$row['breed'];
+                                    $weight=$row['weight']; 
+                                    echo '<tr>
+                                    <td>'.$ptid.'</td>
+                                    <td>'.$op.'</td>
+                                    <td>'.$pname.'</td>
+                                    <td>'.$ptype.'</td>
+                                    <td>'.$age.'</td>
+                                    <td>'.$sex.'</td>
+                                    <td>'.$breed.'</td>
+                                    <td>'.$weight.'</td>
+                                    <td>
+                                    <button class="modal-open showUpdateProfile" data-modal="modal0" value="'.$op.'" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showArchiveProfile" data-modal="modal0" value="'.$op.'"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
+                                    </td>
+                                    </tr>';
+                                }
+                            } 
+                            ?>
+                            </tbody>
+                        </table>
+                        </div>
                 </div>  
             </div>
 </div>
@@ -299,12 +400,16 @@ if(isset($_POST['updateprofile'])){
                 </div> 
                 <?php 
                        $s=mysqli_query($conn,"select * from tblownersprofile");
+                       $p=mysqli_query($conn,"select * from tblpettype");
+                       $b=mysqli_query($conn,"select * from tblbreed");
                 ?>
                 <div class="modal-body" id="viewArchive" >
                     <div class="table-profile-sample">
+                <!-- PASTE REGISTRATION FORM HERE -->
+                <form action="" method="POST" >
                             <div class="radiobtn"> 
                                 <select class="radiobtn" name="ownersname" id="ut"> 
-                                        <option value="">Select Owners Name</option>
+                                        <option value="">Select Owner's Name</option>
                                 <?php
                                         while ($r = mysqli_fetch_array($s)) {
                                 ?>
@@ -314,37 +419,54 @@ if(isset($_POST['updateprofile'])){
                                         ?>
                                 </select>
                             </div>  
-                <!-- PASTE REGISTRATION FORM HERE -->
-                <form action="" method="POST" >
                             <div class="formprofile">
                                 <div> 
                                     <input type="text" name="petname" placeholder="Enter Pet Name" required>
                                     <span>Pet Name</span>
                                 </div>
                                 <div> 
-                                    <input type="text" name="sex" placeholder="Enter Sex" required>
-                                    <span>Sex</span>
+                                    <select class="radiobtn" name="sex" id="ut" required> 
+                                            <option value="">Select Sex</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                    </select> <span>Sex</span>
                                 </div>
                                 <div> 
-                                    <input type="text" name="pettype" placeholder="Enter Pet Type" required>
-                                    <span>Pet Type</span>
-                                </div>
+                                    <select class="radiobtn" name="pettype" id="ut" required> 
+                                            <option value="">Select Pet Type</option>
+                                    <?php
+                                            while ($r = mysqli_fetch_array($p)) {
+                                    ?>
+                                            <option value="<?php echo $r['pettype']; ?>"><?php echo $r['pettype']; ?> </option>
+                                            <?php
+                                                }
+                                            ?>
+                                    </select> <span>Pet Type</span>
+                                </div>  
                                 <div> 
-                                    <input type="text" name="breed" placeholder="Enter Breed" required>
-                                    <span>Breed</span>
-                                </div>
+                                    <select class="radiobtn" name="breed" id="ut" required> 
+                                            <option value="">Select Breed</option>
+                                    <?php
+                                            while ($r = mysqli_fetch_array($b)) {
+                                    ?>
+                                            <option value="<?php echo $r['breed']; ?>"><?php echo $r['breed']; ?> </option>
+                                            <?php
+                                                }
+                                            ?>
+                                    </select> <span>Breed</span>
+                                </div>  
                                 <div> 
                                     <input type="text" name="age" placeholder="Enter Age" required>
                                     <span>Age</span>
                                 </div>
                                 <div> 
-                                    <input type="text" name="Weight" placeholder="Enter Weight" required>
+                                    <input type="text" name="weight" placeholder="Enter Weight" required>
                                     <span>Weight</span>
                                 </div>
                             </div>
                                 <div class="buttonflexright">
-                                    <button name="saveownersprofile" type="submit" class="yes" title="Add record">Add</button>
-                                    <button class="cancel" title="Clear all inputs" onclick="clearBtnOwnersProfile()">Clear</button>
+                                    <button name="savepetprofile" type="submit" class="yes" title="Add record">Add</button>
+                                    <button class="cancel" title="Clear all inputs" onclick="clearBtnPetProfile()">Cancel</button>
                                 </div>
                         </form>
                     </div>

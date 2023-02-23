@@ -365,8 +365,8 @@
                     <h1>Restore Account</h1>
                     <div class="accrecsearch">
                         <div class="searchbar">
-                        <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
-                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                            <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
+                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                         </div>
                     </div>
                 </div> 
