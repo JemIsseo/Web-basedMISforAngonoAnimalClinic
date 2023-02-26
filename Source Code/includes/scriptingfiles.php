@@ -54,6 +54,7 @@
         }
 
         var state = "false";
+
         function toggle() {
             if (state) {
                 document.getElementById(
@@ -76,6 +77,20 @@
             } else {
                 document.getElementById(
                     "confirmpassword").
+                    setAttribute("type","text");
+                state = true;
+            }
+        }
+
+        function toggleup() {
+            if (state) {
+                document.getElementById(
+                    "passwordup").
+                    setAttribute("type","password");
+                state = false;
+            } else {
+                document.getElementById(
+                    "passwordup").
                     setAttribute("type","text");
                 state = true;
             }

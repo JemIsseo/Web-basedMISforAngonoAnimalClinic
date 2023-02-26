@@ -55,15 +55,6 @@
     
             <form action="" method="POST">
                     <div class="input-box space">
-                        
-                        <input type="email" name="email" required> 
-                        <span>Enter Email</span>
-                       <button class="submitemail" name="submitname"><i class="fa-regular fa-paper-plane"></i></button>
-                    </div>
-
-            </form>
-            <form action="" method="POST">
-                    <div class="input-box space">
                         <input type="text" name="code" required> 
                         <span>Enter Code</span>
                         <i class="fa-solid fa-check-to-slot"></i>

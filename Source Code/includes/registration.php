@@ -1,6 +1,6 @@
 <?php 
     include 'connect.php';
-
+    
     $s=mysqli_query($conn,"select * from tblusertype");
   
     if (isset($_POST['login']))  {

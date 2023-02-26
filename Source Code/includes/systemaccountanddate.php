@@ -20,8 +20,8 @@
                 </button>
                 <div class="profile" style="margin-left: 5em">
                     <div class="info">
-                        <p>Welcome,  <b>Kim</b></p>
-                        <small class="text-muted">Administrator</small>
+                        <p>Welcome,  <b>veterinarian</b></p>
+                        <small class="text-muted">Veterinarian</small>
                     </div>
                     <div class="profile-photo">
                         <img src="../Images/profile-1.jpg" alt="User Photo">

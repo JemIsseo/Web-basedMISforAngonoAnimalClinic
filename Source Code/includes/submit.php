@@ -22,7 +22,6 @@
                     <div class="accountrecords ">
                         <form action="useraccount.php" method="POST" enctype="multipart/form-data" >
                             <div class="profilepicture">
-                            <!-- HINT SA REGISTRATION SCREEN IMAGE -->
                                 <div class="updatephoto">
                                     <img src="uploads/<?php echo $img;?>">
                                 </div>                                         
@@ -38,12 +37,12 @@
                                 <span>Username</span>
                             </div>
                             <div>
-                                <input type="password" name="password"  placeholder="Enter Password" id="password" value="<?= $pw;  ?>">
+                                <input type="password" name="password" placeholder="Enter Password" id="passwordup" value="<?= $pw;  ?>" required>
                                 <span>Password</span>
                             </div>
                             <div class="modalshow">
-                            <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggle()"></i>
-                        </div>
+                                <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggleup()"></i>
+                            </div>
                         
                             <div> 
                             <select class="radiobtn" name="usertype" id="ut"> 
