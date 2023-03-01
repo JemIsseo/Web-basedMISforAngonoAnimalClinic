@@ -366,5 +366,85 @@
             </section>
 <?php
       }
+      // Line of Owners Profile Editing and Restoring statement
+
+
+
+
+
+
+
+
+
+      // DISPLAY SETTINGS USERTYPE SQL STATEMENTS
+     if (isset($_POST['utID'])) {     
+        $utID = $_POST['utID'];
+        $sql = "Select * from tblusertype where utid ='$utID'";
+        $res= mysqli_query($conn,$sql);
+        $upRow = mysqli_fetch_assoc($res); 
+        $utid=$upRow['utid'];
+        $ut=$upRow['usertype'];
+
+?>
+        <section class="tableproduct">
+               
+                    <form action="settings.php" method="POST" >
+                            <div class="formprofile">
+                                <div>
+                                    <input type="text" name="utid" placeholder="Enter Product ID" value="<?= $utid; ?>" readonly>
+                                    <span>User ID</span>
+                                </div>
+                                <div> 
+                                    <input type="text" name="usertype" placeholder="Enter Item Name" value="<?= $ut; ?>">
+                                    <span>Usertype</span>
+                                </div>
+                            </div>
+                            <div class="buttonflex">
+                                <button name="updateusertype" type="submit" class="yes" title="Update the record">Update Changes</button>
+                                <button type="submit" class="cancel" title="Cancel activity">Cancel</button>
+                            </div>
+                    </form>
+               
+        </section>
+<?php
+      }
+
+
+    // DISPLAY SETTINGS REMOVE USERTYPE SQL STATEMENTS
+    if (isset($_POST['rutID'])) {     
+        $rutID = $_POST['rutID'];
+        $sql = "Select * from tblusertype where utid ='$rutID'";
+        $res= mysqli_query($conn,$sql);
+        $deRow = mysqli_fetch_assoc($res); 
+        $utid=$deRow['utid'];
+        $ut=$deRow['usertype'];
+?>
+      <section class="tableproduct">
+                <div>
+                    <form action="settings.php" method="POST" >
+                      
+                        <div class="formprofile formarchive">
+                            
+                                <input type="hidden" name="rutid" placeholder="Enter Product ID" value="<?= $utid; ?>">
+                            
+                            <div> 
+                                <input type="text" name="usertype" placeholder="Enter Item Name" value="<?= $ut; ?>">
+                                <span>Usertype</span>
+                            </div>
+                          
+                        </div>
+                            <h3>Are you sure you want to remove this record?</h3>
+                            <div class="buttonflex">
+                                <button name="removeusertype" type="submit" class="yes" title="Remove the record">Yes</button>
+                                <button type="submit" class="no" title="Cancel activity">No</button>
+                            </div>
+                    </form>
+                </div>
+            </section>
+<?php
+      }
+
+
+
       include 'scriptingfiles.php';
 ?>
