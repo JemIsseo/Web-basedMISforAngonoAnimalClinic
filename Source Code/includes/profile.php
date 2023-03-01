@@ -188,32 +188,32 @@ if(isset($_POST['updateprofile'])){
         <main>   
          <h1>Customers</h1>     
          <section class="table-profile">
-            <div class="allbuttons">
-                <div class="buttons">
-                    <div class="buttonmodify">
-                        <button class="modal-open" data-modal="modal1" title="Owner's Profile"><img src="../images/ownersprofile.jpg" alt=""></button> 
-                        <h2>Owner's Profile</h2>
-                    </div>
-                </div>
-                <div class="buttons">
-                    <div class="buttonmodify">
-                        <button class="modal-open" data-modal="modal3" title="Pet Medical History"><img src="../images/medicalhistory.png"></button> 
-                        <h2>Pet Medical History</h2>
-                    </div>
-                </div>
-                <div class="buttons">
-                    <div class="buttonmodify">
-                        <button class="modal-open" data-modal="modal2" title="Pet Profile"><img src="../images/petprofile.jpg"></button> 
-                        <h2>Pet Profile</h2>
-                    </div>
-                </div>
-                <div class="buttons">
-                    <div class="buttonmodify">
-                    <button class="modal-open" data-modal="modal4" title="Pet Registration"><img src="../images/petregistration.png"></button> 
-                        <h2>Pet Registration</h2>
-                    </div>
+        <div class="allbuttons">
+            <div class="buttons">
+                <div class="buttonmodify">
+                    <button class="modal-open" data-modal="modal1" title="Owner's Profile"><img src="../images/ownersprofile.jpg" alt=""></button> 
+                    <h2>Owner's Profile</h2>
                 </div>
             </div>
+            <div class="buttons">
+                <div class="buttonmodify">
+                    <button class="modal-open" data-modal="modal2" title="Pet Medical History"><img src="../images/medicalhistory.png"></button> 
+                    <h2>Pet Medical History</h2>
+                </div>
+            </div>
+            <div class="buttons">
+                <div class="buttonmodify">
+                    <button class="modal-open" data-modal="modal3" title="Pet Profile"><img src="../images/petprofile.jpg"></button> 
+                    <h2>Pet Profile</h2>
+                </div>
+            </div>
+            <div class="buttons">
+                <div class="buttonmodify">
+                <button class="modal-open" data-modal="modal4" title="Pet Registration"><img src="../images/petregistration.png"></button> 
+                    <h2>Pet Registration</h2>
+                </div>
+            </div>
+        </div>
         </section>
          
             <!--  End of profile   -->
@@ -322,86 +322,10 @@ if(isset($_POST['updateprofile'])){
 <!-- Modal of Pet Profile MessageBox -->
 <div class="modal" id="modal2">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h1>Pet Profile</h1>
-                    <div class="accrecsearch">
-                        <div class="searchbar">
-                            <input type="text" placeholder="Search here" ><span class="material-symbols-sharp">search</span>
-                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                        </div>
-                    </div>
-                </div> 
+                <div class="modal-header"><h1>Archive Profile</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
                 <div class="modal-body" id="archiveProfile">
-                       
-                        <div class="table-profile-sample">
-                        <table class="content-table table-archive">
-                            <thead>
-                                <tr>
-                                    <th>Pet ID</th>
-                                    <th>Owner's Name</th>
-                                    <th>Pet Name</th>
-                                    <th>Pet Type</th>
-                                    <th>Age</th>
-                                    <th>Sex</th>
-                                    <th>Breed</th>
-                                    <th>Weight</th>
-                                    <th>        </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                                    $sql = "Select * from tblpet";
-                                    $res= mysqli_query($conn,$sql);
-
-                                    if($res){
-                                    while($row=mysqli_fetch_assoc($res)){
-                                    $ptid=$row['petid'];
-                                    $op=$row['ownersname'];
-                                    $pname=$row['petname'];
-                                    $ptype=$row['pettype']; 
-                                    $age=$row['age'];
-                                    $sex=$row['sex'];
-                                    $breed=$row['breed'];
-                                    $weight=$row['weight']; 
-                                    echo '<tr>
-                                    <td>'.$ptid.'</td>
-                                    <td>'.$op.'</td>
-                                    <td>'.$pname.'</td>
-                                    <td>'.$ptype.'</td>
-                                    <td>'.$age.'</td>
-                                    <td>'.$sex.'</td>
-                                    <td>'.$breed.'</td>
-                                    <td>'.$weight.'</td>
-                                    <td>
-                                    <button class="modal-open showUpdateProfile" data-modal="modal0" value="'.$op.'" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                    <button class="modal-open showArchiveProfile" data-modal="modal0" value="'.$op.'"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
-                                    </td>
-                                    </tr>';
-                                }
-                            } 
-                            ?>
-                            </tbody>
-                        </table>
-                        </div>
-                </div>  
-            </div>
-</div>
-
-<!-- Modal of Pet Medical History  -->
-<div class="modal" id="modal3">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1>Pet Profile</h1>
-                    <div class="accrecsearch">
-                        <div class="searchbar">
-                            <input type="text" placeholder="Search here" ><span class="material-symbols-sharp">search</span>
-                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                        </div>
-                    </div>
-                </div> 
-                <div class="modal-body" id="archiveProfile">
-                       
-                   
                 </div>  
             </div>
 </div>

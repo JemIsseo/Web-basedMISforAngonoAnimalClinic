@@ -205,7 +205,7 @@
                 <div class="accrecsearch">
                     <h1>Account Records</h1>
                     <div class="searchbar">
-                        <input type="text" placeholder="Search here"  onkeyup="searchUserAcc(this.value)"><span class="material-symbols-sharp">search</span>
+                        <input type="text" placeholder="Search here" id="search-box"><span class="material-symbols-sharp">search</span>
                     </div>
                 </div>
                 <div class="accountrecordsbg">
@@ -287,7 +287,7 @@
                                 <span>Confirm Password</span>
                             </div>
                             <div class="showcp">
-                            <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="togglecp()"></i>
+                                <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="togglecp()"></i>
                             </div>
                             <div> 
                             <select class="radiobtn" name="usertype" id="ut"> 
@@ -365,8 +365,8 @@
                     <h1>Restore Account</h1>
                     <div class="accrecsearch">
                         <div class="searchbar">
-                        <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
-                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                            <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
+                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                         </div>
                     </div>
                 </div> 
@@ -439,7 +439,7 @@
   
     <?php include 'scriptingfiles.php';?>
     <script>
-           $(document).ready(function() {
+        $(document).ready(function() {
              // USERACCOUNT DOCUMENT FORMS
             $(".showUpdateAccount").click(function() {
                 var accountid = this.value;
@@ -460,6 +460,22 @@
                 })
             })
         })
+        $(document).ready(function() {
+            $('#search-box').on('keyup', function() {
+                var query = $(this).val();
+                $.ajax({
+                    url: 'search.php',
+                    method: 'POST',
+                    data: {
+                        search: 1,
+                        query: query
+                    },
+                    success: function(data) {
+                        $('#userAccount').html(data);
+                    }
+                });
+            });
+        });
 
     </script>
 </body>
