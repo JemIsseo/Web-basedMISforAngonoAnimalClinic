@@ -19,11 +19,11 @@
             $data = $stmt_result->fetch_assoc();
             if ($data['password'] === $pword) {
             } else {
-                header("Location: loginform.php?error=Password Incorrect");
+                header("Location: index.php?error=Password Incorrect");
                 die();
             } 
         } else {
-            header("Location: loginform.php?error=Invalid Input Please Try Again");
+            header("Location: index.php?error=Invalid Input Please Try Again");
             die();  
         }
     }
@@ -53,15 +53,6 @@
             <img src="../Images/petcare.png" alt="Login Portal Logo" class="center">
             <h2 class="logintext">Verification</h2>
     
-            <form action="" method="POST">
-                    <div class="input-box space">
-                        
-                        <input type="email" name="email" required> 
-                        <span>Enter Email</span>
-                       <button class="submitemail" name="submitname"><i class="fa-regular fa-paper-plane"></i></button>
-                    </div>
-
-            </form>
             <form action="" method="POST">
                     <div class="input-box space">
                         <input type="text" name="code" required> 

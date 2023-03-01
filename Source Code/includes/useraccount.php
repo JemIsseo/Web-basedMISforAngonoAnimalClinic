@@ -280,8 +280,8 @@
                                 <span>Password</span>
                             </div>
                             <div class="show">
-                            <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggle()"></i>
-                        </div>
+                                <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggle()"></i>
+                            </div>
                             <div>
                                 <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Enter Confirm Password" required>
                                 <span>Confirm Password</span>

@@ -31,7 +31,7 @@
                     <span class="material-symbols-sharp">medical_information</span>
                     <h3>Transactions</h3>
                 </a>
-                <a href="productsandservices.php">
+                <a href="appointments.php">
                     <span class="material-symbols-sharp">book_online</span>
                     <h3>Appointments</h3>
                 </a>

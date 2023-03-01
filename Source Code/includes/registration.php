@@ -7,7 +7,6 @@
         $un = $_POST['username'];
         $pw = $_POST['password'];
         $cpw = $_POST['confirmpassword'];
-        $enpw = md5($pw);
         $ut = $_POST['usertype'];
         $ea = $_POST['email'];
                     $sqls = "Select * from tbluseraccount where username = '$un'"; 
@@ -25,7 +24,7 @@
                             if ($pw === $cpw) {
                                    // Insert into database
                                     $sql = "insert into tbluseraccount(username,password,usertype,email) 
-                                    values('$un','$enpw','$ut','$ea')";
+                                    values('$un','$pw','$ut','$ea')";
                                     $res = mysqli_query($conn, $sql);
                                         if ($res) { 
                                             header("Location: loginform.php");
@@ -109,7 +108,7 @@
                                     ?>
                             </select>
                         <button name="login" type="submit" class="login-btn">Register</button>
-                        <p class="already">Already have an account? <a href="loginform.php">Click Here!</a></p>
+                        <p class="already">Already have an account? <a href="index.php">Click Here!</a></p>
                     </form>
                 </div>
             
