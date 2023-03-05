@@ -137,7 +137,7 @@ if(isset($_POST['updateprofile'])){
         $age = $_POST['age'];
         $weight = $_POST['weight'];
                        
-                // Insert into database
+                // Insert into database yowyow
         $sql = "insert into tblpet(ownersname, petname, pettype, age, sex, breed, weight) 
         values('$op','$pname','$ptype','$age','$sex','$breed','$weight')";
         $res = mysqli_query($conn,$sql);
