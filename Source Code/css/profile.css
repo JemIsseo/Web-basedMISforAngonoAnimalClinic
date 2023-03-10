@@ -558,7 +558,7 @@ main h1 {
 
 #modal3 .modal-header {
     display: flex;
-    gap: 55em;
+    gap: 45em;
 }
 
 #modal3 .modal-content {
@@ -570,7 +570,7 @@ main h1 {
 }
 
 #modal3 .modal-header .modal-close {
-    margin-left: 50%;
+    margin-left: 30%;
 }
 
 .buttonflex {
