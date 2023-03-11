@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 05, 2023 at 08:41 PM
+-- Generation Time: Mar 11, 2023 at 01:20 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -103,6 +103,7 @@ INSERT INTO `tblarcuseraccount` (`username`, `password`, `usertype`, `email`, `i
 DROP TABLE IF EXISTS `tblbreed`;
 CREATE TABLE IF NOT EXISTS `tblbreed` (
   `bid` int NOT NULL AUTO_INCREMENT,
+  `pettype` varchar(45) NOT NULL,
   `breed` varchar(45) NOT NULL,
   PRIMARY KEY (`bid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
@@ -111,13 +112,13 @@ CREATE TABLE IF NOT EXISTS `tblbreed` (
 -- Dumping data for table `tblbreed`
 --
 
-INSERT INTO `tblbreed` (`bid`, `breed`) VALUES
-(1, 'German Shepherd'),
-(2, 'Shih Tzu'),
-(3, 'Aspin'),
-(4, 'Japanese Spitz'),
-(5, 'Chihuahua'),
-(6, 'Rottweiler');
+INSERT INTO `tblbreed` (`bid`, `pettype`, `breed`) VALUES
+(1, 'Dog', 'German Shepherd'),
+(2, 'Dog', 'Shih Tzu'),
+(3, 'Dog', 'Aspin'),
+(4, 'Dog', 'Japanese Spitz'),
+(5, 'Dog', 'Chihuahua'),
+(6, 'Dog', 'Rottweiler');
 
 -- --------------------------------------------------------
 
@@ -222,8 +223,7 @@ INSERT INTO `tblpettype` (`petid`, `pettype`) VALUES
 (1, 'Dog'),
 (2, 'Cat'),
 (3, 'Bird'),
-(4, 'Snake'),
-(5, 'Snake');
+(4, 'Snake');
 
 -- --------------------------------------------------------
 
@@ -294,22 +294,24 @@ INSERT INTO `tblstock` (`proid`, `prodname`, `category`, `description`, `price`,
 DROP TABLE IF EXISTS `tbluseraccount`;
 CREATE TABLE IF NOT EXISTS `tbluseraccount` (
   `username` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `usertype` varchar(45) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `status` int NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tbluseraccount`
 --
 
-INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `image`) VALUES
-('assistant', 'asdf321', 'Assistant', 'animalassistant8@gmail.com', 'IMG-63f0e9772d0ee8.33758453.jpg'),
-('secretary', 'abcde', 'Secretary', 'secretary019@gmail.com', 'IMG-63f0e94fdedff0.13164904.jpeg'),
-('veterinarian', '1234', 'Veterinarian', 'veterinarian23@gmail.com', 'IMG-63f0e91bea57b4.18675087.png'),
-('samplea', '1234', 'Veterinarian', 'lili@gmail.com', NULL);
+INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `status`, `image`) VALUES
+('assistant', 'asdf321', 'Assistant', 'animalassistant8@gmail.com', 0, 'IMG-6408089943edf8.03072227.jpg'),
+('secretary', 'abcde', 'Secretary', 'secretary019@gmail.com', 0, 'IMG-640808a15e7321.07241435.jpg'),
+('veterinarian', '1234', 'Veterinarian', 'veterinarian23@gmail.com', 0, 'IMG-640808a6e74131.29616600.jpg'),
+('ime', '$2y$10$NnN5gpNJ4nzaFshZGRYgkuSS8RcYd9QSqnMB3dHUz5ABiB2aV7d5a', 'Secretary', 'imepogi23@gmail.com', 0, NULL),
+('sample', '$2y$10$/HMloibO7bEE0gcpqL.Hg.5v5zFxSFSfj/uRgKHtmzN/R82ymTC9a', 'Assistant', 'jejliberty@gmail.com', 0, NULL);
 
 -- --------------------------------------------------------
 
