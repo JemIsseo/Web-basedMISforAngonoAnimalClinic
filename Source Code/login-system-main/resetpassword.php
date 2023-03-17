@@ -30,14 +30,14 @@
             <form action="" method="POST">
                         <div class="input-box space">
                             <input type="password" name="password" id="password" required autofocus> 
-                            <span>Password</span>
+                            <span>Enter New Password</span>
                         </div> 
                         <div class="show">
                             <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggle()"></i>
                         </div>
                         <div class="input-box">
                             <input type="password" name="confirmpassword" id="confirmpassword" required> 
-                            <span>Confirm Password</span> 
+                            <span>Confirm New Password</span> 
                         </div>
                         <div class="showcp">
                             <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="togglecp()"></i>
@@ -58,18 +58,19 @@
 </html>
 <?php 
     if(isset($_POST["reset"])){
-        $un = $_SESSION['username'];
+        $email = $_SESSION['mail'];
         $pw = $_POST['password'];
         $cpw = $_POST['confirmpassword'];
 
         if($pw != $cpw){
             ?>
-            <div class="statusmessageerror" id="close">
-            <h2>Password didn't matched!</h2>
-            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div> <?php
+             <script>
+                alert("Password Didn't Matched");
+             </script>
+             <?php
         }else{
-            mysqli_query($conn, "UPDATE tbluseraccount SET password = $pw WHERE email = '$un'");
+            $password_hash = password_hash($pw, PASSWORD_BCRYPT);
+            mysqli_query($conn, "UPDATE tbluseraccount SET password = $password_hash WHERE email = '$email'");
             ?>
              <script>
                 alert("Reset Password Successful! you may now login to the portal");

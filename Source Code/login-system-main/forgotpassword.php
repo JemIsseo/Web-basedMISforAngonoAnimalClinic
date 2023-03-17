@@ -66,7 +66,7 @@
                                        ?>
                                        <script>
                                            alert(" <?php echo "We've send a verification code to " . $ea; ?>");
-                                           window.location.replace('reset_psw.php');
+                                           window.location.replace('verifyrecoverypassword.php');
                                        </script>
                                        <?php
                                    }
