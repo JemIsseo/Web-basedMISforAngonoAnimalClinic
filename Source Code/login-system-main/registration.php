@@ -49,6 +49,7 @@
                      $otp = rand(100000,999999);
                      $_SESSION['otp'] = $otp;
                      $_SESSION['mail'] = $ea;
+                     $_SESSION['username'] = $un;
                      require "Mail/phpmailer/PHPMailerAutoload.php";
                      $mail = new PHPMailer;
      
@@ -59,7 +60,7 @@
                      $mail->SMTPSecure='tls';
      
                      $mail->Username='imepogi23@gmail.com';
-                     $mail->Password='czcrehlfaekvazco';
+                     $mail->Password='nicmvjhouzjjaeeh';
      
                      $mail->setFrom('imepogi23@gmail.com', 'Angono Animal Clinic');
                      $mail->addAddress($_POST["email"]);
@@ -68,8 +69,8 @@
                      $mail->Subject="Your verification code";
                      $mail->Body="<p>Hello good day! $ea, </p> <h3>Your one-time-passcode is $otp <br></h3>
                      <br><br>
-                     <h2>NON-TECHNOPHOBICS</h2>
-                    ";
+                     <h1>Thank you,</h1>
+                     <h2><b>NON-TECHNOPHOBICS</b></h2>";
      
                              if(!$mail->send()){
                                  ?>

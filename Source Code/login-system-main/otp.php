@@ -1,6 +1,6 @@
 <?php 
     session_start(); 
-    include ('connect/connection.php');
+    include 'connect.php';
 ?>
 
 
@@ -62,7 +62,7 @@
            </script>
            <?php
         }else{
-            mysqli_query($connect, "UPDATE tbluseraccount SET status = 1 WHERE email = '$email'");
+            mysqli_query($conn, "UPDATE tbluseraccount SET status = 1 WHERE email = '$email'");
             ?>
              <script>
                  alert("Account Verified, you can now login to the portal");

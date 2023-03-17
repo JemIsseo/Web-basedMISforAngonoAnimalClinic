@@ -165,6 +165,19 @@ main {
 }
 
 
+.show, 
+.showcp {
+    position: absolute;
+    right: 30%;
+    top: 29%;
+    cursor: pointer;
+}
+
+.showcp {
+    top: 40%;
+}
+
+
 .already, 
 .fpright {
     margin: 0 8.5em;

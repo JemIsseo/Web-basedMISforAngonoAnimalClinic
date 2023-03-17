@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 11, 2023 at 01:20 PM
+-- Generation Time: Mar 15, 2023 at 11:53 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -307,11 +307,8 @@ CREATE TABLE IF NOT EXISTS `tbluseraccount` (
 --
 
 INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `status`, `image`) VALUES
-('assistant', 'asdf321', 'Assistant', 'animalassistant8@gmail.com', 0, 'IMG-6408089943edf8.03072227.jpg'),
-('secretary', 'abcde', 'Secretary', 'secretary019@gmail.com', 0, 'IMG-640808a15e7321.07241435.jpg'),
-('veterinarian', '1234', 'Veterinarian', 'veterinarian23@gmail.com', 0, 'IMG-640808a6e74131.29616600.jpg'),
-('ime', '$2y$10$NnN5gpNJ4nzaFshZGRYgkuSS8RcYd9QSqnMB3dHUz5ABiB2aV7d5a', 'Secretary', 'imepogi23@gmail.com', 0, NULL),
-('sample', '$2y$10$/HMloibO7bEE0gcpqL.Hg.5v5zFxSFSfj/uRgKHtmzN/R82ymTC9a', 'Assistant', 'jejliberty@gmail.com', 0, NULL);
+('Veterinarian', '$2y$10$j9C8tNEwjT7IAFkYy1BYXu69vBS9C3t23am9qGjLqcNv5vHJc0Ti6', 'Veterinarian', 'imepogi23@gmail.com', 1, NULL),
+('notverified', '$2y$10$62ZcfD91MixWDWRG1qwdHuY/Nvb5H6NxkP9hfg53vynPzjEipvIeC', 'Assistant', 'libertypogi@gmail.com', 0, NULL);
 
 -- --------------------------------------------------------
 

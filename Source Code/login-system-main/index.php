@@ -5,38 +5,37 @@
 
     if (isset($_POST['login'])) {
         $un = $_POST['username'];
-        $pw = $_POST['password']; 
-
+        $pw = $_POST['password'];
+    
         $sql = "Select * from tbluseraccount where username = '$un'"; 
         $res = mysqli_query($conn, $sql);
     
         if ($res) {
-                $fetch = mysqli_fetch_assoc($res);
-                $hashpassword = $fetch["password"];
-
-                if($fetch["status"] == 0){
-                    ?>
-                    <script>
-                        alert("Please verify your email account before login.");
-                    </script>
-                    <?php
-                }else if(password_verify($pw, $hashpassword)){
-                    ?>
-                    <script>
-                        alert("You are now logged in successfully!");
-                        window.location.replace('dashboard.php');
-                    </script>
-                    <?php
-                } else {
-                    ?>
-                    <div class="statusmessageerror" id="close">
-                    <h2>Username or Password Incorrect</h2>
-                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                    </div> <?php
+                    $fetch = mysqli_fetch_assoc($res);
+                    $hashpassword = $fetch["password"];
+                    if($fetch["status"] == 0){
+                        ?>
+                        <script>
+                            alert("Please verify your email account before login.");
+                        </script>
+                        <?php
+                    } else if (password_verify($pw, $hashpassword)){
+                        ?>
+                        <script>
+                            alert("You are now logged in successfully!");
+                            window.location.replace('dashboard.php');
+                        </script>
+                        <?php
+                    } else {
+                        ?>
+                        <div class="statusmessageerror" id="close">
+                        <h2>Username or Password Incorrect</h2>
+                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                        </div> <?php
+                    }
                 }
          
         }
-    }
 
 ?>
 <!DOCTYPE html>
@@ -75,7 +74,7 @@
                             <input type="password" name="password" id="password" required> 
                             <span>Password</span> 
                             <i class="fa-solid fa-eye show" aria-hidden="true" id="eye" onclick="toggle()"></i>
-                            <p class="already fpright"><a href="registration.php">Forgot Password?</a></p>
+                            <p class="already fpright"><a href="forgotpassword.php">Forgot Password?</a></p>
                         </div> 
                         <div class="login">
                             <button name="login" type="submit" class="login-btn">Login</button>

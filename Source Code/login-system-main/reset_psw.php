@@ -1,113 +1,83 @@
-<?php session_start() ;
-include('connect/connection.php');
+<?php 
+    session_start(); 
+    include 'connect.php';
 ?>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
-<!doctype html>
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost/ARIOS%20CAFE%20WEBSITE/customerImages/Arios%20Cafe%20Logo.jpg">
-    <link rel="icon" type="image/png" sizes="32x32" href="http://localhost/ARIOS%20CAFE%20WEBSITE/customerImages/Arios%20Cafe%20Logo.jpg">
-    <link rel="icon" type="image/png" sizes="16x16" href="http://localhost/ARIOS%20CAFE%20WEBSITE/customerImages/Arios%20Cafe%20Logo.jpg">
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="resetpass.css">
-
-    <link rel="icon" href="Favicon.png">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-
-    <title>Reset Password</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Password</title>
+    <link rel="stylesheet" href="../css/otp.css">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" 
+    integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" 
+    crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/x-icon" href="../images/aac.jpg"/>
 </head>
+
 <body>
-
-<section class="w3l-mockup-form">
-    <br>
-    <br>
-    <br>
-        <div class="container">
-            <!-- /form -->
-            <div class="workinghny-form-grid">
-                <div class="main-mockup">
-                    <div class="alert-close">
-                    <span><a href="http://localhost/ARIOS%20CAFE%20WEBSITE/CustomerEnd/index.php"><</a></span>
-                    </div>
-                    <div class="w3l_form align-self">
-                        <div class="left_grid_info">
-                           
+        <!-- Login Form Section -->
+    <main>
+        <section class = "glassloginform">
+            <img src="../images/petcare.png" alt="Login Portal Logo" class="center">
+            <h2 class="logintext">New Password</h2>
+    
+            <form action="" method="POST">
+                        <div class="input-box space">
+                            <input type="password" name="password" id="password" required autofocus> 
+                            <span>Password</span>
+                        </div> 
+                        <div class="show">
+                            <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggle()"></i>
                         </div>
-                    </div>
-                    <div class="content-wthree">
-                        <h2>New Password</h2>
-                        <p>Enter new password</p>
-                        <form action="" method="post">
-                        <input type="password" id="password" class="form-control" name="password" required autofocus>
-
-                            <button  type="submit" value="Reset" name="reset">Reset</button>
-                        </form>
-                        
-                    </div>
-                </div>
-            </div>
-            <!-- //form -->
-        </div>
-    </section>
-
+                        <div class="input-box">
+                            <input type="password" name="confirmpassword" id="confirmpassword" required> 
+                            <span>Confirm Password</span> 
+                        </div>
+                        <div class="showcp">
+                            <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="togglecp()"></i>
+                        </div>
+                    <button name="reset" type="submit" class="login-btn">Reset</button>
+            </form>
+        </section>
+    </main>
+    <!--  CIRCLE SHAPES DESIGN  -->
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div class="circle3"></div>
+    <div class="circle4"></div>
+    <div class="circle5"></div>
+    <div class="circle6"></div>
+    <?php include 'scriptingfiles.php'; ?>
 </body>
 </html>
-<?php
+<?php 
     if(isset($_POST["reset"])){
-        include('connect/connection.php');
-        $psw = $_POST["password"];
+        $un = $_SESSION['username'];
+        $pw = $_POST['password'];
+        $cpw = $_POST['confirmpassword'];
 
-        $token = $_SESSION['token'];
-        $Email = $_SESSION['email'];
-
-        // $hash = password_hash( $psw , PASSWORD_DEFAULT );
-
-        $sql = mysqli_query($connect, "SELECT * FROM login WHERE email='$Email'");
-        $query = mysqli_num_rows($sql);
-  	    $fetch = mysqli_fetch_assoc($sql);
-
-        if($Email){
-            $new_pass = $psw;
-            mysqli_query($connect, "UPDATE login SET password='$new_pass' WHERE email='$Email'");
+        if($pw != $cpw){
             ?>
-            <script>
-                window.location.replace("index.php");
-                alert("<?php echo "your password has been succesful reset"?>");
-            </script>
-            <?php
+            <div class="statusmessageerror" id="close">
+            <h2>Password didn't matched!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+            </div> <?php
         }else{
+            mysqli_query($conn, "UPDATE tbluseraccount SET password = $pw WHERE email = '$un'");
             ?>
-            <script>
-                alert("<?php echo "Please try again"?>");
-            </script>
-            <?php
+             <script>
+                alert("Reset Password Successful! you may now login to the portal");
+                window.location.replace("index.php");
+             </script>
+             <?php
         }
+
     }
 
 ?>
-<script>
-    const toggle = document.getElementById('togglePassword');
-    const password = document.getElementById('password');
-
-    toggle.addEventListener('click', function(){
-        if(password.type === "password"){
-            password.type = 'text';
-        }else{
-            password.type = 'password';
-        }
-        this.classList.toggle('bi-eye');
-    });
-</script>
