@@ -153,19 +153,7 @@ if(isset($_POST['updateprofile'])){
     
         }
 
-
-
-
-
-
 ?>
-
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -267,7 +255,7 @@ if(isset($_POST['updateprofile'])){
                                     <button class="cancel" title="Clear all inputs" onclick="clearBtnOwnersProfile()">Clear</button>
                                 </div>
                         </form>
-                    <div>
+                    
                         <div class="searchbar">
                             <input type="text" placeholder="Search here"  onkeyup="searchProfile(this.value)"><span class="material-symbols-sharp">search</span>
                         </div>
@@ -309,8 +297,6 @@ if(isset($_POST['updateprofile'])){
                             </tbody>
                         </table>
                         </div>
-                    </div>
-                    
                 </div>
 
             </div>

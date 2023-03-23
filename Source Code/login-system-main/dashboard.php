@@ -3,41 +3,6 @@
     
     // Database Connection
     include 'connect.php';
-    
-    
-
-
-
-    // $sql = "SELECT * FROM tbluseraccount WHERE username =''";
-    
-    // if ($conn->connect_error) {
-    //     die("Failed to connect : " . $conn->connect_error);
-    // } else {
-    //     $stmt = $conn->prepare("SELECT * FROM tbluseraccount WHERE username = ?");
-    //     $stmt->bind_param("s", $un);
-    //     $stmt->execute();
-    //     $stmt_result = $stmt->get_result();
-    //     if ($stmt_result->num_rows > 0) {
-    //         $data = $stmt_result->fetch_assoc();
-    //         if ($data['password'] === $pw) {
-    //         } else {
-    //             header("Location: index.php?error=Password Incorrect");
-    //             die();
-    //         } 
-    //     } else {
-    //         header("Location: index.php?error=Invalid Input Please Try Again");
-    //         die();  
-    //     }
-    // } 
-
-
-
-    // $_SESSION['username'] = $un;
-    // $sqlss = "SELECT * FROM tbluseraccount WHERE username = '$un'";
-    // $query = mysqli_query($conn, $sqlss);
-    // $resss = mysqli_fetch_assoc($query);
-   
-    
 
 ?>
 

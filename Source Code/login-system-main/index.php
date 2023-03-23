@@ -6,7 +6,9 @@
     if (isset($_POST['login'])) {
         $un = $_POST['username'];
         $pw = $_POST['password'];
-    
+        
+           
+
         $sql = "Select * from tbluseraccount where username = '$un'"; 
         $res = mysqli_query($conn, $sql);
     
@@ -20,6 +22,9 @@
                         </script>
                         <?php
                     } else if (password_verify($pw, $hashpassword)){
+                        $_SESSION['username'] = $un;
+                        $_SESSION['usertype'] = $fetch['usertype'];
+                        $_SESSION['image'] = $fetch['image'];
                         ?>
                         <script>
                             alert("You are now logged in successfully!");
@@ -35,8 +40,10 @@
                     }
                 }
          
+                
         }
 
+       
 ?>
 <!DOCTYPE html>
 <html lang="en">

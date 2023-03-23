@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 15, 2023 at 11:53 AM
+-- Generation Time: Mar 20, 2023 at 03:32 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -307,8 +307,9 @@ CREATE TABLE IF NOT EXISTS `tbluseraccount` (
 --
 
 INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `status`, `image`) VALUES
-('Veterinarian', '$2y$10$j9C8tNEwjT7IAFkYy1BYXu69vBS9C3t23am9qGjLqcNv5vHJc0Ti6', 'Veterinarian', 'imepogi23@gmail.com', 1, NULL),
-('notverified', '$2y$10$62ZcfD91MixWDWRG1qwdHuY/Nvb5H6NxkP9hfg53vynPzjEipvIeC', 'Assistant', 'libertypogi@gmail.com', 0, NULL);
+('Veterinarian', '$2y$10$j9C8tNEwjT7IAFkYy1BYXu69vBS9C3t23am9qGjLqcNv5vHJc0Ti6', 'Veterinarian', 'imepogi23@gmail.com', 1, 'IMG-6417d371c5a2f1.83584877.jpg'),
+('notverified', '$2y$10$62ZcfD91MixWDWRG1qwdHuY/Nvb5H6NxkP9hfg53vynPzjEipvIeC', 'Assistant', 'libertypogi@gmail.com', 0, NULL),
+('bimsecretary', '$2y$10$v7yrQkr232EM1DTnQ.GOkuEg6I9G.mRZEl54jgYHNfd7Aak7mjxFW', 'Secretary', 'salingakristina@gmail.com', 1, 'IMG-6417d2c69632d5.60505469.png');
 
 -- --------------------------------------------------------
 

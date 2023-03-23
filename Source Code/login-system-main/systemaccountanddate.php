@@ -1,8 +1,3 @@
-        <?php 
-        
-       
-
-        ?>
 
         <div class="right">
             <div class="top">
@@ -11,11 +6,11 @@
                 </button>
                 <div class="profile" style="margin-left: 5em">
                     <div class="info">
-                        <p>Welcome,  <b><?php echo $_SESSION['username']; ?></b></p>
-                        <small class="text-muted"><?php echo $resss['usertype']; ?></small>
+                        <p>Welcome,  <b><?php echo $_SESSION['username'];  ?></b></p>
+                        <small class="text-muted"><?php echo $_SESSION['usertype']; ?></small>
                     </div>
                     <div class="profile-photo">
-                        <img src="uploads/<?php echo $resss['image'];?>">
+                        <img src="uploads/<?php echo $_SESSION['image'];?>">
                     </div>
                 </div>
             </div>
