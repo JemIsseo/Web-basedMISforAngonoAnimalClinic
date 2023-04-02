@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 20, 2023 at 03:32 AM
+-- Generation Time: Apr 02, 2023 at 03:00 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `tblappointments` (
   `services` varchar(100) NOT NULL,
   `dateandtime` datetime NOT NULL,
   PRIMARY KEY (`queueno`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblappointments`
@@ -150,28 +150,29 @@ INSERT INTO `tblcategory` (`catid`, `category`) VALUES
 
 DROP TABLE IF EXISTS `tblownersprofile`;
 CREATE TABLE IF NOT EXISTS `tblownersprofile` (
-  `ownersname` varchar(45) NOT NULL,
+  `cusid` int NOT NULL AUTO_INCREMENT,
+  `ownersname` varchar(100) NOT NULL,
   `contactno` varchar(45) NOT NULL,
   `address` varchar(255) NOT NULL,
   `emailaddress` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`ownersname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`cusid`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tblownersprofile`
 --
 
-INSERT INTO `tblownersprofile` (`ownersname`, `contactno`, `address`, `emailaddress`) VALUES
-(' Romar Chris Belmonte', ' 09123889132', ' 81 Sta. Catarina St. Taytay, Rizal', 'BelmonteRC@gmail.com'),
-(' Michelle Nervez', ' 09055459215', ' 38 Ynares St. Brgy. San Carlos Binangonan, Rizal', 'michelle.nervez@gmail.com'),
-(' Ivy Sanchez', ' 09889345681', ' #112 Brgy. San Vicente Angono, Rizal', 'SanchezIvy@gmail.com'),
-(' Jane Louise Pilapil', ' 09175546613', ' #218 Brgy. Poblacion ibaba Angono, Rizal', '01_JLouise@gmail.com'),
-(' Vinah Ericka Oliveros', ' 09179654408', ' 223 E. Dela Paz St. Brgy. San Pedro Angono, Rizal', 'vinaholiveros1069@gmail.com'),
-(' Kim Alexis Villaluz', ' 09963314522', ' 53 St. Clement Brgy. Bagumbayan Angono, Rizal', 'kim.alexis@gmail.com'),
-(' Jeremy Liberty', ' 09099223039', ' 39 Interior Lanete St. Brgy. Sta. Ana Taytay, Rizal', 'libertyjeremy23@gmail.com'),
-(' Divina Amio', ' 09178895502', ' 45 Molave St. Brgy. San Vicente Angono, Rizal', 'divinaamio01@gmail.com'),
-(' Vann Oliveros', ' 09060668451', ' Ynares St. Brgy. San Carlos Binangonan, Rizal', 'vann.oliveros@gmail.com'),
-(' Bim Salinga', ' 093850399584', ' Binangonan, Rizal', 'bim@gmail.com');
+INSERT INTO `tblownersprofile` (`cusid`, `ownersname`, `contactno`, `address`, `emailaddress`) VALUES
+(1, 'Anderson Smith', ' 09123889132', ' 81 Sta. Catarina St. Taytay, Rizal', 'BelmonteRC@gmail.com'),
+(2, 'Carl Wright', ' 09055459215', ' 38 Ynares St. Brgy. San Carlos Binangonan, Rizal', 'michelle.nervez@gmail.com'),
+(3, 'Samantha Priz', ' 09889345681', ' #112 Brgy. San Vicente Angono, Rizal', 'SanchezIvy@gmail.com'),
+(4, 'Robert Hills', ' 09175546613', ' #218 Brgy. Poblacion ibaba Angono, Rizal', '01_JLouise@gmail.com'),
+(5, 'White Lee', ' 09179654408', ' 223 E. Dela Paz St. Brgy. San Pedro Angono, Rizal', 'vinaholiveros1069@gmail.com'),
+(6, 'Jessica Young', ' 09963314522', ' 53 St. Clement Brgy. Bagumbayan Angono, Rizal', 'kim.alexis@gmail.com'),
+(7, 'Jeremy Liberty', ' 09099223039', ' 39 Interior Lanete St. Brgy. Sta. Ana Taytay, Rizal', 'libertyjeremy23@gmail.com'),
+(8, 'Catherine Jacobs', ' 09178895502', ' 45 Molave St. Brgy. San Vicente Angono, Rizal', 'divinaamio01@gmail.com'),
+(9, 'Vann Oliveros', ' 09060668451', ' Ynares St. Brgy. San Carlos Binangonan, Rizal', 'vann.oliveros@gmail.com'),
+(10, 'Bim Salinga', ' 093850399584', ' Binangonan, Rizal', 'bim@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -182,6 +183,7 @@ INSERT INTO `tblownersprofile` (`ownersname`, `contactno`, `address`, `emailaddr
 DROP TABLE IF EXISTS `tblpet`;
 CREATE TABLE IF NOT EXISTS `tblpet` (
   `petid` int NOT NULL AUTO_INCREMENT,
+  `cusid` int NOT NULL,
   `ownersname` varchar(45) NOT NULL,
   `petname` varchar(45) NOT NULL,
   `pettype` varchar(45) NOT NULL,
@@ -190,17 +192,17 @@ CREATE TABLE IF NOT EXISTS `tblpet` (
   `breed` varchar(45) NOT NULL,
   `weight` varchar(45) NOT NULL,
   PRIMARY KEY (`petid`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblpet`
 --
 
-INSERT INTO `tblpet` (`petid`, `ownersname`, `petname`, `pettype`, `age`, `sex`, `breed`, `weight`) VALUES
-(1, ' Jeremy Liberty', 'Gekgek', 'Dog', 11, 'Male', 'Aspin', '11kg'),
-(5, ' Vann Oliveros', 'Coco', 'Dog', 5, 'Male', 'Shih Tzu', '5kg'),
-(4, ' Jeremy Liberty', 'Gekgek', 'Dog', 11, 'Male', 'Aspin', '11kg'),
-(6, ' Bim Salinga', 'Chichi', 'Dog', 3, 'Female', 'Shih Tzu', '10kg');
+INSERT INTO `tblpet` (`petid`, `cusid`, `ownersname`, `petname`, `pettype`, `age`, `sex`, `breed`, `weight`) VALUES
+(1, 7, ' Jeremy Liberty', 'Gekgek', 'Dog', 11, 'Male', 'Aspin', '11kg'),
+(5, 9, ' Vann Oliveros', 'Coco', 'Dog', 5, 'Male', 'Shih Tzu', '5kg'),
+(6, 10, ' Bim Salinga', 'Chichi', 'Dog', 3, 'Female', 'Shih Tzu', '10kg'),
+(9, 7, 'Jeremy Liberty', 'Tsaris', 'Dog', 2, 'Male', 'Aspin', '14kg');
 
 -- --------------------------------------------------------
 
@@ -210,16 +212,16 @@ INSERT INTO `tblpet` (`petid`, `ownersname`, `petname`, `pettype`, `age`, `sex`,
 
 DROP TABLE IF EXISTS `tblpettype`;
 CREATE TABLE IF NOT EXISTS `tblpettype` (
-  `petid` int NOT NULL AUTO_INCREMENT,
+  `pettypeid` int NOT NULL AUTO_INCREMENT,
   `pettype` varchar(45) NOT NULL,
-  PRIMARY KEY (`petid`)
+  PRIMARY KEY (`pettypeid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblpettype`
 --
 
-INSERT INTO `tblpettype` (`petid`, `pettype`) VALUES
+INSERT INTO `tblpettype` (`pettypeid`, `pettype`) VALUES
 (1, 'Dog'),
 (2, 'Cat'),
 (3, 'Bird'),
@@ -307,9 +309,9 @@ CREATE TABLE IF NOT EXISTS `tbluseraccount` (
 --
 
 INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `status`, `image`) VALUES
-('Veterinarian', '$2y$10$j9C8tNEwjT7IAFkYy1BYXu69vBS9C3t23am9qGjLqcNv5vHJc0Ti6', 'Veterinarian', 'imepogi23@gmail.com', 1, 'IMG-6417d371c5a2f1.83584877.jpg'),
-('notverified', '$2y$10$62ZcfD91MixWDWRG1qwdHuY/Nvb5H6NxkP9hfg53vynPzjEipvIeC', 'Assistant', 'libertypogi@gmail.com', 0, NULL),
-('bimsecretary', '$2y$10$v7yrQkr232EM1DTnQ.GOkuEg6I9G.mRZEl54jgYHNfd7Aak7mjxFW', 'Secretary', 'salingakristina@gmail.com', 1, 'IMG-6417d2c69632d5.60505469.png');
+('Veterinarian', '$2y$10$j9C8tNEwjT7IAFkYy1BYXu69vBS9C3t23am9qGjLqcNv5vHJc0Ti6', 'Veterinarian', 'imepogi23@gmail.com', 1, 'IMG-64298c35933fd3.55023577.png'),
+('notverified', '$2y$10$62ZcfD91MixWDWRG1qwdHuY/Nvb5H6NxkP9hfg53vynPzjEipvIeC', 'Assistant', 'libertypogi@gmail.com', 0, 'IMG-64298c3eb86f47.88841820.png'),
+('bimsecretary', '$2y$10$v7yrQkr232EM1DTnQ.GOkuEg6I9G.mRZEl54jgYHNfd7Aak7mjxFW', 'Secretary', 'salingakristina@gmail.com', 1, 'IMG-64298c2c354aa7.49054526.png');
 
 -- --------------------------------------------------------
 
@@ -320,7 +322,7 @@ INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `stat
 DROP TABLE IF EXISTS `tblusertype`;
 CREATE TABLE IF NOT EXISTS `tblusertype` (
   `utid` int NOT NULL AUTO_INCREMENT,
-  `usertype` varchar(45) NOT NULL,
+  `usertype` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`utid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
 
