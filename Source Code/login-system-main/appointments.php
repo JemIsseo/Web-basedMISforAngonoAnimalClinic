@@ -1,6 +1,7 @@
 <?php 
     session_start();
     include 'connect.php'; 
+
     $spet=mysqli_query($conn,"select * from tblpet");
     $ss=mysqli_query($conn,"select * from tblownersprofile");
     $s=mysqli_query($conn,"select * from tblservices");
@@ -169,27 +170,20 @@ if(isset($_POST['updateprofile'])){
                         <form action="" method="POST" >
                             <div class="formprofile">
                                 <div> 
-                                    <select class="radiobtn" name="cname" id="ut"> 
+                                    <select class="radiobtn" name="cname" id="cusid"> 
                                             <option value="">Choose Client Name</option>
                                     <?php
                                             while ($re = mysqli_fetch_array($ss)) {
                                     ?>
-                                            <option value="<?php echo $re['ownersname']; ?>"><?php echo $re['ownersname']; ?> </option>
+                                            <option value="<?php echo $re['cusid']; ?>"><?php echo $re['ownersname']; ?> </option>
                                             <?php
                                                 }
                                             ?>
                                     </select>Client Name
                                 </div>
                                 <div> 
-                                    <select class="radiobtn" name="pname" id="ut"> 
+                                    <select class="radiobtn" name="pname" id="petid"> 
                                             <option value="">Choose Pet</option>
-                                    <?php
-                                            while ($rpet = mysqli_fetch_array($spet)) {
-                                    ?>
-                                            <option value="<?php echo $rpet['petname']; ?>"><?php echo $rpet['petname']; ?> </option>
-                                            <?php
-                                                }
-                                            ?>
                                     </select>Pet Name
                                 </div>
                                 <div> 
@@ -373,5 +367,22 @@ if(isset($_POST['updateprofile'])){
     </div>
 
     <?php include 'scriptingfiles.php'; ?>
+    <script>
+        $(document).ready(function() {
+        $("#cusid").on('click', function() {
+        var cusid = $(this).val();
+        if (cusid) {
+            $.ajax({
+            type: 'POST',
+            url: 'submit.php',
+            data: 'cusid=' + cusid,
+            success: function(html) {
+                $("#petid").html(html);
+            }
+            });
+        }
+        });
+    });
+    </script>
 </body>
 </html>

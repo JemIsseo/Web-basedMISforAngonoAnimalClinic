@@ -11,7 +11,7 @@
             </div>
 
             <div class="sidebar">
-                <a href="dashboard.php">
+                <a class="decoration" href="dashboard.php">
                     <span class="material-symbols-sharp">grid_view</span>
                     <h3>Dashboard</h3>
                 </a>

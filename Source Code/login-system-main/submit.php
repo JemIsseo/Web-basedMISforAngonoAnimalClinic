@@ -444,7 +444,16 @@
 <?php
       }
 
-
-
+      if (isset($_POST['cusid'])) {
+            $cusid = $_POST['cusid'];
+            $result = $conn->query("SELECT * FROM tblpet WHERE cusid = $cusid ORDER BY petname DESC");
+        
+            if (mysqli_num_rows($result) > 0) {
+                echo '<option value="">Choose Pet</option>';
+                while ($row = $result->fetch_assoc()) {
+                    echo '<option value="' . $row['petname'] . '">' . $row['petname'] . '</option>';
+                }
+            }
+      }
       include 'scriptingfiles.php';
 ?>

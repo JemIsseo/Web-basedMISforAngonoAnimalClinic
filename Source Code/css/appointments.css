@@ -250,7 +250,7 @@ main h1 {
 /*  Profile Form  */
 .formprofile {
     padding: 1em;
-    height: 80%;
+    height: 20%;
     width: 90%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -263,7 +263,7 @@ main h1 {
     display: none;
 }
 
-.formprofile input ,#ut {
+.formprofile input ,#cusid, #ut, #petid {
     height: 4vh;
     width: 15vw;
     border: 2px solid var(--color-primary);

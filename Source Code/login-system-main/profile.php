@@ -2,6 +2,10 @@
     session_start();
     include 'connect.php'; 
 
+    $s=mysqli_query($conn,"select * from tblownersprofile");
+    $p=mysqli_query($conn,"select * from tblpettype");
+    $b=mysqli_query($conn,"select * from tblbreed");
+
     // Save Owners Name Profile
     if(isset($_POST['saveownersprofile'])){
     $op = $_POST['ownersprofile'];
@@ -36,34 +40,6 @@
                         }
 
                 }
-
-    // Owner Name Update Statement
-if(isset($_POST['updateprofile'])){
-        $proid = $_POST['profileid'];
-        $pname = $_POST['petname'];
-        $age = $_POST['age'];
-        $utsex = $_POST['sex'];
-        $weight = $_POST['weight'];
-        $owner = $_POST['owner'];
-        $phone = $_POST['phone']; 
-        $email = $_POST['email'];
-    
-        $sql = "update tblprofile set profileid ='$proid',petname ='$pname', 
-                age='$age',sex ='$utsex',weight ='$weight', ownername ='$owner',phone ='$phone', email='$email' 
-                where profileid= $proid";
-        $res = mysqli_query($conn,$sql);
-        if($res) {?>  
-            <div class="statusmessagesuccess" id="close">
-                <h2>Profile Updated Successfully!</h2>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
-            
-        <?php  
-        } 
-        else {
-            die(mysqli_error($conn));
-        }
-    }
 
     // archive statement
     if(isset($_POST['savearchiveprofile'])){
@@ -126,7 +102,6 @@ if(isset($_POST['updateprofile'])){
         }
     }
 
-
     // Save Pet Profile
     if(isset($_POST['savepetprofile'])){
         $op = $_POST['ownersname'];
@@ -137,9 +112,9 @@ if(isset($_POST['updateprofile'])){
         $age = $_POST['age'];
         $weight = $_POST['weight'];
                        
-                // Insert into database yowyow
-        $sql = "insert into tblpet(ownersname, petname, pettype, age, sex, breed, weight) 
-        values('$op','$pname','$ptype','$age','$sex','$breed','$weight')";
+                // Insert into database
+        $sql = "insert into tblpet(cusid, ownersname, petname, pettype, age, sex, breed, weight) 
+        values('$cusid','$op','$pname','$ptype','$age','$sex','$breed','$weight')";
         $res = mysqli_query($conn,$sql);
         if($res) { ?>
                 <div class="statusmessagesuccess" id="close">
@@ -232,33 +207,9 @@ if(isset($_POST['updateprofile'])){
                 <div class="modal-body">
                    
                         <form action="" method="POST" >
-                            <div class="formprofile">
-                                <div> 
-                                    <input type="text" name="ownersprofile" placeholder="Enter Name" required>
-                                    <span>Owner's Name</span>
-                                </div>
-                                <div> 
-                                    <input type="text" name="contactno" placeholder="Enter Phone Number" required>
-                                    <span>Contact No.</span>
-                                </div>
-                                <div> 
-                                    <input type="text" name="address" placeholder="Enter Address" required>
-                                    <span>Address</span>
-                                </div>
-                                <div> 
-                                    <input type="text" name="emailaddress" placeholder="Enter Email Address" required>
-                                    <span>Email Address</span>
-                                </div>
-                            </div>
-                                <div class="buttonflexright">
-                                    <button name="saveownersprofile" type="submit" class="save" title="Save the record">Save</button>
-                                    <button class="cancel" title="Clear all inputs" onclick="clearBtnOwnersProfile()">Clear</button>
-                                </div>
-                        </form>
-                    
-                        <div class="searchbar">
+                            <div class="searchbar">
                             <input type="text" placeholder="Search here"  onkeyup="searchProfile(this.value)"><span class="material-symbols-sharp">search</span>
-                        </div>
+                            </div>
                         <div class="table-profile-sample">
                         <table class="content-table table-archive">
                             <thead>
@@ -297,6 +248,30 @@ if(isset($_POST['updateprofile'])){
                             </tbody>
                         </table>
                         </div>
+                        <div class="formprofile">
+                                <div> 
+                                    <input type="text" name="ownersprofile" placeholder="Enter Name" required>
+                                    <span>Owner's Name</span>
+                                </div>
+                                <div> 
+                                    <input type="text" name="contactno" placeholder="Enter Phone Number" required>
+                                    <span>Contact No.</span>
+                                </div>
+                                <div> 
+                                    <input type="text" name="address" placeholder="Enter Address" required>
+                                    <span>Address</span>
+                                </div>
+                                <div> 
+                                    <input type="text" name="emailaddress" placeholder="Enter Email Address" required>
+                                    <span>Email Address</span>
+                                </div>
+                            </div>
+                                <div class="buttonflexright">
+                                    <button name="saveownersprofile" type="submit" class="save" title="Save the record">Save</button>
+                                    <button class="cancel" title="Clear all inputs" onclick="clearBtnOwnersProfile()">Clear</button>
+                                </div>
+                        </form>
+
                 </div>
 
             </div>
@@ -308,10 +283,22 @@ if(isset($_POST['updateprofile'])){
 <!-- Modal of Pet Profile MessageBox -->
 <div class="modal" id="modal2">
             <div class="modal-content">
-                <div class="modal-header"><h1>Archive Profile</h1>
+                <div class="modal-header"><h1>Pet Medical History</h1>
                     <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                 </div>
                 <div class="modal-body" id="archiveProfile">
+                            <div class="radiobtn"> 
+                                <select class="radiobtn" name="selectowners" id="utservices"> 
+                                        <option value="">Select Owner's Name</option>
+                                <?php
+                                        while ($r = mysqli_fetch_array($s)) {
+                                ?>
+                                        <option value="<?php echo $r['ownersname']; ?>"><?php echo $r['ownersname']; ?> </option>
+                                        <?php
+                                            }
+                                        ?>
+                                </select>
+                            </div>  
                 </div>  
             </div>
 </div>
@@ -339,6 +326,7 @@ if(isset($_POST['updateprofile'])){
                     <div class="table-profile-sample">
                 <!-- PASTE REGISTRATION FORM HERE -->
                 <form action="" method="POST" >
+                                
                             <div class="radiobtn"> 
                                 <select class="radiobtn" name="ownersname" id="ut"> 
                                         <option value="">Select Owner's Name</option>
