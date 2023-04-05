@@ -7,13 +7,14 @@
     $s=mysqli_query($conn,"select * from tblservices");
 
     if(isset($_POST['savequeue'])){
-    $cname = $_POST['cname'];
+    $cid = $_POST['cname'];
     $pname = $_POST['pname'];
     $ser = $_POST['services'];
     $dt = $_POST['datetime'];
     
     $sqls = "Select * from tblappointments where queueno = ''"; 
     $result = mysqli_query($conn, $sqls);
+    
     
     if ($result) {
         $num= mysqli_num_rows($result);
@@ -24,6 +25,10 @@
             </div>
         <?php   
         } else {
+            $sqls1 = "SELECT * FROM tblpet WHERE cusid = $cid";
+    $result1 = mysqli_query($conn, $sqls1);
+    $row1 = $result1->fetch_assoc();
+    $cname = $row1['ownersname'];
                      // Insert into database
                     $sql = "insert into tblappointments(clientname,petname, services, dateandtime) 
                     values('$cname','$pname','$ser','$dt')";
@@ -245,8 +250,7 @@ if(isset($_POST['updateprofile'])){
                                     <td>'.$ser.'</td>
                                     <td>'.$dt.'</td>
                                     <td>
-                                    <button class="modal-open showUpdateAppointment" data-modal="modal1" value="'.$qno.'" ><span class="material-symbols-sharp edit" title="Edit this record">edit</span></button>
-                                    <button class="modal-open showArchiveAppointment" data-modal="modal2" value="'.$qno.'"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
+                                    <button class="modal-open showUpdateAppointment" data-modal="modal1" value="'.$qno.'" ><span class="material-symbols-sharp remove" title="Delete this appointment">delete</span></button>
                                     </td>
                                     </tr>';
                                 }
@@ -308,10 +312,10 @@ if(isset($_POST['updateprofile'])){
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php
+                            <?php   
                                     $sql = "Select * from tblarcprofile";
                                     $res= mysqli_query($conn,$sql);
-
+                                    
                                     if($res){
                                     while($row=mysqli_fetch_assoc($res)){
                                     $proid=$row['profileid'];

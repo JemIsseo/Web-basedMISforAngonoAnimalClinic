@@ -152,10 +152,10 @@
             $pw = $_POST['password'];
             $ut = $_POST['usertype'];
             $ea = $_POST['email'];
-    
+            $stat = 1;
                          // Insert into database
-                          $sql = "insert into tbluseraccount(username,password,usertype,email) 
-                          values('$un','$pw','$ut','$ea')";
+                          $sql = "insert into tbluseraccount(username,password,usertype,status,email) 
+                          values('$un','$pw','$ut','$stat','$ea')";
                           $res = mysqli_query($conn, $sql);
                               if ($res) { 
                                   if ($un = $_POST['username']) {
@@ -218,7 +218,7 @@
                             </thead>
                             <tbody>
                             <?php 
-                                    $sql = "Select * from tbluseraccount";
+                                    $sql = "Select * from tbluseraccount order by username";
                                     $res= mysqli_query($conn,$sql);
 
                                     if($res){
@@ -286,7 +286,7 @@
                             </div>
                             <div> 
                             <select class="radiobtn" name="usertype" id="ut"> 
-                                    <option value="">Choose</option>
+                                    <option selected="" disabled="" value="">Choose</option>
                               <?php
                                     while ($r = mysqli_fetch_array($s)) {
                               ?>

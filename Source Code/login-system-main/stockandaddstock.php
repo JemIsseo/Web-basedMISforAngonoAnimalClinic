@@ -6,7 +6,6 @@
     $s=mysqli_query($conn,"select * from tblcategory");
 
     if(isset($_POST['saveproduct'])){
-     $pid = $_POST['proid'];
     $pname = $_POST['prodname'];
     $cat = $_POST['category'];
     $desc = $_POST['description'];
@@ -31,6 +30,7 @@
     // UPDATE PRODUCT STATEMENT 
     if(isset($_POST['updateproduct'])){
         $pid = $_POST['proid'];
+        $_SESSION['proid'] = $pid;
         $pname = $_POST['prodname'];
         $cat = $_POST['category'];
         $desc = $_POST['description'];
@@ -41,18 +41,58 @@
                 category ='$cat', description='$desc', price='$prc', quantity='$qty'
                 where proid= '$pid'";
         $res = mysqli_query($conn,$sql);
-        if($res) {?>  
+        if($res) {
+            ?>  
             <div class="statusmessagesuccess" id="close">
                 <h2>Product Updated Successfully!</h2>
                 <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
             </div>
-            
-        <?php  
+             <?php  
         } 
         else {
             die(mysqli_error($conn));
         }
     }
+
+
+     // Check if product is low on stock
+     $pid = $_SESSION['proid'];; // set the product ID here
+     $quantity= get_quantity($pid);
+     $minstocklevel = get_minstocklevel($pid);
+
+     if ($quantity < $minstocklevel) {
+        ?>  
+        <div class="statusmessagewarning" id="closewarning">
+            <h2>Warning: Product is low on stock!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+         <?php  
+     }
+
+     // Check if product is out of stock
+     if ($quantity == 0) {
+         echo "Error: Some product is out of stock!";
+     }
+
+      // Function to get the current stock level of a product
+      function get_quantity($pid) {
+        global $conn;
+        $query = "SELECT quantity FROM tblstock WHERE proid = $pid";
+        $result1 = mysqli_query($conn, $query);
+        $row1 = mysqli_fetch_assoc($result1);
+        return $row1['quantity'];
+    }
+
+     // Function to get the minimum stock level of a product
+        function get_minstocklevel($pid) {
+         global $conn;
+         $query = "SELECT minstocklevel FROM tblstock WHERE proid = $pid";
+         $result2 = mysqli_query($conn, $query);
+         $row2 = mysqli_fetch_assoc($result2);
+         return $row2['minstocklevel'];
+     }
+
+
 
     // archive statement
     if(isset($_POST['archiveproduct'])){
@@ -140,7 +180,7 @@
             <div class="accrecsearch">
                     <h1>Products</h1>
                     <div class="searchbar">
-                        <input type="text" placeholder="Search here" onkeyup="searchStock(this.value)" ><span class="material-symbols-sharp">search</span>
+                        <input type="text" placeholder="Search here" id="search-box" ><span class="material-symbols-sharp">search</span>
                     </div>
             </div>
             <div class="table-profile" >
@@ -160,7 +200,7 @@
                             </thead>
                             <tbody>
                             <?php 
-                                    $sql = "Select * from tblstock";
+                                    $sql = "Select * from tblstock order by prodname";
                                     $res= mysqli_query($conn,$sql);
 
                                     if($res){
@@ -197,10 +237,6 @@
                 <div class="table-profile">
                     <form action="" method="POST" >
                         <div class="formprofile">
-                            <div> 
-                                <input type="text" name="proid" placeholder="Enter Product ID" required>
-                                <span>Product ID</span>
-                            </div>
                             <div> 
                                 <input type="text" name="prodname" placeholder="Enter Item Name" required>
                                 <span>Product Name</span>
@@ -384,6 +420,23 @@
                 })
             })
         })
+        $(document).ready(function() {
+            $('#search-box').on('keyup', function() {
+                var querystock = $(this).val();
+                $.ajax({
+                    url: 'search.php',
+                    method: 'POST',
+                    data: {
+                        search: 1,
+                        querystock: querystock
+                    },
+                    success: function(data) {
+                        $('#searchStock').html(data);
+                    }
+                });
+            });
+        });
+
 
     </script>
 

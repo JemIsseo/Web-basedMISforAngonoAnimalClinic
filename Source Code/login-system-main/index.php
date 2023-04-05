@@ -7,37 +7,49 @@
         $un = $_POST['username'];
         $pw = $_POST['password'];
         
-           
-
         $sql = "Select * from tbluseraccount where username = '$un'"; 
         $res = mysqli_query($conn, $sql);
     
         if ($res) {
+                    $arr = array(0);
+                    $element = $arr[0] ?? "Doesnt exist"; 
                     $fetch = mysqli_fetch_assoc($res);
-                    $hashpassword = $fetch["password"];
-                    if($fetch["status"] == 0){
-                        ?>
-                        <script>
-                            alert("Please verify your email account before login.");
-                        </script>
-                        <?php
-                    } else if (password_verify($pw, $hashpassword)){
-                        $_SESSION['username'] = $un;
-                        $_SESSION['usertype'] = $fetch['usertype'];
-                        $_SESSION['image'] = $fetch['image'];
-                        ?>
-                        <script>
-                            alert("You are now logged in successfully!");
-                            window.location.replace('dashboard.php');
-                        </script>
-                        <?php
-                    } else {
+                    $username = $fetch["username"];
+                    if ($un != $username) {
                         ?>
                         <div class="statusmessageerror" id="close">
-                        <h2>Username or Password Incorrect</h2>
+                        <h2>Username Incorrect</h2>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                         </div> <?php
+                    } else {
+                        $hashpassword = $fetch["password"];
+                        if($fetch["status"] == 0){
+                             ?>
+                            <div class="statusmessageerror" id="close">
+                            <h2>Please verify your email!</h2>
+                            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                            </div> <?php
+                        } else if (password_verify($pw, $hashpassword)){
+                            $_SESSION['username'] = $un;
+                            $_SESSION['usertype'] = $fetch['usertype'];
+                            $_SESSION['image'] = $fetch['image'];
+                            ?>
+                            <script>
+                                alert("You are now logged in successfully!");
+                                window.location.replace('dashboard.php');
+                            </script>
+                            <?php
+                        } else {
+                            ?>
+                            <div class="statusmessageerror" id="close">
+                            <h2>Password Incorrect</h2>
+                            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                            </div> <?php
+                        }
                     }
+
+
+                  
                 }
          
                 

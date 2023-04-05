@@ -37,16 +37,12 @@
                                 <span>Username</span>
                             </div>
                             <div>
-                                <input type="password" name="password" placeholder="Enter Password" id="passwordup" value="<?= $pw;  ?>" required>
+                                <input type="password" name="password" placeholder="Contact Admin" id="passwordup" value="<?= $pw;  ?>" readonly>
                                 <span>Password</span>
                             </div>
-                            <div class="modalshow">
-                                <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggleup()"></i>
-                            </div>
-                        
                             <div> 
                             <select class="radiobtn" name="usertype" id="ut"> 
-                                    <option value="<?= $ut; ?>">Choose</option>
+                                    <option selected="" disabled="" value="<?= $ut; ?>"><?php echo $ut; ?></option>
                               <?php 
                                     while ($r = mysqli_fetch_array($s)) {
                               ?>
@@ -203,7 +199,7 @@
                             </div>
                             <div>  
                             <select class="radiobtn" name="category" id="ut"> 
-                                    <option value="<?= $cat ?>">Select Category</option>
+                                    <option value="<?= $cat; ?>">Select Category</option>
                               <?php
                                     while ($r = mysqli_fetch_array($s)) {
                               ?>
@@ -329,7 +325,7 @@
                             <div> 
                                 <input type="text" name="prodname" placeholder="Enter Item Name" value="<?= $pname; ?>">
                                 <span>Item Name</span>
-                            </div>
+                            </div> 
                             <div>  
                             <select class="radiobtn" name="category" id="ut"> 
                               <?php
@@ -391,8 +387,7 @@
                     <form action="settings.php" method="POST" >
                             <div class="formprofile">
                                 <div>
-                                    <input type="text" name="utid" placeholder="Enter Product ID" value="<?= $utid; ?>" readonly>
-                                    <span>User ID</span>
+                                    <input type="hidden" name="utid" placeholder="Enter Product ID" value="<?= $utid; ?>" readonly>
                                 </div>
                                 <div> 
                                     <input type="text" name="usertype" placeholder="Enter Item Name" value="<?= $ut; ?>">
@@ -417,36 +412,28 @@
         $res= mysqli_query($conn,$sql);
         $deRow = mysqli_fetch_assoc($res); 
         $utid=$deRow['utid'];
-        $ut=$deRow['usertype'];
 ?>
       <section class="tableproduct">
                 <div>
                     <form action="settings.php" method="POST" >
                       
-                        <div class="formprofile formarchive">
-                            
-                                <input type="hidden" name="rutid" placeholder="Enter Product ID" value="<?= $utid; ?>">
-                            
-                            <div> 
-                                <input type="text" name="usertype" placeholder="Enter Item Name" value="<?= $ut; ?>">
-                                <span>Usertype</span>
-                            </div>
-                          
+                        <div class="formprofile formarchive">  
+                                <input type="text" name="rutid" placeholder="Enter Product ID" value="<?= $utid; ?>">
                         </div>
                             <h3>Are you sure you want to remove this record?</h3>
                             <div class="buttonflex">
-                                <button name="removeusertype" type="submit" class="yes" title="Remove the record">Yes</button>
-                                <button type="submit" class="no" title="Cancel activity">No</button>
+                                <button name="removeusertype" class="yes" title="Remove the record">Yes</button>
+                                <button class="no" title="Cancel activity">No</button>
                             </div>
                     </form>
                 </div>
             </section>
 <?php
       }
-
+      // Cascading Dropdown in Customer's Module
       if (isset($_POST['cusid'])) {
             $cusid = $_POST['cusid'];
-            $result = $conn->query("SELECT * FROM tblpet WHERE cusid = $cusid ORDER BY petname DESC");
+            $result = $conn->query("SELECT * FROM tblpet WHERE cusid = $cusid ORDER BY petname");
         
             if (mysqli_num_rows($result) > 0) {
                 echo '<option value="">Choose Pet</option>';
@@ -455,5 +442,18 @@
                 }
             }
       }
+
+      if (isset($_POST['pettypeid'])) {
+        $pettypeid = $_POST['pettypeid'];
+        $result = $conn->query("SELECT * FROM tblbreed WHERE pettypeid = $pettypeid ORDER BY breed");
+    
+        if (mysqli_num_rows($result) > 0) {
+            echo '<option value="">Select Breed</option>';
+            while ($row = $result->fetch_assoc()) {
+                echo '<option value="' . $row['breed'] . '">' . $row['breed'] . '</option>';
+            }
+        }
+    }
+
       include 'scriptingfiles.php';
 ?>

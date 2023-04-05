@@ -300,6 +300,23 @@ aside .sidebar a:hover span {
     font-family: poppins, sans-serif;
 }
 
+.statusmessagewarning {
+    background-color: #e2d951;
+    margin: .5em;
+    border-radius: 5px;
+    display: flex;
+    padding: 1em;
+    gap: 33em;
+    position: absolute;
+    justify-content: right;
+    margin: 2em 30em;
+    margin-top: 8em;
+    z-index: 5;
+    color: #6a6b0e;
+    font-size: .9em;
+    font-family: poppins, sans-serif;
+}
+
 .statusmessagesuccesslight {
     background-color: #99b0ee;
     margin: .5em;
@@ -318,7 +335,8 @@ aside .sidebar a:hover span {
 
 .statusmessagesuccess button,
 .statusmessageerror button,
-.statusmessagesuccesslight button {
+.statusmessagesuccesslight button,
+.statusmessagewarning button{
     background: transparent;
 }
 

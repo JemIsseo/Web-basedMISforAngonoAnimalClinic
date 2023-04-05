@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 02, 2023 at 03:00 PM
+-- Generation Time: Apr 05, 2023 at 04:19 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `tblappointments` (
   `services` varchar(100) NOT NULL,
   `dateandtime` datetime NOT NULL,
   PRIMARY KEY (`queueno`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblappointments`
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `tblarcstock` (
 
 INSERT INTO `tblarcstock` (`proid`, `prodname`, `category`, `description`, `price`, `quantity`) VALUES
 (1, 'Pedigree', 'Medicine', 'Pagkain', 200, 200),
-(14, 'Betadine', 'Medicine', 'HEHEHEHE', 0, 13);
+(14, 'Betadine', 'Medicine', 'HEHEHEHE', 60, 1300);
 
 -- --------------------------------------------------------
 
@@ -78,7 +78,7 @@ INSERT INTO `tblarcstock` (`proid`, `prodname`, `category`, `description`, `pric
 DROP TABLE IF EXISTS `tblarcuseraccount`;
 CREATE TABLE IF NOT EXISTS `tblarcuseraccount` (
   `username` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `usertype` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `image` varchar(100) DEFAULT NULL,
@@ -92,7 +92,8 @@ CREATE TABLE IF NOT EXISTS `tblarcuseraccount` (
 INSERT INTO `tblarcuseraccount` (`username`, `password`, `usertype`, `email`, `image`) VALUES
 ('Jeremy', '123', 'Veterinarian', 'sample@qwojewe', NULL),
 ('wqewqewq', 'we', 'Assistant', 'qwew@wew', NULL),
-('hello', '123', 'Secretary', 'jeje23@awew', NULL);
+('hello', '123', 'Secretary', 'jeje23@awew', NULL),
+('bimsecretary', '$2y$10$v7yrQkr232EM1DTnQ.GOkuEg6', 'Secretary', 'salingakristina@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -103,6 +104,7 @@ INSERT INTO `tblarcuseraccount` (`username`, `password`, `usertype`, `email`, `i
 DROP TABLE IF EXISTS `tblbreed`;
 CREATE TABLE IF NOT EXISTS `tblbreed` (
   `bid` int NOT NULL AUTO_INCREMENT,
+  `pettypeid` int NOT NULL,
   `pettype` varchar(45) NOT NULL,
   `breed` varchar(45) NOT NULL,
   PRIMARY KEY (`bid`)
@@ -112,13 +114,13 @@ CREATE TABLE IF NOT EXISTS `tblbreed` (
 -- Dumping data for table `tblbreed`
 --
 
-INSERT INTO `tblbreed` (`bid`, `pettype`, `breed`) VALUES
-(1, 'Dog', 'German Shepherd'),
-(2, 'Dog', 'Shih Tzu'),
-(3, 'Dog', 'Aspin'),
-(4, 'Dog', 'Japanese Spitz'),
-(5, 'Dog', 'Chihuahua'),
-(6, 'Dog', 'Rottweiler');
+INSERT INTO `tblbreed` (`bid`, `pettypeid`, `pettype`, `breed`) VALUES
+(1, 1, 'Dog', 'German Shepherd'),
+(2, 1, 'Dog', 'Shih Tzu'),
+(3, 0, 'Dog', 'Aspin'),
+(4, 0, 'Dog', 'Japanese Spitz'),
+(5, 0, 'Dog', 'Chihuahua'),
+(6, 0, 'Dog', 'Rottweiler');
 
 -- --------------------------------------------------------
 
@@ -156,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `tblownersprofile` (
   `address` varchar(255) NOT NULL,
   `emailaddress` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`cusid`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tblownersprofile`
@@ -169,7 +171,7 @@ INSERT INTO `tblownersprofile` (`cusid`, `ownersname`, `contactno`, `address`, `
 (4, 'Robert Hills', ' 09175546613', ' #218 Brgy. Poblacion ibaba Angono, Rizal', '01_JLouise@gmail.com'),
 (5, 'White Lee', ' 09179654408', ' 223 E. Dela Paz St. Brgy. San Pedro Angono, Rizal', 'vinaholiveros1069@gmail.com'),
 (6, 'Jessica Young', ' 09963314522', ' 53 St. Clement Brgy. Bagumbayan Angono, Rizal', 'kim.alexis@gmail.com'),
-(7, 'Jeremy Liberty', ' 09099223039', ' 39 Interior Lanete St. Brgy. Sta. Ana Taytay, Rizal', 'libertyjeremy23@gmail.com'),
+(15, 'Jeremy Liberty', ' 09099223039', ' 39 int. Lanete St. Brgy. Sta. Ana Taytay, Rizal', 'libertyjeremy23@gmail.com'),
 (8, 'Catherine Jacobs', ' 09178895502', ' 45 Molave St. Brgy. San Vicente Angono, Rizal', 'divinaamio01@gmail.com'),
 (9, 'Vann Oliveros', ' 09060668451', ' Ynares St. Brgy. San Carlos Binangonan, Rizal', 'vann.oliveros@gmail.com'),
 (10, 'Bim Salinga', ' 093850399584', ' Binangonan, Rizal', 'bim@gmail.com');
@@ -192,17 +194,19 @@ CREATE TABLE IF NOT EXISTS `tblpet` (
   `breed` varchar(45) NOT NULL,
   `weight` varchar(45) NOT NULL,
   PRIMARY KEY (`petid`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblpet`
 --
 
 INSERT INTO `tblpet` (`petid`, `cusid`, `ownersname`, `petname`, `pettype`, `age`, `sex`, `breed`, `weight`) VALUES
-(1, 7, ' Jeremy Liberty', 'Gekgek', 'Dog', 11, 'Male', 'Aspin', '11kg'),
+(19, 15, 'Jeremy Liberty', 'Hannah', 'Dog', 3, 'Female', 'Japanese Spitz', '12kg'),
 (5, 9, ' Vann Oliveros', 'Coco', 'Dog', 5, 'Male', 'Shih Tzu', '5kg'),
+(17, 10, 'Bim Salinga', 'awawawawawa', 'Dog', 4, 'Male', 'German Shepherd', '10kg'),
 (6, 10, ' Bim Salinga', 'Chichi', 'Dog', 3, 'Female', 'Shih Tzu', '10kg'),
-(9, 7, 'Jeremy Liberty', 'Tsaris', 'Dog', 2, 'Male', 'Aspin', '14kg');
+(20, 15, 'Jeremy Liberty', 'Tsaris', 'Dog', 2, 'Female', 'Aspin', '15kg'),
+(18, 15, 'Jeremy Liberty', 'Gekgek', 'Dog', 11, 'Male', 'Aspin', '15kg');
 
 -- --------------------------------------------------------
 
@@ -265,27 +269,25 @@ CREATE TABLE IF NOT EXISTS `tblstock` (
   `description` varchar(255) NOT NULL,
   `price` int NOT NULL,
   `quantity` int NOT NULL,
+  `minstocklevel` int DEFAULT NULL,
+  `maxstocklevel` int DEFAULT NULL,
   PRIMARY KEY (`proid`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblstock`
 --
 
-INSERT INTO `tblstock` (`proid`, `prodname`, `category`, `description`, `price`, `quantity`) VALUES
-(13, 'Dextrose Monohydrate', 'Medicine', 'is a carbohydrate and valuable source of energy rapidly and easily absorb.', 52, 20),
-(15, 'BRONCure', 'Medicine', 'For acute treatment of colds and respiratory infections in pets. to reduce symptoms of sneezing, coughing, watery eyes and nose.', 220, 20),
-(16, 'D-Glucose Monohydrate', 'Medicine', 'is useful in rebuilding stamina and vigor after every activity.', 95, 20),
-(17, 'Pet Collar', 'Accessories', 'use for restrain, identification and protection.', 40, 15),
-(18, 'Pet Bowl (for eating purpose)', 'Accessories', 'Food containers use for feeding pets made up of different types of materials.', 50, 15),
-(19, 'Pet Harness', 'Accessories', 'Equipment consisting of straps of webbing that loop nearly around that fasten together using side release buckles.', 300, 15),
-(20, 'NutriChunks (beef)20kg', 'Food', 'An optimum blend of proteins, fats and carbohydrates that support a puppies high energy needs.', 1500, 10),
-(21, 'VitaPet (for adult cat) 1.5kg', 'Food', 'It has tuna flavor, to support the immune system for a healthy cat with calcium and phosporus to help maintain healthy bones and teeth.', 360, 10),
-(22, 'Cosi pets milk (1Liter)', 'Food', 'Cosi is a formulated and highly delicious milk for pets of all ages. Cosi pets milk has broken down the lactose making it easier for your pet to digest.', 180, 30),
-(25, 'Immunol', 'Medicine', 'Vitamins', 600, 40),
-(26, 'Immunol', 'Medicine', 'Vitamins', 600, 42),
-(27, 'Immunol', 'Medicine', 'Vitamins', 600, 40),
-(28, 'Immunol', 'Medicine', 'Vitamins', 600, 40);
+INSERT INTO `tblstock` (`proid`, `prodname`, `category`, `description`, `price`, `quantity`, `minstocklevel`, `maxstocklevel`) VALUES
+(13, 'Dextrose Monohydrate', 'Medicine', 'is a carbohydrate and valuable source of energy rapidly and easily absorb.', 52, 20, 10, 5000),
+(15, 'BRONCure', 'Medicine', 'For acute treatment of colds and respiratory infections in pets. to reduce symptoms of sneezing, coughing, watery eyes and nose.', 220, 20, 10, 5000),
+(16, 'D-Glucose Monohydrate', 'Medicine', 'is useful in rebuilding stamina and vigor after every activity.', 95, 20, 10, 5000),
+(17, 'Pet Collar', 'Accessories', 'use for restrain, identification and protection.', 40, 15, 10, 5000),
+(18, 'Pet Bowl (for eating purpose)', 'Accessories', 'Food containers use for feeding pets made up of different types of materials.', 50, 50, 10, 5000),
+(19, 'Pet Harness', 'Accessories', 'Equipment consisting of straps of webbing that loop nearly around that fasten together using side release buckles.', 300, 20, 10, 5000),
+(20, 'NutriChunks (beef)20kg', 'Food', 'An optimum blend of proteins, fats and carbohydrates that support a puppies high energy needs.', 1500, 10, 10, 5000),
+(21, 'VitaPet (for adult cat) 1.5kg', 'Food', 'It has tuna flavor, to support the immune system for a healthy cat with calcium and phosporus to help maintain healthy bones and teeth.', 360, 10, 10, 5000),
+(22, 'Cosi pets milk (1Liter)', 'Medicine', 'Cosi is a formulated and highly delicious milk for pets of all ages. Cosi pets milk has broken down the lactose making it easier for your pet to digest.', 250, 30, 10, 5000);
 
 -- --------------------------------------------------------
 
@@ -311,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `tbluseraccount` (
 INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `status`, `image`) VALUES
 ('Veterinarian', '$2y$10$j9C8tNEwjT7IAFkYy1BYXu69vBS9C3t23am9qGjLqcNv5vHJc0Ti6', 'Veterinarian', 'imepogi23@gmail.com', 1, 'IMG-64298c35933fd3.55023577.png'),
 ('notverified', '$2y$10$62ZcfD91MixWDWRG1qwdHuY/Nvb5H6NxkP9hfg53vynPzjEipvIeC', 'Assistant', 'libertypogi@gmail.com', 0, 'IMG-64298c3eb86f47.88841820.png'),
-('bimsecretary', '$2y$10$v7yrQkr232EM1DTnQ.GOkuEg6I9G.mRZEl54jgYHNfd7Aak7mjxFW', 'Secretary', 'salingakristina@gmail.com', 1, 'IMG-64298c2c354aa7.49054526.png');
+('Secretary', '$2y$10$SoRDgeZxzWjf6aUvGcHuP.vbhm50/CxYBNj7Fd9o3uSJJJGdr7UBu', 'Secretary', 'libertyjeremy23@gmail.com', 1, 'IMG-642d24fc7a1604.22452684.png');
 
 -- --------------------------------------------------------
 
@@ -324,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `tblusertype` (
   `utid` int NOT NULL AUTO_INCREMENT,
   `usertype` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`utid`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblusertype`
@@ -333,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `tblusertype` (
 INSERT INTO `tblusertype` (`utid`, `usertype`) VALUES
 (2, 'Veterinarian'),
 (3, 'Secretary'),
-(5, 'Assistant');
+(39, 'Assistant');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -17,9 +17,7 @@
                      <button class="icon"><span class="material-symbols-sharp">close</span></button>
                 </div>
                  <?php
-                     }
-                                
-                            
+                     }           
     
                     }
 
@@ -33,35 +31,38 @@
                 where utid= $utid";
         $res = mysqli_query($conn,$sql);
         if($res) {?>  
-            <div class="statusmessagesuccess" id="close">
-                <h2>Usertype Updated Successfully!</h2>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
-            
-        <?php  
+                <div class="statusmessagesuccesslight" id="close">
+                    <h2>Usertype Updated Successfully!</h2>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <?php  
         } 
         else {
             die(mysqli_error($conn));
         }
     }
 
-    //   // usertype remove statement
-    //   if(isset($_POST['removeusertype'])){
-    //     $rutid = $_POST['rutid'];
+     
+        // usertype remove statement
+        if(isset($_POST['removeusertype'])){
+            $rutid = $_POST['rutid'];
             
-    //             $sql = "delete from tblusertype where utid = '$rutid'";
-    //             $res = mysqli_query($conn, $sql);
-    //         ?>  
-           <!-- <div class="statusmessageerror" id="close">
-               <h2>Usertype has been removed</h2>
-               <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-           </div>
-             -->
-       <?php  
-    //     } else {
-    //         die(mysqli_error($conn));
-        
-    // }
+                    $sql = "delete from tblusertype where utid = '$rutid'";
+                    $res = mysqli_query($conn, $sql);
+
+                    if ($res) {
+                        ?>  
+                        <div class="statusmessageerror" id="close">
+                            <h2>Usertype has been removed</h2>
+                            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                        </div> 
+                        <?php  
+                    } else {
+                        mysqli_error();
+                    }
+             
+        }
+
 
   
          // Save Pettype
@@ -81,13 +82,221 @@
                  <?php
                      }
                                 
+                    }
+
+                // Pettype Update Statement
+        if(isset($_POST['updatepettype'])){
+            $petid = $_POST['petid'];
+            $pt = $_POST['pettype'];
+
+            $sql = "update tblpettype set pettype ='$pt' 
+                    where petid= $petid";
+            $res = mysqli_query($conn,$sql);
+            if($res) {?>  
+                <div class="statusmessagesuccess" id="close">
+                    <h2>Pettype Updated Successfully!</h2>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                
+            <?php  
+            } 
+            else {
+                die(mysqli_error($conn));
+            }
+        }
+        //     // pettype remove statement
+        // if(isset($_POST['removepettype'])){
+        //     $rpetid = $_POST['rpetid'];
+            
+        //             $sql = "delete from tblpettype where petid = '$rpetid'";
+        //             $res = mysqli_query($conn, $sql);
+        //         ?>  
+        <!-- //     <div class="statusmessageerror" id="close">
+        //         <h2>Pettype has been removed</h2>
+        //         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        //     </div>
+                 -->
+             <?php  
+        //     } else {
+        //         die(mysqli_error($conn));
+        
+        // }
+
+                         // Save Breed
+     if(isset($_POST['savebreed'])){
+        $br = $_POST['breed'];
                             
+        // Insert into database
+        $sql = "insert into tblbreed(breed) 
+        values('$br')";
+         $res = mysqli_query($conn,$sql);
+         if($res) { 
+                ?>
+                <div class="statusmessagesuccess" id="close">
+                    <h2>Breed Added Successfully!</h2>
+                     <button class="icon"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                 <?php
+                     }
+                                     
     
                     }
 
+                     // breed Update Statement
+        if(isset($_POST['updatebreed'])){
+            $bid = $_POST['bid'];
+            $breed = $_POST['breed'];
+
+            $sql = "update tblbreed set breed ='$breed' 
+                    where bid= $bid";
+            $res = mysqli_query($conn,$sql);
+            if($res) {?>  
+                <div class="statusmessagesuccess" id="close">
+                    <h2>Breed Updated Successfully!</h2>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                
+            <?php  
+            } 
+            else {
+                die(mysqli_error($conn));
+            }
+        }
+
+        //     // breed remove statement
+        // if(isset($_POST['removebreed'])){
+        //     $rbid = $_POST['bid'];
+            
+        //             $sql = "delete from tblbreed where bid = '$rbid'";
+        //             $res = mysqli_query($conn, $sql);
+        //         ?>  
+        <!-- //     <div class="statusmessageerror" id="close">
+        //         <h2>Breed has been removed</h2>
+        //         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        //     </div> -->
+                
+                <?php  
+        //     } else {
+        //         die(mysqli_error($conn));
+        
+        // }
+                    
+                         // Save Category
+     if(isset($_POST['savecategory'])){
+        $cat = $_POST['category'];
+                            
+        // Insert into database
+        $sql = "insert into tblcategory(category) 
+        values('$cat')";
+         $res = mysqli_query($conn,$sql);
+         if($res) { 
+                ?>
+                <div class="statusmessagesuccess" id="close">
+                    <h2>Product Category Added Successfully!</h2>
+                     <button class="icon"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                 <?php
+                     }                   
+    
+                    }
+
+                     // category Update Statement
+    if(isset($_POST['updatecategory'])){
+        $catid = $_POST['catid'];
+        $cat = $_POST['category'];
+
+        $sql = "update tblcategory set category ='$cat' 
+                where catid= $catid";
+        $res = mysqli_query($conn,$sql);
+        if($res) {?>  
+            <div class="statusmessagesuccess" id="close">
+                <h2>Category Updated Successfully!</h2>
+                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+            </div>
+            
+        <?php  
+        } 
+        else {
+            die(mysqli_error($conn));
+        }
+    }
 
 
+                // // category remove statement
+                // if(isset($_POST['removecategory'])){
+                //         $rcatid = $_POST['rcatid'];
+                
+                //         $sql = "delete from tblcategory where catid = '$rcatid'";
+                //         $res = mysqli_query($conn, $sql);
+                //             ?>  
+                <!-- //         <div class="statusmessageerror" id="close">
+                //     <h2>Category has been removed</h2>
+                //     <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                //         </div> -->
+                           <?php  
+                //     } else {
+                //     die(mysqli_error($conn));
+            
+                // }
 
+             // Save Services
+         if(isset($_POST['saveservices'])){
+             $ser = $_POST['services'];
+                                                
+            // Insert into database
+             $sql = "insert into tblservices(services) 
+                 values('$ser')";
+             $res = mysqli_query($conn,$sql);
+                 if($res) { 
+                         ?>
+                 <div class="statusmessagesuccess" id="close">
+                 <h2>Services Added Successfully!</h2>
+                 <button class="icon"><span class="material-symbols-sharp">close</span></button>
+                 </div>
+                <?php
+        }           
+                        
+  }
+
+ // Services Update Statement
+ if(isset($_POST['updateservices'])){
+    $sid = $_POST['sid'];
+    $ser = $_POST['services'];
+
+    $sql = "update tblservices set services ='$ser' 
+            where sid= $sid";
+    $res = mysqli_query($conn,$sql);
+    if($res) {?>  
+        <div class="statusmessagesuccess" id="close">
+            <h2>Services Updated Successfully!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+        
+    <?php  
+    } 
+    else {
+        die(mysqli_error($conn));
+    }
+}
+
+        //            //Services remove statement
+        // if(isset($_POST['removeservices'])){
+        //     $rsid = $_POST['sid'];
+            
+        //             $sql = "delete from tblservices where sid = '$rsid'";
+        //             $res = mysqli_query($conn, $sql);
+        //         ?>  
+        <!-- //     <div class="statusmessageerror" id="close">
+        //         <h2>Services has been removed</h2>
+        //         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        //     </div> -->
+                
+             <?php  
+        //     } else {
+        //         die(mysqli_error($conn));
+        
+        // } 
+                    
 ?>
 
 <!DOCTYPE html>
@@ -164,13 +373,13 @@
                     </div>
                     <div class="modal-body">
                 <form action="" method="POST">
-                    <div class="formusertype">
+                    <div class="formprofile">
                         <div>
                             <input type="text" name="pettype" placeholder="Add New Pet Type" required>
-                            <span>Usertype</span>
+                            <span>Pet Type</span>
                         </div>
                         <div class="buttonflex">
-                            <button name="savepettype" type="submit" class="save" title="Update usertype">Save</button>
+                            <button name="savepettype" type="submit" class="save" title="Update pettype">Save</button>
                             <button class="cancel modal-close" title="Cancel">Cancel</button>
                         </div>
                     </div>
@@ -194,7 +403,7 @@
 
                                 if($res){
                                 while($row=mysqli_fetch_assoc($res)){
-                                $petid=$row['petid'];
+                                $petid=$row['pettypeid'];
                                 $pt=$row['pettype'];
                             ?>  
                                 <tr>
@@ -202,8 +411,8 @@
                                 <td><?php echo $pt; ?></td>
                                 <?php echo '
                                 <td>
-                                    <button class="modal-open showUpdateUsertype" data-modal="modal7" value="'.$petid.'" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                    <button class="modal-open showRemoveUsertype" data-modal="modal8" value="'.$petid.'"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
+                                    <button class="modal-open showUpdatePetType" data-modal="modal7" value="'.$petid.'" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showRemovePettype" data-modal="modal8" value="'.$petid.'"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
                                 </td>';   ?>
                                 </tr>
                 <?php
@@ -220,74 +429,199 @@
                             </div>
 
            <!-- Modal of Breed -->
-           <div class="modal" id="modal3">
+           <!-- Start of Modal -->
+
+        <div class="modal" id="modal3">
                 <div class="modal-content">
-                    <div class="modal-header"><h1>Add Breed</h1>
+                    <div class="modal-header"><h1>Breed</h1>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                     </div>
                     <div class="modal-body">
-                    <form action="" method="POST">
-                            <div class="formbreed">
-                                <div>
-                                    <input type="text" name="breed" placeholder="Add New Breed" required>
-                                    <span>Breed</span>
-                                </div>
-                                <div class="buttonflex">
-                                    <button name="savebreed" type="submit" class="save" title="Update breed">Save</button>
-                                    <button class="cancel modal-close" title="Cancel">Cancel</button>
+                <form action="" method="POST">
+                    <div class="formprofile">
+                        <div>
+                            <input type="text" name="breed" placeholder="Add New Breed" required>
+                            <span>Breed</span>
+                        </div>
+                        <div class="buttonflex">
+                            <button name="savebreed" type="submit" class="save" title="Update pettype">Save</button>
+                            <button class="cancel modal-close" title="Cancel">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+
+                <section class="tableaccountrecords">
+                    <div class="accountrecordsbg">
+                        <div class="accountrecords">
+                            <table class="content-table table-fixed">
+                            <thead>
+                                <tr>
+                                    <th>Breed ID</th>
+                                    <th>Breed</th>
+                                    <th>       </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php 
+                                $sql = "Select * from tblbreed";
+                                $res= mysqli_query($conn,$sql);
+
+                                if($res){
+                                while($row=mysqli_fetch_assoc($res)){
+                                $bid=$row['bid'];
+                                $br=$row['breed'];
+                            ?>  
+                                <tr>
+                                <td><?php echo $bid; ?></td>
+                                <td><?php echo $br; ?></td>
+                                <?php echo '
+                                <td>
+                                    <button class="modal-open showUpdateBreed" data-modal="modal7" value="'.$bid.'" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showRemoveBreed" data-modal="modal8" value="'.$bid.'"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
+                                </td>';   ?>
+                                </tr>
+                <?php
+                                        }
+                                } 
+                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+
 
           <!-- Modal of Product Category -->
-          <div class="modal" id="modal4">
+           <!-- Start of Modal -->
+        <div class="modal" id="modal4">
                 <div class="modal-content">
                     <div class="modal-header"><h1>Product Category</h1>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                     </div>
                     <div class="modal-body">
-                    <form action="" method="POST">
-                            <div class="formproductcat">
-                                <div>
-                                    <input type="text" name="productcat" placeholder="Add New Product Category" required>
-                                    <span>Product Category</span>
-                                </div>
-                                <div class="buttonflex">
-                                    <button name="saveproductcat" type="submit" class="save" title="Update productcat">Save</button>
-                                    <button class="cancel modal-close" title="Cancel">Cancel</button>
+                <form action="" method="POST">
+                    <div class="formprofile">
+                        <div>
+                            <input type="text" name="category" placeholder="Add New Category" required>
+                            <span>Category</span>
+                        </div>
+                        <div class="buttonflex">
+                            <button name="savecategory" type="submit" class="save" title="Update category">Save</button>
+                            <button class="cancel modal-close" title="Cancel">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+
+                <section class="tableaccountrecords">
+                    <div class="accountrecordsbg">
+                        <div class="accountrecords">
+                            <table class="content-table table-fixed">
+                            <thead>
+                                <tr>
+                                    <th>Category ID</th>
+                                    <th>Category</th>
+                                    <th>       </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php 
+                                $sql = "Select * from tblcategory";
+                                $res= mysqli_query($conn,$sql);
+
+                                if($res){
+                                while($row=mysqli_fetch_assoc($res)){
+                                $catid=$row['catid'];
+                                $category=$row['category'];
+                            ?>  
+                                <tr>
+                                <td><?php echo $catid; ?></td>
+                                <td><?php echo $category; ?></td>
+                                <?php echo '
+                                <td>
+                                    <button class="modal-open showUpdateCategory" data-modal="modal7" value="'.$catid.'" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showRemoveCategory" data-modal="modal8" value="'.$catid.'"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
+                                </td>';   ?>
+                                </tr>
+                <?php
+                                        }
+                                } 
+                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
 
           <!-- Modal of Services -->
-          <div class="modal" id="modal5">
+
+           <!-- Start of Modal -->
+        <div class="modal" id="modal5">
                 <div class="modal-content">
                     <div class="modal-header"><h1>Services</h1>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                     </div>
                     <div class="modal-body">
-                    <form action="" method="POST">
-                            <div class="formservices">
-                                <div>
-                                    <input type="text" name="services" placeholder="Add New Services" required>
-                                    <span>Services</span>
-                                </div>
-                                <div class="buttonflex">
-                                    <button name="saveservices" type="submit" class="save" title="Update services">Save</button>
-                                    <button class="cancel modal-close" title="Cancel">Cancel</button>
+                <form action="" method="POST">
+                    <div class="formprofile">
+                        <div>
+                            <input type="text" name="services" placeholder="Add New Services" required>
+                            <span>Services</span>
+                        </div>
+                        <div class="buttonflex">
+                            <button name="saveservices" type="submit" class="save" title="Update services">Save</button>
+                            <button class="cancel modal-close" title="Cancel">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+
+                <section class="tableaccountrecords">
+                    <div class="accountrecordsbg">
+                        <div class="accountrecords">
+                            <table class="content-table table-fixed">
+                            <thead>
+                                <tr>
+                                    <th>Services ID</th>
+                                    <th>Services</th>
+                                    <th>       </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php 
+                                $sql = "Select * from tblservices";
+                                $res= mysqli_query($conn,$sql);
+
+                                if($res){
+                                while($row=mysqli_fetch_assoc($res)){
+                                $sid=$row['sid'];
+                                $services=$row['services'];
+                            ?>  
+                                <tr>
+                                <td><?php echo $sid; ?></td>
+                                <td><?php echo $services; ?></td>
+                                <?php echo '
+                                <td>
+                                    <button class="modal-open showUpdateServices" data-modal="modal7" value="'.$sid.'" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showRemoveServices" data-modal="modal8" value="'.$sid.'"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
+                                </td>';   ?>
+                                </tr>
+                <?php
+                                        }
+                                } 
+                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
          <!-- Modal of Charges and Fees -->
          <div class="modal" id="modal6">
@@ -297,7 +631,7 @@
                     </div>
                     <div class="modal-body">
                     <form action="" method="POST">
-                            <div class="formchargesandfees">
+                            <div class="formprofile">
                                 <div>
                                     <input type="text" name="chargesandfees" placeholder="Add New Charges and Fees" required>
                                     <span>Charges and Fees</span>
@@ -311,96 +645,6 @@
                     </div>
                 </div>
             </div>
-            <!-- FORM OF UPDATE USERTYPE -->
-            <div class="modal" id="modal7">
-                <div class="modal-content">
-                    <div class="modal-header"><h1>Edit Usertype</h1>
-                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                    </div>
-                    <div class="modal-body" id="updateUsertype">
-                    
-                    </div>
-                </div>
-            </div>
-
-            <!-- FORM OF REMOVE USERTYPE -->
-            <div class="modal" id="modal8">
-                <div class="modal-content">
-                    <div class="modal-header"><h1>Remove Usertype</h1>
-                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                    </div>
-                    <div class="modal-body" id="removeUsertype">
-                    
-                    </div>
-                </div>
-            </div>
-
-
-         <!-- Modal of Usertype -->
-        <div class="modal" id="modal1">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1>Usertype</h1>
-                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                </div> 
-
-                <div class="modal-body">
-                        <form action="" method="POST">
-
-                            <div class="formusertype">
-                                <div>
-                                    <input type="text" name="usertype" placeholder="Add New Usertype" required>
-                                    <span>Usertype</span>
-                                </div>
-                                <div class="buttonflex">
-                                    <button name="saveusertype" type="submit" class="save" title="Update usertype">Save</button>
-                                    <button class="cancel modal-close" title="Cancel">Cancel</button>
-                                </div>
-                            </div>
-                        </form>
-
-                    <section class="tableaccountrecords">
-                        <div class="accountrecordsbg">
-                            <div class="accountrecords">
-                                <table class="content-table table-fixed">
-                                    <thead>
-                                        <tr>
-                                            <th>User ID</th>
-                                            <th>Usertype</th>
-                                            <th>       </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php 
-                                            $sql = "Select * from tblusertype";
-                                            $res= mysqli_query($conn,$sql);
-
-                                            if($res){
-                                            while($row=mysqli_fetch_assoc($res)){
-                                            $utid=$row['utid'];
-                                            $ut=$row['usertype'];
-                            ?>  
-                                            <tr>
-                                            <td><?php echo $utid; ?></td>
-                                            <td><?php echo $ut; ?></td>
-                                            <?php echo '
-                                            <td>
-                                                <button class="modal-open showUpdateUsertype" data-modal="modal7" value="'.$utid.'" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                                <button class="modal-open showRemoveUsertype" data-modal="modal8" value="'.$utid.'"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
-                                            </td>';   ?>
-                                            </tr>
-                            <?php
-                                                    }
-                                            } 
-                            ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-
 
         <!-- Modal of Usertype -->
         <div class="modal" id="modal1">
@@ -413,7 +657,7 @@
                 <div class="modal-body">
                         <form action="" method="POST">
 
-                            <div class="formusertype">
+                            <div class="formprofile">
                                 <div>
                                     <input type="text" name="usertype" placeholder="Add New Usertype" required>
                                     <span>Usertype</span>
@@ -466,7 +710,30 @@
                 </section>
             </div>
 
-          
+           <!-- FORM OF UPDATE USERTYPE -->
+           <div class="modal" id="modal7">
+                <div class="modal-content">
+                    <div class="modal-header"><h1>Edit Usertype</h1>
+                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                    </div>
+                    <div class="modal-body" id="updateUsertype">
+                    
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORM OF REMOVE USERTYPE -->
+           <div class="modal" id="modal8">
+                <div class="modal-content">
+                    <div class="modal-header"><h1>Remove Usertype</h1>
+                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                    </div>
+                    <div class="modal-body" id="removeUsertype">
+                    
+                    </div>
+                </div>
+            </div>
+
 
     </div>
 
@@ -491,4 +758,3 @@
     </script>
 </body>
 </html>
-

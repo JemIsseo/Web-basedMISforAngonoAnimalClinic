@@ -251,7 +251,7 @@ main h1 {
 /*  Profile Form  */
 .formprofile {
     padding: 1em;   
-    height: 20%;
+    height: 85%;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -260,11 +260,16 @@ main h1 {
     gap: 3em;
 }
 
+.formmodify {
+    height: 20%;
+}
+
+
 .formarchive {
     display: none;
 }
 
-.formprofile input ,#ut, #utservices {
+.formprofile input ,#ut, #utservices, #pettypeid, #breed {
     height: 4vh;
     width: 15vw;
     border: 2px solid var(--color-primary);

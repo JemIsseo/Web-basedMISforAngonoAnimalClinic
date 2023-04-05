@@ -155,7 +155,8 @@ b {
 /*   Style for Icon Buttons   */
 .edit, 
 .archive,
-.restore {
+.restore,
+.remove {
     color: var(--color-success);
     background: var(--color-white);
     cursor: pointer;
@@ -167,6 +168,10 @@ b {
 
 .restore {
     color: var(--color-warning);
+}
+
+.remove {
+    color: var(--color-danger);
 }
 
 aside {
