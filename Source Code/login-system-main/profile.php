@@ -214,9 +214,9 @@
                     
                             <form action="" method="POST" >
                                 <div class="searchbar">
-                                <input type="text" placeholder="Search here"  onkeyup="searchProfile(this.value)"><span class="material-symbols-sharp">search</span>
+                                    <input type="text" placeholder="Search here"  id="search-box"><span class="material-symbols-sharp">search</span>
                                 </div>
-                            <div class="table-profile-sample">
+                            <div class="table-profile-sample" id="ownersName">
                             <table class="content-table table-archive">
                                 <thead>
                                     <tr>
@@ -364,7 +364,7 @@
                         <h1>Pet Registration</h1>
                         <div class="accrecsearch">
                             <div class="searchbar">
-                            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                                <button class="icon modal-close "><span class="material-symbols-sharp">close</span></button>
                             </div> 
                         </div>
                     </div> 
@@ -448,10 +448,10 @@
                     <div class="modal-body">
                         <div>
                             <div class="searchbar">
-                                <input type="text" placeholder="Search here"  onkeyup="searchProfile(this.value)"><span class="material-symbols-sharp">search</span>
+                                <input type="text" placeholder="Search here"  id="search-boxpet"><span class="material-symbols-sharp">search</span>
                             </div>
                             <div class="table-profile-sample">
-                            <table class="content-table table-archive">
+                            <table class="content-table" id="petProfile">
                                 <thead>
                                     <tr>
                                         <th>Owner's Name</th>
@@ -537,6 +537,38 @@
                 }
                 });
             }
+            });
+        });
+        $(document).ready(function() {
+            $('#search-box').on('keyup', function() {
+                var queryownersname = $(this).val();
+                $.ajax({
+                    url: 'search.php',
+                    method: 'POST',
+                    data: {
+                        search: 1,
+                        queryownersname: queryownersname
+                    },
+                    success: function(data) {
+                        $('#ownersName').html(data);
+                    }
+                });
+            });
+        });
+        $(document).ready(function() {
+            $('#search-boxpet').on('keyup', function() {
+                var querypetprofile = $(this).val();
+                $.ajax({
+                    url: 'search.php',
+                    method: 'POST',
+                    data: {
+                        search: 1,
+                        querypetprofile: querypetprofile
+                    },
+                    success: function(data) {
+                        $('#petProfile').html(data);
+                    }
+                });
             });
         });
         </script>

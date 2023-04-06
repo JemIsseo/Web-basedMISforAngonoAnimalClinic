@@ -228,7 +228,7 @@
                                     $ut=$row['usertype'];
                                     $ea=$row['email']; 
                                     $img=$row['image'];
-                     ?>  
+                            ?>  
                                     <tr>
                                     <td><?php echo $un; ?></td>
                                     <td><?php echo $pw; ?></td>
@@ -314,7 +314,7 @@
 
         <?php  include 'systemaccountanddate.php'; ?>
         <!--  Start of Retrieve section  -->
-        <h1>Retrieve Account</h1>
+            <h1>Retrieve Account</h1>
             <div class="buttonmodify">
                 <button class="modal-open" data-modal="modal4" title="View and Restore Account"><span class="material-symbols-sharp">table_view</span>View Archive</button> 
             </div>

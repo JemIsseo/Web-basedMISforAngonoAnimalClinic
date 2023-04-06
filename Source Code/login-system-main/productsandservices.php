@@ -1,5 +1,6 @@
 <?php 
     session_start();
+    include 'connect.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,13 +27,11 @@
                     <form action="" method="POST" >
                         <div class="formprofile">
                             <div> 
-                                <input type="text" name="petname">
+                                <input type="text" name="ownersname">
                                 <span>Owner's Name</span>
                             </div>
                             <div> 
-                                <span class="material-symbols-sharp markdown">expand_more</span>
-                                <select name="usertype" id="ut" >
-                                <option value="Choose">...</option>
+                                <select name="category" id="ut" >
                                 <option value="Admin">Medicine</option>
                                 <option value="Secretary">Food</option>    
                                 <option value="Secretary">Accessories</option> 
@@ -41,7 +40,7 @@
                             </div>
 
                             <div>
-                                <input type="text" name="description">
+                                <input type="text" name="prodname">
                                 <span>Item Name</span>
                             </div>
                             <div>
@@ -50,8 +49,8 @@
                             </div>
                         </div>
                             <div class="buttonflex">
-                                <button name="saveprofile" type="submit" class="save" title="Add to order cart">Add</button>
-                                <button name="saveprofile" type="submit" class="cancel" title="Clear all inputs">Clear</button>
+                                <button name="saveaddtocart" type="submit" class="save" title="Add to order cart">Add</button>
+                                <button class="cancel" title="Clear all inputs" onclick="clearBtnAddtoCart()">Clear</button>
                             </div>
 
                     </form>
@@ -145,83 +144,14 @@
 
         <!--  End of Main Tag  -->
         <?php   include 'systemaccountanddate.php'; ?>
-        <!--  Start of Retrive section  -->
-        <div class="schedule">
-                <div class="schedule-header">
-                <h2>Services Offer</h2>
-                  <div class="buttonmodify">
-                     <button class="modal-open" data-modal="modal3" title="Check transaction history"><span class="material-symbols-sharp">history</span><h3>History</h3></button> 
-                 </div>
-                </div>
-                <div class="schedinfo">
-                        <table class="content-table">
-                            <thead>
-                                <tr>
-                                    <th>SID</th>
-                                    <th>Service</th>
-                                    <th>Price</th>
-                                    <th>  </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Consultation</td>
-                                    <td>600</td>
-                                     <td>
-                                    <button name="archiveaccount" data-modal="modal2"><span class="material-symbols-sharp archive">add</span></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Grooming</td>
-                                    <td>600</td>
-                                     <td>
-                                    <button name="archiveaccount" data-modal="modal2"><span class="material-symbols-sharp archive">add</span></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Vaccination</td>
-                                    <td>600</td>
-                                     <td>
-                                    <button name="archiveaccount" data-modal="modal2"><span class="material-symbols-sharp archive">add</span></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Boarding</td>
-                                    <td>600</td>
-                                     <td>
-                                    <button name="archiveaccount" data-modal="modal2"><span class="material-symbols-sharp archive">add</span></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Deworming</td>
-                                    <td>600</td>
-                                     <td>
-                                    <button name="archiveaccount" data-modal="modal2"><span class="material-symbols-sharp archive">add</span></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Surgery</td>
-                                    <td>2000</td>
-                                     <td>
-                                    <button name="archiveaccount" data-modal="modal2"><span class="material-symbols-sharp archive">add</span></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="buttonflex">
-                                <button name="saveprofile" type="submit" class="save" title="Proceed to save">Save</button>
-                                <button name="saveprofile" type="submit" class="cancel" title="Clear checked services">Clear</button>
-                        </div>
-                </div>
+        <!--  Start of Transaction History  -->
+            <h1>Transaction History</h1>
+            <div class="buttonmodify checkhistorystyle">
+                <button class="modal-open" data-modal="modal4" title="View and Restore Account"><span class="material-symbols-sharp">table_view</span>Check History</button> 
             </div>
-        </div>
-        
+
+
+
         <!-- Start of Modal --> 
         <!-- Modal of Edit Stock -->
         <div class="modal" id="modal1">
@@ -274,22 +204,7 @@
                 </div>
             </div>
         </div>
-        <!-- Modal of  Select Profile MessageBox -->
-        <div class="modal" id="modal2">     
-            <div class="modal-content">
-                <div class="modal-header"><h1>Selecting Profile</h1>
-                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                </div>
-                <div class="modal-body"><h3>Are you sure you want to select this record?</h3></div>
-                    <div class="modal-footer">
-                        <div class="buttonflexright">
-                            <button name="savearchiveprofile" type="submit" class="yes">Yes</button>
-                            <button type="submit" class="cancel no modal-close">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         <!-- Modal of Restore Stock MessageBox -->
         <div class="modal" id="modal3">
             <div class="modal-content">
@@ -313,107 +228,82 @@
                     <h1>Select Profile</h1>
                     <div class="accrecsearch">
                         <div class="searchbar">
-                        <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
-                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                            <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
+                            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                         </div>
                     </div>
                 </div> 
                    
                 <div class="modal-body">
-                <section class="tableprofile">
-                <div class="table-profile">
-                        <table class="content-table">
+                    <section class="tableprofile">
+                        <div class="table-profile">
+                            <table class="content-table">
                             <thead>
-                                <tr>
-                                    <th>ProfileID</th>
-                                    <th>Name</th>
-                                    <th>Age</th>
-                                    <th>Sex</th>
-                                    <th>Weight</th>
-                                    <th>Owner</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>        </th>
-                                </tr>
-                            </thead>
+                                    <tr>
+                                        <th>Owner's Name</th>
+                                        <th>Contact No.</th>
+                                        <th>Address</th>
+                                        <th>Email Address</th>
+                                        <th>         </th>
+                                    </tr>
+                                </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Choco</td>
-                                    <td>3</td>
-                                    <td>Male</td>
-                                    <td>15kg</td>
-                                    <td>Irene Cruz</td>
-                                    <td>09345678821</td>
-                                    <td>CruzIrene@gmail.com</td>
-                                    <td>
-                                    <button name="archiveaccount" class="modal-open" ><span class="material-symbols-sharp archive" title="Select the record">done</span></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Brownie</td>
-                                    <td>5</td>
-                                    <td>Male</td>
-                                    <td>20kg</td>
-                                    <td>Stephanie Corpuz</td>
-                                    <td>09125568219</td>
-                                    <td>StephCorpuz@gmail.com</td>
-                                    <td>
-                                    <button name="archiveaccount"><span class="material-symbols-sharp archive">done</span></button>
-                                    </td> 
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Chanel</td>
-                                    <td>4</td>
-                                    <td>Female</td>
-                                    <td>4kg</td>
-                                    <td>Michelle Nervez</td>
-                                    <td>09055459215</td>
-                                    <td>mitchnervez22@gmail.com</td>
-                                    <td>
-                                    <button name="archiveaccount" data-modal="modal2"><span class="material-symbols-sharp archive">done</span></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Antibiotic</td>
-                                    <td>5</td>
-                                    <td>12/07/2022</td>
-                                    <td>12/01/2022</td>
-                                    <td>12/01/2022</td>
-                                    <td>12/01/2022</td>
-                                    <td>12/01/2022</td>
-                                    <td>
-                                    <button name="archiveaccount" data-modal="modal2"><span class="material-symbols-sharp archive">done</span></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Beef Jerky Food</td>
-                                    <td>10</td>
-                                    <td>12/10/2022</td>
-                                    <td>12/01/2022</td>
-                                    <td>12/01/2022</td>
-                                    <td>12/01/2022</td>
-                                    <td>12/01/2022</td>
-                                    <td>
-                                    <button name="archiveaccount" data-modal="modal2"><span class="material-symbols-sharp archive">done</span></button>
-                                    </td>
-                                </tr>
+                                <?php
+                                        $sql = "Select * from tblownersprofile order by ownersname";
+                                        $res= mysqli_query($conn,$sql);
+
+                                        if($res){
+                                        while($row=mysqli_fetch_assoc($res)){
+                                        $op=$row['ownersname'];
+                                        $cn=$row['contactno'];
+                                        $add=$row['address'];
+                                        $emailadd=$row['emailaddress']; 
+                                        echo '<tr>
+                                        <td>'.$op.'</td>
+                                        <td>'.$cn.'</td>
+                                        <td>'.$add.'</td>
+                                        <td>'.$emailadd.'</td>
+                                        <td>
+                                            <button name="selectprofile" data-modal="modal2" class="modal-open showArchiveAccount" value="'.$op.'"><span class="material-symbols-sharp archive">done</span></button>
+                                        </td>
+                                        </tr>';
+                                    }
+                                } 
+                                ?>
+                               
                             </tbody>
-                        </table>
-                </div>
-            </section>
+                                    
+                            </table>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
+
+         <!-- Modal of  Select Profile MessageBox -->
+         <div class="modal" id="modal2">     
+            <div class="modal-content">
+                <div class="modal-header"><h1>Selecting Profile</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body"><h3>Are you sure you want to select this record?</h3></div>
+                    <div class="modal-footer">
+                        <div class="buttonflexright">
+                            <button name="savearchiveprofile" type="submit" class="yes">Yes</button>
+                            <button type="submit" class="cancel no modal-close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <!-- Modal of Select Profile -->
         <div class="modal" id="modal5">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1>Select Profile</h1>
+                    <h1>Select Product</h1>
                     <div class="accrecsearch">
                         <div class="searchbar">
                         <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
@@ -444,7 +334,7 @@
                                     <td>waonrawdwadwadwawawaadwadwaadwadwawawawawadwaidipton</td>
                                     <td>Quantity</th>
                                     <td>
-                                    <button name="archiveaccount" data-modal="modal2"><span class="material-symbols-sharp archive">done</span></button>
+                                        <button name="archiveaccount" data-modal="modal2"><span class="material-symbols-sharp archive">done</span></button>
                                     </td>
                                 </tr>
                                 <tr>

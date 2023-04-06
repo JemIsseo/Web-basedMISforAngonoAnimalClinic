@@ -124,6 +124,127 @@ if (mysqli_num_rows($result) > 0) {
                 }
 
             }
+
+            if (isset($_POST['querypetprofile'])) {
+                $querypetprofile = $_POST['querypetprofile'];
+            
+            $sql = "SELECT * FROM tblpet WHERE petname LIKE '%".$querypetprofile."%'";
+            $result = mysqli_query($conn, $sql);
+            
+            // display the results in tables
+            if (mysqli_num_rows($result) > 0) {
+                ?>
+                <table class="content-table table-fixed">
+                    <thead>
+                        <tr>
+                            <th>Owner's Name</th>
+                            <th>Pet Name</th>
+                            <th>Pet Type</th>
+                            <th>Age</th>
+                            <th>Sex</th>
+                            <th>Breed</th>
+                            <th>Weight</th>
+                            <th>         </th>
+                        </tr>
+                    </thead> 
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) { 
+                ?>
+                <tbody>
+                    <?php
+                             $pid=$row['petid'];
+                            $op = $row['ownersname'];
+                            $pname = $row['petname'];
+                            $pt = $row['pettype'];
+                            $age = $row['age'];
+                            $sex = $row['sex'];
+                            $breed = $row['breed'];
+                            $weight = $row['weight'];
+                    ?>      
+                            <tr>
+                                <td><?php echo $op; ?></td>
+                                <td><?php echo $pname; ?></td>
+                                <td><?php echo $pt; ?></td>
+                                <td><?php echo $age; ?></td>
+                                <td><?php echo $sex; ?></td>
+                                <td><?php echo $breed; ?></td>
+                                <td><?php echo $weight; ?></td>
+                                <?php echo '
+                                            <td>
+                                                <button class="modal-open showUpdateAccount" data-modal="modal1" value="'.$pid.'" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                                <button class="modal-open showArchiveAccount" data-modal="modal2" value="'.$pid.'"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
+                                            </td>';   ?>
+                            </tr>
+                        </tbody>
+                    <?php
+                        }
+                    ?>
+                </table>
+            
+            <?php
+                        
+                    } else {
+                        echo "<h2 style='text-align: center'>No results found</h2>";
+                    }
+                }
+
+                if (isset($_POST['queryownersname'])) {
+                    $queryownersname = $_POST['queryownersname'];
+                
+                $sql = "SELECT * FROM tblownersprofile WHERE ownersname LIKE '%".$queryownersname."%'";
+                $result = mysqli_query($conn, $sql);
+                
+                // display the results in tables
+                if (mysqli_num_rows($result) > 0) {
+                    ?>
+                    <table class="content-table table-fixed">
+                        <thead>
+                            <tr>
+                                <th>Owner's Name</th>
+                                <th>Contact No.</th>
+                                <th>Address</th>
+                                <th>Email Address</th>
+                                <th>         </th>
+                            </tr>
+                        </thead> 
+                    <?php
+                    while ($row = mysqli_fetch_assoc($result)) { 
+                    ?>
+                    <tbody>
+                        <?php
+                                $op = $row['ownersname'];
+                                $cno = $row['contactno'];
+                                $add = $row['address'];
+                                $ea = $row['emailaddress'];
+                        ?>      
+                                <tr>
+                                    <td><?php echo $op; ?></td>
+                                    <td><?php echo $cno; ?></td>
+                                    <td><?php echo $add; ?></td>
+                                    <td><?php echo $ea; ?></td>
+                                    <?php echo '
+                                                <td>
+                                                    <button class="modal-open showUpdateAccount" data-modal="modal1" value="'.$op.'" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                                    <button class="modal-open showArchiveAccount" data-modal="modal2" value="'.$op.'"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
+                                                </td>';   ?>
+                                </tr>
+                            </tbody>
+                        <?php
+                            }
+                        ?>
+                    </table>
+                
+                <?php
+                            
+                        } else {
+                            echo "<h2 style='text-align: center'>No results found</h2>";
+                        }
+                    }
+    
+
+
+
+
                 // close the database connection
                 mysqli_close($conn);
 
@@ -173,8 +294,6 @@ if (mysqli_num_rows($result) > 0) {
             })
         })
 
-
-
         // STOCKS AND ADD STOCK AJAX DOCUMENTS
         $(document).ready(function() {
 
@@ -197,4 +316,11 @@ if (mysqli_num_rows($result) > 0) {
                 })
             })
         })
+
+        // OWNERSNAME AJAX DOCUMENTS
+
+
+
+
+        // PET PROFILE AJAX DOCUMENTS
 </script>

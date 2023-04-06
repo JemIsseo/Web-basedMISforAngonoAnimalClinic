@@ -12,6 +12,10 @@
     box-sizing: border-box;   
 }
 
+body {
+    overflow: hidden;
+}
+
 main {
     min-height: 100vh;
     background: linear-gradient(to right top, #65dfc9, #7af3cf, #6cdbeb);
@@ -399,17 +403,76 @@ f
     margin-top: 2em;
 }
 
+.circle {
+   
+    position: absolute;
+    animation: moveCircle 5s infinite;
+  }
+  
+  @keyframes moveCircle {
+    0% {
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+    50% {
+      left: calc(100% - 50px);
+      top: calc(100% - 50px);
+      right: calc(100% - 50px);
+      bottom: calc(100% - 50px);
+    }
+    100% {
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+  
+  /* This sets the position of the circle randomly */
+  .circle:nth-child(1) {
+    right: 25%;
+    left: 25%;
+    bottom: 10%;
+  }
+  
+  .circle:nth-child(2) {
+    bottom: 15%;
+    top: 15%;
+    left: 40%;
+  }
+  .circle:nth-child(3) {
+    left: 40%;
+    top: 10%;
+    bottom: 20%;
+  }
+  .circle:nth-child(4) {
+    left: 10%;
+    top: 30%;
+  }
+  .circle:nth-child(5) {
+    left: 35%;
+    top: 45%;
+    right: 30%;
+  }
+  .circle:nth-child(6) {
+    left: 45%;
+    top: 35%;
+    right: 50%;
+  }
+
 .circle1, 
 .circle2 {
     background: linear-gradient(to right bottom,  
     rgba(171, 217, 238, 0.3),
     rgba(209, 250, 250, 0.9)
     );
-    height: 15rem;
-    width: 15rem;
+    height: 14rem;
+    width: 14rem;
     position: absolute;
     z-index: 1;
-    border-radius: 50%;
+    border-radius: 55%;
 }
 
 .circle1 {

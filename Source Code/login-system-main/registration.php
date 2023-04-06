@@ -186,13 +186,14 @@
         </section>
     </main>
     <!--  CIRCLE SHAPES DESIGN  -->
-    <div class="circle1"></div>
-    <div class="circle2"></div>
-    <div class="circle3"></div>
-    <div class="circle4"></div>
-    <div class="circle5"></div>
-    <div class="circle6"></div>
-
+    <div class="circle">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        <div class="circle4"></div>
+        <div class="circle5"></div>
+        <div class="circle6"></div>
+    </div>
     <?php include 'scriptingfiles.php'; ?>
 </body>
 </html>

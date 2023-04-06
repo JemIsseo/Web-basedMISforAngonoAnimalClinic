@@ -383,9 +383,14 @@ aside .sidebar a:hover span {
     cursor: pointer;
     display: flex;
     gap: 2em;
-    width: 200px;
-    margin: 0 auto;
+    width: 230px;
+    margin: 0 3em;
     box-shadow: var(--box-shadow);
+}
+
+.checkhistorystyle {
+    margin-top: 3em;
+    
 }
 
 
@@ -453,7 +458,7 @@ aside .sidebar a:hover span {
 
 #modal2 .modal-content {
     width: 40%;
-    z-index: 50;
+    z-index: 11;
 }
 
 
@@ -466,7 +471,7 @@ aside .sidebar a:hover span {
 }
 
 #modal4 .modal-content {
-    width: 80%;
+    width: 70%;
 }
 
 #modal4 .modal-header {
@@ -477,13 +482,13 @@ aside .sidebar a:hover span {
 
 
 #modal5 .modal-content {
-    width: 70%;
+    width: 60%;
 }
 
 #modal5 .modal-header {
     padding: 1em;
     display: flex;
-    gap: 21em;
+    gap: 18em;
 }
 
 #modal3 {

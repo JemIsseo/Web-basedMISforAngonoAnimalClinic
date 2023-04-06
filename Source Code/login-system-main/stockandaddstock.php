@@ -12,14 +12,14 @@
     $prc = $_POST['price'];
     $qty = $_POST['quantity'];
 
-    $sql = "insert into tblstock(prodname, category, description, price, quantity) 
-            values('$pname','$cat','$desc','$prc','$qty')";
+    $sql = "insert into tblstock(prodname, category, description, price, quantity, minstocklevel, maxstocklevel ) 
+            values('$pname','$cat','$desc','$prc','$qty', 10, 5000)";
     $res = mysqli_query($conn,$sql);
 
     if($res) {  
         
             ?>
-            <div class="statusmessagesuccess" id="close">
+            <div class="statusmessagesuccess message-box" id="close">
                   <h2>Product Added Successfully!</h2>
                   <button class="icon"><span class="material-symbols-sharp">close</span></button>
             </div>
@@ -33,7 +33,7 @@
     // UPDATE PRODUCT STATEMENT 
     if(isset($_POST['updateproduct'])){
         $pid = $_POST['proid'];
-        $_SESSION['proid'] = $pid;
+        // $_SESSION['proid'] = $pid;
         $pname = $_POST['prodname'];
         $cat = $_POST['category'];
         $desc = $_POST['description'];
@@ -56,51 +56,32 @@
             die(mysqli_error($conn));
         }
     }
-     
-     // Check if product is low on stock
-     $pid = $_SESSION['proid'];; // set the product ID here
-     $quantity= get_quantity($pid);
-     $minstocklevel = get_minstocklevel($pid);
 
-     if ($quantity < $minstocklevel & $quantity > 0) {
-        ?>  
-        <div class="statusmessagewarning message-box" id="closewarning">
-            <h2>Warning: Product <?= $pname; ?> is low on stock!</h2>
-            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-        </div>
-         <?php  
-     }
+    // stock low detector
+    $sql3 = "SELECT proid, prodname, quantity FROM tblstock";
+    $result3 = mysqli_query($conn, $sql3);
 
-     // Check if product is out of stock
-     if ($quantity == 0) {
-        ?>  
-        <div class="stockerror" id="closewarning">
-            <h2>Error: Product <?= $pname; ?> is out of stock!</h2>
-            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-        </div>
-         <?php  
-     }
-
-      // Function to get the current stock level of a product
-      function get_quantity($pid) {
-        global $conn;
-        $query = "SELECT quantity FROM tblstock WHERE proid = $pid";
-        $result1 = mysqli_query($conn, $query);
-        $row1 = mysqli_fetch_assoc($result1);
-        return $row1['quantity'];
+    while ($row3 = mysqli_fetch_assoc($result3)) {
+        $pname = $row3['prodname'];
+        if ($row3['quantity'] > 0 && $row3['quantity'] < 10) {
+            ?>  
+            <div class="statusmessagewarning message-box" id="closewarning">
+                <h2>Warning: Product <?= $pname; ?> is low on stock!</h2>
+                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+            </div>
+            <?php  
+          } 
+        if ($row3['quantity'] == 0) {
+            ?>  
+            <div class="stockerror" id="closewarning">
+                <h2>Error: Product <?= $pname; ?> is out of stock!</h2>
+                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+            </div>
+            <?php  
+          }
     }
 
-     // Function to get the minimum stock level of a product
-        function get_minstocklevel($pid) {
-         global $conn;
-         $query = "SELECT minstocklevel FROM tblstock WHERE proid = $pid";
-         $result2 = mysqli_query($conn, $query);
-         $row2 = mysqli_fetch_assoc($result2);
-         return $row2['minstocklevel'];
-     }
-
-
-
+    
     // archive statement
     if(isset($_POST['archiveproduct'])){
             $pid = $_POST['proid'];
@@ -110,8 +91,8 @@
             $prc = $_POST['price'];
             $qty = $_POST['quantity'];
         
-        $sql = "insert into tblarcstock(proid, prodname, category, description, price, quantity) 
-                values('$pid','$pname','$cat','$desc','$prc','$qty')";
+        $sql = "insert into tblarcstock(proid, prodname, category, description, price, quantity, minstocklevel, maxstocklevel) 
+                values('$pid','$pname','$cat','$desc','$prc','$qty', 10, 5000)";
         $res = mysqli_query($conn,$sql);
         if($res) {
             if ($pid = $_POST['proid']) {
@@ -119,7 +100,7 @@
                 $res = mysqli_query($conn, $sql);
             }
             ?>  
-            <div class="statusmessagesuccesslight" id="close">
+            <div class="statusmessagesuccesslight message-box" id="close">
                 <h2>Product has been archived</h2>
                 <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
             </div>
@@ -147,7 +128,7 @@
                 $sql = "delete from tblarcstock where proid= '$pid'";
                 $res = mysqli_query($conn, $sql);
                 ?>  
-            <div class="statusmessagesuccess" id="close">
+            <div class="statusmessagesuccess message-box" id="close">
                 <h2>Product has been restored!</h2>
                 <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
             </div>

@@ -166,6 +166,13 @@
                     $weight = "";
                 }
 
+                function clearBtnAddtoCart() {
+                    $op = "";
+                    $pname = "";
+                    $cat = "";
+                    $qty = "";
+                }
+
 
     </script>
     
