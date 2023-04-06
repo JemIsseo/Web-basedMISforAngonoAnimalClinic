@@ -35,7 +35,7 @@
                 if ($results) {
                     $num= mysqli_num_rows($results);
                     if ($num > 0) { ?> 
-                        <div class="statusmessageerror" id="close">
+                        <div class="statusmessageerror message-box" id="close">
                         <h2>Sorry username already exist!</h2>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                         </div>
@@ -89,7 +89,7 @@
                  }
                         } else {
                             ?>
-                            <div class="statusmessageerror" id="close">
+                            <div class="statusmessageerror message-box" id="close">
                             <h2>Password didn't matched!</h2>
                             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                             </div> <?php

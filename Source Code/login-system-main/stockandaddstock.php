@@ -2,7 +2,7 @@
 <?php 
     session_start();
     include 'connect.php'; 
-
+        
     $s=mysqli_query($conn,"select * from tblcategory");
 
     if(isset($_POST['saveproduct'])){
@@ -15,7 +15,10 @@
     $sql = "insert into tblstock(prodname, category, description, price, quantity) 
             values('$pname','$cat','$desc','$prc','$qty')";
     $res = mysqli_query($conn,$sql);
-    if($res) { ?>
+
+    if($res) {  
+        
+            ?>
             <div class="statusmessagesuccess" id="close">
                   <h2>Product Added Successfully!</h2>
                   <button class="icon"><span class="material-symbols-sharp">close</span></button>
@@ -43,7 +46,7 @@
         $res = mysqli_query($conn,$sql);
         if($res) {
             ?>  
-            <div class="statusmessagesuccess" id="close">
+            <div class="statusmessagesuccess message-box" id="close">
                 <h2>Product Updated Successfully!</h2>
                 <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
             </div>
@@ -53,17 +56,16 @@
             die(mysqli_error($conn));
         }
     }
-
-
+     
      // Check if product is low on stock
      $pid = $_SESSION['proid'];; // set the product ID here
      $quantity= get_quantity($pid);
      $minstocklevel = get_minstocklevel($pid);
 
-     if ($quantity < $minstocklevel) {
+     if ($quantity < $minstocklevel & $quantity > 0) {
         ?>  
-        <div class="statusmessagewarning" id="closewarning">
-            <h2>Warning: Product is low on stock!</h2>
+        <div class="statusmessagewarning message-box" id="closewarning">
+            <h2>Warning: Product <?= $pname; ?> is low on stock!</h2>
             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
         </div>
          <?php  
@@ -71,7 +73,12 @@
 
      // Check if product is out of stock
      if ($quantity == 0) {
-         echo "Error: Some product is out of stock!";
+        ?>  
+        <div class="stockerror" id="closewarning">
+            <h2>Error: Product <?= $pname; ?> is out of stock!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+         <?php  
      }
 
       // Function to get the current stock level of a product

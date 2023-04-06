@@ -450,7 +450,7 @@
         if (mysqli_num_rows($result) > 0) {
             echo '<option value="">Select Breed</option>';
             while ($row = $result->fetch_assoc()) {
-                echo '<option value="' . $row['breed'] . '">' . $row['breed'] . '</option>';
+                echo '<option value="' . $row['bid'] . '">' . $row['breed'] . '</option>';
             }
         }
     }

@@ -271,20 +271,23 @@ aside .sidebar a:hover span {
 
 /* 
  Status Message */
- .statusmessagesuccess {
+
+.statusmessagesuccess {
     background-color: #96f5b6;
     margin: .5em;
     border-radius: 5px;
     display: flex;
     padding: 1em;
-    gap: 33em;
+    gap: 30em;
     position: absolute;
     justify-content: right;
-    margin: 2em 30em;
+    margin: 0 27em;
+    margin-top: 4.5em;
     z-index: 10;
+
 }
 
-.statusmessageerror {
+.statusmessageerror, .stockerror {
     background-color: #f2dede;
     margin: .5em;
     border-radius: 5px;
@@ -300,6 +303,10 @@ aside .sidebar a:hover span {
     font-family: poppins, sans-serif;
 }
 
+.stockerror {
+    margin-top: 0;
+}
+
 .statusmessagewarning {
     background-color: #e2d951;
     margin: .5em;
@@ -309,8 +316,7 @@ aside .sidebar a:hover span {
     gap: 33em;
     position: absolute;
     justify-content: right;
-    margin: 2em 30em;
-    margin-top: 8em;
+    margin: 0.5em 30em;
     z-index: 5;
     color: #6a6b0e;
     font-size: .9em;
@@ -336,8 +342,13 @@ aside .sidebar a:hover span {
 .statusmessagesuccess button,
 .statusmessageerror button,
 .statusmessagesuccesslight button,
-.statusmessagewarning button{
+.statusmessagewarning button,
+.stockerror button{
     background: transparent;
+}
+
+.message-box {
+    transition: opacity 3s;
 }
 
 

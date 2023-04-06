@@ -126,9 +126,75 @@ if (mysqli_num_rows($result) > 0) {
             }
                 // close the database connection
                 mysqli_close($conn);
-         
-?>
 
-<?php 
-    include 'scriptingfiles.php';
+        include 'scriptingfiles.php';
 ?>
+<script>
+        // opening modals
+        var modalBtns = document.querySelectorAll(".modal-open");
+
+        modalBtns.forEach(function(btn){
+        btn.onclick = function() {
+            var modal = btn.getAttribute("data-modal");
+
+            document.getElementById(modal).style.display = "block";
+            };
+        });
+
+        // close modals
+        var closeBtns =  document.querySelectorAll(".modal-close");
+
+        closeBtns.forEach(function(btn){
+            btn.onclick = function() {
+                var modal = (btn.closest(".modal").style.display = "none");
+            };
+        });
+
+        // USERACCOUNT AJAX DOCUMENTS
+        $(document).ready(function() {
+          
+            $(".showUpdateAccount").click(function() {
+                var accountid = this.value;
+                $("#updateAccount").load("submit.php", {
+                    accountID: accountid
+                })
+            })
+            $(".showArchiveAccount").click(function() {
+                var archiveid = this.value;
+                $("#archiveAccount").load("submit.php", {
+                    archiveID: archiveid
+                })
+            })
+            $(".showRestoreAccount").click(function() {
+                var restoreid = this.value;
+                $("#restoreAccount").load("submit.php", {
+                    restoreID: restoreid
+                })
+            })
+        })
+
+
+
+        // STOCKS AND ADD STOCK AJAX DOCUMENTS
+        $(document).ready(function() {
+
+            $(".showUpdateProduct").click(function() {
+                var productid = this.value;
+                $("#updateProduct").load("submit.php", {
+                    productID: productid
+                })
+            })
+            $(".showArchiveProduct").click(function() {
+                var proarchiveid = this.value;
+                $("#archiveProduct").load("submit.php", {
+                    proarchiveID: proarchiveid
+                })
+            })
+            $(".showRestoreProduct").click(function() {
+                var prorestoreid = this.value;
+                $("#restoreProduct").load("submit.php", {
+                    prorestoreID: prorestoreid
+                })
+            })
+        })
+</script>

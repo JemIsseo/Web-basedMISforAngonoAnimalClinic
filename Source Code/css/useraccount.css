@@ -352,7 +352,9 @@ aside .sidebar a:hover span {
 }
 
 
-
+.message-box {
+    transition: opacity 3s;
+}
 
 ::placeholder {
     text-align: center;

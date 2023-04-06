@@ -19,7 +19,7 @@
                             if ($result) {
                                 $num= mysqli_num_rows($result);
                                 if ($num > 0) { ?> 
-                                    <div class="statusmessageerror" id="close">
+                                    <div class="statusmessageerror message-box" id="close">
                                     <h2>Sorry owner's name <?php echo $op;?> already exist!</h2>
                                     <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                                     </div>
@@ -30,7 +30,7 @@
                                         values('$op',' $cn',' $add','$emailadd')";
                                 $res = mysqli_query($conn,$sql);
                                 if($res) { ?>
-                                        <div class="statusmessagesuccess" id="close">
+                                        <div class="statusmessagesuccess message-box" id="close">
                                                 <h2>Owner Profile Added Successfully!</h2>
                                                 <button class="icon"><span class="material-symbols-sharp">close</span></button>
                                         </div>
@@ -60,7 +60,7 @@
                     $res = mysqli_query($conn, $sql);
                 }
                 ?>  
-                <div class="statusmessagesuccess" id="close">
+                <div class="statusmessagesuccess message-box" id="close">
                     <h2>Profile has been archived</h2>
                     <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                 </div>
@@ -89,7 +89,7 @@
                     $sql = "delete from tblarcprofile where profileid= $proid";
                     $res = mysqli_query($conn, $sql);
                     ?>  
-                <div class="statusmessagesuccess" id="close">
+                <div class="statusmessagesuccess message-box" id="close">
                     <h2>Profile has been restored!</h2>
                     <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                 </div>
@@ -123,7 +123,7 @@
             values('$cusid','$op','$pname','$ptype','$age','$sex','$breed','$weight')";
             $res = mysqli_query($conn,$sql);
             if($res) { ?>
-                    <div class="statusmessagesuccess" id="close">
+                    <div class="statusmessagesuccess message-box" id="close">
                         <h2>Pet Profile Added Successfully!</h2>
                         <button class="icon"><span class="material-symbols-sharp">close</span></button>
                     </div>
@@ -391,7 +391,7 @@
                                         </select>
                                         <span>Ownersname</span>
                                     </div>  
-                                
+                                    
                                     <div> 
                                         <input type="text" name="petname" placeholder="Enter Pet Name" required>
                                         <span>Pet Name</span>
@@ -409,14 +409,14 @@
                                         <?php
                                                 while ($r = mysqli_fetch_array($p)) {
                                         ?>
-                                                <option value="<?php echo $r['pettype']; ?>"><?php echo $r['pettype']; ?> </option>
+                                                <option value="<?php echo $r['pettypeid']; ?>"><?php echo $r['pettype']; ?> </option>
                                                 <?php
                                                     }
                                                 ?>
                                         </select> <span>Pet Type</span>
                                     </div>  
                                     <div> 
-                                        <select class="radiobtn" name="breed" id="breed" required> 
+                                        <select class="radiobtn" name="breed" id="bid" required> 
                                                 <option value="">Select Breed</option>
                                         </select> <span>Breed</span>
                                     </div>  
@@ -522,8 +522,7 @@
                     </div>
                 </div>
         </div>
-
-        
+        <?php include 'scriptingfiles.php'; ?>
         <script>
         $(document).ready(function() {
         $("#pettypeid").on('click', function() {
@@ -534,14 +533,13 @@
             url: 'submit.php',
             data: 'pettypeid=' + pettypeid,
             success: function(html) {
-                $("#breed").html(html);
+                $("#bid").html(html);
                 }
                 });
             }
             });
         });
         </script>
-        <?php include 'scriptingfiles.php'; ?>
     </body>
     </html>
 

@@ -31,7 +31,7 @@
                                     if ($result) {
                                         $num= mysqli_num_rows($result);
                                         if ($num > 0) { ?> 
-                                            <div class="statusmessageerror" id="close">
+                                            <div class="statusmessageerror message-box" id="close">
                                             <h2>Sorry username already exist!</h2>
                                             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                                             </div>
@@ -44,13 +44,13 @@
                                                     $res = mysqli_query($conn, $sql);
                                                         if ($res) { 
                                                             ?>
-                                                            <div class="statusmessagesuccess" id="close">
+                                                            <div class="statusmessagesuccess message-box" id="close">
                                                             <h2>Account Added Successfully!</h2>
                                                             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                                                             </div> <?php
                                                             }
                                             } else { ?>
-                                                <div class="statusmessageerror" id="close">
+                                                <div class="statusmessageerror message-box" id="close">
                                                 <h2>Password didn't matched!</h2>
                                                 <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                                                 </div> <?php
@@ -84,7 +84,7 @@
                         where username= '$un'";
                 $res = mysqli_query($conn,$sql);
                 if($res) {?>  
-                    <div class="statusmessagesuccess" id="close">
+                    <div class="statusmessagesuccess message-box" id="close">
                         <h2>Upload Photo Completed!</h2>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                     </div>
@@ -107,7 +107,7 @@
                         where username= '$un'";
                 $res = mysqli_query($conn,$sql);
                 if($res) {?>  
-                    <div class="statusmessagesuccess" id="close">
+                    <div class="statusmessagesuccess message-box" id="close">
                         <h2>Account Updated Successfully!</h2>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                     </div>
@@ -137,7 +137,7 @@
                                     $res = mysqli_query($conn, $sql);
                                   }
                                   ?>
-                                  <div class="statusmessagesuccesslight" id="close">
+                                  <div class="statusmessagesuccesslight message-box" id="close">
                                   <h2>Account Archive Successfully!</h2>
                                   <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                                   </div> <?php
@@ -163,7 +163,7 @@
                                     $res = mysqli_query($conn, $sql);
                                   }
                                   ?>
-                                  <div class="statusmessagesuccess" id="close">
+                                  <div class="statusmessagesuccess message-box" id="close">
                                   <h2>Account Restored Successfully!</h2>
                                   <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                                   </div> <?php

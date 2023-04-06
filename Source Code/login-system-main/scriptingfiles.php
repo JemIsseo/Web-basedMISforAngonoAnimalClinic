@@ -9,6 +9,15 @@
         const darkModeToggle = document.querySelector("#dark-mode-toggle");
         const closeMessage = document.querySelector("#close");
         const warningMessage =document.querySelector("#closewarning");
+        const messageBox = document.querySelector('.message-box');
+
+        // Fade out the message box after a delay
+        setTimeout(function() {
+        messageBox.style.opacity = 0;
+        setTimeout(function() {
+            messageBox.style.display = 'none';
+        }, 1000);
+        }, 2000);
 
         // opening modals
         var modalBtns = document.querySelectorAll(".modal-open");

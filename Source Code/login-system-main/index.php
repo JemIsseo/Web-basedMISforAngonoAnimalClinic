@@ -17,7 +17,7 @@
                     $username = $fetch["username"];
                     if ($un != $username) {
                         ?>
-                        <div class="statusmessageerror" id="close">
+                        <div class="statusmessageerror message-box" id="close">
                         <h2>Username Incorrect</h2>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                         </div> <?php
@@ -25,7 +25,7 @@
                         $hashpassword = $fetch["password"];
                         if($fetch["status"] == 0){
                              ?>
-                            <div class="statusmessageerror" id="close">
+                            <div class="statusmessageerror message-box" id="close">
                             <h2>Please verify your email!</h2>
                             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                             </div> <?php
@@ -41,7 +41,7 @@
                             <?php
                         } else {
                             ?>
-                            <div class="statusmessageerror" id="close">
+                            <div class="statusmessageerror message-box" id="close">
                             <h2>Password Incorrect</h2>
                             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                             </div> <?php

@@ -39,6 +39,10 @@ main {
     background: transparent;
 }
 
+.message-box {
+    transition: opacity 3s;
+}
+
 
 /*  Glass Login Form  */
 .logintext {

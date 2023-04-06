@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 05, 2023 at 04:19 PM
+-- Generation Time: Apr 06, 2023 at 11:24 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -117,10 +117,10 @@ CREATE TABLE IF NOT EXISTS `tblbreed` (
 INSERT INTO `tblbreed` (`bid`, `pettypeid`, `pettype`, `breed`) VALUES
 (1, 1, 'Dog', 'German Shepherd'),
 (2, 1, 'Dog', 'Shih Tzu'),
-(3, 0, 'Dog', 'Aspin'),
-(4, 0, 'Dog', 'Japanese Spitz'),
-(5, 0, 'Dog', 'Chihuahua'),
-(6, 0, 'Dog', 'Rottweiler');
+(3, 1, 'Dog', 'Aspin'),
+(4, 1, 'Dog', 'Japanese Spitz'),
+(5, 1, 'Dog', 'Chihuahua'),
+(6, 1, 'Dog', 'Rottweiler');
 
 -- --------------------------------------------------------
 
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `tblpet` (
   `breed` varchar(45) NOT NULL,
   `weight` varchar(45) NOT NULL,
   PRIMARY KEY (`petid`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblpet`
@@ -205,6 +205,7 @@ INSERT INTO `tblpet` (`petid`, `cusid`, `ownersname`, `petname`, `pettype`, `age
 (5, 9, ' Vann Oliveros', 'Coco', 'Dog', 5, 'Male', 'Shih Tzu', '5kg'),
 (17, 10, 'Bim Salinga', 'awawawawawa', 'Dog', 4, 'Male', 'German Shepherd', '10kg'),
 (6, 10, ' Bim Salinga', 'Chichi', 'Dog', 3, 'Female', 'Shih Tzu', '10kg'),
+(21, 15, 'Jeremy Liberty', 'qwewqewqe', '1', 12, 'Male', '1', '12kh'),
 (20, 15, 'Jeremy Liberty', 'Tsaris', 'Dog', 2, 'Female', 'Aspin', '15kg'),
 (18, 15, 'Jeremy Liberty', 'Gekgek', 'Dog', 11, 'Male', 'Aspin', '15kg');
 
@@ -280,14 +281,14 @@ CREATE TABLE IF NOT EXISTS `tblstock` (
 
 INSERT INTO `tblstock` (`proid`, `prodname`, `category`, `description`, `price`, `quantity`, `minstocklevel`, `maxstocklevel`) VALUES
 (13, 'Dextrose Monohydrate', 'Medicine', 'is a carbohydrate and valuable source of energy rapidly and easily absorb.', 52, 20, 10, 5000),
-(15, 'BRONCure', 'Medicine', 'For acute treatment of colds and respiratory infections in pets. to reduce symptoms of sneezing, coughing, watery eyes and nose.', 220, 20, 10, 5000),
-(16, 'D-Glucose Monohydrate', 'Medicine', 'is useful in rebuilding stamina and vigor after every activity.', 95, 20, 10, 5000),
+(15, 'BRONCure', 'Medicine', 'For acute treatment of colds and respiratory infections in pets. to reduce symptoms of sneezing, coughing, watery eyes and nose.', 220, 79, 10, 5000),
+(16, 'D-Glucose Monohydrate', 'Medicine', 'is useful in rebuilding stamina and vigor after every activity.', 95, 50, 10, 5000),
 (17, 'Pet Collar', 'Accessories', 'use for restrain, identification and protection.', 40, 15, 10, 5000),
 (18, 'Pet Bowl (for eating purpose)', 'Accessories', 'Food containers use for feeding pets made up of different types of materials.', 50, 50, 10, 5000),
 (19, 'Pet Harness', 'Accessories', 'Equipment consisting of straps of webbing that loop nearly around that fasten together using side release buckles.', 300, 20, 10, 5000),
 (20, 'NutriChunks (beef)20kg', 'Food', 'An optimum blend of proteins, fats and carbohydrates that support a puppies high energy needs.', 1500, 10, 10, 5000),
 (21, 'VitaPet (for adult cat) 1.5kg', 'Food', 'It has tuna flavor, to support the immune system for a healthy cat with calcium and phosporus to help maintain healthy bones and teeth.', 360, 10, 10, 5000),
-(22, 'Cosi pets milk (1Liter)', 'Medicine', 'Cosi is a formulated and highly delicious milk for pets of all ages. Cosi pets milk has broken down the lactose making it easier for your pet to digest.', 250, 30, 10, 5000);
+(22, 'Cosi pets milk (1Liter)', 'Medicine', 'Cosi is a formulated and highly delicious milk for pets of all ages. Cosi pets milk has broken down the lactose making it easier for your pet to digest.', 250, 34, 10, 5000);
 
 -- --------------------------------------------------------
 

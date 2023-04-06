@@ -269,7 +269,7 @@ main h1 {
     display: none;
 }
 
-.formprofile input ,#ut, #utservices, #pettypeid, #breed {
+.formprofile input ,#ut, #utservices, #pettypeid, #bid {
     height: 4vh;
     width: 15vw;
     border: 2px solid var(--color-primary);
@@ -351,6 +351,12 @@ main h1 {
 .statusmessagesuccesslight button {
     background: transparent;
 }
+.message-box {
+    transition: opacity 3s;
+}
+
+
+
 
 .formprofile span {
     position: absolute;
