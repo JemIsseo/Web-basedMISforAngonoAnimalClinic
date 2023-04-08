@@ -1,11 +1,10 @@
+<?php
+session_start();
+include 'connect.php';
 
-<?php 
-    session_start();
-    include 'connect.php'; 
-        
-    $s=mysqli_query($conn,"select * from tblcategory");
+$s = mysqli_query($conn, "select * from tblcategory");
 
-    if(isset($_POST['saveproduct'])){
+if (isset($_POST['saveproduct'])) {
     $pname = $_POST['prodname'];
     $cat = $_POST['category'];
     $desc = $_POST['description'];
@@ -14,137 +13,135 @@
 
     $sql = "insert into tblstock(prodname, category, description, price, quantity, minstocklevel, maxstocklevel ) 
             values('$pname','$cat','$desc','$prc','$qty', 10, 5000)";
-    $res = mysqli_query($conn,$sql);
+    $res = mysqli_query($conn, $sql);
 
-    if($res) {  
-        
-            ?>
-            <div class="statusmessagesuccess message-box" id="close">
-                  <h2>Product Added Successfully!</h2>
-                  <button class="icon"><span class="material-symbols-sharp">close</span></button>
-            </div>
-<?php 
-    } 
-    else {
+    if ($res) {
+
+?>
+        <div class="statusmessagesuccess message-box" id="close">
+            <h2>Product Added Successfully!</h2>
+            <button class="icon"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
+    } else {
         die(mysqli_error($conn));
-        }
     }
+}
 
-    // UPDATE PRODUCT STATEMENT 
-    if(isset($_POST['updateproduct'])){
-        $pid = $_POST['proid'];
-        // $_SESSION['proid'] = $pid;
-        $pname = $_POST['prodname'];
-        $cat = $_POST['category'];
-        $desc = $_POST['description'];
-        $prc = $_POST['price'];
-        $qty = $_POST['quantity'];
+// UPDATE PRODUCT STATEMENT 
+if (isset($_POST['updateproduct'])) {
+    $pid = $_POST['proid'];
+    // $_SESSION['proid'] = $pid;
+    $pname = $_POST['prodname'];
+    $cat = $_POST['category'];
+    $desc = $_POST['description'];
+    $prc = $_POST['price'];
+    $qty = $_POST['quantity'];
 
-        $sql = "update tblstock set prodname ='$pname',
+    $sql = "update tblstock set prodname ='$pname',
                 category ='$cat', description='$desc', price='$prc', quantity='$qty'
                 where proid= '$pid'";
-        $res = mysqli_query($conn,$sql);
-        if($res) {
-            ?>  
-            <div class="statusmessagesuccess message-box" id="close">
-                <h2>Product Updated Successfully!</h2>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
-             <?php  
-        } 
-        else {
-            die(mysqli_error($conn));
-        }
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+    ?>
+        <div class="statusmessagesuccess message-box" id="close">
+            <h2>Product Updated Successfully!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
+    } else {
+        die(mysqli_error($conn));
     }
+}
 
-    // stock low detector
-    $sql3 = "SELECT proid, prodname, quantity FROM tblstock";
-    $result3 = mysqli_query($conn, $sql3);
+// stock low detector
+$sql3 = "SELECT proid, prodname, quantity FROM tblstock";
+$result3 = mysqli_query($conn, $sql3);
 
-    while ($row3 = mysqli_fetch_assoc($result3)) {
-        $pname = $row3['prodname'];
-        if ($row3['quantity'] > 0 && $row3['quantity'] < 10) {
-            ?>  
-            <div class="statusmessagewarning message-box" id="closewarning">
-                <h2>Warning: Product <?= $pname; ?> is low on stock!</h2>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
-            <?php  
-          } 
-        if ($row3['quantity'] == 0) {
-            ?>  
-            <div class="stockerror" id="closewarning">
-                <h2>Error: Product <?= $pname; ?> is out of stock!</h2>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
-            <?php  
-          }
+while ($row3 = mysqli_fetch_assoc($result3)) {
+    $pname = $row3['prodname'];
+    if ($row3['quantity'] > 0 && $row3['quantity'] < 10) {
+    ?>
+        <div class="statusmessagewarning message-box" id="closewarning">
+            <h2>Warning: Product <?= $pname; ?> is low on stock!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
     }
+    if ($row3['quantity'] == 0) {
+    ?>
+        <div class="stockerror" id="closewarning">
+            <h2>Error: Product <?= $pname; ?> is out of stock!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
+    }
+}
 
-    
-    // archive statement
-    if(isset($_POST['archiveproduct'])){
-            $pid = $_POST['proid'];
-            $pname = $_POST['prodname'];
-            $cat = $_POST['category'];
-            $desc = $_POST['description'];
-            $prc = $_POST['price'];
-            $qty = $_POST['quantity'];
-        
-        $sql = "insert into tblarcstock(proid, prodname, category, description, price, quantity, minstocklevel, maxstocklevel) 
+
+// archive statement
+if (isset($_POST['archiveproduct'])) {
+    $pid = $_POST['proid'];
+    $pname = $_POST['prodname'];
+    $cat = $_POST['category'];
+    $desc = $_POST['description'];
+    $prc = $_POST['price'];
+    $qty = $_POST['quantity'];
+
+    $sql = "insert into tblarcstock(proid, prodname, category, description, price, quantity, minstocklevel, maxstocklevel) 
                 values('$pid','$pname','$cat','$desc','$prc','$qty', 10, 5000)";
-        $res = mysqli_query($conn,$sql);
-        if($res) {
-            if ($pid = $_POST['proid']) {
-                $sql = "delete from tblstock where proid= '$pid'";
-                $res = mysqli_query($conn, $sql);
-            }
-            ?>  
-            <div class="statusmessagesuccesslight message-box" id="close">
-                <h2>Product has been archived</h2>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
-            
-        <?php  
-        } else {
-            die(mysqli_error($conn));
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+        if ($pid = $_POST['proid']) {
+            $sql = "delete from tblstock where proid= '$pid'";
+            $res = mysqli_query($conn, $sql);
         }
-    }
+    ?>
+        <div class="statusmessagesuccesslight message-box" id="close">
+            <h2>Product has been archived</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
 
-    // restore statement
-    if(isset($_POST['restoreproduct'])){
-            $pid = $_POST['proid'];
-            $pname = $_POST['prodname'];
-            $cat = $_POST['category'];
-            $desc = $_POST['description'];
-            $prc = $_POST['price'];
-            $qty = $_POST['quantity'];
-        
-        $sql = "insert into tblstock(proid, prodname, category, description, price, quantity) 
+        <?php
+    } else {
+        die(mysqli_error($conn));
+    }
+}
+
+// restore statement
+if (isset($_POST['restoreproduct'])) {
+    $pid = $_POST['proid'];
+    $pname = $_POST['prodname'];
+    $cat = $_POST['category'];
+    $desc = $_POST['description'];
+    $prc = $_POST['price'];
+    $qty = $_POST['quantity'];
+
+    $sql = "insert into tblstock(proid, prodname, category, description, price, quantity) 
                 values('$pid','$pname','$cat','$desc','$prc','$qty')";
-        $res = mysqli_query($conn,$sql);
-        if($res) {
-            if ($pid = $_POST['proid']) {
-                $sql = "delete from tblarcstock where proid= '$pid'";
-                $res = mysqli_query($conn, $sql);
-                ?>  
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+        if ($pid = $_POST['proid']) {
+            $sql = "delete from tblarcstock where proid= '$pid'";
+            $res = mysqli_query($conn, $sql);
+        ?>
             <div class="statusmessagesuccess message-box" id="close">
                 <h2>Product has been restored!</h2>
                 <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
             </div>
-            
-        <?php  
-            }
-        } 
-        else {
-            die(mysqli_error($conn));
+
+<?php
         }
+    } else {
+        die(mysqli_error($conn));
     }
+}
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -154,26 +151,27 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
     <!-- Stylesheet  -->
     <link rel="stylesheet" href="../css/stockandaddstock.css">
-    <link rel="shortcut icon" type="image/x-icon" href="../images/aac.jpg"/>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/aac.jpg" />
 </head>
+
 <body>
     <div class="container">
-        <?php  include 'aside.php'; ?>    
+        <?php include 'aside.php'; ?>
 
         <!--  Main Tag  -->
         <main>
 
             <!--  Start of Products Table   -->
             <section class="tableprofile">
-            <div class="accrecsearch">
+                <div class="accrecsearch">
                     <h1>Products</h1>
                     <div class="searchbar">
-                        <input type="text" placeholder="Search here" id="search-box" ><span class="material-symbols-sharp">search</span>
+                        <input type="text" placeholder="Search here" id="search-box"><span class="material-symbols-sharp">search</span>
                     </div>
-            </div>
-            <div class="table-profile" >
-               
-                <div class="table-product" id="searchStock" >
+                </div>
+                <div class="table-profile">
+
+                    <div class="table-product" id="searchStock">
                         <table class="content-table">
                             <thead>
                                 <tr>
@@ -183,62 +181,62 @@
                                     <th>Description</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
-                                    <th>        </th>
+                                    <th> </th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php 
-                                    $sql = "Select * from tblstock order by prodname";
-                                    $res= mysqli_query($conn,$sql);
+                                <?php
+                                $sql = "Select * from tblstock order by prodname";
+                                $res = mysqli_query($conn, $sql);
 
-                                    if($res){
-                                    while($row=mysqli_fetch_assoc($res)){
-                                    $pid=$row['proid'];
-                                    $pname=$row['prodname'];
-                                    $cat=$row['category'];
-                                    $desc=$row['description']; 
-                                    $prc=$row['price'];
-                                    $qty=$row['quantity'];
-                                    echo '<tr>
-                                    <td>'.$pid.'</td>
-                                    <td>'.$pname.'</td>
-                                    <td>'.$cat.'</td>
-                                    <td>'.$desc.'</td>
-                                    <td>'.$prc.'</td>
-                                    <td>'.$qty.'</td>
+                                if ($res) {
+                                    while ($row = mysqli_fetch_assoc($res)) {
+                                        $pid = $row['proid'];
+                                        $pname = $row['prodname'];
+                                        $cat = $row['category'];
+                                        $desc = $row['description'];
+                                        $prc = $row['price'];
+                                        $qty = $row['quantity'];
+                                        echo '<tr>
+                                    <td>' . $pid . '</td>
+                                    <td>' . $pname . '</td>
+                                    <td>' . $cat . '</td>
+                                    <td>' . $desc . '</td>
+                                    <td>' . $prc . '</td>
+                                    <td>' . $qty . '</td>
                                     <td>
-                                    <button class="modal-open showUpdateProduct" data-modal="modal1" value="'.$pid.'" ><span class="material-symbols-sharp edit" title="Edit this product">edit</span></button>
-                                    <button class="modal-open showArchiveProduct" data-modal="modal2" value="'.$pid.'"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
+                                    <button class="modal-open showUpdateProduct" data-modal="modal1" value="' . $pid . '" ><span class="material-symbols-sharp edit" title="Edit this product">edit</span></button>
+                                    <button class="modal-open showArchiveProduct" data-modal="modal2" value="' . $pid . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
                                     </td>
                                     </tr>';
+                                    }
                                 }
-                            } 
-                            ?>
+                                ?>
                             </tbody>
                         </table>
+                    </div>
                 </div>
-            </div>
             </section>
 
             <section class="tableproduct">
                 <h1>Add Product</h1>
                 <div class="table-profile">
-                    <form action="" method="POST" >
+                    <form action="" method="POST">
                         <div class="formprofile">
-                            <div> 
+                            <div>
                                 <input type="text" name="prodname" placeholder="Enter Item Name" required>
                                 <span>Product Name</span>
                             </div>
-                            <div>  
-                                <select class="radiobtn" name="category" id="ut" required> 
+                            <div>
+                                <select class="radiobtn" name="category" id="ut" required>
                                     <option value="">Select Category</option>
-                                <?php
-                                        while ($r = mysqli_fetch_array($s)) {
-                                ?>
+                                    <?php
+                                    while ($r = mysqli_fetch_array($s)) {
+                                    ?>
                                         <option value="<?php echo $r['category']; ?>"><?php echo $r['category']; ?> </option>
-                                        <?php
-                                            }
-                                        ?>
+                                    <?php
+                                    }
+                                    ?>
                                 </select>Category
                             </div>
 
@@ -247,88 +245,88 @@
                                 <span>Description</span>
                             </div>
                             <div>
-                                <input type="text" name="price" placeholder="Enter Price" required>
+                                <input type="number" name="price" placeholder="Enter Price" required>
                                 <span>Price</span>
                             </div>
                             <div>
-                                <input type="text" name="quantity" placeholder="Enter Quantity" required>
+                                <input type="number" name="quantity" placeholder="Enter Quantity" required>
                                 <span>Quantity</span>
                             </div>
-                           
+
                         </div>
-                            <div class="buttonflex">
-                                <button name="saveproduct" type="submit" class="save" title="Save the record">Save</button>
-                                <button class="cancel" title="Clear all inputs" onclick="clearBtnStock()" >Clear</button>
-                            </div>
+                        <div class="buttonflex">
+                            <button name="saveproduct" type="submit" class="save" title="Save the record">Save</button>
+                            <button class="cancel" title="Clear all inputs" id="clear-button">Clear</button>
+                        </div>
                     </form>
                 </div>
             </section>
         </main>
 
         <!--  End of Main Tag  -->
-        <?php   include 'systemaccountanddate.php'; ?>
+        <?php include 'systemaccountanddate.php'; ?>
         <!--  Start of Retrive section  -->
         <div class="rightbottom">
-        <h2>Restore and Refresh Product</h2>
+            <h2>Restore and Refresh Product</h2>
             <div>
                 <div class="buttonmodify">
-                    <button title="Restore archive Product" class="modal-open" data-modal="modal4"><span class="material-symbols-sharp">unarchive</span>Restore Product</button> 
-                </div>
-                <div class="buttonmodify">
-                    <button title="Refresh Product"><span class="material-symbols-sharp">refresh</span>Refresh Product</button> 
+                    <button title="Restore archive Product" class="modal-open" data-modal="modal4"><span class="material-symbols-sharp">unarchive</span>Restore Product</button>
                 </div>
             </div>
         </div>
-        
-        <!-- Start of Modal --> 
+
+        <!-- Start of Modal -->
         <!-- Modal of Edit Product -->
         <div class="modal" id="modal1">
             <div class="modal-content">
-                <div class="modal-header"><h1>Edit Product</h1>
+                <div class="modal-header">
+                    <h1>Edit Product</h1>
                     <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                 </div>
                 <div class="table-product" id="updateProduct">
-                    
+
                 </div>
-            </section>              
+                </section>
             </div>
         </div>
         <!-- Modal of Archive Product MessageBox -->
         <div class="modal" id="modal2">
             <div class="modal-content">
-                <div class="modal-header"><h1>Archive Product</h1>
+                <div class="modal-header">
+                    <h1>Archive Product</h1>
                     <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                 </div>
                 <div class="modal-body" id="archiveProduct">
                 </div>
-                </div>
             </div>
         </div>
-        <!-- Modal of Restore Product MessageBox -->
-        <div class="modal" id="modal3">
-            <div class="modal-content">
-                <div class="modal-header"><h1>Unarchive Product</h1>
-                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                </div>
-                <div class="modal-body" id="restoreProduct">
-                </div>
+    </div>
+    <!-- Modal of Restore Product MessageBox -->
+    <div class="modal" id="modal3">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1>Unarchive Product</h1>
+                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+            </div>
+            <div class="modal-body" id="restoreProduct">
             </div>
         </div>
+    </div>
 
-        <div class="modal" id="modal4">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1>Restore Product</h1>
-                    <div class="accrecsearch">
-                        <div class="searchbar">
+    <div class="modal" id="modal4">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1>Restore Product</h1>
+                <div class="accrecsearch">
+                    <div class="searchbar">
                         <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                        </div>
                     </div>
-                </div> 
-                   
-                <div class="modal-body">
-                    <section class="tableproduct">
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <section class="tableproduct">
                     <div class="table-product" id="searchresult">
                         <table class="content-table">
                             <thead>
@@ -339,56 +337,56 @@
                                     <th>Description</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
-                                    <th>        </th>
+                                    <th> </th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php 
+                                <?php
                                 $sql = "Select * from tblarcstock";
-                                    $res= mysqli_query($conn,$sql);
+                                $res = mysqli_query($conn, $sql);
 
-                                    if($res){
-                                    while($row=mysqli_fetch_assoc($res)){
-                                    $pid=$row['proid'];
-                                    $pname=$row['prodname'];
-                                    $cat=$row['category'];
-                                    $desc=$row['description']; 
-                                    $prc=$row['price'];
-                                    $qty=$row['quantity'];
-                                    echo '<tr>
-                                    <td>'.$pid.'</td>
-                                    <td>'.$pname.'</td>
-                                    <td>'.$cat.'</td>
-                                    <td>'.$desc.'</td>
-                                    <td>'.$prc.'</td>
-                                    <td>'.$qty.'</td>
+                                if ($res) {
+                                    while ($row = mysqli_fetch_assoc($res)) {
+                                        $pid = $row['proid'];
+                                        $pname = $row['prodname'];
+                                        $cat = $row['category'];
+                                        $desc = $row['description'];
+                                        $prc = $row['price'];
+                                        $qty = $row['quantity'];
+                                        echo '<tr>
+                                    <td>' . $pid . '</td>
+                                    <td>' . $pname . '</td>
+                                    <td>' . $cat . '</td>
+                                    <td>' . $desc . '</td>
+                                    <td>' . $prc . '</td>
+                                    <td>' . $qty . '</td>
                                     <td>
-                                    <button class="modal-open showRestoreProduct" data-modal="modal3" value="'.$pid.'" ><span class="material-symbols-sharp restore" title="Restore this product">unarchive</span></button>
+                                    <button class="modal-open showRestoreProduct" data-modal="modal3" value="' . $pid . '" ><span class="material-symbols-sharp restore" title="Restore this product">unarchive</span></button>
                                     </td>
                                     </tr>';
+                                    }
                                 }
-                            } 
-                            ?>
+                                ?>
                             </tbody>
                         </table>
-                </div>
-                    </section>
-                    <div class="modal-footer">
-                        <div class="buttonflexright">
-                            <button type="submit" class="cancel modal-close" title="Cancel">Cancel</button>
-                        </div>
                     </div>
-
+                </section>
+                <div class="modal-footer">
+                    <div class="buttonflexright">
+                        <button type="submit" class="cancel modal-close" title="Cancel">Cancel</button>
+                    </div>
                 </div>
+
             </div>
         </div>
+    </div>
 
     </div>
 
-    <?php  include 'scriptingfiles.php';  ?>
+    <?php include 'scriptingfiles.php';  ?>
     <script>
-           $(document).ready(function() {
-             // USERACCOUNT DOCUMENT FORMS
+        $(document).ready(function() {
+            // USERACCOUNT DOCUMENT FORMS
             $(".showUpdateProduct").click(function() {
                 var productid = this.value;
                 $("#updateProduct").load("submit.php", {
@@ -424,9 +422,8 @@
                 });
             });
         });
-
-
     </script>
 
 </body>
+
 </html>

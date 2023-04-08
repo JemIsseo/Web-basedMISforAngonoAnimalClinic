@@ -38,9 +38,10 @@
                                         <?php   
                                         } else {
                                             if ($pw === $cpw) {
+                                                    $password_hash = password_hash($pw, PASSWORD_BCRYPT);
                                                    // Insert into database
                                                     $sql = "insert into tbluseraccount(username,password,usertype,email,image) 
-                                                    values('$un','$pw','$ut','$ea','$img')";
+                                                    values('$un','$password_hash','$ut','$ea','$img')";
                                                     $res = mysqli_query($conn, $sql);
                                                         if ($res) { 
                                                             ?>
@@ -302,7 +303,7 @@
                             </div>
                             <div class="buttonflex">
                                 <button name="saveaccount" type="submit" class="save" title="Save the record">Save</button>
-                                <button class="cancel" title="Clear all inputs" onclick="clearBtnUserAccount()">Clear</button>
+                                <button class="cancel" title="Clear all inputs" id="clear-button">Clear</button>
                             </div>
                         </form>
                     </div>

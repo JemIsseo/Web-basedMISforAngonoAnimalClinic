@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 06, 2023 at 03:50 PM
+-- Generation Time: Apr 08, 2023 at 02:20 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -44,6 +44,42 @@ CREATE TABLE IF NOT EXISTS `tblappointments` (
 INSERT INTO `tblappointments` (`queueno`, `clientname`, `petname`, `services`, `dateandtime`) VALUES
 (5, ' Vann Oliveros', 'Coco', 'Veterinary Emergency and Critical Care', '2023-02-13 10:42:00'),
 (11, ' Divina Amio', 'Gekgek', 'Wellness Clinic', '2023-02-28 10:50:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblarcownersprofile`
+--
+
+DROP TABLE IF EXISTS `tblarcownersprofile`;
+CREATE TABLE IF NOT EXISTS `tblarcownersprofile` (
+  `cusid` int NOT NULL,
+  `ownersname` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `contactno` int NOT NULL,
+  `address` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `emailaddress` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`cusid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblarcpet`
+--
+
+DROP TABLE IF EXISTS `tblarcpet`;
+CREATE TABLE IF NOT EXISTS `tblarcpet` (
+  `petid` int NOT NULL,
+  `cusid` int NOT NULL,
+  `ownersname` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `petname` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `pettype` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `age` int NOT NULL,
+  `sex` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `breed` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `weight` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`petid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -149,18 +185,45 @@ INSERT INTO `tblcategory` (`catid`, `category`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblorder`
+--
+
+DROP TABLE IF EXISTS `tblorder`;
+CREATE TABLE IF NOT EXISTS `tblorder` (
+  `orderid` int NOT NULL AUTO_INCREMENT,
+  `transactionid` int DEFAULT NULL,
+  `prodname` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `category` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `quantity` int NOT NULL,
+  `price` int NOT NULL,
+  `cart` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`orderid`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblorder`
+--
+
+INSERT INTO `tblorder` (`orderid`, `transactionid`, `prodname`, `category`, `quantity`, `price`, `cart`) VALUES
+(12, 1, 'Dextrose Monohydrate', 'Medicine', 34, 1768, 'Checkout'),
+(11, 1, 'Dextrose Monohydrate', 'Medicine', 34, 1768, 'Checkout'),
+(10, 1, 'Dextrose Monohydrate', 'Medicine', 34, 1768, 'Checkout');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblownersprofile`
 --
 
 DROP TABLE IF EXISTS `tblownersprofile`;
 CREATE TABLE IF NOT EXISTS `tblownersprofile` (
   `cusid` int NOT NULL AUTO_INCREMENT,
-  `ownersname` varchar(100) NOT NULL,
+  `ownersname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `contactno` varchar(45) NOT NULL,
   `address` varchar(255) NOT NULL,
   `emailaddress` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`cusid`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tblownersprofile`
@@ -176,7 +239,8 @@ INSERT INTO `tblownersprofile` (`cusid`, `ownersname`, `contactno`, `address`, `
 (15, 'Jeremy Liberty', ' 09099223039', ' 39 int. Lanete St. Brgy. Sta. Ana Taytay, Rizal', 'libertyjeremy23@gmail.com'),
 (8, 'Catherine Jacobs', ' 09178895502', ' 45 Molave St. Brgy. San Vicente Angono, Rizal', 'divinaamio01@gmail.com'),
 (9, 'Vann Oliveros', ' 09060668451', ' Ynares St. Brgy. San Carlos Binangonan, Rizal', 'vann.oliveros@gmail.com'),
-(10, 'Bim Salinga', ' 093850399584', ' Binangonan, Rizal', 'bim@gmail.com');
+(10, 'Bim Salinga', ' 093850399584', ' Binangonan, Rizal', 'bim@gmail.com'),
+(16, 'Jessica Sotto', ' 09567657657', ' 123 STREET BRGY ', 'kapusomo@wewjeo.com');
 
 -- --------------------------------------------------------
 
@@ -275,14 +339,14 @@ CREATE TABLE IF NOT EXISTS `tblstock` (
   `minstocklevel` int DEFAULT NULL,
   `maxstocklevel` int DEFAULT NULL,
   PRIMARY KEY (`proid`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblstock`
 --
 
 INSERT INTO `tblstock` (`proid`, `prodname`, `category`, `description`, `price`, `quantity`, `minstocklevel`, `maxstocklevel`) VALUES
-(13, 'Dextrose Monohydrate', 'Medicine', 'is a carbohydrate and valuable source of energy rapidly and easily absorb.', 52, 20, 10, 5000),
+(13, 'Dextrose Monohydrate', 'Medicine', 'is a carbohydrate and valuable source of energy rapidly and easily absorb.', 52, 23, 10, 5000),
 (15, 'BRONCure', 'Medicine', 'For acute treatment of colds and respiratory infections in pets. to reduce symptoms of sneezing, coughing, watery eyes and nose.', 220, 79, 10, 5000),
 (16, 'D-Glucose Monohydrate', 'Medicine', 'is useful in rebuilding stamina and vigor after every activity.', 95, 20, 10, 5000),
 (17, 'Pet Collar', 'Accessories', 'use for restrain, identification and protection.', 40, 80, 10, 5000),
@@ -290,6 +354,29 @@ INSERT INTO `tblstock` (`proid`, `prodname`, `category`, `description`, `price`,
 (20, 'NutriChunks (beef)20kg', 'Food', 'An optimum blend of proteins, fats and carbohydrates that support a puppies high energy needs.', 1500, 10, 10, 5000),
 (21, 'VitaPet (for adult cat) 1.5kg', 'Food', 'It has tuna flavor, to support the immune system for a healthy cat with calcium and phosporus to help maintain healthy bones and teeth.', 360, 10, 10, 5000),
 (22, 'Cosi pets milk (1Liter)', 'Medicine', 'Cosi is a formulated and highly delicious milk for pets of all ages. Cosi pets milk has broken down the lactose making it easier for your pet to digest.', 250, 30, 10, 5000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbltransaction`
+--
+
+DROP TABLE IF EXISTS `tbltransaction`;
+CREATE TABLE IF NOT EXISTS `tbltransaction` (
+  `transactionid` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `ownersname` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `totalprice` int NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`transactionid`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbltransaction`
+--
+
+INSERT INTO `tbltransaction` (`transactionid`, `username`, `ownersname`, `totalprice`, `date`) VALUES
+(1, 'Veterinarian', 'Jeremy Liberty', 5304, '2023-04-08 01:27:12');
 
 -- --------------------------------------------------------
 
@@ -315,7 +402,9 @@ CREATE TABLE IF NOT EXISTS `tbluseraccount` (
 INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `status`, `image`) VALUES
 ('Veterinarian', '$2y$10$j9C8tNEwjT7IAFkYy1BYXu69vBS9C3t23am9qGjLqcNv5vHJc0Ti6', 'Veterinarian', 'imepogi23@gmail.com', 1, 'IMG-64298c35933fd3.55023577.png'),
 ('notverified', '$2y$10$62ZcfD91MixWDWRG1qwdHuY/Nvb5H6NxkP9hfg53vynPzjEipvIeC', 'Assistant', 'libertypogi@gmail.com', 0, 'IMG-64298c3eb86f47.88841820.png'),
-('Secretary', '$2y$10$SoRDgeZxzWjf6aUvGcHuP.vbhm50/CxYBNj7Fd9o3uSJJJGdr7UBu', 'Secretary', 'libertyjeremy23@gmail.com', 1, 'IMG-642d24fc7a1604.22452684.png');
+('Jemlibs', '$2y$10$iFvnSJNYDfjFc1JLq2SvNeIVF7039/YsJSlDy0vsqrGlsBdDzW1ie', 'Assistant', 'ruelitopogi04@gmail.com', 1, 'IMG-642fd3ee5b61a0.75681301.png'),
+('Secretary', '$2y$10$OBoQWVpwNXlS0qMaPJ18e.9xp10KjtrBjH6Z6MBRDo9tJ1k3Q32Du', 'Secretary', 'libertyjeremy23@gmail.com', 1, 'IMG-642d24fc7a1604.22452684.png'),
+('awaw', '$2y$10$/ONs56SO.ADSBo0Qh1ZBZ.T/gxEjVh2U4YqPcspTwswSlxVlMI6NC', 'Secretary', '23123@321321', 0, 'IMG-6431777e32d662.84830623.png');
 
 -- --------------------------------------------------------
 
