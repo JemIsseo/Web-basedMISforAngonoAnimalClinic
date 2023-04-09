@@ -471,7 +471,7 @@ if (isset($_POST['selectprofileID'])) {
             <form action="productsandservices.php" method="POST">
                 <div class="buttonflex">
                     <button name="saveselectprofile" type="submit" class="yes" title="Confirm activity">Yes</button>
-                    <button class="no" title="Cancel activity">No</button>
+                    <button class="no modal-close" title="Cancel activity">No</button>
                 </div>
             </form>
         </div>
@@ -499,7 +499,7 @@ if (isset($_POST['selectproductID'])) {
             <form action="productsandservices.php" method="POST">
                 <div class="buttonflex">
                     <button name="saveselectproduct" type="submit" class="yes" title="Confirm activity">Yes</button>
-                    <button class="no" title="Cancel activity">No</button>
+                    <button class="no modal-close" title="Cancel activity">No</button>
                 </div>
             </form>
         </div>
@@ -508,30 +508,12 @@ if (isset($_POST['selectproductID'])) {
 }
 
 
-
-
-// STOCK SQL STATEMENTS // ARCHIVE STOCK STATEMENT
+// REMOVE CART SQL STATEMENTS 
 if (isset($_POST['removecartID'])) {
-    $removecartID= $_POST['removecartID'];
-    $sql = "Update tblorder set cart = 'Removed' where orderid ='$removecartID'";
+    $removecartID = $_POST['removecartID'];
+    $sql = "update tblorder set cart = 'Removed' where orderid ='$removecartID'";
     $res = mysqli_query($conn, $sql);
-?>
-    <section class="tableproduct">
-        <div>
-            <form action="productsandservices.php" method="POST">
-                <h3>Are you sure you want to remove this product?</h3>
-                <div class="buttonflex">
-                    <button name="removecartID" type="submit" class="yes" title="Archive the record">Yes</button>
-                    <button type="submit" class="no" title="Cancel activity">No</button>
-                </div>
-            </form>
-        </div>
-    </section>
-<?php
 }
-
-
-
 
 
 include 'scriptingfiles.php';

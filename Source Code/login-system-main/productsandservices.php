@@ -1,11 +1,13 @@
 <?php
 session_start();
 include 'connect.php';
-
 $op = $_SESSION['ownersname'] ?? '';
+$pname = $_SESSION['prodname'] ?? '';
+$cat = $_SESSION['category'] ?? '';
+
 if (isset($_POST['saveaddtocart'])) {
-    $pname = $_POST['prodname'];
-    $cat = $_POST['category'];
+    // $pname = $_POST['prodname'];
+    // $cat = $_POST['category'];
     $qty = $_POST['quantity'];
     $sql1 = "select * from tblstock where prodname = '$pname'";
     $res1 = mysqli_query($conn, $sql1);
@@ -24,7 +26,7 @@ if (isset($_POST['saveaddtocart'])) {
             <h2>Product Added to Cart!</h2>
             <button class="icon"><span class="material-symbols-sharp">close</span></button>
         </div>
-<?php
+    <?php
     } else {
         die(mysqli_error($conn));
     }
@@ -46,8 +48,16 @@ if (isset($_POST['checkout'])) {
 
     $sql1 = "INSERT INTO tbltransaction (username, ownersname, totalprice, date) VALUES('" . $_SESSION['username'] . "', '$op', '$totalprice', NOW())";
     $result1 = mysqli_query($conn, $sql1);
-}
 
+    if ($result1) {
+    ?>
+        <div class="statusmessagesuccess message-box" id="close">
+            <h2>Transaction has been completed!</h2>
+            <button class="icon"><span class="material-symbols-sharp">close</span></button>
+        </div>
+<?php
+    }
+}
 
 
 
@@ -83,10 +93,6 @@ if (isset($_POST['checkout'])) {
                 <div class="table-profile">
                     <form action="" method="POST">
                         <div class="formprofile">
-                            <?php
-                            $pname = $_SESSION['prodname'] ?? '';
-                            $cat = $_SESSION['category'] ?? '';
-                            ?>
                             <div>
                                 <input type="text" name="category" value="<?php echo $cat; ?>" disabled required>
                                 <span>Category</span>
@@ -96,13 +102,17 @@ if (isset($_POST['checkout'])) {
                                 <span>Product Name</span>
                             </div>
                             <div>
+                                <input type="text" value="<?php echo $op; ?>" disabled required>
+                                <span>Owner's Name</span>
+                            </div>
+                            <div>
                                 <input type="number" name="quantity" required>
                                 <span>Quantity</span>
                             </div>
                         </div>
                         <div class="buttonflex">
                             <button name="saveaddtocart" class="save" title="Add to order cart">Add</button>
-                            <button class="cancel" title="Clear all inputs" onclick="clearSession()">Clear</button>
+                            <button class="cancel" title="Clear all inputs" id="clear-button">Clear</button>
                         </div>
 
                     </form>
@@ -110,6 +120,9 @@ if (isset($_POST['checkout'])) {
                         <div class="buttonmodify">
                             <button class="modal-open" data-modal="modal5" title="View list of products"><span class="material-symbols-sharp">place_item</span>
                                 <h3>View Products</h3>
+                            </button>
+                            <button class="modal-open" data-modal="modal4" title="View list of profile"><span class="material-symbols-sharp">person</span>
+                                <h3>View Profile</h3>
                             </button>
                         </div>
                     </div>
@@ -126,19 +139,13 @@ if (isset($_POST['checkout'])) {
                     </div>
                 </div>
                 <form action="" method="POST">
-                    <div class="table-profile">
+                    <div class="table-profile table-checkout">
                         <div class="formcart">
                             <div class="formprofile inputspan">
-                                <input type="text" name="ownersname" value="<?php echo $op; ?>" disabled required>
-                                <span>Owner's Name</span>
-                            </div>
-                            <div class="buttonmodify">
-                                <button class="modal-open" data-modal="modal4" title="View list of profile"><span class="material-symbols-sharp">person</span>
-                                    <h3>View Profile</h3>
-                                </button>
+                                <input type="hidden" name="ownersname" value="<?php echo $op; ?>" disabled required>
                             </div>
                         </div>
-                        <table class="content-table">
+                        <table class="content-table tblcart">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
@@ -156,9 +163,9 @@ if (isset($_POST['checkout'])) {
 
                                 if ($res) {
                                     while ($row = mysqli_fetch_assoc($res)) {
-                                        $pname = $row['prodname'];
                                         $oid = $row['orderid'];
                                         $cat = $row['category'];
+                                        $pname = $row['prodname'];
                                         $prc = $row['price'];
                                         $qty = $row['quantity'];
                                         echo '<tr>
@@ -168,7 +175,7 @@ if (isset($_POST['checkout'])) {
                                     <td>' . $qty . '</td>
                                     <td>' . $prc . '</td>
                                     <td>
-                                    <button class="modal-open showRemoveCart" data-modal="modal7" value="' . $oid . '" ><span class="material-symbols-sharp remove" title="Remove this product">delete</span></button>
+                                        <button class="modal-open showRemoveCart" data-modal="modal7" value="' . $oid . '" ><span class="material-symbols-sharp remove" title="Remove this product">delete</span></button>
                                     </td>
                                     </tr>';
                                     }
@@ -176,8 +183,8 @@ if (isset($_POST['checkout'])) {
                                 ?>
                             </tbody>
                         </table>
-                        <div class="buttonmodify">
-                            <button class="modal-open" name="checkout" title="View list of profile"><span class="material-symbols-sharp">shopping_cart_checkout</span>
+                        <div class="buttonmodify checkoutright">
+                            <button name="checkout" title="View list of profile"><span class="material-symbols-sharp">shopping_cart_checkout</span>
                                 <h3>Proceed Checkout</h3>
                             </button>
                         </div>
@@ -191,7 +198,7 @@ if (isset($_POST['checkout'])) {
     <!--  Start of Transaction History  -->
     <h1>Transaction History</h1>
     <div class="buttonmodify checkhistorystyle">
-        <button class="modal-open" data-modal="modal4" title="View and Restore Account"><span class="material-symbols-sharp">table_view</span>Check History</button>
+        <button class="modal-open" data-modal="modal8" title="View and Restore Account"><span class="material-symbols-sharp">table_view</span>Check History</button>
     </div>
 
 
@@ -225,7 +232,7 @@ if (isset($_POST['checkout'])) {
                 <h1>Select Profile</h1>
                 <div class="accrecsearch">
                     <div class="searchbar">
-                        <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
+                        <input type="text" placeholder="Search here" id="search-box"><span class="material-symbols-sharp">search</span>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                     </div>
                 </div>
@@ -234,7 +241,7 @@ if (isset($_POST['checkout'])) {
             <div class="modal-body">
                 <section class="tableprofile">
                     <div class="table-profile">
-                        <table class="content-table">
+                        <table class="content-table" id="ownersName">
                             <thead>
                                 <tr>
                                     <th>Owner's Name</th>
@@ -302,7 +309,7 @@ if (isset($_POST['checkout'])) {
                 <h1>Select Product</h1>
                 <div class="accrecsearch">
                     <div class="searchbar">
-                        <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
+                        <input type="text" placeholder="Search here" id="search-boxstock"><span class="material-symbols-sharp">search</span>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                     </div>
                 </div>
@@ -347,7 +354,7 @@ if (isset($_POST['checkout'])) {
                                             <td>' . $prc . '</td>
                                             <td>' . $qty . '</td>
                                             <td>
-                                            <button name="selectprofile" data-modal="modal7" class="modal-open showSelectProduct" value="' . $pid . '"><span class="material-symbols-sharp archive">done</span></button>
+                                            <button name="selectprofile" data-modal="modal6" class="modal-open showSelectProduct" value="' . $pid . '"><span class="material-symbols-sharp archive">done</span></button>
                                             </td>
                                             </tr>';
                                         }
@@ -366,6 +373,74 @@ if (isset($_POST['checkout'])) {
             </div>
         </div>
     </div>
+
+    <!-- Modal of Transaction History -->
+    <div class="modal" id="modal8">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1>View Transaction</h1>
+                <div class="accrecsearch">
+                    <div class="searchbar">
+                        <input type="text" placeholder="Search here" id="search-boxtransact"><span class="material-symbols-sharp">search</span>
+                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <section class="tableprofile">
+                    <div class="table-profile">
+                        <table class="content-table tblhistory" id="searchTransaction">
+                            <thead>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Username</th>
+                                    <th>Owner's Name</th>
+                                    <th>Total Price</th>
+                                    <th>Date</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $sql = "Select * from tbltransaction order by transactionid desc";
+                                $res = mysqli_query($conn, $sql);
+
+                                if ($res) {
+                                    while ($row = mysqli_fetch_assoc($res)) {
+                                        $tid = $row['transactionid'];
+                                        $un = $row['username'];
+                                        $op = $row['ownersname'];
+                                        $tprc = $row['totalprice'];
+                                        $date = $row['date'];
+                                        echo '<tr>
+                                        <td>' . $tid . '</td>
+                                        <td>' . $un . '</td>
+                                        <td>' . $op . '</td>
+                                        <td>' . $tprc . '</td>
+                                        <td>' . $date . '</td>
+                                        <td>
+                                            <button name="selectprofile" data-modal="modal9" class="modal-open showSelectProfile" value="' . $tid . '"><span class="material-symbols-sharp print">print</span></button>
+                                        </td>
+                                        </tr>';
+                                    }
+                                }
+                                ?>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </section>
+                <div class="modal-footer">
+                    <div class="buttonflexright">
+                        <button type="submit" class="cancel modal-close" title="Cancel">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Modal of  Select Profile MessageBox -->
     <div class="modal" id="modal6">
@@ -418,6 +493,54 @@ if (isset($_POST['checkout'])) {
                 })
             })
         })
+        $(document).ready(function() {
+            $('#search-box').on('keyup', function() {
+                var queryselectprofile = $(this).val();
+                $.ajax({
+                    url: 'search.php',
+                    method: 'POST',
+                    data: {
+                        search: 1,
+                        queryselectprofile: queryselectprofile
+                    },
+                    success: function(data) {
+                        $('#ownersName').html(data);
+                    }
+                });
+            });
+        });
+        $(document).ready(function() {
+            $('#search-boxstock').on('keyup', function() {
+                var queryselectproduct = $(this).val();
+                $.ajax({
+                    url: 'search.php',
+                    method: 'POST',
+                    data: {
+                        search: 1,
+                        queryselectproduct: queryselectproduct
+                    },
+                    success: function(data) {
+                        $('#searchStock').html(data);
+                    }
+                });
+            });
+        });
+        $(document).ready(function() {
+            $('#search-boxtransact').on('keyup', function() {
+                var querytransaction = $(this).val();
+                $.ajax({
+                    url: 'search.php',
+                    method: 'POST',
+                    data: {
+                        search: 1,
+                        querytransaction: querytransaction
+                    },
+                    success: function(data) {
+                        $('#searchTransaction').html(data);
+                    }
+                });
+            });
+        });
     </script>
 
 </body>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 08, 2023 at 02:20 PM
+-- Generation Time: Apr 09, 2023 at 07:55 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -198,16 +198,17 @@ CREATE TABLE IF NOT EXISTS `tblorder` (
   `price` int NOT NULL,
   `cart` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`orderid`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblorder`
 --
 
 INSERT INTO `tblorder` (`orderid`, `transactionid`, `prodname`, `category`, `quantity`, `price`, `cart`) VALUES
-(12, 1, 'Dextrose Monohydrate', 'Medicine', 34, 1768, 'Checkout'),
-(11, 1, 'Dextrose Monohydrate', 'Medicine', 34, 1768, 'Checkout'),
-(10, 1, 'Dextrose Monohydrate', 'Medicine', 34, 1768, 'Checkout');
+(25, 1, 'NutriChunks (beef)20kg', 'Food', 10, 15000, 'Checkout'),
+(26, 1, 'D-Glucose Monohydrate', 'Medicine', 34, 3230, 'Checkout'),
+(23, 1, 'BRONCure', 'Medicine', 7, 1540, 'Checkout'),
+(11, 1, 'Dextrose Monohydrate', 'Medicine', 34, 1768, 'Checkout');
 
 -- --------------------------------------------------------
 
@@ -351,7 +352,7 @@ INSERT INTO `tblstock` (`proid`, `prodname`, `category`, `description`, `price`,
 (16, 'D-Glucose Monohydrate', 'Medicine', 'is useful in rebuilding stamina and vigor after every activity.', 95, 20, 10, 5000),
 (17, 'Pet Collar', 'Accessories', 'use for restrain, identification and protection.', 40, 80, 10, 5000),
 (18, 'Pet Bowl (for eating purpose)', 'Accessories', 'Food containers use for feeding pets made up of different types of materials.', 50, 50, 10, 5000),
-(20, 'NutriChunks (beef)20kg', 'Food', 'An optimum blend of proteins, fats and carbohydrates that support a puppies high energy needs.', 1500, 10, 10, 5000),
+(20, 'NutriChunks (beef)20kg', 'Food', 'An optimum blend of proteins, fats and carbohydrates that support a puppies high energy needs.', 1500, 20, 10, 5000),
 (21, 'VitaPet (for adult cat) 1.5kg', 'Food', 'It has tuna flavor, to support the immune system for a healthy cat with calcium and phosporus to help maintain healthy bones and teeth.', 360, 10, 10, 5000),
 (22, 'Cosi pets milk (1Liter)', 'Medicine', 'Cosi is a formulated and highly delicious milk for pets of all ages. Cosi pets milk has broken down the lactose making it easier for your pet to digest.', 250, 30, 10, 5000);
 
@@ -369,14 +370,14 @@ CREATE TABLE IF NOT EXISTS `tbltransaction` (
   `totalprice` int NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`transactionid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbltransaction`
 --
 
 INSERT INTO `tbltransaction` (`transactionid`, `username`, `ownersname`, `totalprice`, `date`) VALUES
-(1, 'Veterinarian', 'Jeremy Liberty', 5304, '2023-04-08 01:27:12');
+(1, 'Veterinarian', 'White Lee', 21538, '2023-04-09 12:40:06');
 
 -- --------------------------------------------------------
 
@@ -404,7 +405,7 @@ INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `stat
 ('notverified', '$2y$10$62ZcfD91MixWDWRG1qwdHuY/Nvb5H6NxkP9hfg53vynPzjEipvIeC', 'Assistant', 'libertypogi@gmail.com', 0, 'IMG-64298c3eb86f47.88841820.png'),
 ('Jemlibs', '$2y$10$iFvnSJNYDfjFc1JLq2SvNeIVF7039/YsJSlDy0vsqrGlsBdDzW1ie', 'Assistant', 'ruelitopogi04@gmail.com', 1, 'IMG-642fd3ee5b61a0.75681301.png'),
 ('Secretary', '$2y$10$OBoQWVpwNXlS0qMaPJ18e.9xp10KjtrBjH6Z6MBRDo9tJ1k3Q32Du', 'Secretary', 'libertyjeremy23@gmail.com', 1, 'IMG-642d24fc7a1604.22452684.png'),
-('awaw', '$2y$10$/ONs56SO.ADSBo0Qh1ZBZ.T/gxEjVh2U4YqPcspTwswSlxVlMI6NC', 'Secretary', '23123@321321', 0, 'IMG-6431777e32d662.84830623.png');
+('kenneth', '$2y$10$IW8hBR6TTfPSQkmmxK21dOBt030KN4JEc/XgK/izkmI01Z8Ag26Yy', 'Assistant', 'villaluzjohnkenneth224@gmail.com', 1, 'IMG-6432c0f2d230a0.97056361.png');
 
 -- --------------------------------------------------------
 
