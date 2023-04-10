@@ -5,34 +5,47 @@ $op = $_SESSION['ownersname'] ?? '';
 $pname = $_SESSION['prodname'] ?? '';
 $cat = $_SESSION['category'] ?? '';
 
+$sql1 = "select * from tblstock where prodname = '$pname'";
+$res1 = mysqli_query($conn, $sql1);
+$row1 = mysqli_fetch_assoc($res1);
+
+
 if (isset($_POST['saveaddtocart'])) {
-    // $pname = $_POST['prodname'];
-    // $cat = $_POST['category'];
     $qty = $_POST['quantity'];
-    $sql1 = "select * from tblstock where prodname = '$pname'";
-    $res1 = mysqli_query($conn, $sql1);
-
-    $row1 = mysqli_fetch_assoc($res1);
     $prc = $row1['price'];
-
     $initialPrice = $qty * $prc;
 
-    $sql = "insert into tblorder(transactionid, prodname, category, quantity, price, cart) 
+    if ($initialPrice) {
+
+        $currentQuantity = $row1['quantity'];
+        // Check if the requested quantity is less than or equal to the available quantity in stock
+        if ($qty <= $currentQuantity) {
+            // Deduct the requested quantity from the available quantity in the stock table
+            $sql3 = "insert into tblorder(transactionid, prodname, category, quantity, price, cart) 
                 values(NULL,'$pname','$cat','$qty','$initialPrice','Yes')";
-    $res = mysqli_query($conn, $sql);
-    if ($res) {
+            $res3 = mysqli_query($conn, $sql3);
+            if ($res3) {
 ?>
-        <div class="statusmessagesuccess message-box" id="close">
-            <h2>Product Added to Cart!</h2>
-            <button class="icon"><span class="material-symbols-sharp">close</span></button>
-        </div>
-    <?php
-    } else {
-        die(mysqli_error($conn));
+                <div class="statusmessagesuccess message-box" id="close">
+                    <h2>Product Added to Cart!</h2>
+                    <button class="icon"><span class="material-symbols-sharp">close</span></button>
+                </div>
+        <?php
+            }
+            $newQuantity = $currentQuantity - $qty;
+
+            // Update the stock quantity in the database
+            $sql2 = "UPDATE tblstock SET quantity = $newQuantity WHERE prodname = '$pname'";
+            $res2 = mysqli_query($conn, $sql2);
+        } else {
+            // Display an error message to the user and do not add the item to the cart
+            echo "<div class='statusmessageerror message-box' id='close'>
+                <h2>Sorry, the requested quantity is not available in stock.</h2>
+                <button class='icon'><span class='material-symbols-sharp'>close</span></button>
+            </div>";
+        }
     }
 }
-
-
 
 if (isset($_POST['checkout'])) {
     $resultID = $conn->query("SELECT MAX(transactionid) AS max FROM tbltransaction");
@@ -50,21 +63,14 @@ if (isset($_POST['checkout'])) {
     $result1 = mysqli_query($conn, $sql1);
 
     if ($result1) {
-    ?>
+        ?>
         <div class="statusmessagesuccess message-box" id="close">
             <h2>Transaction has been completed!</h2>
             <button class="icon"><span class="material-symbols-sharp">close</span></button>
         </div>
-<?php
+    <?php
     }
 }
-
-
-
-
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -471,15 +477,15 @@ if (isset($_POST['checkout'])) {
                 <h1><b>ANGONO ANIMAL CLINIC AND PET GROOMING CENTER</b></h1>
                 <p>173 Ingal Bldg. M. L. Quezon Ave. </p>
                 <p>San Isidro Angono, Rizal </p>
-                <p>Cell. No.: 0921-502-2956 / 0966-456-8460</p>    
+                <p>Cell. No.: 0921-502-2956 / 0966-456-8460</p>
             </div>
             <div class="modal-body" id="printReceipt">
 
             </div>
-                    <div class="buttonflex printreceipt-center" id="PrintButton">
-                        <button onclick="window.print()" class="savechanges" title="Print the receipt">Print</button>
-                        <button class="cancel modal-close" title="Cancel activity">Cancel</button>
-                    </div>
+            <div class="buttonflex printreceipt-center" id="PrintButton">
+                <button onclick="window.print()" class="savechanges" title="Print the receipt">Print</button>
+                <button class="cancel modal-close" title="Cancel activity">Cancel</button>
+            </div>
         </div>
     </div>
 
