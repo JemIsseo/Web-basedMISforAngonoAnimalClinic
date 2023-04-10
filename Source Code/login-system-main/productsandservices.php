@@ -135,7 +135,7 @@ if (isset($_POST['checkout'])) {
                 <div class="accrecsearch">
                     <h1>Order Cart</h1>
                     <div class="searchbar">
-                        <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
+                        <input type="text" placeholder="Search here" id="search-boxcart"><span class="material-symbols-sharp">search</span>
                     </div>
                 </div>
                 <form action="" method="POST">
@@ -145,7 +145,7 @@ if (isset($_POST['checkout'])) {
                                 <input type="hidden" name="ownersname" value="<?php echo $op; ?>" disabled required>
                             </div>
                         </div>
-                        <table class="content-table tblcart">
+                        <table class="content-table tblcart" id="searchCart">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
@@ -173,7 +173,7 @@ if (isset($_POST['checkout'])) {
                                     <td>' . $cat . '</td>
                                     <td>' . $pname . '</td>
                                     <td>' . $qty . '</td>
-                                    <td>' . $prc . '</td>
+                                    <td>' . number_format($prc, 2) . '</td>
                                     <td>
                                         <button class="modal-open showRemoveCart" data-modal="modal7" value="' . $oid . '" ><span class="material-symbols-sharp remove" title="Remove this product">delete</span></button>
                                     </td>
@@ -325,7 +325,7 @@ if (isset($_POST['checkout'])) {
                                 <thead>
                                     <tr>
                                         <th>ProductID</th>
-                                        <th>Name</th>
+                                        <th>Product Name</th>
                                         <th>Category</th>
                                         <th>Description</th>
                                         <th>Price</th>
@@ -351,7 +351,7 @@ if (isset($_POST['checkout'])) {
                                             <td>' . $pname . '</td>
                                             <td>' . $cat . '</td>
                                             <td>' . $desc . '</td>
-                                            <td>' . $prc . '</td>
+                                            <td>' . number_format($prc, 2) . '</td>
                                             <td>' . $qty . '</td>
                                             <td>
                                             <button name="selectprofile" data-modal="modal6" class="modal-open showSelectProduct" value="' . $pid . '"><span class="material-symbols-sharp archive">done</span></button>
@@ -417,10 +417,10 @@ if (isset($_POST['checkout'])) {
                                         <td>' . $tid . '</td>
                                         <td>' . $un . '</td>
                                         <td>' . $op . '</td>
-                                        <td>' . $tprc . '</td>
+                                        <td>' . number_format($tprc, 2) . '</td>
                                         <td>' . $date . '</td>
                                         <td>
-                                            <button name="selectprofile" data-modal="modal9" class="modal-open showSelectProfile" value="' . $tid . '"><span class="material-symbols-sharp print">print</span></button>
+                                            <button name="printreceipt" data-modal="modal9" class="modal-open showPrintReceipt" value="' . $tid . '"><span class="material-symbols-sharp print">print</span></button>
                                         </td>
                                         </tr>';
                                     }
@@ -458,13 +458,28 @@ if (isset($_POST['checkout'])) {
     <!-- Modal of  Select Profile MessageBox -->
     <div class="modal" id="modal7">
         <div class="modal-content">
-            <div class="modal-header">
-                <h1>Selecting Product</h1>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
             <div class="modal-body" id="removeCart">
 
             </div>
+        </div>
+    </div>
+
+    <!-- Modal of  Select Profile MessageBox -->
+    <div class="modal" id="modal9">
+        <div class="modal-content">
+            <div class="centerreceipt">
+                <h1><b>ANGONO ANIMAL CLINIC AND PET GROOMING CENTER</b></h1>
+                <p>173 Ingal Bldg. M. L. Quezon Ave. </p>
+                <p>San Isidro Angono, Rizal </p>
+                <p>Cell. No.: 0921-502-2956 / 0966-456-8460</p>    
+            </div>
+            <div class="modal-body" id="printReceipt">
+
+            </div>
+                    <div class="buttonflex printreceipt-center" id="PrintButton">
+                        <button onclick="window.print()" class="savechanges" title="Print the receipt">Print</button>
+                        <button class="cancel modal-close" title="Cancel activity">Cancel</button>
+                    </div>
         </div>
     </div>
 
@@ -490,6 +505,12 @@ if (isset($_POST['checkout'])) {
                 var removecartid = this.value;
                 $("#removeCart").load("submit.php", {
                     removecartID: removecartid
+                })
+            })
+            $(".showPrintReceipt").click(function() {
+                var printreceiptid = this.value;
+                $("#printReceipt").load("submit.php", {
+                    printreceiptID: printreceiptid
                 })
             })
         })
@@ -537,6 +558,22 @@ if (isset($_POST['checkout'])) {
                     },
                     success: function(data) {
                         $('#searchTransaction').html(data);
+                    }
+                });
+            });
+        });
+        $(document).ready(function() {
+            $('#search-boxcart').on('keyup', function() {
+                var queryaddtocart = $(this).val();
+                $.ajax({
+                    url: 'search.php',
+                    method: 'POST',
+                    data: {
+                        search: 1,
+                        queryaddtocart: queryaddtocart
+                    },
+                    success: function(data) {
+                        $('#searchCart').html(data);
                     }
                 });
             });

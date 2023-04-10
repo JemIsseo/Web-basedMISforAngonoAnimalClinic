@@ -202,7 +202,7 @@ if (isset($_POST['restoreproduct'])) {
                                     <td>' . $pname . '</td>
                                     <td>' . $cat . '</td>
                                     <td>' . $desc . '</td>
-                                    <td>' . $prc . '</td>
+                                    <td>' . number_format($prc, 2) . '</td>
                                     <td>' . $qty . '</td>
                                     <td>
                                     <button class="modal-open showUpdateProduct" data-modal="modal1" value="' . $pid . '" ><span class="material-symbols-sharp edit" title="Edit this product">edit</span></button>
@@ -358,7 +358,7 @@ if (isset($_POST['restoreproduct'])) {
                                     <td>' . $pname . '</td>
                                     <td>' . $cat . '</td>
                                     <td>' . $desc . '</td>
-                                    <td>' . $prc . '</td>
+                                    <td>' . number_format($prc, 2) . '</td>
                                     <td>' . $qty . '</td>
                                     <td>
                                     <button class="modal-open showRestoreProduct" data-modal="modal3" value="' . $pid . '" ><span class="material-symbols-sharp restore" title="Restore this product">unarchive</span></button>

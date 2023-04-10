@@ -516,6 +516,65 @@ if (isset($_POST['removecartID'])) {
 }
 
 
+
+// REPORT TRANSACTION SALES INVOICE
+if (isset($_POST['printreceiptID'])) {
+    $printreceiptID = $_POST['printreceiptID'];
+    $sql = "Select * from tblorder where transactionid ='$printreceiptID'";
+    $res = mysqli_query($conn, $sql);
+?>
+    <table class="content-table tblcart">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Transaction ID</th>
+                <th>Category</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ($res) {
+                while ($row = mysqli_fetch_assoc($res)) {
+                    $oid = $row['orderid'];
+                    $tid = $row['transactionid'];
+                    $cat = $row['category'];
+                    $pname = $row['prodname'];
+                    $prc = $row['price'];
+                    $qty = $row['quantity'];
+                    echo '<tr>
+                                    <td>' . $oid . '</td>
+                                    <td>' . $tid . '</td>
+                                    <td>' . $cat . '</td>
+                                    <td>' . $pname . '</td>
+                                    <td>' . $qty . '</td>
+                                    <td>' . number_format($prc, 2) . '</td>
+                                    </tr>';
+                }
+                $sql1 = "select * from tbltransaction where transactionid = '$tid'";
+                $res1 = mysqli_query($conn, $sql1);
+                $row1 = mysqli_fetch_assoc($res1);
+                $totalPrice = $row1['totalprice'];
+                $date = $row1['date'];
+            }
+            ?>
+            <div class="flex">
+                <h2>Date Issued: <?php echo $date; ?></h2>
+                <h2>Total Amount: <?php echo '₱ ' . number_format($totalPrice, 2); ?></h2>
+            </div>
+        </tbody>
+    </table>
+<?php
+
+}   
+?>
+                   
+            </form>
+    </section>
+<?php
+
 include 'scriptingfiles.php';
 
 ?>

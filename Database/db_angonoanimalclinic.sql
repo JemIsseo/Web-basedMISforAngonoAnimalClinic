@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 09, 2023 at 07:55 PM
+-- Generation Time: Apr 10, 2023 at 09:17 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -131,7 +131,8 @@ INSERT INTO `tblarcuseraccount` (`username`, `password`, `usertype`, `email`, `i
 ('Jeremy', '123', 'Veterinarian', 'sample@qwojewe', NULL),
 ('wqewqewq', 'we', 'Assistant', 'qwew@wew', NULL),
 ('hello', '123', 'Secretary', 'jeje23@awew', NULL),
-('bimsecretary', '$2y$10$v7yrQkr232EM1DTnQ.GOkuEg6', 'Secretary', 'salingakristina@gmail.com', NULL);
+('bimsecretary', '$2y$10$v7yrQkr232EM1DTnQ.GOkuEg6', 'Secretary', 'salingakristina@gmail.com', NULL),
+('kenneth', '$2y$10$IW8hBR6TTfPSQkmmxK21dOBt030KN4JEc/XgK/izkmI01Z8Ag26Yy', 'Assistant', 'villaluzjohnkenneth224@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -198,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `tblorder` (
   `price` int NOT NULL,
   `cart` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`orderid`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblorder`
@@ -208,7 +209,8 @@ INSERT INTO `tblorder` (`orderid`, `transactionid`, `prodname`, `category`, `qua
 (25, 1, 'NutriChunks (beef)20kg', 'Food', 10, 15000, 'Checkout'),
 (26, 1, 'D-Glucose Monohydrate', 'Medicine', 34, 3230, 'Checkout'),
 (23, 1, 'BRONCure', 'Medicine', 7, 1540, 'Checkout'),
-(11, 1, 'Dextrose Monohydrate', 'Medicine', 34, 1768, 'Checkout');
+(11, 1, 'Dextrose Monohydrate', 'Medicine', 34, 1768, 'Checkout'),
+(28, NULL, 'BRONCure', 'Medicine', 3, 660, 'Yes');
 
 -- --------------------------------------------------------
 
@@ -348,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `tblstock` (
 
 INSERT INTO `tblstock` (`proid`, `prodname`, `category`, `description`, `price`, `quantity`, `minstocklevel`, `maxstocklevel`) VALUES
 (13, 'Dextrose Monohydrate', 'Medicine', 'is a carbohydrate and valuable source of energy rapidly and easily absorb.', 52, 23, 10, 5000),
-(15, 'BRONCure', 'Medicine', 'For acute treatment of colds and respiratory infections in pets. to reduce symptoms of sneezing, coughing, watery eyes and nose.', 220, 79, 10, 5000),
+(15, 'BRONCure', 'Medicine', 'For acute treatment of colds and respiratory infections in pets. to reduce symptoms of sneezing, coughing, watery eyes and nose.', 220, 75, 10, 5000),
 (16, 'D-Glucose Monohydrate', 'Medicine', 'is useful in rebuilding stamina and vigor after every activity.', 95, 20, 10, 5000),
 (17, 'Pet Collar', 'Accessories', 'use for restrain, identification and protection.', 40, 80, 10, 5000),
 (18, 'Pet Bowl (for eating purpose)', 'Accessories', 'Food containers use for feeding pets made up of different types of materials.', 50, 50, 10, 5000),
@@ -404,8 +406,7 @@ INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `stat
 ('Veterinarian', '$2y$10$j9C8tNEwjT7IAFkYy1BYXu69vBS9C3t23am9qGjLqcNv5vHJc0Ti6', 'Veterinarian', 'imepogi23@gmail.com', 1, 'IMG-64298c35933fd3.55023577.png'),
 ('notverified', '$2y$10$62ZcfD91MixWDWRG1qwdHuY/Nvb5H6NxkP9hfg53vynPzjEipvIeC', 'Assistant', 'libertypogi@gmail.com', 0, 'IMG-64298c3eb86f47.88841820.png'),
 ('Jemlibs', '$2y$10$iFvnSJNYDfjFc1JLq2SvNeIVF7039/YsJSlDy0vsqrGlsBdDzW1ie', 'Assistant', 'ruelitopogi04@gmail.com', 1, 'IMG-642fd3ee5b61a0.75681301.png'),
-('Secretary', '$2y$10$OBoQWVpwNXlS0qMaPJ18e.9xp10KjtrBjH6Z6MBRDo9tJ1k3Q32Du', 'Secretary', 'libertyjeremy23@gmail.com', 1, 'IMG-642d24fc7a1604.22452684.png'),
-('kenneth', '$2y$10$IW8hBR6TTfPSQkmmxK21dOBt030KN4JEc/XgK/izkmI01Z8Ag26Yy', 'Assistant', 'villaluzjohnkenneth224@gmail.com', 1, 'IMG-6432c0f2d230a0.97056361.png');
+('Secretary', '$2y$10$OBoQWVpwNXlS0qMaPJ18e.9xp10KjtrBjH6Z6MBRDo9tJ1k3Q32Du', 'Secretary', 'libertyjeremy23@gmail.com', 1, 'IMG-642d24fc7a1604.22452684.png');
 
 -- --------------------------------------------------------
 

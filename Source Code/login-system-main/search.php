@@ -307,7 +307,7 @@ if (isset($_POST['queryselectproduct'])) {
             <thead>
                 <tr>
                     <th>ProductID</th>
-                    <th>Name</th>
+                    <th>Product Name</th>
                     <th>Category</th>
                     <th>Description</th>
                     <th>Price</th>
@@ -390,11 +390,69 @@ if (isset($_POST['querytransaction'])) {
                         <td><?php echo $tid; ?></td>
                         <td><?php echo $un; ?></td>
                         <td><?php echo $op; ?></td>
-                        <td><?php echo $tprc; ?></td>
+                        <td><?php echo number_format($tprc, 2); ?></td>
                         <td><?php echo $date; ?></td>
                         <?php echo '
                         <td>
-                            <button name="selectprofile" data-modal="modal9" class="modal-open showSelectProfile" value="' . $op . '"><span class="material-symbols-sharp archive">done</span></button>
+                            <button name="printreceipt" data-modal="modal9" class="modal-open showPrintReceipt" value="' . $tid . '"><span class="material-symbols-sharp print">print</span></button>
+                        </td>';   ?>
+                    </tr>
+                </tbody>
+            <?php
+            }
+            ?>
+        </table>
+
+    <?php
+
+    } else {
+        echo "<h2 style='text-align: center'>No results found</h2>";
+    }
+}
+
+ 
+              
+// SEARCH TABLE FOR TRANSACTION MODULE ADD TO CART
+if (isset($_POST['queryaddtocart'])) {
+    $queryaddtocart = $_POST['queryaddtocart'];
+
+    $sql = "SELECT * FROM tblorder WHERE cart = 'Yes' AND prodname LIKE '%" . $queryaddtocart . "%'";
+    $result = mysqli_query($conn, $sql);
+
+    // display the results in tables
+    if (mysqli_num_rows($result) > 0) {
+    ?>
+        <table class="content-table table-fixed">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Category</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                <tbody>
+                    <?php
+                    $oid = $row['orderid'];
+                    $cat = $row['category'];
+                    $pname = $row['prodname'];
+                    $prc = $row['price'];
+                    $qty = $row['quantity'];
+                    ?>
+                    <tr>
+                        <td><?php echo $oid; ?></td>
+                        <td><?php echo $cat; ?></td>
+                        <td><?php echo $pname; ?></td>
+                        <td><?php echo number_format($prc, 2); ?></td>
+                        <td><?php echo $qty; ?></td>
+                        <?php echo '
+                        <td>
+                            <button class="modal-open showRemoveCart" data-modal="modal7" value="' . $oid . '" ><span class="material-symbols-sharp remove" title="Remove this product">delete</span></button>
                         </td>';   ?>
                     </tr>
                 </tbody>
@@ -409,8 +467,6 @@ if (isset($_POST['querytransaction'])) {
         echo "<h2 style='text-align: center'>No results found</h2>";
     }
 }
-
-
 
 
 // close the database connection
@@ -507,6 +563,12 @@ include 'scriptingfiles.php';
             var selectproductid = this.value;
             $("#selectProduct").load("submit.php", {
                 selectproductID: selectproductid
+            })
+        })
+        $(".showRemoveCart").click(function() {
+            var removecartid = this.value;
+            $("#removeCart").load("submit.php", {
+                removecartID: removecartid
             })
         })
     })

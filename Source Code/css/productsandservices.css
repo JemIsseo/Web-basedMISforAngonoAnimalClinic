@@ -394,8 +394,12 @@ aside .sidebar a:hover span {
   width: 100%;
   display: block;
   height: 250px;
-  overflow: auto;
+  overflow-x: hidden;
   text-align: center;
+}
+
+.table-receipt-small {
+  height: 590px;
 }
 
 .content-table thead tr {
@@ -420,9 +424,14 @@ aside .sidebar a:hover span {
   border-bottom: 1px solid rgb(238, 233, 233);
 }
 
+.flex {
+  display: flex;
+  gap: 5em;
+}
+
 .tblcart th,
 .tblcart td {
-  padding: 12px 40px;
+  padding: 12px 35px;
 }
 
 .tblhistory th,
@@ -441,8 +450,6 @@ aside .sidebar a:hover span {
   font-size: 30px;
   font-weight: bold;
 }
-
-
 
 /* Buttons */
 .buttons {
@@ -571,6 +578,21 @@ aside .sidebar a:hover span {
 #modal6 .modal-header .modal-close,
 #modal8 .modal-header .modal-close {
   margin-left: 50%;
+}
+
+
+#modal9 .modal-content {
+  font-family: 'Courier New', Courier, monospace;
+  margin-top: 10px;
+  width: 63%;
+  height: 97%;
+}
+
+
+.centerreceipt {
+  margin-top: 2em;
+  text-align: center;
+  font-size: 1.2em;
 }
 
 #modal4 .modal-content {
@@ -815,6 +837,23 @@ aside .sidebar a:hover span {
 .no {
   background: var(--color-light-red);
 }
+
+@media print{
+  #print {
+    display:none;
+  }
+}
+@media print {
+  #PrintButton {
+    display: none;
+  }
+}
+
+@page {
+  size: auto;   /* auto is the initial value */
+  margin: 0;  /* this affects the margin in the printer settings */
+}
+
 
 /*  Media Queries  */
 @media screen and (max-width: 1200px) {

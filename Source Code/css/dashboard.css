@@ -308,6 +308,33 @@ main .insights .number {
   box-shadow: none;
 }
 
+
+.table-profile {
+  background: var(--color-white);
+  margin-top: 1em;
+  padding: 1em;
+  height: 50vh;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+}
+
+.table-profile-sample {
+  background: var(--color-white);
+  padding: 1em;
+  height: 45vh;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+}
+
+.table-profile:hover,
+.table-profile-sample:hover {
+  box-shadow: none;
+}
+
+
+
 /*  Table Transaction  */
 .content-table {
   border-collapse: collapse;
