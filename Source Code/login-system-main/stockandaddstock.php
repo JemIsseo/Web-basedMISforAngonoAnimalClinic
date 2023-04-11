@@ -31,17 +31,28 @@ if (isset($_POST['saveproduct'])) {
 // UPDATE PRODUCT STATEMENT 
 if (isset($_POST['updateproduct'])) {
     $pid = $_POST['proid'];
-    // $_SESSION['proid'] = $pid;
     $pname = $_POST['prodname'];
     $cat = $_POST['category'];
     $desc = $_POST['description'];
     $prc = $_POST['price'];
-    $qty = $_POST['quantity'];
+    $addedqty = $_POST['quantity'];
+
+    $sql1 = "select quantity from tblstock where proid ='$pid'";
+    $res1 = mysqli_query($conn, $sql1);
+    $row1 = mysqli_fetch_assoc($res1);
+    $currentqty = $row1['quantity'];
+    $updatedqty = $addedqty + $currentqty;
 
     $sql = "update tblstock set prodname ='$pname',
-                category ='$cat', description='$desc', price='$prc', quantity='$qty'
+                category ='$cat', description='$desc', price='$prc', quantity='$updatedqty'
                 where proid= '$pid'";
     $res = mysqli_query($conn, $sql);
+
+    $sql2 = "insert into tbladdedstock (prodname, category, quantityadded) 
+    values('$pname','$cat','$addedqty')";
+    $res2 = mysqli_query($conn, $sql2);
+
+    
     if ($res) {
     ?>
         <div class="statusmessagesuccess message-box" id="close">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 10, 2023 at 09:17 AM
+-- Generation Time: Apr 11, 2023 at 03:07 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_angonoanimalclinic`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbladdedstock`
+--
+
+DROP TABLE IF EXISTS `tbladdedstock`;
+CREATE TABLE IF NOT EXISTS `tbladdedstock` (
+  `stockid` int NOT NULL AUTO_INCREMENT,
+  `prodname` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `category` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `quantityadded` int NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`stockid`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbladdedstock`
+--
+
+INSERT INTO `tbladdedstock` (`stockid`, `prodname`, `category`, `quantityadded`, `date`) VALUES
+(1, 'BRONCure', 'Medicine', 5, '2023-04-11 14:48:44');
 
 -- --------------------------------------------------------
 
@@ -199,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `tblorder` (
   `price` int NOT NULL,
   `cart` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`orderid`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblorder`
@@ -210,7 +233,8 @@ INSERT INTO `tblorder` (`orderid`, `transactionid`, `prodname`, `category`, `qua
 (26, 1, 'D-Glucose Monohydrate', 'Medicine', 34, 3230, 'Checkout'),
 (23, 1, 'BRONCure', 'Medicine', 7, 1540, 'Checkout'),
 (11, 1, 'Dextrose Monohydrate', 'Medicine', 34, 1768, 'Checkout'),
-(28, NULL, 'BRONCure', 'Medicine', 3, 660, 'Yes');
+(28, NULL, 'BRONCure', 'Medicine', 3, 660, 'Yes'),
+(39, NULL, 'D-Glucose Monohydrate', 'Medicine', 3, 285, 'Yes');
 
 -- --------------------------------------------------------
 
@@ -350,13 +374,13 @@ CREATE TABLE IF NOT EXISTS `tblstock` (
 
 INSERT INTO `tblstock` (`proid`, `prodname`, `category`, `description`, `price`, `quantity`, `minstocklevel`, `maxstocklevel`) VALUES
 (13, 'Dextrose Monohydrate', 'Medicine', 'is a carbohydrate and valuable source of energy rapidly and easily absorb.', 52, 23, 10, 5000),
-(15, 'BRONCure', 'Medicine', 'For acute treatment of colds and respiratory infections in pets. to reduce symptoms of sneezing, coughing, watery eyes and nose.', 220, 75, 10, 5000),
-(16, 'D-Glucose Monohydrate', 'Medicine', 'is useful in rebuilding stamina and vigor after every activity.', 95, 20, 10, 5000),
+(15, 'BRONCure', 'Medicine', 'For acute treatment of colds and respiratory infections in pets. to reduce symptoms of sneezing, coughing, watery eyes and nose.', 220, 80, 10, 5000),
+(16, 'D-Glucose Monohydrate', 'Medicine', 'is useful in rebuilding stamina and vigor after every activity.', 95, 29, 10, 5000),
 (17, 'Pet Collar', 'Accessories', 'use for restrain, identification and protection.', 40, 80, 10, 5000),
 (18, 'Pet Bowl (for eating purpose)', 'Accessories', 'Food containers use for feeding pets made up of different types of materials.', 50, 50, 10, 5000),
 (20, 'NutriChunks (beef)20kg', 'Food', 'An optimum blend of proteins, fats and carbohydrates that support a puppies high energy needs.', 1500, 20, 10, 5000),
-(21, 'VitaPet (for adult cat) 1.5kg', 'Food', 'It has tuna flavor, to support the immune system for a healthy cat with calcium and phosporus to help maintain healthy bones and teeth.', 360, 10, 10, 5000),
-(22, 'Cosi pets milk (1Liter)', 'Medicine', 'Cosi is a formulated and highly delicious milk for pets of all ages. Cosi pets milk has broken down the lactose making it easier for your pet to digest.', 250, 30, 10, 5000);
+(21, 'VitaPet (for adult cat) 1.5kg', 'Food', 'It has tuna flavor, to support the immune system for a healthy cat with calcium and phosporus to help maintain healthy bones and teeth.', 360, 20, 10, 5000),
+(22, 'Cosi pets milk (1Liter)', 'Medicine', 'Cosi is a formulated and highly delicious milk for pets of all ages. Cosi pets milk has broken down the lactose making it easier for your pet to digest.', 250, 25, 10, 5000);
 
 -- --------------------------------------------------------
 
@@ -372,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `tbltransaction` (
   `totalprice` int NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`transactionid`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbltransaction`
