@@ -341,7 +341,7 @@ if (isset($_POST['checkout'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "Select * from tblstock order by prodname";
+                                    $sql = "Select * from tblstock order by proid desc";
                                     $res = mysqli_query($conn, $sql);
 
                                     if ($res) {
@@ -462,7 +462,7 @@ if (isset($_POST['checkout'])) {
     </div>
 
     <!-- Modal of  Select Profile MessageBox -->
-    <div class="modal" id="modal7">
+    <div class="modal">
         <div class="modal-content">
             <div class="modal-body" id="removeCart">
 

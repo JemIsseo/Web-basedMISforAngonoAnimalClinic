@@ -1,10 +1,11 @@
 <?php
 include 'connect.php';
+
 // SEARCH TABLE FOR MODULE USERACCOUNT
 if (isset($_POST['query'])) {
     $query = $_POST['query'];
 
-    $sql = "SELECT * FROM tbluseraccount WHERE username LIKE '%" . $query . "%'";
+    $sql = "SELECT * FROM tbluseraccount WHERE username LIKE '%" . $query . "%' ORDER BY username";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -61,11 +62,68 @@ if (isset($_POST['query'])) {
     }
 }
 
+// SEARCH TABLE FOR MODULE USERACCOUNT RESTORE
+if (isset($_POST['queryrestore'])) {
+    $queryrestore = $_POST['queryrestore'];
+
+    $sql = "SELECT * FROM tblarcuseraccount WHERE username LIKE '%" . $queryrestore . "%' ORDER BY username";
+    $result = mysqli_query($conn, $sql);
+
+    // display the results in tables
+    if (mysqli_num_rows($result) > 0) {
+    ?>
+        <table class="content-table table-fixed">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Usertype</th>
+                    <th>Email Address</th>
+                    <th>Image</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                <tbody>
+                    <?php
+                    $un = $row['username'];
+                    $pw = $row['password'];
+                    $ut = $row['usertype'];
+                    $ea = $row['email'];
+                    ?>
+                    <tr>
+                        <td><?php echo $un; ?></td>
+                        <td><?php echo $pw; ?></td>
+                        <td><?php echo $ut; ?></td>
+                        <td><?php echo $ea; ?></td>
+                        <td> </td>
+                        <?php echo '
+                                <td>
+                                    <button class="modal-open showRestoreAccount" data-modal="modal3" value="' . $un . '"><span class="material-symbols-sharp restore" title="Restore this account">unarchive</span></button>
+                                </td>';   ?>
+                    </tr>
+                </tbody>
+            <?php
+            }
+            ?>
+        </table>
+
+    <?php
+
+    } else {
+        echo "<h2 style='text-align: center'>No results found</h2>";
+    }
+}
+
+
+
 // SEARCH TABLE FOR STOCKS MODULE STOCKANDADDSTOCK 
 if (isset($_POST['querystock'])) {
     $querystock = $_POST['querystock'];
 
-    $sql = "SELECT * FROM tblstock WHERE prodname LIKE '%" . $querystock . "%'";
+    $sql = "SELECT * FROM tblstock WHERE prodname LIKE '%" . $querystock . "%' ORDER BY proid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -122,11 +180,73 @@ if (isset($_POST['querystock'])) {
     }
 }
 
+// SEARCH TABLE FOR STOCK MODULE RESTORE 
+if (isset($_POST['queryrestorestock'])) {
+    $queryrestorestock = $_POST['queryrestorestock'];
+
+    $sql = "SELECT * FROM tblarcstock WHERE prodname LIKE '%" . $queryrestorestock . "%' ORDER BY proid desc";
+    $result = mysqli_query($conn, $sql);
+
+    // display the results in tables
+    if (mysqli_num_rows($result) > 0) {
+    ?>
+        <table class="content-table table-fixed">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                <tbody>
+                    <?php
+                    $pid = $row['proid'];
+                    $pname = $row['prodname'];
+                    $cat = $row['category'];
+                    $desc = $row['description'];
+                    $prc = $row['price'];
+                    $qty = $row['quantity'];
+                    ?>
+                    <tr>
+                        <td><?php echo $pid; ?></td>
+                        <td><?php echo $pname; ?></td>
+                        <td><?php echo $cat; ?></td>
+                        <td><?php echo $desc; ?></td>
+                        <td><?php echo $prc; ?></td>
+                        <td><?php echo $qty; ?></td>
+                        <?php echo '
+                        <td>
+                            <button class="modal-open showRestoreProduct" data-modal="modal3" value="' . $pid . '" ><span class="material-symbols-sharp restore" title="Restore this product">unarchive</span></button>
+                        </td>';   ?>
+                    </tr>
+                </tbody>
+            <?php
+            }
+            ?>
+        </table>
+
+    <?php
+
+    } else {
+        echo "<h2 style='text-align: center'>No results found</h2>";
+    }
+}
+
+
+
+
 // SEARCH TABLE FOR CUSTOMERS MODULE PETPROFILE
 if (isset($_POST['querypetprofile'])) {
     $querypetprofile = $_POST['querypetprofile'];
 
-    $sql = "SELECT * FROM tblpet WHERE petname LIKE '%" . $querypetprofile . "%'";
+    $sql = "SELECT * FROM tblpet WHERE petname LIKE '%" . $querypetprofile . "%' ORDER BY petid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -189,7 +309,7 @@ if (isset($_POST['querypetprofile'])) {
 if (isset($_POST['queryownersname'])) {
     $queryownersname = $_POST['queryownersname'];
 
-    $sql = "SELECT * FROM tblownersprofile WHERE ownersname LIKE '%" . $queryownersname . "%'";
+    $sql = "SELECT * FROM tblownersprofile WHERE ownersname LIKE '%" . $queryownersname . "%' ORDER BY cusid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -244,7 +364,7 @@ if (isset($_POST['queryownersname'])) {
 if (isset($_POST['queryselectprofile'])) {
     $queryselectprofile = $_POST['queryselectprofile'];
 
-    $sql = "SELECT * FROM tblownersprofile WHERE ownersname LIKE '%" . $queryselectprofile . "%'";
+    $sql = "SELECT * FROM tblownersprofile WHERE ownersname LIKE '%" . $queryselectprofile . "%' ORDER BY cusid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -297,7 +417,7 @@ if (isset($_POST['queryselectprofile'])) {
 if (isset($_POST['queryselectproduct'])) {
     $queryselectproduct = $_POST['queryselectproduct'];
 
-    $sql = "SELECT * FROM tblstock WHERE prodname LIKE '%" . $queryselectproduct . "%'";
+    $sql = "SELECT * FROM tblstock WHERE prodname LIKE '%" . $queryselectproduct . "%' ORDER BY proid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -358,7 +478,7 @@ if (isset($_POST['queryselectproduct'])) {
 if (isset($_POST['querytransaction'])) {
     $querytransaction = $_POST['querytransaction'];
 
-    $sql = "SELECT * FROM tbltransaction WHERE ownersname LIKE '%" . $querytransaction . "%'";
+    $sql = "SELECT * FROM tbltransaction WHERE ownersname LIKE '%" . $querytransaction . "%' ORDER BY transactionid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -410,13 +530,13 @@ if (isset($_POST['querytransaction'])) {
     }
 }
 
- 
-              
+
+
 // SEARCH TABLE FOR TRANSACTION MODULE ADD TO CART
 if (isset($_POST['queryaddtocart'])) {
     $queryaddtocart = $_POST['queryaddtocart'];
 
-    $sql = "SELECT * FROM tblorder WHERE cart = 'Yes' AND prodname LIKE '%" . $queryaddtocart . "%'";
+    $sql = "SELECT * FROM tblorder WHERE cart = 'Yes' AND prodname LIKE '%" . $queryaddtocart . "%' ORDER BY orderid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -461,12 +581,65 @@ if (isset($_POST['queryaddtocart'])) {
             ?>
         </table>
 
+    <?php
+
+    } else {
+        echo "<h2 style='text-align: center'>No results found</h2>";
+    }
+}
+
+
+// SEARCH TABLE FOR AUDIT TRAIL
+if (isset($_POST['queryaudittrail'])) {
+    $queryaudittrail = $_POST['queryaudittrail'];
+
+    $sql = "SELECT * FROM tblaudittrail WHERE username LIKE '%" . $queryaudittrail . "%' ORDER BY atid desc";
+    $result = mysqli_query($conn, $sql);
+
+    // display the results in tables
+    if (mysqli_num_rows($result) > 0) {
+    ?>
+        <table class="content-table table-fixed">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>DateTime</th>
+                    <th>IP Address</th>
+                    <th>Action Mode</th>
+                </tr>
+            </thead>
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                <tbody>
+                    <?php
+                    $atid = $row['atid'];
+                    $un = $row['username'];
+                    $dt = $row['datetime'];
+                    $ip = $row['ipaddress'];
+                    $am = $row['actionmode'];
+                    echo '<tr>
+                        <td>' . $atid . '</td>
+                        <td>' . $un . '</td>
+                        <td>' . $dt . '</td>
+                        <td>' . $ip . '</td>
+                        <td>' . $am . '</td>
+                        </tr>';  ?>
+                    </tr>
+                </tbody>
+            <?php
+            }
+            ?>
+        </table>
+
 <?php
 
     } else {
         echo "<h2 style='text-align: center'>No results found</h2>";
     }
 }
+
 
 
 // close the database connection

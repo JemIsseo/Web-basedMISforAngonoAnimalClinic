@@ -1,7 +1,7 @@
     <?php
     session_start();
     include 'connect.php';
-
+    
     $s = mysqli_query($conn, "select * from tblownersprofile");
     $p = mysqli_query($conn, "select * from tblpettype");
     $b = mysqli_query($conn, "select * from tblbreed");
@@ -29,7 +29,11 @@
                 $sql = "insert into tblownersprofile(ownersname, contactno, address, emailaddress) 
                                         values('$op',' $cn',' $add','$emailadd')";
                 $res = mysqli_query($conn, $sql);
-                if ($res) { ?>
+                if ($res) { 
+                    $ipaddress = $_SERVER['REMOTE_ADDR'];
+                    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+                    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added owners profile in customer module')");
+                    ?>
                     <div class="statusmessagesuccess message-box" id="close">
                         <h2>Owner Profile Added Successfully!</h2>
                         <button class="icon"><span class="material-symbols-sharp">close</span></button>
@@ -116,11 +120,20 @@
         $row2 = $result->fetch_assoc();
         $cusid = $row2['cusid'];
 
+        $sqls1 = "SELECT * FROM tblpettype WHERE pettypeid = '$ptype'";
+        $result1 = mysqli_query($conn, $sqls1);
+        $row1 = $result1->fetch_assoc();
+        $ptype = $row1['pettype'];
         // Insert into database
+
         $sql = "insert into tblpet(cusid, ownersname, petname, pettype, age, sex, breed, weight) 
             values('$cusid','$op','$pname','$ptype','$age','$sex','$breed','$weight')";
         $res = mysqli_query($conn, $sql);
-        if ($res) { ?>
+        if ($res) { 
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+            $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+            VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added pet profile in customer module')");
+            ?>
             <div class="statusmessagesuccess message-box" id="close">
                 <h2>Pet Profile Added Successfully!</h2>
                 <button class="icon"><span class="material-symbols-sharp">close</span></button>

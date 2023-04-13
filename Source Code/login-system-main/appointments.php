@@ -19,7 +19,7 @@ if (isset($_POST['savequeue'])) {
     if ($result) {
         $num = mysqli_num_rows($result);
         if ($num > 0) { ?>
-            <div class="statusmessageerror" id="close">
+            <div class="statusmessageerror message-box" id="close">
                 <h2>Sorry Owners Name already exist!</h2>
                 <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
             </div>
@@ -34,7 +34,7 @@ if (isset($_POST['savequeue'])) {
                     values('$cname','$pname','$ser','$dt')";
             $res = mysqli_query($conn, $sql);
             if ($res) { ?>
-                <div class="statusmessagesuccess" id="close">
+                <div class="statusmessagesuccess message-box" id="close">
                     <h2>Appointment Confirmed!</h2>
                     <button class="icon"><span class="material-symbols-sharp">close</span></button>
                 </div>

@@ -16,7 +16,9 @@ if (isset($_POST['saveproduct'])) {
     $res = mysqli_query($conn, $sql);
 
     if ($res) {
-
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added product in stocks module')");
 ?>
         <div class="statusmessagesuccess message-box" id="close">
             <h2>Product Added Successfully!</h2>
@@ -52,8 +54,11 @@ if (isset($_POST['updateproduct'])) {
     values('$pname','$cat','$addedqty')";
     $res2 = mysqli_query($conn, $sql2);
 
-    
+
     if ($res) {
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Updated product in stocks module')");
     ?>
         <div class="statusmessagesuccess message-box" id="close">
             <h2>Product Updated Successfully!</h2>
@@ -103,6 +108,9 @@ if (isset($_POST['archiveproduct'])) {
                 values('$pid','$pname','$cat','$desc','$prc','$qty', 10, 5000)";
     $res = mysqli_query($conn, $sql);
     if ($res) {
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Archived product in stocks module')");
         if ($pid = $_POST['proid']) {
             $sql = "delete from tblstock where proid= '$pid'";
             $res = mysqli_query($conn, $sql);
@@ -132,6 +140,9 @@ if (isset($_POST['restoreproduct'])) {
                 values('$pid','$pname','$cat','$desc','$prc','$qty')";
     $res = mysqli_query($conn, $sql);
     if ($res) {
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Restored product in stocks module')");
         if ($pid = $_POST['proid']) {
             $sql = "delete from tblarcstock where proid= '$pid'";
             $res = mysqli_query($conn, $sql);
@@ -197,7 +208,7 @@ if (isset($_POST['restoreproduct'])) {
                             </thead>
                             <tbody>
                                 <?php
-                                $sql = "Select * from tblstock order by prodname";
+                                $sql = "Select * from tblstock order by proid desc";
                                 $res = mysqli_query($conn, $sql);
 
                                 if ($res) {
@@ -330,7 +341,7 @@ if (isset($_POST['restoreproduct'])) {
                 <h1>Restore Product</h1>
                 <div class="accrecsearch">
                     <div class="searchbar">
-                        <input type="text" placeholder="Search here"><span class="material-symbols-sharp">search</span>
+                        <input type="text" placeholder="Search here" id="search-boxrestore"><span class="material-symbols-sharp">search</span>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                     </div>
                 </div>
@@ -338,7 +349,7 @@ if (isset($_POST['restoreproduct'])) {
 
             <div class="modal-body">
                 <section class="tableproduct">
-                    <div class="table-product" id="searchresult">
+                    <div class="table-product" id="searchRestoreStock">
                         <table class="content-table">
                             <thead>
                                 <tr>
@@ -353,7 +364,7 @@ if (isset($_POST['restoreproduct'])) {
                             </thead>
                             <tbody>
                                 <?php
-                                $sql = "Select * from tblarcstock";
+                                $sql = "Select * from tblarcstock order by proid desc";
                                 $res = mysqli_query($conn, $sql);
 
                                 if ($res) {
@@ -429,6 +440,22 @@ if (isset($_POST['restoreproduct'])) {
                     },
                     success: function(data) {
                         $('#searchStock').html(data);
+                    }
+                });
+            });
+        });
+        $(document).ready(function() {
+            $('#search-boxrestore').on('keyup', function() {
+                var queryrestorestock = $(this).val();
+                $.ajax({
+                    url: 'search.php',
+                    method: 'POST',
+                    data: {
+                        search: 1,
+                        queryrestorestock: queryrestorestock
+                    },
+                    success: function(data) {
+                        $('#searchRestoreStock').html(data);
                     }
                 });
             });

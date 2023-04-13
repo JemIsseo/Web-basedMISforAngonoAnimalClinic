@@ -110,4 +110,10 @@
 
         var clearButton = document.getElementById('clear-button');
         clearButton.addEventListener('click', clearInputs);
+
+        function logout() {
+            if (confirm("Are you sure you want to log out?")) {
+                window.location.href = "index.php";
+            }
+        }
     </script>
