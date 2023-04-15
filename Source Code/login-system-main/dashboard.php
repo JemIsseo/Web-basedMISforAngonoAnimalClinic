@@ -156,47 +156,42 @@ $totalappointments = $rowSumAppointments['totalappointments'];
         <?php include 'systemaccountanddate.php'; ?>
 
         <div class="schedule">
-            <h2>Schedule Reservations</h2>
-            <div class="schedinfo">
-                <table class="content-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Owner's Name</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Kristina Salinga</td>
-                            <td>11/24/2022</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Brill Egualada</td>
-                            <td>11/07/2022</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Jeremy Liberty</td>
-                            <td>12/15/2022</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Vann Oliveros</td>
-                            <td>12/23/2022</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Roahn Vallega</td>
-                            <td>12/29/2022</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+            <h2>Scheduled Reservations</h2>
+            <div class="table-appointments-sample">
+                            <table class="content-table">
+                                <thead>
+                                    <tr>
+                                        <th>Queue No</th>
+                                        <th>Client Name</th>
+                                        <th>Date and Time</th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql = "Select * from tblappointments";
+                                    $res = mysqli_query($conn, $sql);
+
+                                    if ($res) {
+                                        while ($row = mysqli_fetch_assoc($res)) {
+                                            $qno = $row['queueno'];
+                                            $cname = $row['clientname'];
+                                            $dt = $row['dateandtime'];
+
+
+                                            echo '<tr>
+                                    <td>' . $qno . '</td>
+                                    <td>' . $cname . '</td>
+                                    <td>' . $dt . '</td>
+                                    <td>
+                                    </td>
+                                    </tr>';
+                                        }
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
 
     </div>
 

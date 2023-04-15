@@ -197,7 +197,7 @@ if (isset($_POST['restoreproduct'])) {
                             </thead>
                             <tbody>
                                 <?php
-                                $sql = "Select * from tblstock order by prodname";
+                                $sql = "Select * from tblstock order by proid desc";
                                 $res = mysqli_query($conn, $sql);
 
                                 if ($res) {
