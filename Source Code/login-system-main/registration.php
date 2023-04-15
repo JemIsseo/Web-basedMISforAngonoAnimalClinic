@@ -43,7 +43,7 @@ if (isset($_POST["login"])) {
                 } else {
                     if ($pw === $cpw) {
                         // Insert into database
-                        $result = mysqli_query($conn, "INSERT INTO tbluseraccount (username, password, usertype, email, status) VALUES ('$un','$password_hash','$ut','$ea', 0 )");
+                        $result = mysqli_query($conn, "INSERT INTO tbluseraccount (username, password, usertype, email, status, archive) VALUES ('$un','$password_hash','$ut','$ea', 0, 'false')");
 
                         if ($result) {
                             $otp = rand(100000, 999999);
@@ -51,16 +51,18 @@ if (isset($_POST["login"])) {
                             $_SESSION['mail'] = $ea;
                             $_SESSION['username'] = $un;
                             require "Mail/phpmailer/PHPMailerAutoload.php";
-                            $mail = new PHPMailer;
+                            $mail = new PHPMailer(true);
 
                             $mail->isSMTP();
-                            $mail->Host = 'smtp.gmail.com';
-                            $mail->Port = 587;
-                            $mail->SMTPAuth = true;
-                            $mail->SMTPSecure = 'tls';
 
-                            $mail->Username = 'angonoanimalclinicmail@gmail.com';
-                            $mail->Password = 'dbcbbkszgonbkitt';
+                            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+
+                            $mail->Host = 'smtp.gmail.com';
+                            $mail->SMTPAuth = true;
+                            $mail->Username = 'angonoanimalclinic.mail2@gmail.com';
+                            $mail->Password = 'sfbsjeeovkyxokqv';
+                            $mail->SMTPSecure = 'tls';
+                            $mail->Port = 587;
 
                             $mail->setFrom('angonoanimalclinicmail@gmail.com', 'Angono Animal Clinic');
                             $mail->addAddress($_POST["email"]);
@@ -68,9 +70,9 @@ if (isset($_POST["login"])) {
                             $mail->isHTML(true);
                             $mail->Subject = "Your verification code";
                             $mail->Body = "<p>Hello good day! $ea, </p> <h3>Your one-time-passcode is $otp <br></h3>
-                     <br><br>
-                     <h1>Thank you,</h1>
-                     <h2><b>NON-TECHNOPHOBICS</b></h2>";
+                                        <br><br>
+                                        <h1>Thank you,</h1>
+                                        <h2><b>NON-TECHNOPHOBICS</b></h2>";
 
                             if (!$mail->send()) {
                     ?>

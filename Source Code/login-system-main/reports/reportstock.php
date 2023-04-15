@@ -1,6 +1,6 @@
 <?php
 include '../connect.php';
-$result = $conn->query("SELECT * FROM tblaudittrail ");
+$result = $conn->query("SELECT * FROM tblstock WHERE archive = 'false' ORDER BY proid DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +33,7 @@ $result = $conn->query("SELECT * FROM tblaudittrail ");
 
     <script type="text/javascript" src="Editor-2.1.2/js/dataTables.editor.js"></script>
 
-    <title>AUDIT TRAIL REPORT</title>
+    <title>STOCK REPORT</title>
 </head>
 <style>
     body {
@@ -130,7 +130,7 @@ $result = $conn->query("SELECT * FROM tblaudittrail ");
     }
 
     .fc-toolbar {
-        background-color: rgb(0,0,0, 0.3);
+        background-color: rgb(0, 0, 0, 0.3);
     }
 
     .print-button {
@@ -171,9 +171,9 @@ $result = $conn->query("SELECT * FROM tblaudittrail ");
     </div>
     <div class="fab-wrapperleft">
         <label class="fab">
-                <center>
-                    <a href="../reports.php" class="print-button">Go back</a>
-                </center>
+            <center>
+                <a href="../reports.php" class="print-button">Go back</a>
+            </center>
         </label>
     </div>
     <div class="reportPage">
@@ -184,24 +184,27 @@ $result = $conn->query("SELECT * FROM tblaudittrail ");
             <p>Cell. No.: 0921-502-2956 / 0966-456-8460</p>
         </div>
         <div class="reportContainer">
-            <label class="tblTitle">Audit Trail</label>
+            <label class="tblTitle">Stocks</label>
 
             <table class="tblReportData" id="tblReportData">
-
                 <thead>
                     <tr>
-                        <th>Username</th>
-                        <th>DateTime</th>
-                        <th>IP Address</th>
-                        <th>Action Mode</th>
+                        <th>ProductID</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
                     </tr>
                 </thead>
                 <?php while ($row = $result->fetch_assoc()) { ?>
                     <tr>
-                        <td><?php echo $row['username']; ?></td>
-                        <td><?php echo $row['datetime']; ?></td>
-                        <td><?php echo $row['ipaddress']; ?></td>
-                        <td><?php echo $row['actionmode']; ?></td>
+                        <td><?php echo $row['proid']; ?></td>
+                        <td><?php echo $row['prodname']; ?></td>
+                        <td><?php echo $row['category']; ?></td>
+                        <td><?php echo $row['description']; ?></td>
+                        <td><?php echo number_format($row['price'], 2); ?></td>
+                        <td><?php echo $row['quantity']; ?></td>
                     </tr>
                 <?php } ?>
 
@@ -209,9 +212,9 @@ $result = $conn->query("SELECT * FROM tblaudittrail ");
             </table>
         </div>
     </div>
-   
+
 </body>
-<script> 
+<script>
     $(document).ready(function() {
         // Create date inputs
         minDate = new DateTime($('#min'), {

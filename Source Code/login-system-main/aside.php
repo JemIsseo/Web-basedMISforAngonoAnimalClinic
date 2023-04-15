@@ -47,7 +47,7 @@
             <span class="material-symbols-sharp">settings</span>
             <h3>Settings</h3>
         </a>
-        <a href="logout.php" type="button" onclick="logout()">
+        <a href="logout.php" type="button" onclick="return confirm('Are you sure you want to logout?')">
             <span class="material-symbols-sharp">logout</span>
             <h3>Logout</h3>
         </a>

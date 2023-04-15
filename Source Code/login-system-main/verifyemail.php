@@ -26,16 +26,18 @@ if (isset($_POST["verifyemail"])) {
             $_SESSION['otp'] = $otp;
             $_SESSION['mail'] = $ea;
             require "Mail/phpmailer/PHPMailerAutoload.php";
-            $mail = new PHPMailer;
+            $mail = new PHPMailer(true);
 
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->Port = 587;
-            $mail->SMTPAuth = true;
-            $mail->SMTPSecure = 'tls';
 
-            $mail->Username = 'angonoanimalclinicmail@gmail.com';
-            $mail->Password = 'dbcbbkszgonbkitt';
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'angonoanimalclinic.mail2@gmail.com';
+            $mail->Password = 'sfbsjeeovkyxokqv';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
 
             $mail->setFrom('angonoanimalclinicmail@gmail.com', 'Angono Animal Clinic');
             $mail->addAddress($_POST["email"]);

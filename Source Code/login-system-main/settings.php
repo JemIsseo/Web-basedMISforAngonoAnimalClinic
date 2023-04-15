@@ -282,31 +282,13 @@ if (isset($_POST['removeservices'])) {
     }
 }
 
-// Save Charges and Fees
-if (isset($_POST['saveprice'])) {
-    $caf = $_POST['price'];
-
-    // Insert into database
-    $sql = "insert into tblstock(price) 
-                 values('$caf')";
-    $res = mysqli_query($conn, $sql);
-    if ($res) {
-    ?>
-        <div class="statusmessagesuccess" id="close">
-            <h2>Charges and Fees Added Successfully!</h2>
-            <button class="icon"><span class="material-symbols-sharp">close</span></button>
-        </div>
-    <?php
-    }
-}
-
 // Charges and Fees Update Statement
 if (isset($_POST['updateprice'])) {
-    $proid = $_POST['proid'];
+    $proid = $_POST['sid'];
     $caf = $_POST['price'];
 
-    $sql = "update tblstock set price ='$caf' 
-                where proid= $proid";
+    $sql = "update tblservices set price ='$caf' 
+                where sid = '$proid'";
     $res = mysqli_query($conn, $sql);
     if ($res) { ?>
         <div class="statusmessagesuccesslight message-box" id="close">
@@ -678,50 +660,36 @@ if (isset($_POST['removeprice'])) {
                     <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="POST">
-                        <div class="formprofile">
-                            <div>
-                                <input type="text" name="price" placeholder="Add New Charges and Fees" required>
-                                <span>Charges and Fees</span>
-                            </div>
-                            <div class="buttonflex">
-                                <button name="saveprice" type="submit" class="save" title="Update price">Save</button>
-                                <button class="cancel modal-close" title="Cancel">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-
                     <section class="tableaccountrecords">
                         <div class="accountrecordsbg">
                             <div class="accountrecords">
                                 <table class="content-table table-fixed">
                                     <thead>
                                         <tr>
-                                            <th>Stocks ID</th>
-                                            <th>Product Name</th>
-                                            <th>Stocks Price</th>
+                                            <th>Service ID</th>
+                                            <th>Service Name</th>
+                                            <th>Price</th>
                                             <th> </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "Select * from tblstock where archive = 'false' order by proid desc ";
+                                        $sql = "Select * from tblservices order by sid desc ";
                                         $res = mysqli_query($conn, $sql);
 
                                         if ($res) {
                                             while ($row = mysqli_fetch_assoc($res)) {
-                                                $proid = $row['proid'];
-                                                $prodname = $row['prodname'];
+                                                $proid = $row['sid'];
+                                                $prodname = $row['services'];
                                                 $price = $row['price'];
                                         ?>
                                                 <tr>
                                                     <td><?php echo $proid; ?></td>
                                                     <td><?php echo $prodname; ?></td>
-                                                    <td><?php echo $price; ?></td>
+                                                    <td><?php echo number_format($price, 2); ?></td>
                                                     <?php echo '
                                 <td>
                                     <button class="modal-open showUpdatePrice" data-modal="modal17" value="' . $proid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                    <button class="modal-open showRemovePrice" data-modal="modal18" value="' . $proid . '"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
                                 </td>';   ?>
                                                 </tr>
                                         <?php
@@ -794,7 +762,7 @@ if (isset($_POST['removeprice'])) {
         <div class="modal" id="modal17">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1>Edit Stock Price</h1>
+                    <h1>Edit Service Price</h1>
                     <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                 </div>
                 <div class="modal-body" id="updatePrice">
