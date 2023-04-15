@@ -33,6 +33,9 @@ if (isset($_POST['login'])) {
                         $_SESSION['username'] = $un;
                         $_SESSION['usertype'] = $fetch['usertype'];
                         $_SESSION['image'] = $fetch['image'];
+
+                        $ipaddress = $_SERVER['REMOTE_ADDR'];
+                        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) VALUES ('$un','$ipaddress','Logged In')");
                         ?>
                 <script>
                     alert("You are now logged in successfully!");
@@ -91,7 +94,8 @@ if (isset($_POST['login'])) {
                     </div>
                     <div class="login">
                         <button name="login" type="submit" class="login-btn">Login</button>
-                        <p class="already">Doesn't have an account? <a href="registration.php">Register Here!</a></p>
+                        <p class="already">Doesn't have an account? <a href="registration.php">Register Here!</a></p><br>
+                        <p class="already">Verify your account <a href="verifyemail.php">here!</a></p>
                     </div>
                     <div class="social-links">
                         <a href="mailto:angonoanimalclinic@gmail.com"><i class="fa-solid fa-envelope"></i></a>

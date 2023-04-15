@@ -308,6 +308,79 @@ main .insights .number {
   box-shadow: none;
 }
 
+/* Searchbar Style */
+.accrecsearch {
+  display: flex;
+  gap: 22em;
+}
+
+.searchbar {
+  display: flex;
+  gap: 0.5em;
+  margin: 0.4em;
+}
+
+.profilepicture input {
+  background: rgb(163, 158, 158);
+  border: 1px solid var(--color-primary);
+  width: 14vw;
+  border-radius: 4px;
+}
+
+.searchbar input {
+  padding: 0.3em;
+  font-family: inherit;
+  border: 2px solid var(--color-primary);
+  width: 15vw;
+  border-radius: 5px;
+  background: var(--color-input-light);
+  color: var(--color-gray);
+}
+
+.searchbar span {
+  color: var(--color-primary);
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.buttonmodify button {
+  background: linear-gradient(
+    to right bottom,
+    rgb(71, 189, 216),
+    var(--color-primary)
+  );
+  color: var(--color-white);
+  padding: 2em;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  gap: 1.3em;
+  width: 220px;
+  margin: 2em auto;
+  box-shadow: var(--box-shadow);
+}
+
+.buttonmodify button:hover {
+  box-shadow: none;
+}
+
+.tableaudittrail {
+  margin-top: 1em;
+}
+
+.table-profiletrail {
+  background: var(--color-white);
+  padding: 1em;
+  height: 87vh;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+}
+
+.table-profiletrail:hover {
+  box-shadow: none;
+}
 
 .table-profile {
   background: var(--color-white);
@@ -333,13 +406,21 @@ main .insights .number {
   box-shadow: none;
 }
 
-
-
 /*  Table Transaction  */
 .content-table {
   border-collapse: collapse;
   font-size: 1em;
   width: 100%;
+}
+
+.content-tabletrail {
+  border-collapse: collapse;
+  font-size: 1em;
+  width: 100%;
+  display: block;
+  height: 695px;
+  overflow: auto;
+  white-space: nowrap;
 }
 
 .content-table thead tr {
@@ -363,6 +444,13 @@ main .insights .number {
   padding: 12px 15px;
   border-bottom: 1px solid rgb(238, 233, 233);
 }
+
+.content-tabletrail th,
+.content-tabletrail td {
+  padding: 12px 40px;
+  border-bottom: 1px solid rgb(238, 233, 233);
+}
+
 
 /* Start of Right */
 .right {

@@ -41,7 +41,7 @@ if (isset($_POST['accountID'])) {
                         </div>
                         <div>
                             <select class="radiobtn" name="usertype" id="ut">
-                                <option selected="" disabled="" value="<?= $ut; ?>"><?php echo $ut; ?></option>
+                                <option value="<?= $ut; ?>"><?php echo $ut; ?></option>
                                 <?php
                                 while ($r = mysqli_fetch_array($s)) {
                                 ?>
@@ -677,7 +677,7 @@ if (isset($_POST['pettypeid'])) {
     if (mysqli_num_rows($result) > 0) {
         echo '<option value="">Select Breed</option>';
         while ($row = $result->fetch_assoc()) {
-            echo '<option value="' . $row['bid'] . '">' . $row['breed'] . '</option>';
+            echo '<option value="' . $row['breed'] . '">' . $row['breed'] . '</option>';
         }
     }
 }

@@ -62,7 +62,7 @@ if (isset($_POST["login"])) {
                             $mail->Username = 'angonoanimalclinicmail@gmail.com';
                             $mail->Password = 'dbcbbkszgonbkitt';
 
-                            $mail->setFrom('imepogi23@gmail.com', 'Angono Animal Clinic');
+                            $mail->setFrom('angonoanimalclinicmail@gmail.com', 'Angono Animal Clinic');
                             $mail->addAddress($_POST["email"]);
 
                             $mail->isHTML(true);
