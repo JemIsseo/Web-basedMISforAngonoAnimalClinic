@@ -145,7 +145,7 @@ if (isset($_POST['productID'])) {
                         <span>Price</span>
                     </div>
                     <div>
-                        <input type="number" name="quantity" placeholder="Enter Quantity" value="<?= $qty; ?>">
+                        <input type="number" name="quantity" placeholder="Enter Quantity" value="0">
                         <span>Quantity</span>
                     </div>
 
@@ -291,10 +291,237 @@ if (isset($_POST['utID'])) {
             </div>
             <div class="buttonflex">
                 <button name="updateusertype" type="submit" class="yes" title="Update the record">Update Changes</button>
-                <button type="submit" class="cancel" title="Cancel activity">Cancel</button>
+                <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
             </div>
         </form>
 
+    </section>
+<?php
+}
+
+// DISPLAY SETTINGS PETTYPE SQL STATEMENTS
+if (isset($_POST['ptID'])) {
+    $ptID = $_POST['ptID'];
+    $sql = "Select * from tblpettype where pettypeid ='$ptID'";
+    $res = mysqli_query($conn, $sql);
+    $upRow = mysqli_fetch_assoc($res);
+    $ptid = $upRow['pettypeid'];
+    $pt = $upRow['pettype'];
+
+?>
+    <section class="tableproduct">
+
+        <form action="settings.php" method="POST">
+            <div class="formprofile">
+                <div>
+                    <input type="hidden" name="ptid" placeholder="Enter Product ID" value="<?= $ptid; ?>" readonly>
+                </div>
+                <div>
+                    <input type="text" name="pettype" placeholder="Enter Pet type" value="<?= $pt; ?>">
+                    <span>Pettype</span>
+                </div>
+            </div>
+            <div class="buttonflex">
+                <button name="updatepettype" type="submit" class="yes" title="Update the record">Update Changes</button>
+                <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
+            </div>
+        </form>
+
+    </section>
+<?php
+}
+// DISPLAY SETTINGS CATEGORY SQL STATEMENTS
+if (isset($_POST['catID'])) {
+    $catID = $_POST['catID'];
+    $sql = "Select * from tblcategory where catid ='$catID'";
+    $res = mysqli_query($conn, $sql);
+    $upRow = mysqli_fetch_assoc($res);
+    $catid = $upRow['catid'];
+    $cat = $upRow['category'];
+
+?>
+    <section class="tableproduct">
+
+        <form action="settings.php" method="POST">
+            <div class="formprofile">
+                <div>
+                    <input type="hidden" name="catid" placeholder="Enter Category ID" value="<?= $catid; ?>" readonly>
+                </div>
+                <div>
+                    <input type="text" name="category" placeholder="Enter New Category" value="<?= $cat; ?>">
+                    <span>Category</span>
+                </div>
+            </div>
+            <div class="buttonflex">
+                <button name="updatecategory" type="submit" class="yes" title="Update the record">Update Changes</button>
+                <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
+            </div>
+        </form>
+
+    </section>
+<?php
+}
+// DISPLAY SETTINGS SERVICES SQL STATEMENTS
+if (isset($_POST['sID'])) {
+    $sID = $_POST['sID'];
+    $sql = "Select * from tblservices where sid ='$sID'";
+    $res = mysqli_query($conn, $sql);
+    $upRow = mysqli_fetch_assoc($res);
+    $sid = $upRow['sid'];
+    $ser = $upRow['services'];
+
+?>
+    <section class="tableproduct">
+
+        <form action="settings.php" method="POST">
+            <div class="formprofile">
+                <div>
+                    <input type="hidden" name="sid" placeholder="Enter Services ID" value="<?= $sid; ?>" readonly>
+                </div>
+                <div>
+                    <input type="text" name="services" placeholder="Enter New Services" value="<?= $ser; ?>">
+                    <span>Services</span>
+                </div>
+            </div>
+            <div class="buttonflex">
+                <button name="updatecategory" type="submit" class="yes" title="Update the record">Update Changes</button>
+                <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
+            </div>
+        </form>
+
+    </section>
+<?php
+}
+// DISPLAY SETTINGS CHARGES AND FEES SQL STATEMENTS
+if (isset($_POST['proID'])) {
+    $proID = $_POST['proID'];
+    $sql = "Select * from tblstock where proid ='$proID'";
+    $res = mysqli_query($conn, $sql);
+    $upRow = mysqli_fetch_assoc($res);
+    $proid = $upRow['proid'];
+    $caf = $upRow['price'];
+
+?>
+    <section class="tableproduct">
+
+        <form action="settings.php" method="POST">
+            <div class="formprofile">
+                <div>
+                    <input type="hidden" name="proid" placeholder="Enter Stock ID" value="<?= $proid; ?>" readonly>
+                </div>
+                <div>
+                    <input type="text" name="price" placeholder="Enter Stock Price" value="<?= $caf; ?>">
+                    <span>New Stock Price</span>
+                </div>
+            </div>
+            <div class="buttonflex">
+                <button name="updateprice" type="submit" class="yes" title="Update the record">Update Changes</button>
+                <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
+            </div>
+        </form>
+
+    </section>
+<?php
+}
+
+// DISPLAY SETTINGS REMOVE PETTYPE SQL STATEMENTS
+if (isset($_POST['rptID'])) {
+    $rptID = $_POST['rptID'];
+    $sql = "Select * from tblpettype where pettypeid ='$rptID'";
+    $res = mysqli_query($conn, $sql);
+    $deRow = mysqli_fetch_assoc($res);
+    $ptid = $deRow['pettypeid'];
+?>
+    <section class="tableproduct">
+        <div>
+            <form action="settings.php" method="POST">
+
+                <div class="formprofile formarchive">
+                    <input type="text" name="rptid" placeholder="Enter Product ID" value="<?= $ptid; ?>">
+                </div>
+                <h3>Are you sure you want to remove this record?</h3>
+                <div class="buttonflex">
+                    <button name="removepettype" class="yes" title="Remove the record">Yes</button>
+                    <button class="no" title="Cancel activity">No</button>
+                </div>
+            </form>
+        </div>
+    </section>
+<?php
+}
+
+// DISPLAY SETTINGS REMOVE CATEGORY SQL STATEMENTS
+if (isset($_POST['rcatID'])) {
+    $rcatID = $_POST['rcatID'];
+    $sql = "Select * from tblcategory where catid ='$rcatID'";
+    $res = mysqli_query($conn, $sql);
+    $deRow = mysqli_fetch_assoc($res);
+    $catid = $deRow['catid'];
+?>
+    <section class="tableproduct">
+        <div>
+            <form action="settings.php" method="POST">
+
+                <div class="formprofile formarchive">
+                    <input type="text" name="rcatid" placeholder="Enter Category ID" value="<?= $catid; ?>">
+                </div>
+                <h3>Are you sure you want to remove this record?</h3>
+                <div class="buttonflex">
+                    <button name="removecategory" class="yes" title="Remove the record">Yes</button>
+                    <button class="no" title="Cancel activity">No</button>
+                </div>
+            </form>
+        </div>
+    </section>
+<?php
+}
+// DISPLAY SETTINGS REMOVE SERVICES SQL STATEMENTS
+if (isset($_POST['rsID'])) {
+    $rsID = $_POST['rsID'];
+    $sql = "Select * from tblservices where sid ='$rsID'";
+    $res = mysqli_query($conn, $sql);
+    $deRow = mysqli_fetch_assoc($res);
+    $sid = $deRow['sid'];
+?>
+    <section class="tableproduct">
+        <div>
+            <form action="settings.php" method="POST">
+
+                <div class="formprofile formarchive">
+                    <input type="text" name="rsid" placeholder="Enter Services ID" value="<?= $sid; ?>">
+                </div>
+                <h3>Are you sure you want to remove this record?</h3>
+                <div class="buttonflex">
+                    <button name="removeservices" class="yes" title="Remove the record">Yes</button>
+                    <button class="no" title="Cancel activity">No</button>
+                </div>
+            </form>
+        </div>
+    </section>
+<?php
+}
+// DISPLAY SETTINGS REMOVE CHARGES AND FEES SQL STATEMENTS
+if (isset($_POST['rproID'])) {
+    $rproID = $_POST['rproID'];
+    $sql = "Select * from tblstock where proid ='$rproID'";
+    $res = mysqli_query($conn, $sql);
+    $deRow = mysqli_fetch_assoc($res);
+    $proid = $deRow['proid'];
+?>
+    <section class="tableproduct">
+        <div>
+            <form action="settings.php" method="POST">
+
+                <div class="formprofile formarchive">
+                    <input type="text" name="rproid" placeholder="Enter Stock ID" value="<?= $proid; ?>">
+                </div>
+                <h3>Are you sure you want to remove this record?</h3>
+                <div class="buttonflex">
+                    <button name="removeprice" class="yes" title="Remove the record">Yes</button>
+                    <button class="no" title="Cancel activity">No</button>
+                </div>
+            </form>
+        </div>
     </section>
 <?php
 }
