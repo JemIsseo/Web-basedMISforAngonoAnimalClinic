@@ -69,101 +69,28 @@ if (isset($_POST['accountID'])) {
 
 if (isset($_POST['archiveID'])) {
     $archiveID = $_POST['archiveID'];
-    $sql = "Select * from tbluseraccount where username ='$archiveID'";
-    $res = mysqli_query($conn, $sql);
-    $arRow = mysqli_fetch_assoc($res);
-    $img = $arRow['image'];
-    $un = $arRow['username'];
-    $pw = $arRow['password'];
-    $ut = $arRow['usertype'];
-    $ea = $arRow['email'];
-    $s = mysqli_query($conn, "select * from tblusertype");
-
+    $_SESSION['archiveid'] = $archiveID;
 ?>
     <form action="useraccount.php" method="POST" enctype="multipart/form-data">
-        <section class="tableaccountrecords">
-            <div class="accountrecordsbg formarchive">
-                <div class="accountrecords ">
-                    <div class="profilepicture">
-                        <input type="file" name="image" title="Insert photo..." value=" <?= $img; ?> ">
-                    </div>
-                    <div class="formprofile">
-                        <div>
-                            <input type="text" name="username" placeholder="Enter Username" value="<?= $un;  ?>" readonly>
-                            <span>Username</span>
-                        </div>
-                        <div>
-                            <input type="password" name="password" placeholder="Enter Password" value="<?= $pw;  ?>">
-                            <span>Password</span>
-                        </div>
-                        <div>
-                            <input type="text" name="usertype" placeholder="Enter Password" value="<?= $ut;  ?>">
-                        </div>
-                        <div>
-                            <input type="email" name="email" placeholder="Enter Email" value="<?= $ea;  ?>">
-                            <span>Email Address</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
         <h3>Are you sure you want to archive this record?</h3>
         <div class="buttonflex">
             <button name="savearchiveaccount" type="submit" class="yes">Yes</button>
             <button class="no modal-close">No</button>
         </div>
-
     </form>
-
 <?php
 }
 // Display Restore Account Records
 if (isset($_POST['restoreID'])) {
     $restoreID = $_POST['restoreID'];
-    $sql = "Select * from tblarcuseraccount where username ='$restoreID'";
-    $res = mysqli_query($conn, $sql);
-    $reRow = mysqli_fetch_assoc($res);
-    $img = $reRow['image'];
-    $un = $reRow['username'];
-    $pw = $reRow['password'];
-    $ut = $reRow['usertype'];
-    $ea = $reRow['email'];
+    $_SESSION['restoreid'] = $restoreID;
 ?>
     <form action="useraccount.php" method="POST" enctype="multipart/form-data">
-        <section class="tableaccountrecords">
-            <div class="accountrecordsbg formarchive">
-                <div class="accountrecords ">
-                    <div class="profilepicture">
-                        <input type="file" name="image" title="Insert photo..." value=" <?= $img; ?> ">
-                    </div>
-                    <div class="formprofile">
-                        <div>
-                            <input type="text" name="username" placeholder="Enter Username" value="<?= $un;  ?>" readonly>
-                            <span>Username</span>
-                        </div>
-                        <div>
-                            <input type="password" name="password" placeholder="Enter Password" value="<?= $pw;  ?>">
-                            <span>Password</span>
-                        </div>
-                        <div>
-                            <input type="text" name="usertype" placeholder="Enter Password" value="<?= $ut;  ?>">
-                        </div>
-                        <div>
-                            <input type="email" name="email" placeholder="Enter Email" value="<?= $ea;  ?>">
-                            <span>Email Address</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
         <h3>Are you sure you want to restore this record?</h3>
         <div class="buttonflex">
             <button name="saverestoreaccount" type="submit" class="yes">Yes</button>
             <button class="no modal-close">No</button>
         </div>
-
     </form>
 <?php
 }
@@ -237,138 +164,107 @@ if (isset($_POST['productID'])) {
 // STOCK SQL STATEMENTS // ARCHIVE STOCK STATEMENT
 if (isset($_POST['proarchiveID'])) {
     $proarchiveID = $_POST['proarchiveID'];
-    $sql = "Select * from tblstock where proid ='$proarchiveID'";
-    $res = mysqli_query($conn, $sql);
-    $arRow = mysqli_fetch_assoc($res);
-    $pid = $arRow['proid'];
-    $pname = $arRow['prodname'];
-    $cat = $arRow['category'];
-    $desc = $arRow['description'];
-    $prc = $arRow['price'];
-    $qty = $arRow['quantity'];
-    $s = mysqli_query($conn, "select * from tblcategory");
-
+    $_SESSION['proarchiveid'] = $proarchiveID;
 ?>
-    <section class="tableproduct">
-        <div>
-            <form action="stockandaddstock.php" method="POST">
-
-                <div class="formprofile formarchive">
-
-                    <input type="hidden" name="proid" placeholder="Enter Product ID" value="<?= $pid; ?>">
-
-                    <div>
-                        <input type="text" name="prodname" placeholder="Enter Item Name" value="<?= $pname; ?>">
-                        <span>Item Name</span>
-                    </div>
-                    <div>
-                        <select class="radiobtn" name="category" id="ut">
-                            <?php
-                            while ($r = mysqli_fetch_array($s)) {
-                            ?>
-                                <option value="<?php echo $r['category']; ?>"><?php echo $r['category']; ?> </option>
-                            <?php
-                            }
-                            ?>
-                        </select>Category
-                    </div>
-
-                    <div>
-                        <input type="text" name="description" placeholder="Enter Description" value="<?= $desc; ?>">
-                        <span>Description</span>
-                    </div>
-                    <div>
-                        <input type="text" name="price" placeholder="Enter Price" value="<?= $prc; ?>">
-                        <span>Price</span>
-                    </div>
-                    <div>
-                        <input type="text" name="quantity" placeholder="Enter Quantity" value="<?= $qty; ?>">
-                        <span>Quantity</span>
-                    </div>
-
-                </div>
-                <h3>Are you sure you want to archive this product?</h3>
-                <div class="buttonflex">
-                    <button name="archiveproduct" type="submit" class="yes" title="Archive the record">Yes</button>
-                    <button type="submit" class="no" title="Cancel activity">No</button>
-                </div>
-            </form>
+    <form action="stockandaddstock.php" method="POST">
+        <h3>Are you sure you want to archive this product?</h3>
+        <div class="buttonflex">
+            <button name="archiveproduct" type="submit" class="yes" title="Archive the record">Yes</button>
+            <button type="submit" class="no" title="Cancel activity">No</button>
         </div>
-    </section>
+    </form>
 <?php
 }
 
 // STOCK SQL STATEMENTS // RESTORE STOCK STATEMENT
 if (isset($_POST['prorestoreID'])) {
     $prorestoreID = $_POST['prorestoreID'];
-    $sql = "Select * from tblarcstock where proid ='$prorestoreID'";
-    $res = mysqli_query($conn, $sql);
-    $reRow = mysqli_fetch_assoc($res);
-    $pid = $reRow['proid'];
-    $pname = $reRow['prodname'];
-    $cat = $reRow['category'];
-    $desc = $reRow['description'];
-    $prc = $reRow['price'];
-    $qty = $reRow['quantity'];
-    $s = mysqli_query($conn, "select * from tblcategory");
+    $_SESSION['prorestoreid'] = $prorestoreID;
+?>
+    <form action="stockandaddstock.php" method="POST">
+        <h3>Are you sure you want to restore this product?</h3>
+        <div class="buttonflex">
+            <button name="restoreproduct" type="submit" class="yes" title="Restore the record">Yes</button>
+            <button type="submit" class="no" title="Cancel activity">No</button>
+        </div>
+    </form>
+<?php
+}
 
+// Line of Owners Profile Editing and Restoring statement
+// OWNERS PROFILE FORM DISPLAYING
+if (isset($_POST['ownersprofileID'])) {
+    $ownersprofileID = $_POST['ownersprofileID'];
+    $sql = "Select * from tblownersprofile where ownersname ='$ownersprofileID'";
+    $res = mysqli_query($conn, $sql);
+    $upRow = mysqli_fetch_assoc($res);
+    $cid = $upRow['cusid'];
+    $op = $upRow['ownersname'];
+    $cno = $upRow['contactno'];
+    $add = $upRow['address'];
+    $ea = $upRow['emailaddress'];
 ?>
     <section class="tableproduct">
-        <div>
-            <form action="stockandaddstock.php" method="POST">
-
-                <div class="formprofile formarchive">
-
-                    <input type="hidden" name="proid" placeholder="Enter Product ID" value="<?= $pid; ?>">
-
+            <form action="profile.php" method="POST">
+                <div class="formprofile">
+                        <input type="hidden" name="cusid" placeholder="Enter Name" value="<?= $cid; ?>">
                     <div>
-                        <input type="text" name="prodname" placeholder="Enter Item Name" value="<?= $pname; ?>">
-                        <span>Item Name</span>
+                        <input type="text" name="ownersprofile" placeholder="Enter Name" value="<?= $op; ?>" readonly>
+                        <span>Owner's Name</span>
                     </div>
                     <div>
-                        <select class="radiobtn" name="category" id="ut">
-                            <?php
-                            while ($r = mysqli_fetch_array($s)) {
-                            ?>
-                                <option value="<?php echo $r['category']; ?>"><?php echo $r['category']; ?> </option>
-                            <?php
-                            }
-                            ?>
-                        </select>Category
-                    </div>
-
-                    <div>
-                        <input type="text" name="description" placeholder="Enter Description" value="<?= $desc; ?>">
-                        <span>Description</span>
+                        <input type="text" name="contactno" placeholder="Enter Phone Number" value="<?= $cno; ?>">
+                        <span>Contact No.</span>
                     </div>
                     <div>
-                        <input type="text" name="price" placeholder="Enter Price" value="<?= $prc; ?>">
-                        <span>Price</span>
+                        <input type="text" name="address" placeholder="Enter Address" value="<?= $add; ?>">
+                        <span>Address</span>
                     </div>
                     <div>
-                        <input type="text" name="quantity" placeholder="Enter Quantity" value="<?= $qty; ?>">
-                        <span>Quantity</span>
+                        <input type="text" name="emailaddress" placeholder="Enter Email Address" value="<?= $ea; ?>">
+                        <span>Email Address</span>
                     </div>
 
                 </div>
-                <h3>Are you sure you want to restore this product?</h3>
                 <div class="buttonflex">
-                    <button name="restoreproduct" type="submit" class="yes" title="Restore the record">Yes</button>
-                    <button type="submit" class="no" title="Cancel activity">No</button>
+                    <button name="updateownersprofile" type="submit" class="yes" title="Update the record">Update Record</button>
+                    <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
                 </div>
             </form>
-        </div>
+     
     </section>
 <?php
 }
-// Line of Owners Profile Editing and Restoring statement
 
+// archive owners profile statement
+if (isset($_POST['archiveownersprofileID'])) {
+    $archiveownersprofileID = $_POST['archiveownersprofileID'];
+    $_SESSION['archiveownersprofileid'] = $archiveownersprofileID;
+?>
+    <form action="profile.php" method="POST">
+        <h3>Are you sure you want to archive this record?</h3>
+        <div class="buttonflex">
+            <button name="savearchiveprofile" type="submit" class="yes">Yes</button>
+            <button class="no modal-close">No</button>
+        </div>
+    </form>
+<?php
+}
 
-
-
-
-
-
+// archive owners profile statement
+if (isset($_POST['restoreownersprofileID'])) {
+    $restoreownersprofileID = $_POST['restoreownersprofileID'];
+    $_SESSION['restoreownersprofileid'] = $restoreownersprofileID;
+?>
+    <form action="profile.php" method="POST">
+        <h3>Are you sure you want to restore this record?</h3>
+        <div class="buttonflex">
+            <button name="saverestoreprofile" type="submit" class="yes">Yes</button>
+            <button class="no modal-close">No</button>
+        </div>
+    </form>
+<?php
+}
 
 
 // DISPLAY SETTINGS USERTYPE SQL STATEMENTS
@@ -429,6 +325,206 @@ if (isset($_POST['rutID'])) {
     </section>
 <?php
 }
+
+// DISPLAY SETTINGS CATEGORY SQL STATEMENTS
+if (isset($_POST['catID'])) {
+    $catID = $_POST['catID'];
+    $sql = "Select * from tblcategory where catid ='$catID'";
+    $res = mysqli_query($conn, $sql);
+    $upRow = mysqli_fetch_assoc($res);
+    $catid = $upRow['catid'];
+    $cat = $upRow['category'];
+
+?>
+    <section class="tableproduct">
+
+        <form action="settings.php" method="POST">
+            <div class="formprofile">
+                <div>
+                    <input type="hidden" name="catid" placeholder="Enter Category ID" value="<?= $catid; ?>" readonly>
+                </div>
+                <div>
+                    <input type="text" name="category" placeholder="Enter New Category" value="<?= $cat; ?>">
+                    <span>Category</span>
+                </div>
+            </div>
+            <div class="buttonflex">
+                <button name="updatecategory" type="submit" class="yes" title="Update the record">Update Changes</button>
+                <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
+            </div>
+        </form>
+
+    </section>
+<?php
+}
+// DISPLAY SETTINGS SERVICES SQL STATEMENTS
+if (isset($_POST['sID'])) {
+    $sID = $_POST['sID'];
+    $sql = "Select * from tblservices where sid ='$sID'";
+    $res = mysqli_query($conn, $sql);
+    $upRow = mysqli_fetch_assoc($res);
+    $sid = $upRow['sid'];
+    $ser = $upRow['services'];
+
+?>
+    <section class="tableproduct">
+
+        <form action="settings.php" method="POST">
+            <div class="formprofile">
+                <div>
+                    <input type="hidden" name="sid" placeholder="Enter Services ID" value="<?= $sid; ?>" readonly>
+                </div>
+                <div>
+                    <input type="text" name="services" placeholder="Enter New Services" value="<?= $ser; ?>">
+                    <span>Services</span>
+                </div>
+            </div>
+            <div class="buttonflex">
+                <button name="updatecategory" type="submit" class="yes" title="Update the record">Update Changes</button>
+                <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
+            </div>
+        </form>
+
+    </section>
+<?php
+}
+// DISPLAY SETTINGS CHARGES AND FEES SQL STATEMENTS
+if (isset($_POST['proID'])) {
+    $proID = $_POST['proID'];
+    $sql = "Select * from tblstock where proid ='$proID'";
+    $res = mysqli_query($conn, $sql);
+    $upRow = mysqli_fetch_assoc($res);
+    $proid = $upRow['proid'];
+    $caf = $upRow['price'];
+
+?>
+    <section class="tableproduct">
+
+        <form action="settings.php" method="POST">
+            <div class="formprofile">
+                <div>
+                    <input type="hidden" name="proid" placeholder="Enter Stock ID" value="<?= $proid; ?>" readonly>
+                </div>
+                <div>
+                    <input type="text" name="price" placeholder="Enter Stock Price" value="<?= $caf; ?>">
+                    <span>New Stock Price</span>
+                </div>
+            </div>
+            <div class="buttonflex">
+                <button name="updateprice" type="submit" class="yes" title="Update the record">Update Changes</button>
+                <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
+            </div>
+        </form>
+
+    </section>
+<?php
+}
+
+// DISPLAY SETTINGS REMOVE PETTYPE SQL STATEMENTS
+if (isset($_POST['rptID'])) {
+    $rptID = $_POST['rptID'];
+    $sql = "Select * from tblpettype where pettypeid ='$rptID'";
+    $res = mysqli_query($conn, $sql);
+    $deRow = mysqli_fetch_assoc($res);
+    $ptid = $deRow['pettypeid'];
+?>
+    <section class="tableproduct">
+        <div>
+            <form action="settings.php" method="POST">
+
+                <div class="formprofile formarchive">
+                    <input type="text" name="rptid" placeholder="Enter Product ID" value="<?= $ptid; ?>">
+                </div>
+                <h3>Are you sure you want to remove this record?</h3>
+                <div class="buttonflex">
+                    <button name="removepettype" class="yes" title="Remove the record">Yes</button>
+                    <button class="no" title="Cancel activity">No</button>
+                </div>
+            </form>
+        </div>
+    </section>
+<?php
+}
+
+// DISPLAY SETTINGS REMOVE CATEGORY SQL STATEMENTS
+if (isset($_POST['rcatID'])) {
+    $rcatID = $_POST['rcatID'];
+    $sql = "Select * from tblcategory where catid ='$rcatID'";
+    $res = mysqli_query($conn, $sql);
+    $deRow = mysqli_fetch_assoc($res);
+    $catid = $deRow['catid'];
+?>
+    <section class="tableproduct">
+        <div>
+            <form action="settings.php" method="POST">
+
+                <div class="formprofile formarchive">
+                    <input type="text" name="rcatid" placeholder="Enter Category ID" value="<?= $catid; ?>">
+                </div>
+                <h3>Are you sure you want to remove this record?</h3>
+                <div class="buttonflex">
+                    <button name="removecategory" class="yes" title="Remove the record">Yes</button>
+                    <button class="no" title="Cancel activity">No</button>
+                </div>
+            </form>
+        </div>
+    </section>
+<?php
+}
+
+// DISPLAY SETTINGS REMOVE SERVICES SQL STATEMENTS
+if (isset($_POST['rsID'])) {
+    $rsID = $_POST['rsID'];
+    $sql = "Select * from tblservices where sid ='$rsID'";
+    $res = mysqli_query($conn, $sql);
+    $deRow = mysqli_fetch_assoc($res);
+    $sid = $deRow['sid'];
+?>
+    <section class="tableproduct">
+        <div>
+            <form action="settings.php" method="POST">
+
+                <div class="formprofile formarchive">
+                    <input type="text" name="rsid" placeholder="Enter Services ID" value="<?= $sid; ?>">
+                </div>
+                <h3>Are you sure you want to remove this record?</h3>
+                <div class="buttonflex">
+                    <button name="removeservices" class="yes" title="Remove the record">Yes</button>
+                    <button class="no" title="Cancel activity">No</button>
+                </div>
+            </form>
+        </div>
+    </section>
+<?php
+}
+// DISPLAY SETTINGS REMOVE CHARGES AND FEES SQL STATEMENTS
+if (isset($_POST['rproID'])) {
+    $rproID = $_POST['rproID'];
+    $sql = "Select * from tblstock where proid ='$rproID'";
+    $res = mysqli_query($conn, $sql);
+    $deRow = mysqli_fetch_assoc($res);
+    $proid = $deRow['proid'];
+?>
+    <section class="tableproduct">
+        <div>
+            <form action="settings.php" method="POST">
+
+                <div class="formprofile formarchive">
+                    <input type="text" name="rproid" placeholder="Enter Stock ID" value="<?= $proid; ?>">
+                </div>
+                <h3>Are you sure you want to remove this record?</h3>
+                <div class="buttonflex">
+                    <button name="removeprice" class="yes" title="Remove the record">Yes</button>
+                    <button class="no" title="Cancel activity">No</button>
+                </div>
+            </form>
+        </div>
+    </section>
+<?php
+}
+
+
+
 // Cascading Dropdown in Customer's Module
 if (isset($_POST['cusid'])) {
     $cusid = $_POST['cusid'];
@@ -515,8 +611,6 @@ if (isset($_POST['removecartID'])) {
     $res = mysqli_query($conn, $sql);
 }
 
-
-
 // REPORT TRANSACTION SALES INVOICE
 if (isset($_POST['printreceiptID'])) {
     $printreceiptID = $_POST['printreceiptID'];
@@ -568,11 +662,11 @@ if (isset($_POST['printreceiptID'])) {
     </table>
 <?php
 
-}   
+}
 ?>
-                   
-            </form>
-    </section>
+
+</form>
+</section>
 <?php
 
 include 'scriptingfiles.php';

@@ -11,8 +11,8 @@ if (isset($_POST['saveproduct'])) {
     $prc = $_POST['price'];
     $qty = $_POST['quantity'];
 
-    $sql = "insert into tblstock(prodname, category, description, price, quantity, minstocklevel, maxstocklevel ) 
-            values('$pname','$cat','$desc','$prc','$qty', 10, 5000)";
+    $sql = "insert into tblstock(prodname, category, description, price, quantity, minstocklevel, maxstocklevel, archive) 
+            values('$pname','$cat','$desc','$prc','$qty', 10, 5000, 'false')";
     $res = mysqli_query($conn, $sql);
 
     if ($res) {
@@ -94,69 +94,37 @@ while ($row3 = mysqli_fetch_assoc($result3)) {
     }
 }
 
-
 // archive statement
 if (isset($_POST['archiveproduct'])) {
-    $pid = $_POST['proid'];
-    $pname = $_POST['prodname'];
-    $cat = $_POST['category'];
-    $desc = $_POST['description'];
-    $prc = $_POST['price'];
-    $qty = $_POST['quantity'];
-
-    $sql = "insert into tblarcstock(proid, prodname, category, description, price, quantity, minstocklevel, maxstocklevel) 
-                values('$pid','$pname','$cat','$desc','$prc','$qty', 10, 5000)";
+    $sql = "update tblstock set archive = 'true' where proid = '" . $_SESSION['proarchiveid'] . "'";
     $res = mysqli_query($conn, $sql);
-    if ($res) {
-        $ipaddress = $_SERVER['REMOTE_ADDR'];
-        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
-        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Archived product in stocks module')");
-        if ($pid = $_POST['proid']) {
-            $sql = "delete from tblstock where proid= '$pid'";
-            $res = mysqli_query($conn, $sql);
-        }
-    ?>
-        <div class="statusmessagesuccesslight message-box" id="close">
-            <h2>Product has been archived</h2>
-            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-        </div>
 
-        <?php
-    } else {
-        die(mysqli_error($conn));
-    }
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Archived product in stocks module')");
+    ?>
+    <div class="statusmessagesuccesslight message-box" id="close">
+        <h2>Product has been archived</h2>
+        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+    </div>
+<?php
 }
 
 // restore statement
 if (isset($_POST['restoreproduct'])) {
-    $pid = $_POST['proid'];
-    $pname = $_POST['prodname'];
-    $cat = $_POST['category'];
-    $desc = $_POST['description'];
-    $prc = $_POST['price'];
-    $qty = $_POST['quantity'];
 
-    $sql = "insert into tblstock(proid, prodname, category, description, price, quantity) 
-                values('$pid','$pname','$cat','$desc','$prc','$qty')";
+    $sql = "update tblstock set archive = 'false' where proid = '" . $_SESSION['prorestoreid'] . "'";
     $res = mysqli_query($conn, $sql);
-    if ($res) {
-        $ipaddress = $_SERVER['REMOTE_ADDR'];
-        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
-        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Restored product in stocks module')");
-        if ($pid = $_POST['proid']) {
-            $sql = "delete from tblarcstock where proid= '$pid'";
-            $res = mysqli_query($conn, $sql);
-        ?>
-            <div class="statusmessagesuccess message-box" id="close">
-                <h2>Product has been restored!</h2>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
 
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Restored product in stocks module')");
+?>
+    <div class="statusmessagesuccess message-box" id="close">
+        <h2>Product has been restored!</h2>
+        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+    </div>
 <?php
-        }
-    } else {
-        die(mysqli_error($conn));
-    }
 }
 ?>
 
@@ -208,7 +176,7 @@ if (isset($_POST['restoreproduct'])) {
                             </thead>
                             <tbody>
                                 <?php
-                                $sql = "Select * from tblstock order by proid desc";
+                                $sql = "Select * from tblstock where archive = 'false' order by proid desc";
                                 $res = mysqli_query($conn, $sql);
 
                                 if ($res) {
@@ -364,7 +332,7 @@ if (isset($_POST['restoreproduct'])) {
                             </thead>
                             <tbody>
                                 <?php
-                                $sql = "Select * from tblarcstock order by proid desc";
+                                $sql = "Select * from tblstock where archive = 'true' order by proid desc";
                                 $res = mysqli_query($conn, $sql);
 
                                 if ($res) {

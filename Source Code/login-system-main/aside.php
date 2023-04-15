@@ -1,17 +1,3 @@
-<?php // If the user clicks the logout button
-if (isset($_GET['logout'])) {
-    // Destroy the session 
-            $ipaddress = $_SERVER['REMOTE_ADDR'];
-            $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) VALUES ('$un','$ipaddress','Logged Out')");
-    session_destroy();
-
-    // Redirect the user to the login page
-    header("Location: index.php");
-    exit;
-} ?>
-
-
-
 
 <aside>
     <div class="top">
@@ -61,7 +47,7 @@ if (isset($_GET['logout'])) {
             <span class="material-symbols-sharp">settings</span>
             <h3>Settings</h3>
         </a>
-        <a type="button" onclick="logout()">
+        <a href="logout.php" type="button" onclick="logout()">
             <span class="material-symbols-sharp">logout</span>
             <h3>Logout</h3>
         </a>

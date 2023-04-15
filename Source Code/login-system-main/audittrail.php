@@ -74,13 +74,7 @@ include 'connect.php';
         <!--  End of Main Tag  -->
 
         <?php include 'systemaccountanddate.php'; ?>
-
-        <!--  Start of Retrive section  -->
-        <h1>Refresh Table</h1>
-
-        <div class="buttonmodify">
-            <button name="refreshaudittrail" title="Update the lists"><span class="material-symbols-sharp">refresh</span>Refresh List</button>
-        </div>
+        
     </div>
 
     <?php include 'scriptingfiles.php'; ?>

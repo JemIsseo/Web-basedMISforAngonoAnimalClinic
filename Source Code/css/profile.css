@@ -249,7 +249,7 @@ main h1 {
 /*  Profile Form  */
 .formprofile {
   padding: 1em;
-  height: 85%;
+  height: 40%;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -491,6 +491,11 @@ main h1 {
   box-shadow: 0 0 50rem var(--color-dark);
 }
 
+.buttonflex {
+  margin: 2em;
+  text-align: right;
+}
+
 .modal-content {
   background: var(--color-white);
   margin-top: 100px;
@@ -595,9 +600,36 @@ main h1 {
   padding: 2em;
 }
 
+#modal9 .modal-content {
+  width: 45%;
+}
+
 #modal3 .modal-header .modal-close {
   margin-left: 30%;
 }
+
+#modal6 .modal-content {
+  height: 40%;
+}
+
+#modal7 .modal-content {
+  width: 45%;
+}
+
+#modal8 .modal-header {
+  gap: 15em;
+}
+
+.modal h3 {
+  padding: 1em;
+}
+
+#modal9 .modal-header .modal-close,
+#modal7 .modal-header .modal-close {
+  margin-left: 50%;
+}
+
+
 
 .buttonflex {
   margin: 0 auto;

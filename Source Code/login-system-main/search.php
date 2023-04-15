@@ -5,7 +5,7 @@ include 'connect.php';
 if (isset($_POST['query'])) {
     $query = $_POST['query'];
 
-    $sql = "SELECT * FROM tbluseraccount WHERE username LIKE '%" . $query . "%' ORDER BY username";
+    $sql = "SELECT * FROM tbluseraccount WHERE archive = 'false' AND username LIKE '%" . $query . "%' ORDER BY username";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -66,7 +66,7 @@ if (isset($_POST['query'])) {
 if (isset($_POST['queryrestore'])) {
     $queryrestore = $_POST['queryrestore'];
 
-    $sql = "SELECT * FROM tblarcuseraccount WHERE username LIKE '%" . $queryrestore . "%' ORDER BY username";
+    $sql = "SELECT * FROM tbluseraccount WHERE archive = 'true' AND username LIKE '%" . $queryrestore . "%' ORDER BY username";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -123,7 +123,7 @@ if (isset($_POST['queryrestore'])) {
 if (isset($_POST['querystock'])) {
     $querystock = $_POST['querystock'];
 
-    $sql = "SELECT * FROM tblstock WHERE prodname LIKE '%" . $querystock . "%' ORDER BY proid desc";
+    $sql = "SELECT * FROM tblstock WHERE archive = 'false' AND prodname LIKE '%" . $querystock . "%' ORDER BY proid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -184,7 +184,7 @@ if (isset($_POST['querystock'])) {
 if (isset($_POST['queryrestorestock'])) {
     $queryrestorestock = $_POST['queryrestorestock'];
 
-    $sql = "SELECT * FROM tblarcstock WHERE prodname LIKE '%" . $queryrestorestock . "%' ORDER BY proid desc";
+    $sql = "SELECT * FROM tblstock WHERE archive = 'true' AND prodname LIKE '%" . $queryrestorestock . "%' ORDER BY proid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -246,7 +246,7 @@ if (isset($_POST['queryrestorestock'])) {
 if (isset($_POST['querypetprofile'])) {
     $querypetprofile = $_POST['querypetprofile'];
 
-    $sql = "SELECT * FROM tblpet WHERE petname LIKE '%" . $querypetprofile . "%' ORDER BY petid desc";
+    $sql = "SELECT * FROM tblpet WHERE archive = 'false' AND petname LIKE '%" . $querypetprofile . "%' ORDER BY petid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -309,7 +309,7 @@ if (isset($_POST['querypetprofile'])) {
 if (isset($_POST['queryownersname'])) {
     $queryownersname = $_POST['queryownersname'];
 
-    $sql = "SELECT * FROM tblownersprofile WHERE ownersname LIKE '%" . $queryownersname . "%' ORDER BY cusid desc";
+    $sql = "SELECT * FROM tblownersprofile WHERE archive = 'false' AND ownersname LIKE '%" . $queryownersname . "%' ORDER BY cusid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -342,8 +342,8 @@ if (isset($_POST['queryownersname'])) {
                         <td><?php echo $ea; ?></td>
                         <?php echo '
                                                 <td>
-                                                    <button class="modal-open showUpdateAccount" data-modal="modal1" value="' . $op . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                                    <button class="modal-open showArchiveAccount" data-modal="modal2" value="' . $op . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
+                                                    <button class="modal-open showUpdateProfile" data-modal="modal6" value="' . $op . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                                    <button class="modal-open showArchiveProfile" data-modal="modal9" value="' . $op . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
                                                 </td>';   ?>
                     </tr>
                 </tbody>
@@ -360,11 +360,66 @@ if (isset($_POST['queryownersname'])) {
 }
 
 
+// SEARCH TABLE FOR CUSTOMERS MODULE OWNERSNAME
+if (isset($_POST['queryrestoreowner'])) {
+    $queryrestoreowner = $_POST['queryrestoreowner'];
+
+    $sql = "SELECT * FROM tblownersprofile WHERE archive = 'true' AND ownersname LIKE '%" . $queryrestoreowner . "%' ORDER BY cusid desc";
+    $result = mysqli_query($conn, $sql);
+
+    // display the results in tables
+    if (mysqli_num_rows($result) > 0) {
+    ?>
+        <table class="content-table table-fixed">
+            <thead>
+                <tr>
+                    <th>Owner's Name</th>
+                    <th>Contact No.</th>
+                    <th>Address</th>
+                    <th>Email Address</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                <tbody>
+                    <?php
+                    $op = $row['ownersname'];
+                    $cno = $row['contactno'];
+                    $add = $row['address'];
+                    $ea = $row['emailaddress'];
+                    ?>
+                    <tr>
+                        <td><?php echo $op; ?></td>
+                        <td><?php echo $cno; ?></td>
+                        <td><?php echo $add; ?></td>
+                        <td><?php echo $ea; ?></td>
+                        <?php echo '
+                            <td>
+                            <button class="modal-open showRestoreProfile" data-modal="modal7" value="' . $op . '" ><span class="material-symbols-sharp restore" title="Restore this account">unarchive</span></button>
+                            </td>';   ?>
+                    </tr>
+                </tbody>
+            <?php
+            }
+            ?>
+        </table>
+
+    <?php
+
+    } else {
+        echo "<h2 style='text-align: center'>No results found</h2>";
+    }
+}
+
+
+
 // SEARCH TABLE FOR TRANSACTION MODULE SELECT PROFILE
 if (isset($_POST['queryselectprofile'])) {
     $queryselectprofile = $_POST['queryselectprofile'];
 
-    $sql = "SELECT * FROM tblownersprofile WHERE ownersname LIKE '%" . $queryselectprofile . "%' ORDER BY cusid desc";
+    $sql = "SELECT * FROM tblownersprofile WHERE archive = 'false' AND ownersname LIKE '%" . $queryselectprofile . "%' ORDER BY cusid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -417,7 +472,7 @@ if (isset($_POST['queryselectprofile'])) {
 if (isset($_POST['queryselectproduct'])) {
     $queryselectproduct = $_POST['queryselectproduct'];
 
-    $sql = "SELECT * FROM tblstock WHERE prodname LIKE '%" . $queryselectproduct . "%' ORDER BY proid desc";
+    $sql = "SELECT * FROM tblstock WHERE archive = 'false' AND prodname LIKE '%" . $queryselectproduct . "%' ORDER BY proid desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -715,11 +770,34 @@ include 'scriptingfiles.php';
     })
 
     // OWNERSNAME AJAX DOCUMENTS
-
+    $(document).ready(function() {
+        $(".showUpdateProfile").click(function() {
+            var ownersprofileid = this.value;
+            $("#updateOwner").load("submit.php", {
+                ownersprofileID: ownersprofileid
+            })
+        })
+        $(".showArchiveProfile").click(function() {
+            var archiveownersprofileid = this.value;
+            $("#archiveOwner").load("submit.php", {
+                archiveownersprofileID: archiveownersprofileid
+            })
+        })
+        $(".showRestoreProfile").click(function() {
+            var restoreownersprofileid = this.value;
+            $("#restoreOwner").load("submit.php", {
+                restoreownersprofileID: restoreownersprofileid
+            })
+        })
+    })
 
 
 
     // PET PROFILE AJAX DOCUMENTS
+
+
+
+
 
 
 

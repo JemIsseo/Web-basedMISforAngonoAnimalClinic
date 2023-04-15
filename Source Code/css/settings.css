@@ -373,9 +373,14 @@ aside .sidebar a:hover span {
 .table-profile-buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 5em;
+  gap: 7em;
   margin: 8em;
   margin-left: 14em;
+}
+
+.buttonmodify span {
+  margin-right: 1em;
+  text-align: left;
 }
 
 .buttonmodify button {
@@ -389,7 +394,7 @@ aside .sidebar a:hover span {
   border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
-  gap: 1.3em;
+  text-align: left;
   width: 220px;
   box-shadow: var(--box-shadow);
 }

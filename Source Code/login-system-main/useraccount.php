@@ -50,8 +50,8 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
                     $ipaddress = $_SERVER['REMOTE_ADDR'];
                     $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) VALUES ('$un','$ipaddress','Created account in useraccount module')");
 
-                    $sql = "insert into tbluseraccount(username,password,usertype,email,image) 
-                                                    values('$un','$password_hash','$ut','$ea','$img')";
+                    $sql = "insert into tbluseraccount(username,password,usertype,email,image, archive) 
+                            values('$un','$password_hash','$ut','$ea','$img','false')";
                     $res = mysqli_query($conn, $sql);
                     if ($res) {
                 ?>
@@ -128,12 +128,12 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
                 $ipaddress = $_SERVER['REMOTE_ADDR'];
                 $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
                 VALUES ('" . $_SESSION['username'] . "','$ipaddress','Edit account in useraccount module')");
-        ?>
-            <div class="statusmessagesuccess message-box" id="close">
-                <h2>Account Updated Successfully!</h2>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
-        <?php
+    ?>
+        <div class="statusmessagesuccess message-box" id="close">
+            <h2>Account Updated Successfully!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
             } else {
                 die(mysqli_error($conn));
             }
@@ -142,63 +142,36 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
 
         // ARCHIVE STATEMENT
         if (isset($_POST['savearchiveaccount'])) {
-            $un = $_POST['username'];
-            $pw = $_POST['password'];
-            $ut = $_POST['usertype'];
-            $ea = $_POST['email'];
-
-            // Insert into database
-
-
-            $sql = "insert into tblarcuseraccount(username,password,usertype,email) 
-                          values('$un','$pw','$ut','$ea')";
+            $sql = "update tbluseraccount set archive = 'true' where username ='". $_SESSION['archiveid'] ."'";
             $res = mysqli_query($conn, $sql);
-            if ($res) {
-                $ipaddress = $_SERVER['REMOTE_ADDR'];
-                $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
-                VALUES ('" . $_SESSION['username'] . "','$ipaddress','Archived an account in useraccount module')");
-                if ($un = $_POST['username']) {
-                    $sql = "delete from tbluseraccount where username = '$un'";
-                    $res = mysqli_query($conn, $sql);
-                }
+
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+            $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+            VALUES ('" . $_SESSION['username'] . "','$ipaddress','Archived account in useraccount module')");
     ?>
-        <div class="statusmessagesuccesslight message-box" id="close">
-            <h2>Account Archive Successfully!</h2>
-            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-        </div> <?php
-            }
+    <div class="statusmessagesuccesslight message-box" id="close">
+        <h2>Account Archive Successfully!</h2>
+        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+    </div> <?php
         }
 
         // RESTORE STATEMENT
 
         if (isset($_POST['saverestoreaccount'])) {
-            $un = $_POST['username'];
-            $pw = $_POST['password'];
-            $ut = $_POST['usertype'];
-            $ea = $_POST['email'];
-            $stat = 1;
-            // Insert into database
-            $sql = "insert into tbluseraccount(username,password,usertype,status,email) 
-                          values('$un','$pw','$ut','$stat','$ea')";
+            $sql = "update tbluseraccount set archive = 'false' where username ='". $_SESSION['restoreid'] ."'";
             $res = mysqli_query($conn, $sql);
-            if ($res) {
-                $ipaddress = $_SERVER['REMOTE_ADDR'];
-                $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+            $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
                 VALUES ('" . $_SESSION['username'] . "','$ipaddress','Restored an account in useraccount module')");
-                if ($un = $_POST['username']) {
-                    $sql = "delete from tblarcuseraccount where username = '$un'";
-                    $res = mysqli_query($conn, $sql);
-                }
-                ?>
-        <div class="statusmessagesuccess message-box" id="close">
-            <h2>Account Restored Successfully!</h2>
-            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-        </div> <?php
-            }
+
+            ?>
+    <div class="statusmessagesuccess message-box" id="close">
+        <h2>Account Restored Successfully!</h2>
+        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+    </div> <?php
         }
-
-
-                ?>
+            ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -244,7 +217,7 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
                             </thead>
                             <tbody>
                                 <?php
-                                $sql = "Select * from tbluseraccount order by username";
+                                $sql = "Select * from tbluseraccount where archive = 'false' order by username";
                                 $res = mysqli_query($conn, $sql);
 
                                 if ($res) {
@@ -412,7 +385,7 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "Select * from tblarcuseraccount order by username";
+                                        $sql = "Select * from tbluseraccount where archive = 'true' order by username";
                                         $res = mysqli_query($conn, $sql);
 
                                         if ($res) {
@@ -421,7 +394,7 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
                                                 $pw = $row['password'];
                                                 $ut = $row['usertype'];
                                                 $ea = $row['email'];
-
+                                                $img = $row['image'];
                                         ?>
                                                 <tr>
                                                     <td><?= $un; ?></td>
@@ -429,7 +402,9 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
                                                     <td><?= $ut; ?></td>
                                                     <td><?= $ea; ?></td>
                                                     <td>
-
+                                                        <div class="profile-photo">
+                                                            <img src="uploads/<?php echo $img; ?>">
+                                                        </div>
                                                     </td>
                                                     <?php echo '
                                     <td>

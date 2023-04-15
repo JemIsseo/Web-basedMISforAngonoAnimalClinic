@@ -1,7 +1,7 @@
     <?php
     session_start();
     include 'connect.php';
-    
+
     $s = mysqli_query($conn, "select * from tblownersprofile");
     $p = mysqli_query($conn, "select * from tblpettype");
     $b = mysqli_query($conn, "select * from tblbreed");
@@ -26,14 +26,14 @@
                 <?php
             } else {
                 // Insert into database
-                $sql = "insert into tblownersprofile(ownersname, contactno, address, emailaddress) 
-                                        values('$op',' $cn',' $add','$emailadd')";
+                $sql = "insert into tblownersprofile(ownersname, contactno, address, emailaddress, archive) 
+                                        values('$op',' $cn',' $add','$emailadd', 'false')";
                 $res = mysqli_query($conn, $sql);
-                if ($res) { 
+                if ($res) {
                     $ipaddress = $_SERVER['REMOTE_ADDR'];
                     $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
                     VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added owners profile in customer module')");
-                    ?>
+                ?>
                     <div class="statusmessagesuccess message-box" id="close">
                         <h2>Owner Profile Added Successfully!</h2>
                         <button class="icon"><span class="material-symbols-sharp">close</span></button>
@@ -44,64 +44,65 @@
         }
     }
 
-    // archive statement
-    if (isset($_POST['savearchiveprofile'])) {
-        $pname = $_POST['petname'];
-        $age = $_POST['age'];
-        $sex = $_POST['sex'];
-        $weight = $_POST['weight'];
-        $owner = $_POST['owner'];
-        $phone = $_POST['phone'];
-        $email = $_POST['email'];
+    // UPDATE OWNERSPROFILE STATEMENT 
+    if (isset($_POST['updateownersprofile'])) {
+        $cid = $_POST['cusid'];
+        $op = $_POST['ownersprofile'];
+        $cno = $_POST['contactno'];
+        $add = $_POST['address'];
+        $ea = $_POST['emailaddress'];
 
-        $sql = "insert into tblarcprofile(petname, age, sex, weight, owner, phone, email) 
-                    values('$pname','$age','$sex','$weight','$owner','$phone','$email')";
+        $sql = "update tblownersprofile set ownersname ='$op',
+                contactno ='$cno', address='$add', emailaddress='$ea'
+                where cusid= '$cid'";
         $res = mysqli_query($conn, $sql);
         if ($res) {
-            if ($proid = $_POST['profileid']) {
-                $sql = "delete from tblprofile where profileid= $proid";
-                $res = mysqli_query($conn, $sql);
-            }
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+            $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Updated ownersprofile in customer module')");
             ?>
             <div class="statusmessagesuccess message-box" id="close">
-                <h2>Profile has been archived</h2>
+                <h2>Owners Profile Updated Successfully!</h2>
                 <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
             </div>
-
-            <?php
+        <?php
         } else {
             die(mysqli_error($conn));
         }
     }
 
+
+    // archive statement
+    if (isset($_POST['savearchiveprofile'])) {
+        $sql = "update tblownersprofile set archive = 'true' where ownersname ='" . $_SESSION['archiveownersprofileid'] . "'";
+        $res = mysqli_query($conn, $sql);
+
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Archived ownersprofile in customer module')");
+        ?>
+        <div class="statusmessagesuccesslight message-box" id="close">
+            <h2>Profile has been archived</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
+    }
+
     // restore statement
     if (isset($_POST['saverestoreprofile'])) {
-        $pname = $_POST['petname'];
-        $age = $_POST['age'];
-        $sex = $_POST['sex'];
-        $weight = $_POST['weight'];
-        $owner = $_POST['owner'];
-        $phone = $_POST['phone'];
-        $email = $_POST['email'];
-
-        $sql = "insert into tblprofile(petname, age, sex, weight, ownername, phone, email) 
-                    values('$pname','$age','$sex','$weight','$owner','$phone','$email')";
+        $sql = "update tblownersprofile set archive = 'false' where ownersname ='" . $_SESSION['restoreownersprofileid'] . "'";
         $res = mysqli_query($conn, $sql);
-        if ($res) {
-            if ($proid = $_POST['profileid']) {
-                $sql = "delete from tblarcprofile where profileid= $proid";
-                $res = mysqli_query($conn, $sql);
-            ?>
-                <div class="statusmessagesuccess message-box" id="close">
-                    <h2>Profile has been restored!</h2>
-                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                </div>
 
-            <?php
-            }
-        } else {
-            die(mysqli_error($conn));
-        }
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Restored ownersprofile in customer module')");
+    ?>
+        <div class="statusmessagesuccess message-box" id="close">
+            <h2>Profile has been restored!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+
+        <?php
     }
 
     // Save Pet Profile
@@ -126,14 +127,14 @@
         $ptype = $row1['pettype'];
         // Insert into database
 
-        $sql = "insert into tblpet(cusid, ownersname, petname, pettype, age, sex, breed, weight) 
-            values('$cusid','$op','$pname','$ptype','$age','$sex','$breed','$weight')";
+        $sql = "insert into tblpet(cusid, ownersname, petname, pettype, age, sex, breed, weight, archive) 
+            values('$cusid','$op','$pname','$ptype','$age','$sex','$breed','$weight','false')";
         $res = mysqli_query($conn, $sql);
-        if ($res) { 
+        if ($res) {
             $ipaddress = $_SERVER['REMOTE_ADDR'];
             $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
             VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added pet profile in customer module')");
-            ?>
+        ?>
             <div class="statusmessagesuccess message-box" id="close">
                 <h2>Pet Profile Added Successfully!</h2>
                 <button class="icon"><span class="material-symbols-sharp">close</span></button>
@@ -204,12 +205,12 @@
             <h1>Retrieve Record</h1>
             <div class="buttons">
                 <div class="buttonmodify">
-                    <button class="modal-open" data-modal="modal4" title="View Owners Archive"><span class="material-symbols-sharp">table_view</span>View Archive Owner</button>
+                    <button class="modal-open" data-modal="modal8" title="View Owners Archive"><span class="material-symbols-sharp">table_view</span>View Archive Owner</button>
                 </div>
             </div>
             <div class="buttons">
                 <div class="buttonmodify">
-                    <button class="modal-open" data-modal="modal4" title="View and Restore Pet"><span class="material-symbols-sharp">table_view</span>View Archive Pet</button>
+                    <button class="modal-open" data-modal="modal10" title="View and Restore Pet"><span class="material-symbols-sharp">table_view</span>View Archive Pet</button>
                 </div>
             </div>
             <!-- Start of Modal -->
@@ -240,7 +241,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "Select * from tblownersprofile order by ownersname";
+                                        $sql = "Select * from tblownersprofile where archive = 'false' order by ownersname";
                                         $res = mysqli_query($conn, $sql);
 
                                         if ($res) {
@@ -255,8 +256,8 @@
                                         <td>' . $add . '</td>
                                         <td>' . $emailadd . '</td>
                                         <td>
-                                        <button class="modal-open showUpdateProfile" data-modal="modal1" value="' . $op . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                        <button class="modal-open showArchiveProfile" data-modal="modal2" value="' . $op . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
+                                        <button class="modal-open showUpdateProfile" data-modal="modal6" value="' . $op . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                        <button class="modal-open showArchiveProfile" data-modal="modal9" value="' . $op . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
                                         </td>
                                         </tr>';
                                             }
@@ -479,7 +480,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "Select * from tblpet order by petname";
+                                        $sql = "Select * from tblpet where archive = 'false' order by petname";
                                         $res = mysqli_query($conn, $sql);
 
                                         if ($res) {
@@ -521,9 +522,110 @@
 
             </div>
 
+            <!-- Modal of Edit Profile -->
+            <div class="modal" id="modal6">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Edit Owners Profile</h1>
+                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                    </div>
+                    <div class="table-product" id="updateOwner">
 
+                    </div>
+                    </section>
+                </div>
+            </div>
 
+            <!-- Modal of Restore Owners Profile  -->
+            <div class="modal" id="modal8">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Restore Owners Profile</h1>
+                        <div class="accrecsearch">
+                            <div class="searchbar">
+                                <input type="text" placeholder="Search here" id="search-boxrestoreowner"><span class="material-symbols-sharp">search</span>
+                                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="modal-body">
+                        <section class="tableproduct">
+                            <div class="table-product" id="searchRestoreProfile">
+                                <table class="content-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Owner's Name</th>
+                                            <th>Contact No.</th>
+                                            <th>Address</th>
+                                            <th>Email Address</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $sql = "Select * from tblownersprofile where archive = 'true' order by ownersname desc";
+                                        $res = mysqli_query($conn, $sql);
+
+                                        if ($res) {
+                                            while ($row = mysqli_fetch_assoc($res)) {
+                                                $op = $row['ownersname'];
+                                                $cn = $row['contactno'];
+                                                $add = $row['address'];
+                                                $emailadd = $row['emailaddress'];
+                                                echo '<tr>
+                                        <td>' . $op . '</td>
+                                        <td>' . $cn . '</td>
+                                        <td>' . $add . '</td>
+                                        <td>' . $emailadd . '</td>
+                                        <td>
+                                        <button class="modal-open showRestoreProfile" data-modal="modal7" value="' . $op . '" ><span class="material-symbols-sharp restore" title="Restore this account">unarchive</span></button>
+                                        </td>
+                                        </tr>';
+                                            }
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <div class="modal-footer">
+                            <div class="buttonflexright">
+                                <button type="submit" class="cancel modal-close" title="Cancel">Cancel</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal of Edit Product -->
+            <div class="modal" id="modal7">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Restore Owners Profile</h1>
+                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                    </div>
+                    <div class="table-product" id="restoreOwner">
+
+                    </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Modal of Archive Profile -->
+            <div class="modal" id="modal9">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Archiving Owners Profile</h1>
+                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                    </div>
+                    <div class="table-product" id="archiveOwner">
+
+                    </div>
+                    </section>
+                </div>
+            </div>
 
             <!-- Modal of Restore Profile MessageBox -->
             <div class="modal" id="modal5">
@@ -538,6 +640,29 @@
             </div>
             <?php include 'scriptingfiles.php'; ?>
             <script>
+                $(document).ready(function() {
+                    // USERACCOUNT DOCUMENT FORMS
+                    $(".showUpdateProfile").click(function() {
+                        var ownersprofileid = this.value;
+                        $("#updateOwner").load("submit.php", {
+                            ownersprofileID: ownersprofileid
+                        })
+                    })
+                    $(".showArchiveProfile").click(function() {
+                        var archiveownersprofileid = this.value;
+                        $("#archiveOwner").load("submit.php", {
+                            archiveownersprofileID: archiveownersprofileid
+                        })
+                    })
+                    $(".showRestoreProfile").click(function() {
+                        var restoreownersprofileid = this.value;
+                        $("#restoreOwner").load("submit.php", {
+                            restoreownersprofileID: restoreownersprofileid
+                        })
+                    })
+                })
+
+
                 $(document).ready(function() {
                     $("#pettypeid").on('click', function() {
                         var pettypeid = $(this).val();
@@ -565,6 +690,22 @@
                             },
                             success: function(data) {
                                 $('#ownersName').html(data);
+                            }
+                        });
+                    });
+                });
+                $(document).ready(function() {
+                    $('#search-boxrestoreowner').on('keyup', function() {
+                        var queryrestoreowner = $(this).val();
+                        $.ajax({
+                            url: 'search.php',
+                            method: 'POST',
+                            data: {
+                                search: 1,
+                                queryrestoreowner: queryrestoreowner
+                            },
+                            success: function(data) {
+                                $('#searchRestoreProfile').html(data);
                             }
                         });
                     });

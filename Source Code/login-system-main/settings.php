@@ -12,7 +12,7 @@ if (isset($_POST['saveusertype'])) {
     $res = mysqli_query($conn, $sql);
     if ($res) {
 ?>
-        <div class="statusmessagesuccess" id="close">
+        <div class="statusmessagesuccess message-box" id="close">
             <h2>Usertype Added Successfully!</h2>
             <button class="icon"><span class="material-symbols-sharp">close</span></button>
         </div>
@@ -30,7 +30,7 @@ if (isset($_POST['updateusertype'])) {
                 where utid= $utid";
     $res = mysqli_query($conn, $sql);
     if ($res) { ?>
-        <div class="statusmessagesuccesslight" id="close">
+        <div class="statusmessagesuccesslight message-box" id="close">
             <h2>Usertype Updated Successfully!</h2>
             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
         </div>
@@ -50,7 +50,7 @@ if (isset($_POST['removeusertype'])) {
 
     if ($res) {
     ?>
-        <div class="statusmessageerror" id="close">
+        <div class="statusmessageerror message-box" id="close">
             <h2>Usertype has been removed</h2>
             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
         </div>
@@ -70,7 +70,7 @@ if (isset($_POST['savepettype'])) {
     $res = mysqli_query($conn, $sql);
     if ($res) {
     ?>
-        <div class="statusmessagesuccess" id="close">
+        <div class="statusmessagesuccess message-box" id="close">
             <h2>Pettype Added Successfully!</h2>
             <button class="icon"><span class="material-symbols-sharp">close</span></button>
         </div>
@@ -78,43 +78,44 @@ if (isset($_POST['savepettype'])) {
     }
 }
 
+
 // Pettype Update Statement
 if (isset($_POST['updatepettype'])) {
-    $petid = $_POST['petid'];
+    $ptid = $_POST['ptid'];
     $pt = $_POST['pettype'];
 
     $sql = "update tblpettype set pettype ='$pt' 
-                    where petid= $petid";
+                where pettypeid= $ptid";
     $res = mysqli_query($conn, $sql);
     if ($res) { ?>
-        <div class="statusmessagesuccess" id="close">
+        <div class="statusmessagesuccesslight message-box" id="close">
             <h2>Pettype Updated Successfully!</h2>
             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
         </div>
-
-<?php
+    <?php
     } else {
         die(mysqli_error($conn));
     }
 }
-//     // pettype remove statement
-// if(isset($_POST['removepettype'])){
-//     $rpetid = $_POST['rpetid'];
 
-//             $sql = "delete from tblpettype where petid = '$rpetid'";
-//             $res = mysqli_query($conn, $sql);
-//         
-?>
-<!-- //     <div class="statusmessageerror" id="close">
-        //         <h2>Pettype has been removed</h2>
-        //         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-        //     </div>
-                 -->
-<?php
-//     } else {
-//         die(mysqli_error($conn));
 
-// }
+// pettype remove statement
+if (isset($_POST['removepettype'])) {
+    $rptid = $_POST['rptid'];
+
+    $sql = "delete from tblpettype where pettypeid = '$rptid'";
+    $res = mysqli_query($conn, $sql);
+
+    if ($res) {
+    ?>
+        <div class="statusmessageerror message-box" id="close">
+            <h2>Pettype has been removed</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
+    }
+}
+
 
 // Save Breed
 if (isset($_POST['savebreed'])) {
@@ -125,8 +126,8 @@ if (isset($_POST['savebreed'])) {
         values('$br')";
     $res = mysqli_query($conn, $sql);
     if ($res) {
-?>
-        <div class="statusmessagesuccess" id="close">
+    ?>
+        <div class="statusmessagesuccess message-box" id="close">
             <h2>Breed Added Successfully!</h2>
             <button class="icon"><span class="material-symbols-sharp">close</span></button>
         </div>
@@ -200,35 +201,32 @@ if (isset($_POST['updatecategory'])) {
                 where catid= $catid";
     $res = mysqli_query($conn, $sql);
     if ($res) { ?>
-        <div class="statusmessagesuccess" id="close">
+        <div class="statusmessagesuccesslight message-box" id="close">
             <h2>Category Updated Successfully!</h2>
             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
         </div>
-
-<?php
+    <?php
     } else {
         die(mysqli_error($conn));
     }
 }
 
+// category remove statement
+if (isset($_POST['removecategory'])) {
+    $rcatid = $_POST['rcatid'];
 
-// // category remove statement
-// if(isset($_POST['removecategory'])){
-//         $rcatid = $_POST['rcatid'];
+    $sql = "delete from category where catid = '$rcatid'";
+    $res = mysqli_query($conn, $sql);
 
-//         $sql = "delete from tblcategory where catid = '$rcatid'";
-//         $res = mysqli_query($conn, $sql);
-//             
-?>
-<!-- //         <div class="statusmessageerror" id="close">
-                //     <h2>Category has been removed</h2>
-                //     <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                //         </div> -->
-<?php
-//     } else {
-//     die(mysqli_error($conn));
-
-// }
+    if ($res) {
+    ?>
+        <div class="statusmessageerror message-box" id="close">
+            <h2>Category has been removed</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
+    }
+}
 
 // Save Services
 if (isset($_POST['saveservices'])) {
@@ -239,7 +237,7 @@ if (isset($_POST['saveservices'])) {
                  values('$ser')";
     $res = mysqli_query($conn, $sql);
     if ($res) {
-?>
+    ?>
         <div class="statusmessagesuccess" id="close">
             <h2>Services Added Successfully!</h2>
             <button class="icon"><span class="material-symbols-sharp">close</span></button>
@@ -254,38 +252,89 @@ if (isset($_POST['updateservices'])) {
     $ser = $_POST['services'];
 
     $sql = "update tblservices set services ='$ser' 
-            where sid= $sid";
+                where sid= $sid";
     $res = mysqli_query($conn, $sql);
     if ($res) { ?>
-        <div class="statusmessagesuccess" id="close">
+        <div class="statusmessagesuccesslight message-box" id="close">
             <h2>Services Updated Successfully!</h2>
             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
         </div>
-
-<?php
+    <?php
     } else {
         die(mysqli_error($conn));
     }
 }
 
-//            //Services remove statement
-// if(isset($_POST['removeservices'])){
-//     $rsid = $_POST['sid'];
+//Services remove statement
+if (isset($_POST['removeservices'])) {
+    $rsid = $_POST['rsid'];
 
-//             $sql = "delete from tblservices where sid = '$rsid'";
-//             $res = mysqli_query($conn, $sql);
-//         
-?>
-<!-- //     <div class="statusmessageerror" id="close">
-        //         <h2>Services has been removed</h2>
-        //         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-        //     </div> -->
+    $sql = "delete from services where sid = '$rsid'";
+    $res = mysqli_query($conn, $sql);
 
+    if ($res) {
+    ?>
+        <div class="statusmessageerror message-box" id="close">
+            <h2>Services has been removed</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
 <?php
-//     } else {
-//         die(mysqli_error($conn));
+    }
+}
 
-// } 
+// Save Charges and Fees
+if (isset($_POST['saveprice'])) {
+    $caf = $_POST['price'];
+
+    // Insert into database
+    $sql = "insert into tblstock(price) 
+                 values('$caf')";
+    $res = mysqli_query($conn, $sql);
+    if ($res) {
+    ?>
+        <div class="statusmessagesuccess" id="close">
+            <h2>Charges and Fees Added Successfully!</h2>
+            <button class="icon"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
+    }
+}
+
+// Charges and Fees Update Statement
+if (isset($_POST['updateprice'])) {
+    $proid = $_POST['proid'];
+    $caf = $_POST['price'];
+
+    $sql = "update tblstock set price ='$caf' 
+                where proid= $proid";
+    $res = mysqli_query($conn, $sql);
+    if ($res) { ?>
+        <div class="statusmessagesuccesslight message-box" id="close">
+            <h2>Charges and Fees Updated Successfully!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
+    } else {
+        die(mysqli_error($conn));
+    }
+}
+
+//Services remove statement
+if (isset($_POST['removeprice'])) {
+    $rproid = $_POST['rproid'];
+
+    $sql = "delete from price where proid = '$rproid'";
+    $res = mysqli_query($conn, $sql);
+
+    if ($res) {
+    ?>
+        <div class="statusmessageerror message-box" id="close">
+            <h2>Charges and Fees has been removed</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+<?php
+    }
+}
 
 ?>
 
@@ -316,22 +365,22 @@ if (isset($_POST['updateservices'])) {
                     <div class="table-profile-buttons">
                         <!--  Start of Settings Section  -->
                         <div class="buttonmodify">
-                            <button class="modal-open" data-modal="modal1" title="View Usertype"><span class="material-symbols-sharp">table_view</span>Usertype</button>
+                            <button class="modal-open" data-modal="modal1" title="View Usertype"><span class="material-symbols-sharp">person</span>Usertype</button>
                         </div>
                         <div class="buttonmodify">
-                            <button class="modal-open" data-modal="modal2" title="View Pet Type"><span class="material-symbols-sharp">table_view</span>Pet type</button>
+                            <button class="modal-open" data-modal="modal2" title="View Pet Type"><span class="material-symbols-sharp">sound_detection_dog_barking</span>Pet type</button>
                         </div>
                         <div class="buttonmodify">
-                            <button class="modal-open" data-modal="modal3" title="View Breed"><span class="material-symbols-sharp">table_view</span>Breed</button>
+                            <button class="modal-open" data-modal="modal3" title="View Breed"><span class="material-symbols-sharp">pets</span>Breed</button>
                         </div>
                         <div class="buttonmodify">
-                            <button class="modal-open" data-modal="modal4" title="View Category"><span class="material-symbols-sharp">table_view</span>Category</button>
+                            <button class="modal-open" data-modal="modal4" title="View Category"><span class="material-symbols-sharp">inventory</span>Category</button>
                         </div>
                         <div class="buttonmodify">
-                            <button class="modal-open" data-modal="modal5" title="View Services"><span class="material-symbols-sharp">table_view</span>Services</button>
+                            <button class="modal-open" data-modal="modal5" title="View Services"><span class="material-symbols-sharp">medical_services</span>Services</button>
                         </div>
                         <div class="buttonmodify">
-                            <button class="modal-open" data-modal="modal6" title="View Charges and Fees"><span class="material-symbols-sharp">table_view</span>Charges and Fees</button>
+                            <button class="modal-open" data-modal="modal6" title="View Charges and Fees"><span class="material-symbols-sharp">payments</span>Charges and Fees</button>
                         </div>
                     </div>
                 </div>
@@ -404,8 +453,8 @@ if (isset($_POST['updateservices'])) {
                                                     <td><?php echo $pt; ?></td>
                                                     <?php echo '
                                 <td>
-                                    <button class="modal-open showUpdatePetType" data-modal="modal7" value="' . $petid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                    <button class="modal-open showRemovePettype" data-modal="modal8" value="' . $petid . '"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
+                                    <button class="modal-open showUpdatePettype" data-modal="modal9" value="' . $petid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showRemovePettype" data-modal="modal10" value="' . $petid . '"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
                                 </td>';   ?>
                                                 </tr>
                                         <?php
@@ -536,8 +585,8 @@ if (isset($_POST['updateservices'])) {
                                                     <td><?php echo $category; ?></td>
                                                     <?php echo '
                                 <td>
-                                    <button class="modal-open showUpdateCategory" data-modal="modal7" value="' . $catid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                    <button class="modal-open showRemoveCategory" data-modal="modal8" value="' . $catid . '"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
+                                    <button class="modal-open showUpdateCategory" data-modal="modal13" value="' . $catid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showRemoveCategory" data-modal="modal14" value="' . $catid . '"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
                                 </td>';   ?>
                                                 </tr>
                                         <?php
@@ -602,8 +651,8 @@ if (isset($_POST['updateservices'])) {
                                                     <td><?php echo $services; ?></td>
                                                     <?php echo '
                                 <td>
-                                    <button class="modal-open showUpdateServices" data-modal="modal7" value="' . $sid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                    <button class="modal-open showRemoveServices" data-modal="modal8" value="' . $sid . '"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
+                                    <button class="modal-open showUpdateServices" data-modal="modal15" value="' . $sid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showRemoveServices" data-modal="modal16" value="' . $sid . '"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
                                 </td>';   ?>
                                                 </tr>
                                         <?php
@@ -620,6 +669,8 @@ if (isset($_POST['updateservices'])) {
         </div>
 
         <!-- Modal of Charges and Fees -->
+        
+        <!-- Start of Modal -->
         <div class="modal" id="modal6">
             <div class="modal-content">
                 <div class="modal-header">
@@ -630,15 +681,163 @@ if (isset($_POST['updateservices'])) {
                     <form action="" method="POST">
                         <div class="formprofile">
                             <div>
-                                <input type="text" name="chargesandfees" placeholder="Add New Charges and Fees" required>
+                                <input type="text" name="price" placeholder="Add New Charges and Fees" required>
                                 <span>Charges and Fees</span>
                             </div>
                             <div class="buttonflex">
-                                <button name="savechargesandfees" type="submit" class="save" title="Update charges and fees">Save</button>
+                                <button name="saveprice" type="submit" class="save" title="Update price">Save</button>
                                 <button class="cancel modal-close" title="Cancel">Cancel</button>
                             </div>
                         </div>
                     </form>
+
+                    <section class="tableaccountrecords">
+                        <div class="accountrecordsbg">
+                            <div class="accountrecords">
+                                <table class="content-table table-fixed">
+                                    <thead>
+                                        <tr>
+                                            <th>Stocks ID</th>
+                                            <th>Product Name</th>
+                                            <th>Stocks Price</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $sql = "Select * from tblstock where archive = 'false' order by proid desc ";
+                                        $res = mysqli_query($conn, $sql);
+
+                                        if ($res) {
+                                            while ($row = mysqli_fetch_assoc($res)) {
+                                                $proid = $row['proid'];
+                                                $prodname = $row['prodname'];
+                                                $price = $row['price'];
+                                        ?>
+                                                <tr>
+                                                    <td><?php echo $proid; ?></td>
+                                                    <td><?php echo $prodname; ?></td>
+                                                    <td><?php echo $price; ?></td>
+                                                    <?php echo '
+                                <td>
+                                    <button class="modal-open showUpdatePrice" data-modal="modal17" value="' . $proid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showRemovePrice" data-modal="modal18" value="' . $proid . '"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
+                                </td>';   ?>
+                                                </tr>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- FORM OF UPDATE PETTYPE -->
+        <div class="modal" id="modal9">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Edit Pettype</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="updatePettype">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM OF REMOVE PETTYPE -->
+        <div class="modal" id="modal10">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Remove Pettype</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="removePettype">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM OF UPDATE CATEGORY -->
+        <div class="modal" id="modal13">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Edit Category</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="updateCategory">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM OF UPDATE SERVICES -->
+        <div class="modal" id="modal15">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Edit Services</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="updateServices">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM OF UPDATE CHARGES AND FEES -->
+        <div class="modal" id="modal17">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Edit Stock Price</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="updatePrice">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM OF REMOVE CATEGORY -->
+        <div class="modal" id="modal14">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Remove Category</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="removeCategory">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM OF REMOVE SERVICES -->
+        <div class="modal" id="modal16">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Remove Service</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="removeServices">
+
+                </div>
+            </div>
+        </div>
+
+         <!-- FORM OF REMOVE CHARGES AND FEES -->
+         <div class="modal" id="modal18">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Remove Product</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="removePrice">
+
                 </div>
             </div>
         </div>
@@ -720,6 +919,7 @@ if (isset($_POST['updateservices'])) {
                     </div>
                 </div>
 
+
                 <!-- FORM OF REMOVE USERTYPE -->
                 <div class="modal" id="modal8">
                     <div class="modal-content">
@@ -732,8 +932,6 @@ if (isset($_POST['updateservices'])) {
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
             <?php include 'scriptingfiles.php';  ?>
@@ -746,10 +944,58 @@ if (isset($_POST['updateservices'])) {
                             utID: utid
                         })
                     })
+                    $(".showUpdatePettype").click(function() {
+                        var ptid = this.value;
+                        $("#updatePettype").load("submit.php", {
+                            ptID: ptid
+                        })
+                    })
+                    $(".showUpdateCategory").click(function() {
+                        var catid = this.value;
+                        $("#updateCategory").load("submit.php", {
+                            catID: catid
+                        })
+                    })
+                    $(".showUpdateServices").click(function() {
+                        var sid = this.value;
+                        $("#updateServices").load("submit.php", {
+                            sID: sid
+                        })
+                    })
+                    $(".showUpdatePrice").click(function() {
+                        var proid = this.value;
+                        $("#updatePrice").load("submit.php", {
+                            proID: proid
+                        })
+                    })
                     $(".showRemoveUsertype").click(function() {
                         var rutid = this.value;
                         $("#removeUsertype").load("submit.php", {
                             rutID: rutid
+                        })
+                    })
+                    $(".showRemovePettype").click(function() {
+                        var rptid = this.value;
+                        $("#removePettype").load("submit.php", {
+                            rptID: rptid
+                        })
+                    })
+                    $(".showRemoveCategory").click(function() {
+                        var rcatid = this.value;
+                        $("#removeCategory").load("submit.php", {
+                            rcatID: rcatid
+                        })
+                    })
+                    $(".showRemoveServices").click(function() {
+                        var rsid = this.value;
+                        $("#removeServices").load("submit.php", {
+                            rsID: rsid
+                        })
+                    })
+                    $(".showRemovePrice").click(function() {
+                        var rproid = this.value;
+                        $("#removePrice").load("submit.php", {
+                            rproID: rproid
                         })
                     })
                 })

@@ -16,7 +16,7 @@ if (isset($_POST['saveaddtocart'])) {
     $initialPrice = $qty * $prc;
 
     if ($initialPrice) {
-
+        
         $currentQuantity = $row1['quantity'];
         // Check if the requested quantity is less than or equal to the available quantity in stock
         if ($qty <= $currentQuantity) {
@@ -63,6 +63,9 @@ if (isset($_POST['checkout'])) {
     $result1 = mysqli_query($conn, $sql1);
 
     if ($result1) {
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Successful Transaction of product in transaction module')");
         ?>
         <div class="statusmessagesuccess message-box" id="close">
             <h2>Transaction has been completed!</h2>
@@ -259,7 +262,7 @@ if (isset($_POST['checkout'])) {
                             </thead>
                             <tbody>
                                 <?php
-                                $sql = "Select * from tblownersprofile order by ownersname";
+                                $sql = "Select * from tblownersprofile where archive = 'false' order by ownersname";
                                 $res = mysqli_query($conn, $sql);
 
                                 if ($res) {
@@ -341,7 +344,7 @@ if (isset($_POST['checkout'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "Select * from tblstock order by proid desc";
+                                    $sql = "Select * from tblstock where archive = 'false' order by proid desc";
                                     $res = mysqli_query($conn, $sql);
 
                                     if ($res) {

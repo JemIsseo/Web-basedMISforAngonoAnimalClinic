@@ -153,7 +153,8 @@ b {
 /*   Style for Icon Buttons   */
 .edit,
 .archive,
-.restore {
+.restore,
+.remove {
   color: var(--color-success);
   background: var(--color-white);
   cursor: pointer;
@@ -165,6 +166,10 @@ b {
 
 .restore {
   color: var(--color-warning);
+}
+
+.remove {
+  color: var(--color-danger);
 }
 
 aside {
@@ -242,14 +247,11 @@ aside .sidebar a:hover span {
 /*  Start of Main  */
 /*  Profile Form  */
 .formprofile {
+  margin: 2em auto;
+  margin-top: 0.5em;
   padding: 1em;
-  height: 80%;
-  width: 90%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
-  justify-content: end;
-  gap: 3em;
+  height: 10%;
+  width: 50%;
 }
 
 .formprofile input,
@@ -276,32 +278,24 @@ aside .sidebar a:hover span {
   opacity: 0.7;
 }
 
+.markdown {
+  color: var(--color-primary);
+  margin-left: 8.5em;
+}
+
 .formprofile span {
   position: absolute;
 }
-
-.searchbar {
-  height: 4vh;
-  width: 15vw;
-  border: 2px solid var(--color-primary);
-  border-radius: var(--border-radius-2);
-  box-shadow: var(--box-shadow);
-  background: var(--color-input-light);
-  margin: 0 2em;
-  color: var(--color-gray);
-  font-weight: bold;
-  text-align: center;
-}
-
 /*  Section Transaction  */
-.tableaudittrail {
+.tableprofile {
   margin-top: 1em;
 }
 
-.table-profile {
+.table-profile,
+.table-profile-category {
   background: var(--color-white);
   padding: 1em;
-  height: 90vh;
+  height: 86vh;
   border-radius: var(--card-border-radius);
   box-shadow: var(--box-shadow);
   transition: all 300ms ease;
@@ -311,22 +305,26 @@ aside .sidebar a:hover span {
   box-shadow: none;
 }
 
+.table-profile-category {
+  display: flex;
+}
+
 /*  Table Transaction  */
 .content-table {
-  margin-left: 0.5em;
   border-collapse: collapse;
   font-size: 1em;
   width: 100%;
-  height: 545px;
   display: block;
+  height: 300px;
   overflow: auto;
   text-align: center;
+  margin: 1em auto;
 }
 
 .content-table thead tr {
   background-color: var(--color-primary);
   color: var(--color-background);
-  text-align: left;
+  text-align: center;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -341,9 +339,20 @@ aside .sidebar a:hover span {
 
 .content-table th,
 .content-table td {
-  text-align: left;
-  padding: 12px 46px;
+  padding: 12px 29px;
   border-bottom: 1px solid rgb(238, 233, 233);
+}
+
+.table-archive th,
+.table-archive td {
+  padding: 12px 20px;
+  margin: auto;
+}
+
+.searchbar span {
+  color: var(--color-primary);
+  font-size: 30px;
+  font-weight: bold;
 }
 
 /* Buttons */
@@ -354,31 +363,44 @@ aside .sidebar a:hover span {
   box-shadow: var(--box-shadow);
   transition: all 300ms ease;
   margin: 1em;
+  padding: 3em;
 }
 
 .buttons:hover {
   box-shadow: none;
 }
 
-.buttonmodify button {
+.table-profile-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7em;
+  margin:11em;
+  margin-left: 12em;
+}
+
+.buttonmodify span {
+  margin-right: 1em;
+  text-align: left;
+}
+
+.buttonmodify a {
   background: linear-gradient(
     to right bottom,
     rgb(71, 189, 216),
     var(--color-primary)
   );
   color: var(--color-white);
-  padding: 2em;
+  padding: 2.5em;
   border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
-  font-size: var(--fs-text3);
-  display: flex;
-  gap: 2em;
-  width: 220px;
-  margin: 2em auto;
+  text-align: left;
   box-shadow: var(--box-shadow);
-  text-align: center;
-  height: 11vh;
+}
+
+.trans {
+  color: transparent;
+  background: transparent;
 }
 
 .buttonmodify button:hover {
@@ -420,13 +442,12 @@ aside .sidebar a:hover span {
   }
 }
 
-
 .modal-header {
   display: flex;
+  gap: 50em;
 }
 
 .modal-header .modal-close {
-  margin-left: 77%;
   background: transparent;
 }
 
@@ -447,46 +468,23 @@ aside .sidebar a:hover span {
   padding: 0.5em 1em;
 }
 
-#modal2 .modal-content {
-  width: 40%;
-}
-
-#modal2 .modal-body {
-  padding: 2em;
-}
-
-#modal2 .modal-header .modal-close {
-  margin-left: 50%;
-}
-
-#modal4 .modal-content {
-  width: 80%;
-}
-
-#modal4 .modal-header {
+.accountrecords {
+  background: var(--color-white);
   padding: 1em;
-  display: flex;
-  gap: 30em;
+  height: 40vh;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+  margin-bottom: 0.5em;
 }
 
-#modal3 {
-  z-index: 10;
-}
-
-#modal3 .modal-content {
-  width: 45%;
-}
-
-#modal3 .modal-body {
-  padding: 2em;
-}
-
-#modal3 .modal-header .modal-close {
-  margin-left: 50%;
+.accountrecords:hover {
+  box-shadow: none;
 }
 
 .buttonflex {
-  margin: 0 auto;
+  margin: 1em;
+  text-align: right;
 }
 
 .buttonflexright {
@@ -499,11 +497,112 @@ aside .sidebar a:hover span {
   gap: 22em;
 }
 
+.searchbar {
+  display: flex;
+  gap: 0.5em;
+  margin: 0.4em;
+}
+
+.formarchive {
+  display: none;
+}
+
+.formusertype input,
+#ut {
+  height: 4vh;
+  width: 15vw;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--border-radius-2);
+  box-shadow: var(--box-shadow);
+  background: var(--color-input-light);
+  margin: 0 10em;
+  margin-right: 1.5em;
+  color: var(--color-gray);
+  font-weight: bold;
+  text-align: center;
+}
+
+.formpettype input,
+#ut {
+  height: 4vh;
+  width: 15vw;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--border-radius-2);
+  box-shadow: var(--box-shadow);
+  background: var(--color-input-light);
+  margin: 0 10em;
+  margin-right: 1.5em;
+  color: var(--color-gray);
+  font-weight: bold;
+  text-align: center;
+}
+
+.formbreed input,
+#ut {
+  height: 4vh;
+  width: 15vw;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--border-radius-2);
+  box-shadow: var(--box-shadow);
+  background: var(--color-input-light);
+  margin: 0 10em;
+  margin-right: 1.5em;
+  color: var(--color-gray);
+  font-weight: bold;
+  text-align: center;
+}
+
+.formcategory input,
+#ut {
+  height: 4vh;
+  width: 15vw;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--border-radius-2);
+  box-shadow: var(--box-shadow);
+  background: var(--color-input-light);
+  margin: 0 10em;
+  margin-right: 1.5em;
+  color: var(--color-gray);
+  font-weight: bold;
+  text-align: center;
+}
+
+.formservices input,
+#ut {
+  height: 4vh;
+  width: 15vw;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--border-radius-2);
+  box-shadow: var(--box-shadow);
+  background: var(--color-input-light);
+  margin: 0 10em;
+  margin-right: 1.5em;
+  color: var(--color-gray);
+  font-weight: bold;
+  text-align: center;
+}
+
 .profilepicture input {
   background: rgb(163, 158, 158);
   border: 1px solid var(--color-primary);
   width: 14vw;
   border-radius: 4px;
+}
+
+.searchbar input {
+  padding: 0.3em;
+  font-family: inherit;
+  border: 2px solid var(--color-primary);
+  width: 15vw;
+  border-radius: 5px;
+  background: var(--color-input-light);
+  color: var(--color-gray);
+}
+
+.searchbar span {
+  color: var(--color-primary);
+  font-size: 30px;
+  font-weight: bold;
 }
 
 /* Start of Right */
@@ -605,6 +704,59 @@ aside .sidebar a:hover span {
   font-weight: bolder;
 }
 
+/* 
+ Status Message */
+.statusmessagesuccess {
+  background-color: #96f5b6;
+  margin: 0.5em;
+  border-radius: 5px;
+  display: flex;
+  padding: 1em;
+  gap: 33em;
+  position: absolute;
+  justify-content: right;
+  margin: 2em 30em;
+  z-index: 10;
+}
+
+.statusmessageerror {
+  background-color: #f2dede;
+  margin: 0.5em;
+  border-radius: 5px;
+  display: flex;
+  padding: 1em;
+  gap: 33em;
+  position: absolute;
+  justify-content: right;
+  margin: 2em 30em;
+  z-index: 10;
+  color: #a94442;
+  font-size: 0.9em;
+  font-family: poppins, sans-serif;
+}
+
+.statusmessagesuccesslight {
+  background-color: #99b0ee;
+  margin: 0.5em;
+  border-radius: 5px;
+  display: flex;
+  padding: 1em;
+  gap: 33em;
+  position: absolute;
+  justify-content: right;
+  margin: 2em 30em;
+  z-index: 10;
+  color: #102150;
+  font-size: 0.9em;
+  font-family: poppins, sans-serif;
+}
+
+.statusmessagesuccess button,
+.statusmessageerror button,
+.statusmessagesuccesslight button {
+  background: transparent;
+}
+
 /* Color of Buttons */
 .save,
 .savechanges,
@@ -635,6 +787,11 @@ aside .sidebar a:hover span {
 
 .no {
   background: var(--color-light-red);
+}
+
+.rightbottom h3 {
+  font-size: var(--fs-text2);
+  font-weight: none;
 }
 
 /*  Media Queries  */

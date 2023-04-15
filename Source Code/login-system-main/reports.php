@@ -23,41 +23,43 @@ session_start();
         <!--  Main Tag  -->
         <main>
 
-            <section class="tableaudittrail">
-                <div class="accrecsearch">
-                    <h1>Reports</h1>
-                    <div class="searchbar">
-                        <select name="" id="filterby">
-                            <option value="filter">Filter By:</option>
-                            <option value="date">Date</option>
-                        </select>
+        <section class="tableprofile">
+                <h1>Reports</h1>
+                <div class="table-profile">
+                    <div class="table-profile-buttons">
+                        <!--  Start of Settings Section  -->
+                        <div class="buttonmodify">
+                            <a title="Print Total Sales Report"><span class="material-symbols-sharp"> analytics </span>Total Sales Report</a>
+                        </div>
+                        <div class="buttonmodify">
+                            <a title="Print Useraccount Report"><span class="material-symbols-sharp"> account_box </span>Useraccount Report</a>
+                        </div>
+                        <div class="buttonmodify">
+                            <a title="Print OwnersProfile Report"><span class="material-symbols-sharp">contact_page</span>Owners Profile Report</a>
+                        </div>
+                        <div class="buttonmodify">
+                            <a title="Print PetProfile Report"><span class="material-symbols-sharp">pets</span>Pet Profile Report</a>
+                        </div>
+                        <div class="buttonmodify">
+                            <a title="Print Stocks Report"><span class="material-symbols-sharp"> inventory_2 </span>Print Stocks Report</a>
+                        </div>
+                        <div class="buttonmodify">
+                            <a title="Print Added Stock Report"><span class="material-symbols-sharp"> inventory </span>Added Stock Report</a>
+                        </div>
+                        <div class="buttonmodify">
+                            <a href="../login-system-main/reports/reportaudittrail.php" title="Print Audit Trail"><span class="material-symbols-sharp"> table_chart </span>Audit Trail Report</a>
+                        </div>
+                        <div class="buttonmodify">
+                            <a title="Print Medical History Report"><span class="material-symbols-sharp">medical_information</span>Medical History Report</a>
+                        </div>
                     </div>
                 </div>
-                <div class="table-profile">
-
-                </div>
             </section>
+
         </main>
         <!--  End of Main Tag  -->
 
         <?php include 'systemaccountanddate.php'; ?>
-
-        <!--  Start of Retrive section  -->
-        <h1>Refresh Table</h1>
-
-        <div class="buttons">
-            <div class="buttonmodify">
-                <button class="modal-open" data-modal="modal5" title="View Stocks"><span class="material-symbols-sharp">person_search</span>User Account</button>
-            </div>
-            <div class="buttonmodify">
-                <button title="Restore archive stock" class="modal-open" data-modal="modal4"><span class="material-symbols-sharp">inventory</span>Stocks</button>
-            </div>
-            <div class="buttonmodify">
-                <button title="Refresh stock"><span class="material-symbols-sharp">shopping_cart</span>Products and Services</button>
-            </div>
-        </div>
-
-
     </div>
 
     <?php include 'scriptingfiles.php'; ?>
