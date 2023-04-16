@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'authcheck.php';
 include 'connect.php';
 
 $spet = mysqli_query($conn, "select * from tblpet");
@@ -11,6 +12,7 @@ if (isset($_POST['savequeue'])) {
     $pname = $_POST['pname'];
     $ser = $_POST['services'];
     $dt = $_POST['datetime'];
+    $prc = $_POST['price'];
 
     $sqls = "Select * from tblappointments where queueno = ''";
     $result = mysqli_query($conn, $sqls);
@@ -153,13 +155,7 @@ if (isset($_POST['savearchiveprofile'])) {
 
         <!--  End of Main Tag  -->
         <?php include 'systemaccountanddate.php'; ?>
-        <!--  Start of Retrieve section  -->
-        <h1>Retrieve Appointments</h1>
-        <div class="buttons">
-            <div class="buttonmodify">
-                <button class="modal-open" data-modal="modal4" title="View and Restore Record"><span class="material-symbols-sharp">table_view</span>View Archive Appointments</button>
-            </div>
-        </div>
+        
         <!-- Start of Modal -->
 
         <!-- Modal of Edit Profile -->
@@ -196,7 +192,7 @@ if (isset($_POST['savearchiveprofile'])) {
                                     <?php
                                     while ($r = mysqli_fetch_array($s)) {
                                     ?>
-                                        <option value="<?php echo $r['services']; ?>"><?php echo $r['services']; ?> </option>
+                                        <option value="<?php echo $r['services']; ?>"><?php echo $r['services']; ?></option>
                                     <?php
                                     }
                                     ?>
@@ -214,10 +210,10 @@ if (isset($_POST['savearchiveprofile'])) {
                     </form>
                     <div>
                         <div class="searchbar">
-                            <input type="text" placeholder="Search here" onkeyup="searchProfile(this.value)"><span class="material-symbols-sharp">search</span>
+                            <input type="text" placeholder="Search here" id="search-box"><span class="material-symbols-sharp">search</span>
                         </div>
                         <div class="table-appointments-sample">
-                            <table class="content-table">
+                            <table class="content-table" id="searchAppointments">
                                 <thead>
                                     <tr>
                                         <th>Queue No</th>
@@ -230,7 +226,7 @@ if (isset($_POST['savearchiveprofile'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "Select * from tblappointments";
+                                    $sql = "Select * from tblappointments order by queueno desc";
                                     $res = mysqli_query($conn, $sql);
 
                                     if ($res) {
@@ -388,6 +384,23 @@ if (isset($_POST['savearchiveprofile'])) {
                     }
                 });
             });
+
+            $(document).ready(function() {
+                    $('#search-box').on('keyup', function() {
+                        var queryappointments = $(this).val();
+                        $.ajax({
+                            url: 'search.php',
+                            method: 'POST',
+                            data: {
+                                search: 1,
+                                queryappointments: queryappointments
+                            },
+                            success: function(data) {
+                                $('#searchAppointments').html(data);
+                            }
+                        });
+                    });
+                });
         </script>
 </body>
 

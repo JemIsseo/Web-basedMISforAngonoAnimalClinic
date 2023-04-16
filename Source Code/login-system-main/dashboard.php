@@ -2,6 +2,7 @@
 session_start();
 
 // Database Connection
+include 'authcheck.php';
 include 'connect.php';
 
 $resultSumSales = $conn->query("SELECT SUM(totalprice) AS totalsales FROM tbltransaction");
@@ -163,7 +164,7 @@ $totalappointments = $rowSumAppointments['totalappointments'];
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "Select * from tblappointments";
+                                    $sql = "Select * from tblappointments order by queueno desc";
                                     $res = mysqli_query($conn, $sql);
 
                                     if ($res) {

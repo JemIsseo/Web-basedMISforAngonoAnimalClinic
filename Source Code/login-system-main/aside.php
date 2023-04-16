@@ -15,7 +15,7 @@
             <span class="material-symbols-sharp">grid_view</span>
             <h3>Dashboard</h3>
         </a>
-        <a href="useraccount.php">
+        <a style="display: <?php echo $display_style; ?>; display: <?php echo $display_stylea; ?>" href="useraccount.php">
             <span class="material-symbols-sharp">person</span>
             <h3>User Account</h3>
         </a>
@@ -23,11 +23,11 @@
             <span class="material-symbols-sharp">pets</span>
             <h3>Customer</h3>
         </a>
-        <a href="stockandaddstock.php">
+        <a style="display: <?php echo $display_style; ?>" href="stockandaddstock.php">
             <span class="material-symbols-sharp">inventory</span>
             <h3>Stocks</h3>
         </a>
-        <a href="productsandservices.php">
+        <a style="display: <?php echo $display_style; ?>" href="productsandservices.php">
             <span class="material-symbols-sharp">medical_information</span>
             <h3>Transactions</h3>
         </a>
@@ -35,11 +35,11 @@
             <span class="material-symbols-sharp">book_online</span>
             <h3>Appointments</h3>
         </a>
-        <a href="audittrail.php">
+        <a style="display: <?php echo $display_style; ?>; display: <?php echo $display_stylea; ?>" href="audittrail.php">
             <span class="material-symbols-sharp">find_in_page</span>
             <h3>Audit Trail</h3>
         </a>
-        <a href="reports.php">
+        <a style="display: <?php echo $display_stylea; ?>" href="reports.php">
             <span class="material-symbols-sharp">report</span>
             <h3>Reports</h3>
         </a>

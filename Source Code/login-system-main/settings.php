@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'authcheck.php';
 include 'connect.php';
 
 // Save Usertype 
@@ -10,6 +11,11 @@ if (isset($_POST['saveusertype'])) {
     $sql = "insert into tblusertype(usertype) 
         values('$ut')";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added new usertype in settings')");
+
     if ($res) {
 ?>
         <div class="statusmessagesuccess message-box" id="close">
@@ -20,7 +26,6 @@ if (isset($_POST['saveusertype'])) {
     }
 }
 
-
 // Usertype Update Statement
 if (isset($_POST['updateusertype'])) {
     $utid = $_POST['utid'];
@@ -29,6 +34,10 @@ if (isset($_POST['updateusertype'])) {
     $sql = "update tblusertype set usertype ='$ut' 
                 where utid= $utid";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Update usertype in settings')");
     if ($res) { ?>
         <div class="statusmessagesuccesslight message-box" id="close">
             <h2>Usertype Updated Successfully!</h2>
@@ -47,6 +56,10 @@ if (isset($_POST['removeusertype'])) {
 
     $sql = "delete from tblusertype where utid = '$rutid'";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Removed a usertype in settings')");
 
     if ($res) {
     ?>
@@ -68,6 +81,10 @@ if (isset($_POST['savepettype'])) {
     $sql = "insert into tblpettype(pettype) 
         values('$pt')";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added new pettype in settings')");
     if ($res) {
     ?>
         <div class="statusmessagesuccess message-box" id="close">
@@ -85,8 +102,12 @@ if (isset($_POST['updatepettype'])) {
     $pt = $_POST['pettype'];
 
     $sql = "update tblpettype set pettype ='$pt' 
-                where pettypeid= $ptid";
+                where pettypeid= '$ptid'";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Updated pettype in settings')");
     if ($res) { ?>
         <div class="statusmessagesuccesslight message-box" id="close">
             <h2>Pettype Updated Successfully!</h2>
@@ -106,6 +127,10 @@ if (isset($_POST['removepettype'])) {
     $sql = "delete from tblpettype where pettypeid = '$rptid'";
     $res = mysqli_query($conn, $sql);
 
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Removed pettype in settings')");
+
     if ($res) {
     ?>
         <div class="statusmessageerror message-box" id="close">
@@ -124,6 +149,10 @@ if (isset($_POST['savebreed'])) {
     $sql = "insert into tblbreed(breed) 
         values('$br')";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added new breed in settings')");
     if ($res) {
     ?>
         <div class="statusmessagesuccess message-box" id="close">
@@ -142,6 +171,10 @@ if (isset($_POST['updatebreed'])) {
     $sql = "update tblbreed set breed ='$breed' 
                     where bid= $bid";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Updated pettype in settings')");
     if ($res) { ?>
         <div class="statusmessagesuccess" id="close">
             <h2>Breed Updated Successfully!</h2>
@@ -160,7 +193,11 @@ if (isset($_POST['updatebreed'])) {
 
 //             $sql = "delete from tblbreed where bid = '$rbid'";
 //             $res = mysqli_query($conn, $sql);
-//         
+// //           $ipaddress = $_SERVER['REMOTE_ADDR'];
+//              $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+//              VALUES ('" . $_SESSION['username'] . "','$ipaddress','Removed breed in settings')");
+//
+//      
 ?>
 <!-- //     <div class="statusmessageerror" id="close">
         //         <h2>Breed has been removed</h2>
@@ -181,6 +218,10 @@ if (isset($_POST['savecategory'])) {
     $sql = "insert into tblcategory(category) 
         values('$cat')";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added new category in settings')");
     if ($res) {
 ?>
         <div class="statusmessagesuccess" id="close">
@@ -199,6 +240,10 @@ if (isset($_POST['updatecategory'])) {
     $sql = "update tblcategory set category ='$cat' 
                 where catid= $catid";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Updated category in settings')");
     if ($res) { ?>
         <div class="statusmessagesuccesslight message-box" id="close">
             <h2>Category Updated Successfully!</h2>
@@ -216,6 +261,10 @@ if (isset($_POST['removecategory'])) {
 
     $sql = "delete from tblcategory where catid = '$rcatid'";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Removed category in settings')");
 
     if ($res) {
     ?>
@@ -235,6 +284,10 @@ if (isset($_POST['saveservices'])) {
     $sql = "insert into tblservices(services) 
                  values('$ser')";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added new services in settings')");
     if ($res) {
     ?>
         <div class="statusmessagesuccess" id="close">
@@ -253,6 +306,10 @@ if (isset($_POST['updateservices'])) {
     $sql = "update tblservices set services ='$ser' 
                 where sid= $sid";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Updated services in settings')");
     if ($res) { ?>
         <div class="statusmessagesuccesslight message-box" id="close">
             <h2>Services Updated Successfully!</h2>
@@ -271,13 +328,17 @@ if (isset($_POST['removeservices'])) {
     $sql = "delete from tblservices where sid = '$rsid'";
     $res = mysqli_query($conn, $sql);
 
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Removed services in settings')");
+
     if ($res) {
     ?>
         <div class="statusmessageerror message-box" id="close">
             <h2>Services has been removed</h2>
             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
         </div>
-<?php
+    <?php
     }
 }
 
@@ -289,6 +350,10 @@ if (isset($_POST['updateprice'])) {
     $sql = "update tblservices set price ='$caf' 
                 where sid = '$proid'";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Updated price in settings')");
     if ($res) { ?>
         <div class="statusmessagesuccesslight message-box" id="close">
             <h2>Charges and Fees Updated Successfully!</h2>
@@ -306,6 +371,10 @@ if (isset($_POST['removeprice'])) {
 
     $sql = "delete from tblchargesandfees where proid = '$rproid'";
     $res = mysqli_query($conn, $sql);
+
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Removed price in settings')");
 
     if ($res) {
     ?>
@@ -500,8 +569,8 @@ if (isset($_POST['removeprice'])) {
                                                     <td><?php echo $br; ?></td>
                                                     <?php echo '
                                 <td>
-                                    <button class="modal-open showUpdateBreed" data-modal="modal7" value="' . $bid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                    <button class="modal-open showRemoveBreed" data-modal="modal8" value="' . $bid . '"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
+                                    <button class="modal-open showUpdateBreed" data-modal="modal20" value="' . $bid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showRemoveBreed" data-modal="modal21" value="' . $bid . '"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
                                 </td>';   ?>
                                                 </tr>
                                         <?php
@@ -650,7 +719,7 @@ if (isset($_POST['removeprice'])) {
         </div>
 
         <!-- Modal of Charges and Fees -->
-        
+
         <!-- Start of Modal -->
         <div class="modal" id="modal6">
             <div class="modal-content">
@@ -796,8 +865,8 @@ if (isset($_POST['removeprice'])) {
             </div>
         </div>
 
-         <!-- FORM OF REMOVE CHARGES AND FEES -->
-         <div class="modal" id="modal18">
+        <!-- FORM OF REMOVE CHARGES AND FEES -->
+        <div class="modal" id="modal18">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1>Remove Product</h1>

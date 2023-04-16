@@ -313,10 +313,9 @@ aside .sidebar a:hover span {
 .content-table {
   border-collapse: collapse;
   font-size: 1em;
-  width: 100%;
-  display: block;
-  height: 300px;
-  overflow: auto;
+  width: 90%;
+  height: 280px;
+  overflow-x: hidden;
   text-align: center;
   margin: 1em auto;
 }
@@ -471,7 +470,7 @@ aside .sidebar a:hover span {
 }
 
 #modal6 .modal-header {
-  gap: 65em;
+  gap: 42em;
 }
 
 .accountrecords {

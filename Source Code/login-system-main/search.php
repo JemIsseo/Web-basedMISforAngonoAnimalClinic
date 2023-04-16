@@ -643,6 +643,62 @@ if (isset($_POST['queryaddtocart'])) {
     }
 }
 
+// SEARCH TABLE FOR CUSTOMERS MODULE OWNERSNAME
+if (isset($_POST['queryappointments'])) {
+    $queryappointments = $_POST['queryappointments'];
+
+    $sql = "SELECT * FROM tblappointments WHERE clientname LIKE '%" . $queryappointments . "%' ORDER BY queueno desc";
+    $result = mysqli_query($conn, $sql);
+
+    // display the results in tables
+    if (mysqli_num_rows($result) > 0) {
+    ?>
+        <table class="content-table table-fixed">
+            <thead>
+                <tr>
+                    <th>Queue No</th>
+                    <th>Client Name</th>
+                    <th>Pet Name</th>
+                    <th>Services</th>
+                    <th>Date and Time</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                <tbody>
+                    <?php
+                    $qno = $row['queueno'];
+                    $cname = $row['clientname'];
+                    $pname = $row['petname'];
+                    $ser = $row['services'];
+                    $dt = $row['dateandtime'];
+                    ?>
+                    <tr>
+                        <td><?php echo $qno; ?></td>
+                        <td><?php echo $cname; ?></td>
+                        <td><?php echo $pname; ?></td>
+                        <td><?php echo $ser; ?></td>
+                        <td><?php echo $dt; ?></td>
+                        <?php echo '
+                                                <td>
+                                                <button class="modal-open showUpdateAppointment" data-modal="modal1" value="' . $qno . '" ><span class="material-symbols-sharp remove" title="Delete this appointment">delete</span></button>
+                                                </td>';   ?>
+                    </tr>
+                </tbody>
+            <?php
+            }
+            ?>
+        </table>
+
+    <?php
+
+    } else {
+        echo "<h2 style='text-align: center'>No results found</h2>";
+    }
+}
+
 
 // SEARCH TABLE FOR AUDIT TRAIL
 if (isset($_POST['queryaudittrail'])) {

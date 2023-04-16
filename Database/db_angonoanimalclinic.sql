@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 16, 2023 at 10:09 AM
+-- Generation Time: Apr 16, 2023 at 03:43 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -61,18 +61,21 @@ CREATE TABLE IF NOT EXISTS `tblappointments` (
   `clientname` varchar(45) NOT NULL,
   `petname` varchar(45) NOT NULL,
   `services` varchar(100) NOT NULL,
+  `price` int NOT NULL,
   `dateandtime` datetime NOT NULL,
   PRIMARY KEY (`queueno`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblappointments`
 --
 
-INSERT INTO `tblappointments` (`queueno`, `clientname`, `petname`, `services`, `dateandtime`) VALUES
-(5, ' Vann Oliveros', 'Coco', 'Veterinary Emergency and Critical Care', '2023-02-13 10:42:00'),
-(11, ' Divina Amio', 'Gekgek', 'Wellness Clinic', '2023-02-28 10:50:00'),
-(36, 'Jeremy Liberty', 'Hannah', 'Wellness Clinic', '2023-04-12 08:11:00');
+INSERT INTO `tblappointments` (`queueno`, `clientname`, `petname`, `services`, `price`, `dateandtime`) VALUES
+(5, ' Vann Oliveros', 'Coco', 'Veterinary Emergency and Critical Care', 0, '2023-02-13 10:42:00'),
+(11, ' Divina Amio', 'Gekgek', 'Wellness Clinic', 0, '2023-02-28 10:50:00'),
+(37, 'Jeremy Liberty', 'Tsaris', 'Hospitalization', 0, '2023-04-16 05:28:00'),
+(36, 'Jeremy Liberty', 'Hannah', 'Wellness Clinic', 0, '2023-04-12 08:11:00'),
+(38, ' Vann Oliveros', 'Coco', 'Elective, Corrective, and, Curative Surgical Services', 0, '2023-04-16 05:40:00');
 
 -- --------------------------------------------------------
 
@@ -88,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `tblaudittrail` (
   `ipaddress` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   `actionmode` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`atid`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblaudittrail`
@@ -126,7 +129,49 @@ INSERT INTO `tblaudittrail` (`atid`, `username`, `datetime`, `ipaddress`, `actio
 (29, 'Secretary', '2023-04-16 07:09:43', '::1', 'Updated product in stocks module'),
 (30, 'Secretary', '2023-04-16 07:09:54', '::1', 'Updated product in stocks module'),
 (31, 'Secretary', '2023-04-16 07:14:51', '::1', 'Logged Out'),
-(32, 'Jemlibs', '2023-04-16 07:16:56', '::1', 'Logged In');
+(32, 'Jemlibs', '2023-04-16 07:16:56', '::1', 'Logged In'),
+(33, 'Secretary', '2023-04-16 10:10:52', '::1', 'Logged In'),
+(34, 'Veterinarian', '2023-04-16 12:18:09', '::1', 'Logged In'),
+(35, 'Veterinarian', '2023-04-16 13:12:00', '::1', 'Updated price in settings'),
+(36, '', '2023-04-16 14:32:43', '::1', 'Logged Out'),
+(37, 'Veterinarian', '2023-04-16 14:35:44', '::1', 'Logged In'),
+(38, 'Veterinarian', '2023-04-16 14:36:01', '::1', 'Logged Out'),
+(39, 'Secretary', '2023-04-16 14:41:36', '::1', 'Logged In'),
+(40, 'Secretary', '2023-04-16 15:02:11', '::1', 'Logged Out'),
+(41, 'Secretary', '2023-04-16 15:02:18', '::1', 'Logged In'),
+(42, 'Secretary', '2023-04-16 15:09:57', '::1', 'Logged Out'),
+(43, 'Veterinarian', '2023-04-16 15:10:02', '::1', 'Logged In'),
+(44, 'Veterinarian', '2023-04-16 15:10:09', '::1', 'Logged Out'),
+(45, 'Secretary', '2023-04-16 15:10:18', '::1', 'Logged In'),
+(46, 'Secretary', '2023-04-16 15:10:58', '::1', 'Logged Out'),
+(47, 'Veterinarian', '2023-04-16 15:11:04', '::1', 'Logged In'),
+(48, 'Veterinarian', '2023-04-16 15:11:43', '::1', 'Logged Out'),
+(49, 'Veterinarian', '2023-04-16 15:11:48', '::1', 'Logged In'),
+(50, 'Veterinarian', '2023-04-16 15:13:42', '::1', 'Logged Out'),
+(51, 'Secretary', '2023-04-16 15:13:53', '::1', 'Logged In'),
+(52, 'Secretary', '2023-04-16 15:23:14', '::1', 'Logged Out'),
+(53, 'Jemlibs', '2023-04-16 15:23:20', '::1', 'Logged In'),
+(54, 'Jemlibs', '2023-04-16 15:26:09', '::1', 'Logged Out'),
+(55, 'Veterinarian', '2023-04-16 15:26:16', '::1', 'Logged In'),
+(56, 'Veterinarian', '2023-04-16 15:26:25', '::1', 'Logged Out'),
+(57, 'Secretary', '2023-04-16 15:26:31', '::1', 'Logged In'),
+(58, 'Secretary', '2023-04-16 15:26:46', '::1', 'Logged Out'),
+(59, 'Jemlibs', '2023-04-16 15:26:52', '::1', 'Logged In'),
+(60, 'Jemlibs', '2023-04-16 15:27:27', '::1', 'Logged Out'),
+(61, 'Jemlibs', '2023-04-16 15:28:04', '::1', 'Logged In'),
+(62, 'Jemlibs', '2023-04-16 15:28:35', '::1', 'Logged Out'),
+(63, 'Secretary', '2023-04-16 15:28:49', '::1', 'Logged In'),
+(64, 'Secretary', '2023-04-16 15:29:00', '::1', 'Logged Out'),
+(65, 'Jemlibs', '2023-04-16 15:29:59', '::1', 'Logged In'),
+(66, 'Jemlibs', '2023-04-16 15:36:34', '::1', 'Logged Out'),
+(67, 'Secretary', '2023-04-16 15:36:51', '::1', 'Logged In'),
+(68, 'Secretary', '2023-04-16 15:40:06', '::1', 'Logged Out'),
+(69, 'Jemlibs', '2023-04-16 15:40:12', '::1', 'Logged In'),
+(70, 'Jemlibs', '2023-04-16 15:40:50', '::1', 'Logged Out'),
+(71, 'Secretary', '2023-04-16 15:41:00', '::1', 'Logged In'),
+(72, 'Secretary', '2023-04-16 15:41:36', '::1', 'Logged Out'),
+(73, 'Veterinarian', '2023-04-16 15:41:46', '::1', 'Logged In'),
+(74, 'Veterinarian', '2023-04-16 15:42:41', '::1', 'Logged Out');
 
 -- --------------------------------------------------------
 
@@ -318,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `tblservices` (
 
 INSERT INTO `tblservices` (`sid`, `services`, `price`) VALUES
 (1, 'Wellness Clinic', 600),
-(2, 'Disease Diagnostics and Treatment', 550),
+(2, 'Disease Diagnostics and Treatment', 500),
 (3, 'Veterinary Emergency and Critical Care', 500),
 (4, 'Elective, Corrective, and, Curative Surgical Services', 600),
 (5, 'Hospitalization', 500);
@@ -422,7 +467,7 @@ CREATE TABLE IF NOT EXISTS `tblusertype` (
   `utid` int NOT NULL AUTO_INCREMENT,
   `usertype` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`utid`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblusertype`

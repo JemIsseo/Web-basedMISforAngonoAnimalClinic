@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'authcheck.php';
 include 'connect.php';
 $op = $_SESSION['ownersname'] ?? '';
 $pname = $_SESSION['prodname'] ?? '';

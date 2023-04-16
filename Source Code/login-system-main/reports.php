@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'authcheck.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
