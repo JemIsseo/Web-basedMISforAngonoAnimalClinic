@@ -580,7 +580,6 @@ if (isset($_POST['pettypeid'])) {
         }
     }
 }
-
 // Transaction Module Forms
 
 // Selecting Profile form

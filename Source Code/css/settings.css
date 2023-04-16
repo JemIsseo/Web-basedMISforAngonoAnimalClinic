@@ -423,7 +423,7 @@ aside .sidebar a:hover span {
 .modal-content {
   background: var(--color-white);
   margin-top: 100px;
-  width: 65%;
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
   padding: 8px 24px;
@@ -446,7 +446,7 @@ aside .sidebar a:hover span {
 
 .modal-header {
   display: flex;
-  gap: 50em;
+  gap: 54em;
 }
 
 .modal-header .modal-close {
@@ -468,6 +468,10 @@ aside .sidebar a:hover span {
 
 .modal-footer .modal-close {
   padding: 0.5em 1em;
+}
+
+#modal6 .modal-header {
+  gap: 65em;
 }
 
 .accountrecords {

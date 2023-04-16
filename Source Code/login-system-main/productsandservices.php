@@ -9,7 +9,6 @@ $sql1 = "select * from tblstock where prodname = '$pname'";
 $res1 = mysqli_query($conn, $sql1);
 $row1 = mysqli_fetch_assoc($res1);
 
-
 if (isset($_POST['saveaddtocart'])) {
     $qty = $_POST['quantity'];
     $prc = $row1['price'];

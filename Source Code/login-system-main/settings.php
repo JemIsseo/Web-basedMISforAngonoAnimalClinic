@@ -116,7 +116,6 @@ if (isset($_POST['removepettype'])) {
     }
 }
 
-
 // Save Breed
 if (isset($_POST['savebreed'])) {
     $br = $_POST['breed'];
@@ -215,7 +214,7 @@ if (isset($_POST['updatecategory'])) {
 if (isset($_POST['removecategory'])) {
     $rcatid = $_POST['rcatid'];
 
-    $sql = "delete from category where catid = '$rcatid'";
+    $sql = "delete from tblcategory where catid = '$rcatid'";
     $res = mysqli_query($conn, $sql);
 
     if ($res) {
@@ -269,7 +268,7 @@ if (isset($_POST['updateservices'])) {
 if (isset($_POST['removeservices'])) {
     $rsid = $_POST['rsid'];
 
-    $sql = "delete from services where sid = '$rsid'";
+    $sql = "delete from tblservices where sid = '$rsid'";
     $res = mysqli_query($conn, $sql);
 
     if ($res) {
@@ -305,7 +304,7 @@ if (isset($_POST['updateprice'])) {
 if (isset($_POST['removeprice'])) {
     $rproid = $_POST['rproid'];
 
-    $sql = "delete from price where proid = '$rproid'";
+    $sql = "delete from tblchargesandfees where proid = '$rproid'";
     $res = mysqli_query($conn, $sql);
 
     if ($res) {

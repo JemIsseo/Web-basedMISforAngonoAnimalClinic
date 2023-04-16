@@ -4,7 +4,6 @@ session_start();
 // Database Connection
 include 'connect.php';
 
-
 $resultSumSales = $conn->query("SELECT SUM(totalprice) AS totalsales FROM tbltransaction");
 $rowSumSales = $resultSumSales->fetch_assoc();
 $totalsales = $rowSumSales['totalsales'];
