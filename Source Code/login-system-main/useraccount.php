@@ -117,12 +117,10 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
         // account update statement 
         if (isset($_POST['updateaccount'])) {
             $un = $_POST['username'];
-            $pw = $_POST['password'];
             $ut = $_POST['usertype'];
             $ea = $_POST['email'];
 
-            $sql = "update tbluseraccount set password ='$pw',
-                        usertype ='$ut', email='$ea' 
+            $sql = "update tbluseraccount set usertype ='$ut', email='$ea' 
                         where username= '$un'";
             $res = mysqli_query($conn, $sql);
             if ($res) {
@@ -143,7 +141,7 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
 
         // ARCHIVE STATEMENT
         if (isset($_POST['savearchiveaccount'])) {
-            $sql = "update tbluseraccount set archive = 'true' where username ='". $_SESSION['archiveid'] ."'";
+            $sql = "update tbluseraccount set archive = 'true' where username ='" . $_SESSION['archiveid'] . "'";
             $res = mysqli_query($conn, $sql);
 
             $ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -159,7 +157,7 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
         // RESTORE STATEMENT
 
         if (isset($_POST['saverestoreaccount'])) {
-            $sql = "update tbluseraccount set archive = 'false' where username ='". $_SESSION['restoreid'] ."'";
+            $sql = "update tbluseraccount set archive = 'false' where username ='" . $_SESSION['restoreid'] . "'";
             $res = mysqli_query($conn, $sql);
 
             $ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -203,8 +201,8 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
                         <input type="text" placeholder="Search here" id="search-box"><span class="material-symbols-sharp">search</span>
                     </div>
                 </div>
-                <div class="accountrecordsbg">
-                    <div class="accountrecords" id="userAccount">
+                <div class="accountrecordsbgr" id="userAccount">
+                    <div class="accountrecordsbgedit" id="edituserAccount">
                         <table class="content-table table-fixed">
                             <thead>
                                 <tr>
@@ -241,7 +239,7 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
                                             </td>
                                             <?php echo '
                                     <td>
-                                        <button class="modal-open showUpdateAccount" data-modal="modal1" value="' . $un . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                        <button class="modal-open showUpdateAccount"  value="' . $un . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
                                         <button class="modal-open showArchiveAccount" data-modal="modal2" value="' . $un . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
                                     </td>';   ?>
                                         </tr>
@@ -251,63 +249,69 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
                                 ?>
                             </tbody>
                         </table>
+                        <div class="createaccount">
+                            <h1>Create An Account</h1>
+                            <div>
+                                <div class="accountrecords ">
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        <div class="profilepicture">
+                                            <img src="../images/R.png" class="img-style" id="image-preview" />
+                                            <label for="file-upload" class="custom-file-upload">
+                                                <span class="material-symbols-sharp"> upload </span>
+                                            </label>
+                                            <input type="file" id="file-upload" name="my_image" title="Insert photo..." onchange="previewImage(event)" required />
+
+                                        </div>
+                                        <div class="formprofile">
+                                            <div>
+                                                <input type="text" name="username" placeholder="Enter Username" required>
+                                                <span>Username</span>
+                                            </div>
+                                            <div>
+                                                <input type="password" name="password" placeholder="Enter Password" id="password" required>
+                                                <span>Password</span>
+                                            </div>
+                                            <div class="show">
+                                                <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggle()"></i>
+                                            </div>
+                                            <div>
+                                                <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Enter Confirm Password" required>
+                                                <span>Confirm Password</span>
+                                            </div>
+                                            <div class="showcp">
+                                                <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="togglecp()"></i>
+                                            </div>
+                                            <div>
+                                                <select class="radiobtn" name="usertype" id="ut">
+                                                <option disabled selected style="display: none">Choose</option>
+                                                    <?php
+                                                    while ($r = mysqli_fetch_array($s)) {
+                                                    ?>
+                                                        <option value="<?php echo $r['usertype']; ?>"><?php echo $r['usertype']; ?> </option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>Usertype
+                                            </div>
+                                            <div>
+                                                <input type="email" name="email" placeholder="Enter Email" required>
+                                                <span>Email Address</span>
+                                            </div>
+                                            <div class="buttonflex">
+                                                <button name="saveaccount" type="submit" class="save" title="Save the record">Save</button>
+                                                <button class="cancel" title="Clear all inputs" id="clear-button">Clear</button>
+                                            </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!--  End of table useraccount   -->
-            <section class="tableaccountrecords">
-                <h1>Create An Account</h1>
-                <div class="accountrecordsbg">
-                    <div class="accountrecords ">
-                        <form action="" method="POST" enctype="multipart/form-data">
-                            <div class="profilepicture">
-                                <span class="material-symbols-sharp">account_circle</span><br><br>
-                                <input type="file" name="my_image" title="Insert photo..." required>
-                            </div>
-                            <div class="formprofile">
-                                <div>
-                                    <input type="text" name="username" placeholder="Enter Username" required>
-                                    <span>Username</span>
-                                </div>
-                                <div>
-                                    <input type="password" name="password" placeholder="Enter Password" id="password" required>
-                                    <span>Password</span>
-                                </div>
-                                <div class="show">
-                                    <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggle()"></i>
-                                </div>
-                                <div>
-                                    <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Enter Confirm Password" required>
-                                    <span>Confirm Password</span>
-                                </div>
-                                <div class="showcp">
-                                    <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="togglecp()"></i>
-                                </div>
-                                <div>
-                                    <select class="radiobtn" name="usertype" id="ut">
-                                        <option selected="" disabled="" value="">Choose</option>
-                                        <?php
-                                        while ($r = mysqli_fetch_array($s)) {
-                                        ?>
-                                            <option value="<?php echo $r['usertype']; ?>"><?php echo $r['usertype']; ?> </option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>Usertype
-                                </div>
-                                <div>
-                                    <input type="email" name="email" placeholder="Enter Email" required>
-                                    <span>Email Address</span>
-                                </div>
-                                <div class="buttonflex">
-                                    <button name="saveaccount" type="submit" class="save" title="Save the record">Save</button>
-                                    <button class="cancel" title="Clear all inputs" id="clear-button">Clear</button>
-                                </div>
-                        </form>
-                    </div>
-                </div>
-            </section>
+
+
             <!--  End of Create Profile  -->
         </main>
         <!--  End of Main Tag  -->
@@ -441,7 +445,7 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
             // USERACCOUNT DOCUMENT FORMS
             $(".showUpdateAccount").click(function() {
                 var accountid = this.value;
-                $("#updateAccount").load("submit.php", {
+                $("#edituserAccount").load("submit.php", {
                     accountID: accountid
                 })
             })
@@ -490,6 +494,18 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
                 });
             });
         });
+
+        function previewImage(event) {
+            var input = event.target;
+            var preview = document.getElementById("image-preview");
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 </body>
 

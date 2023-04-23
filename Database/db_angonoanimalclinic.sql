@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 16, 2023 at 03:43 PM
+-- Generation Time: Apr 23, 2023 at 02:34 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `tblaudittrail` (
   `ipaddress` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   `actionmode` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`atid`)
-) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=131 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblaudittrail`
@@ -171,7 +171,63 @@ INSERT INTO `tblaudittrail` (`atid`, `username`, `datetime`, `ipaddress`, `actio
 (71, 'Secretary', '2023-04-16 15:41:00', '::1', 'Logged In'),
 (72, 'Secretary', '2023-04-16 15:41:36', '::1', 'Logged Out'),
 (73, 'Veterinarian', '2023-04-16 15:41:46', '::1', 'Logged In'),
-(74, 'Veterinarian', '2023-04-16 15:42:41', '::1', 'Logged Out');
+(74, 'Veterinarian', '2023-04-16 15:42:41', '::1', 'Logged Out'),
+(75, 'Secretary', '2023-04-16 15:45:13', '::1', 'Logged In'),
+(76, 'Secretary', '2023-04-16 15:45:19', '::1', 'Logged Out'),
+(77, 'Jemlibs', '2023-04-16 15:45:28', '::1', 'Logged In'),
+(78, 'Jemlibs', '2023-04-16 15:45:43', '::1', 'Logged Out'),
+(79, 'Veterinarian', '2023-04-16 15:45:48', '::1', 'Logged In'),
+(80, 'Veterinarian', '2023-04-16 15:45:59', '::1', 'Logged Out'),
+(81, 'Veterinarian', '2023-04-17 13:25:20', '::1', 'Logged In'),
+(82, 'Veterinarian', '2023-04-17 13:25:21', '::1', 'Logged In'),
+(83, 'Veterinarian', '2023-04-17 13:31:40', '::1', 'Removed pettype in settings'),
+(84, 'Veterinarian', '2023-04-17 13:31:52', '::1', 'Added new pettype in settings'),
+(85, 'Veterinarian', '2023-04-17 15:27:27', '::1', 'Restored an account in useraccount module'),
+(86, 'Veterinarian', '2023-04-17 15:27:59', '::1', 'Archived account in useraccount module'),
+(87, 'Veterinarian', '2023-04-17 15:28:37', '::1', 'Restored an account in useraccount module'),
+(88, 'Veterinarian', '2023-04-17 15:29:04', '::1', 'Archived account in useraccount module'),
+(89, 'Veterinarian', '2023-04-17 15:29:22', '::1', 'Archived account in useraccount module'),
+(90, 'Veterinarian', '2023-04-17 15:31:02', '::1', 'Logged In'),
+(91, 'Veterinarian', '2023-04-17 15:31:11', '::1', 'Restored an account in useraccount module'),
+(92, 'Veterinarian', '2023-04-17 15:31:27', '::1', 'Archived account in useraccount module'),
+(93, 'Veterinarian', '2023-04-17 16:07:36', '::1', 'Logged In'),
+(94, 'Veterinarian', '2023-04-17 16:23:44', '::1', 'Edit account in useraccount module'),
+(95, 'Veterinarian', '2023-04-17 16:24:24', '::1', 'Edit account in useraccount module'),
+(96, 'Veterinarian', '2023-04-17 17:31:16', '::1', 'Uploaded a photo in useraccount module'),
+(97, 'Veterinarian', '2023-04-17 17:31:39', '::1', 'Uploaded a photo in useraccount module'),
+(98, 'Veterinarian', '2023-04-17 17:31:59', '::1', 'Logged Out'),
+(99, 'Veterinarian', '2023-04-22 02:58:25', '::1', 'Logged In'),
+(100, 'Veterinarian', '2023-04-22 03:01:03', '::1', 'Restored an account in useraccount module'),
+(101, 'Veterinarian', '2023-04-22 03:01:39', '::1', 'Archived account in useraccount module'),
+(102, 'Veterinarian', '2023-04-22 04:43:47', '::1', 'Uploaded a photo in useraccount module'),
+(103, 'Veterinarian', '2023-04-22 04:54:34', '::1', 'Edit account in useraccount module'),
+(104, 'Veterinarian', '2023-04-22 04:54:34', '::1', 'Edit account in useraccount module'),
+(105, 'Veterinarian', '2023-04-22 04:55:53', '::1', 'Edit account in useraccount module'),
+(106, 'Veterinarian', '2023-04-22 04:56:50', '::1', 'Edit account in useraccount module'),
+(107, 'Veterinarian', '2023-04-22 04:57:03', '::1', 'Edit account in useraccount module'),
+(108, 'Veterinarian', '2023-04-22 04:58:02', '::1', 'Edit account in useraccount module'),
+(109, 'Veterinarian', '2023-04-22 04:59:20', '::1', 'Edit account in useraccount module'),
+(110, 'Veterinarian', '2023-04-22 04:59:56', '::1', 'Edit account in useraccount module'),
+(111, 'Veterinarian', '2023-04-22 05:00:08', '::1', 'Edit account in useraccount module'),
+(112, 'Veterinarian', '2023-04-22 05:00:23', '::1', 'Edit account in useraccount module'),
+(113, 'Veterinarian', '2023-04-22 05:03:52', '::1', 'Edit account in useraccount module'),
+(114, 'Veterinarian', '2023-04-22 05:16:06', '::1', 'Logged Out'),
+(115, 'Veterinarian', '2023-04-23 01:13:56', '::1', 'Logged In'),
+(116, 'Veterinarian', '2023-04-23 01:21:36', '::1', 'Added new category in settings'),
+(117, 'Veterinarian', '2023-04-23 01:23:28', '::1', 'Removed category in settings'),
+(118, 'Veterinarian', '2023-04-23 01:50:51', '::1', 'Added new breed in settings'),
+(119, 'Veterinarian', '2023-04-23 01:51:44', '::1', 'Added new breed in settings'),
+(120, 'Veterinarian', '2023-04-23 01:52:00', '::1', 'Added new category in settings'),
+(121, 'Veterinarian', '2023-04-23 01:52:05', '::1', 'Removed category in settings'),
+(122, 'Veterinarian', '2023-04-23 02:09:49', '::1', 'Added new breed in settings'),
+(123, 'Veterinarian', '2023-04-23 02:10:52', '::1', 'Added new breed in settings'),
+(124, 'Veterinarian', '2023-04-23 02:12:49', '::1', 'Added new breed in settings'),
+(125, 'Veterinarian', '2023-04-23 02:13:26', '::1', 'Added new breed in settings'),
+(126, 'Veterinarian', '2023-04-23 02:13:33', '::1', 'Added new breed in settings'),
+(127, 'Veterinarian', '2023-04-23 02:29:08', '::1', 'Removed breed in settings'),
+(128, 'Veterinarian', '2023-04-23 02:32:44', '::1', 'Updated pettype in settings'),
+(129, 'Veterinarian', '2023-04-23 02:33:25', '::1', 'Updated pettype in settings'),
+(130, 'Veterinarian', '2023-04-23 02:33:55', '::1', 'Logged Out');
 
 -- --------------------------------------------------------
 
@@ -183,22 +239,23 @@ DROP TABLE IF EXISTS `tblbreed`;
 CREATE TABLE IF NOT EXISTS `tblbreed` (
   `bid` int NOT NULL AUTO_INCREMENT,
   `pettypeid` int NOT NULL,
-  `pettype` varchar(45) NOT NULL,
   `breed` varchar(45) NOT NULL,
   PRIMARY KEY (`bid`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblbreed`
 --
 
-INSERT INTO `tblbreed` (`bid`, `pettypeid`, `pettype`, `breed`) VALUES
-(1, 1, 'Dog', 'German Shepherd'),
-(2, 1, 'Dog', 'Shih Tzu'),
-(3, 1, 'Dog', 'Aspin'),
-(4, 1, 'Dog', 'Japanese Spitz'),
-(5, 1, 'Dog', 'Chihuahua'),
-(6, 1, 'Dog', 'Rottweiler');
+INSERT INTO `tblbreed` (`bid`, `pettypeid`, `breed`) VALUES
+(1, 1, 'German Shepherd'),
+(2, 1, 'Shih Tzu'),
+(3, 1, 'Aspin'),
+(4, 1, 'Japanese Spitz'),
+(5, 1, 'Chihuahua'),
+(6, 1, 'Rottweiler'),
+(12, 3, 'TWITWIT'),
+(11, 2, 'Pusa');
 
 -- --------------------------------------------------------
 
@@ -211,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `tblcategory` (
   `catid` int NOT NULL AUTO_INCREMENT,
   `category` varchar(45) NOT NULL,
   PRIMARY KEY (`catid`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblcategory`
@@ -331,7 +388,7 @@ CREATE TABLE IF NOT EXISTS `tblpettype` (
   `pettypeid` int NOT NULL AUTO_INCREMENT,
   `pettype` varchar(45) NOT NULL,
   PRIMARY KEY (`pettypeid`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblpettype`
@@ -341,7 +398,7 @@ INSERT INTO `tblpettype` (`pettypeid`, `pettype`) VALUES
 (1, 'Dog'),
 (2, 'Cat'),
 (3, 'Bird'),
-(4, 'Snake');
+(6, 'Snake');
 
 -- --------------------------------------------------------
 
@@ -451,9 +508,9 @@ CREATE TABLE IF NOT EXISTS `tbluseraccount` (
 
 INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `status`, `image`, `archive`) VALUES
 ('Veterinarian', '$2y$10$j9C8tNEwjT7IAFkYy1BYXu69vBS9C3t23am9qGjLqcNv5vHJc0Ti6', 'Veterinarian', 'imepogi23@gmail.com', 1, 'IMG-6438186b526e22.70470279.png', 'false'),
-('notverified', '$2y$10$eGgX2Gjwf8aMf0OC2S.tK.mstFL3YA8affK9YbhJ./hIJcwxCGqii', 'Assistant', 'libertypogi@gmail.com', 0, 'IMG-643b9e6085eb79.79030598.png', 'false'),
+('notverified', '$2y$10$eGgX2Gjwf8aMf0OC2S.tK.mstFL3YA8affK9YbhJ./hIJcwxCGqii', 'Assistant', 'libertypogi@gmail.com', 0, 'IMG-644366039f8d40.34808656.png', 'false'),
 ('Jemlibs', '$2y$10$iFvnSJNYDfjFc1JLq2SvNeIVF7039/YsJSlDy0vsqrGlsBdDzW1ie', 'Assistant', 'ruelitopogi04@gmail.com', 1, 'IMG-6437e118a9e020.19642347.jpg', 'false'),
-('Secretary', '$2y$10$OBoQWVpwNXlS0qMaPJ18e.9xp10KjtrBjH6Z6MBRDo9tJ1k3Q32Du', 'Secretary', 'libertyjeremy23@gmail.com', 1, 'IMG-6437e1083ed6c1.23795384.jpeg', 'false'),
+('Secretary', '$2y$10$OBoQWVpwNXlS0qMaPJ18e.9xp10KjtrBjH6Z6MBRDo9tJ1k3Q32Du', 'Secretary', 'libertyjeremy23@gmail.com', 1, 'IMG-643d827b091268.29902057.jpeg', 'false'),
 ('sample', '$2y$10$CReGriHfvl0SZjPIgEq8LOcTzXKV3/pOaqiWae0VlPGEVxs2VUmlu', 'Assistant', 'sample123@gmail.com', 0, 'IMG-643917f0b7ab53.21250259.png', 'true');
 
 -- --------------------------------------------------------

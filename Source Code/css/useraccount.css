@@ -252,10 +252,28 @@ aside .sidebar a:hover span {
   margin-top: 1em;
 }
 
+.edith1 {
+  margin-top: 1em;
+}
+
+.accountrecordsbgedit {
+  background: var(--color-white);
+  padding: 1em;
+  height: 88vh;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+  margin-bottom: 0.5em;
+}
+
+.accountrecordsbgedit:hover {
+  box-shadow: none;
+}
+
 .accountrecordsbg {
   background: var(--color-white);
   padding: 1em;
-  height: 40vh;
+  height: 45vh;
   border-radius: var(--card-border-radius);
   box-shadow: var(--box-shadow);
   transition: all 300ms ease;
@@ -269,12 +287,25 @@ aside .sidebar a:hover span {
 /*  Profile Form  */
 .formprofile {
   padding: 1em;
-  height: 80%;
+  height: 10%;
   margin-left: 5em;
   width: 90%;
   display: grid;
   justify-content: end;
   gap: 1em;
+}
+
+.formprofileedit {
+  background: var(--color-white);
+  padding: 1em;
+  height: 45vh;
+  border: 5px dashed var(--color-primary);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+  margin-bottom: 0.5em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .formarchive {
@@ -295,6 +326,54 @@ aside .sidebar a:hover span {
   font-weight: bold;
   text-align: center;
 }
+
+/* Start of Edit User Account Styling */
+.formprofileedit input,
+#utedit {
+  height: 5vh;
+  width: 20vw;
+  border-radius: var(--border-radius-2);
+  box-shadow: var(--box-shadow);
+  background: var(--color-input-light);
+  color: var(--color-gray);
+  font-weight: bolder;
+  border-bottom: 2px solid var(--color-primary);
+  text-align: center;
+  font-size: 1.5em;
+  margin: 2em 0;
+  margin-left: 4em;
+}
+
+.updatephotoedit {
+  height: 20rem;
+  width: 20rem;
+  border-radius: 20%;
+  overflow: hidden;
+  margin: 3em;
+  margin-top: 2.5em;
+  margin-left: 10em;
+  border: 5px solid var(--color-primary);
+  box-shadow: var(--box-shadow-heavy);
+}
+
+.createaccount {
+  margin-top: 2em;
+}
+
+.updatephotoedit {
+  box-shadow: none;
+}
+
+.upload {
+  position: absolute;
+  top: 20%;
+  right: 30%;
+}
+
+.upload h2 {
+  padding: 1em;
+}
+
 /* 
  Status Message */
 .statusmessagesuccess {
@@ -403,6 +482,7 @@ aside .sidebar a:hover span {
   margin-top: 3.5em;
   margin-left: 12em;
 }
+
 /* Searchbar Style */
 .accrecsearch {
   display: flex;
@@ -420,6 +500,10 @@ aside .sidebar a:hover span {
   border: 1px solid var(--color-primary);
   width: 14vw;
   border-radius: 4px;
+}
+
+.profilepicture label {
+  text-align: right;
 }
 
 .searchbar input {
@@ -477,16 +561,75 @@ aside .sidebar a:hover span {
   background: var(--color-light-red);
 }
 
-.profilepicture span {
-  font-size: 167px;
+.yesedit,
+.canceledit,
+.uploadbtn {
+  border: 3px solid var(--color-info-light);
+  width: 10vw;
+  color: var(--color-white);
+  background: var(--color-light-blue);
+  padding: 0.8em;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.canceledit {
+  background: var(--color-gray);
+}
+
+.uploadbtn {
+  background: var(--color-primary);
+}
+
+.upload {
+  display: flex;
+}
+
+.profilepicture img {
+  margin-left: 0.2em;
+  height: 22vh;
+  width: 15vw;
   color: var(--color-primary);
   background: var(--color-info-light);
   border-radius: 50%;
+  border: 2px solid var(--color-info-dark);
   box-shadow: var(--box-shadow);
 }
 
+.profilepicture img:hover {
+  box-shadow: none;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/* Style the custom file upload button */
+.custom-file-upload, .custom-file-uploadedit {
+  position: absolute;
+  display: inline-block;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  border-top-left-radius: 50px;
+  background-color: #e1eef5;
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.custom-file-upload {
+  border-top-left-radius: 0;
+}
+
+/* Style the icon inside the button */
 .updatephoto {
   position: absolute;
+  bottom: 30em;
   height: 15rem;
   width: 15rem;
   border-radius: 50%;
@@ -500,18 +643,6 @@ aside .sidebar a:hover span {
   box-shadow: none;
 }
 
-.uploadbtn {
-  border: 2px solid var(--color-info-light);
-  width: 5vw;
-  color: var(--color-white);
-  background: var(--color-primary);
-  padding: 0.3em;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-left: 16em;
-}
-
 /*  Table User Account  */
 .content-table {
   border-collapse: collapse;
@@ -521,6 +652,7 @@ aside .sidebar a:hover span {
   height: 300px;
   overflow: auto;
   white-space: nowrap;
+  margin-bottom: 1em;
 }
 
 .content-table thead tr {
@@ -542,7 +674,7 @@ aside .sidebar a:hover span {
 .content-table th,
 .content-table td {
   text-align: center;
-  padding: 12px;
+  padding: 12px 20px;
   border-bottom: 1px solid rgb(238, 233, 233);
 }
 
@@ -675,12 +807,12 @@ aside .sidebar a:hover span {
 .modalshow {
   position: absolute;
   right: 36.8%;
-  bottom: 35%;
+  bottom: 40.5%;
   cursor: pointer;
 }
 
 .showcp {
-  bottom: 29.5%;
+  bottom: 35%;
 }
 .modalshow {
   top: 33%;

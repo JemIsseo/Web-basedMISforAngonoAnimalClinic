@@ -2,6 +2,7 @@
 session_start();
 include 'authcheck.php';
 include 'connect.php';
+$s = mysqli_query($conn, "select * from tblpettype");
 
 // Save Usertype 
 if (isset($_POST['saveusertype'])) {
@@ -143,11 +144,12 @@ if (isset($_POST['removepettype'])) {
 
 // Save Breed
 if (isset($_POST['savebreed'])) {
+    $ptid = $_POST['pettypeid'];
     $br = $_POST['breed'];
 
     // Insert into database
-    $sql = "insert into tblbreed(breed) 
-        values('$br')";
+    $sql = "insert into tblbreed(pettypeid, breed) 
+        values('$ptid','$br')";
     $res = mysqli_query($conn, $sql);
 
     $ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -176,39 +178,36 @@ if (isset($_POST['updatebreed'])) {
     $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
     VALUES ('" . $_SESSION['username'] . "','$ipaddress','Updated pettype in settings')");
     if ($res) { ?>
-        <div class="statusmessagesuccess" id="close">
+        <div class="statusmessagesuccess message-box" id="close">
             <h2>Breed Updated Successfully!</h2>
             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
         </div>
 
-<?php
+    <?php
     } else {
         die(mysqli_error($conn));
     }
 }
 
-//     // breed remove statement
-// if(isset($_POST['removebreed'])){
-//     $rbid = $_POST['bid'];
+// breed remove statement
+if (isset($_POST['removebreed'])) {
+    $rbid = $_POST['bid'];
 
-//             $sql = "delete from tblbreed where bid = '$rbid'";
-//             $res = mysqli_query($conn, $sql);
-// //           $ipaddress = $_SERVER['REMOTE_ADDR'];
-//              $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
-//              VALUES ('" . $_SESSION['username'] . "','$ipaddress','Removed breed in settings')");
-//
-//      
-?>
-<!-- //     <div class="statusmessageerror" id="close">
-        //         <h2>Breed has been removed</h2>
-        //         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-        //     </div> -->
+    $sql = "delete from tblbreed where bid = '$rbid'";
+    $res = mysqli_query($conn, $sql);
 
-<?php
-//     } else {
-//         die(mysqli_error($conn));
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+             VALUES ('" . $_SESSION['username'] . "','$ipaddress','Removed breed in settings')");
 
-// }
+    if ($res) {
+    ?> <div class="statusmessageerror message-box" id="close">
+            <h2>Breed has been removed</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
+    }
+}
 
 // Save Category
 if (isset($_POST['savecategory'])) {
@@ -223,8 +222,8 @@ if (isset($_POST['savecategory'])) {
     $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
     VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added new category in settings')");
     if ($res) {
-?>
-        <div class="statusmessagesuccess" id="close">
+    ?>
+        <div class="statusmessagesuccess message-box" id="close">
             <h2>Product Category Added Successfully!</h2>
             <button class="icon"><span class="material-symbols-sharp">close</span></button>
         </div>
@@ -290,7 +289,7 @@ if (isset($_POST['saveservices'])) {
     VALUES ('" . $_SESSION['username'] . "','$ipaddress','Added new services in settings')");
     if ($res) {
     ?>
-        <div class="statusmessagesuccess" id="close">
+        <div class="statusmessagesuccess message-box" id="close">
             <h2>Services Added Successfully!</h2>
             <button class="icon"><span class="material-symbols-sharp">close</span></button>
         </div>
@@ -532,6 +531,18 @@ if (isset($_POST['removeprice'])) {
                 <div class="modal-body">
                     <form action="" method="POST">
                         <div class="formprofile">
+                            <div>
+                                <select class="radiobtn" name="pettypeid" id="ut">
+                                    <option disabled selected style="display: none">Choose</option>
+                                    <?php
+                                    while ($r = mysqli_fetch_array($s)) {
+                                    ?>
+                                        <option value="<?php echo $r['pettypeid']; ?>"><?php echo $r['pettype']; ?> </option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>Pettype
+                            </div>
                             <div>
                                 <input type="text" name="breed" placeholder="Add New Breed" required>
                                 <span>Breed</span>
@@ -800,6 +811,32 @@ if (isset($_POST['removeprice'])) {
             </div>
         </div>
 
+        <!-- FORM OF UPDATE BREED -->
+        <div class="modal" id="modal20">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Edit Breed</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="updateBreed">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM OF REMOVE BREED -->
+        <div class="modal" id="modal21">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Remove Breed</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="removeBreed">
+
+                </div>
+            </div>
+        </div>
+
         <!-- FORM OF UPDATE CATEGORY -->
         <div class="modal" id="modal13">
             <div class="modal-content">
@@ -986,6 +1023,12 @@ if (isset($_POST['removeprice'])) {
                             ptID: ptid
                         })
                     })
+                    $(".showUpdateBreed").click(function() {
+                        var bid = this.value;
+                        $("#updateBreed").load("submit.php", {
+                            bID: bid
+                        })
+                    })
                     $(".showUpdateCategory").click(function() {
                         var catid = this.value;
                         $("#updateCategory").load("submit.php", {
@@ -1014,6 +1057,12 @@ if (isset($_POST['removeprice'])) {
                         var rptid = this.value;
                         $("#removePettype").load("submit.php", {
                             rptID: rptid
+                        })
+                    })
+                    $(".showRemoveBreed").click(function() {
+                        var rbid = this.value;
+                        $("#removeBreed").load("submit.php", {
+                            rbID: rbid
                         })
                     })
                     $(".showRemoveCategory").click(function() {

@@ -1,6 +1,6 @@
 <?php
 include 'connect.php';
-
+$s = mysqli_query($conn, "select * from tblusertype");
 // SEARCH TABLE FOR MODULE USERACCOUNT
 if (isset($_POST['query'])) {
     $query = $_POST['query'];
@@ -11,50 +11,108 @@ if (isset($_POST['query'])) {
     // display the results in tables
     if (mysqli_num_rows($result) > 0) {
 ?>
-        <table class="content-table table-fixed">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Usertype</th>
-                    <th>Email Address</th>
-                    <th>Image</th>
-                    <th> </th>
-                </tr>
-            </thead>
-            <?php
-            while ($row = mysqli_fetch_assoc($result)) {
-            ?>
-                <tbody>
-                    <?php
-                    $un = $row['username'];
-                    $pw = $row['password'];
-                    $ut = $row['usertype'];
-                    $ea = $row['email'];
-                    $img = $row['image'];
-                    ?>
+        <div class="accountrecordsbgedit" id="edituserAccount">
+
+            <table class="content-table table-fixed">
+                <thead>
                     <tr>
-                        <td><?php echo $un; ?></td>
-                        <td><?php echo $pw; ?></td>
-                        <td><?php echo $ut; ?></td>
-                        <td><?php echo $ea; ?></td>
-                        <td>
-                            <div class="profile-photo">
-                                <img src="uploads/<?php echo $img; ?>">
-                            </div>
-                        </td>
-                        <?php echo '
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Usertype</th>
+                        <th>Email Address</th>
+                        <th>Image</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                    <tbody>
+                        <?php
+                        $un = $row['username'];
+                        $pw = $row['password'];
+                        $ut = $row['usertype'];
+                        $ea = $row['email'];
+                        $img = $row['image'];
+                        ?>
+                        <tr>
+                            <td><?php echo $un; ?></td>
+                            <td><?php echo $pw; ?></td>
+                            <td><?php echo $ut; ?></td>
+                            <td><?php echo $ea; ?></td>
+                            <td>
+                                <div class="profile-photo">
+                                    <img src="uploads/<?php echo $img; ?>">
+                                </div>
+                            </td>
+                            <?php echo '
                                 <td>
-                                    <button class="modal-open showUpdateAccount" data-modal="modal1" value="' . $un . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
+                                    <button class="modal-open showUpdateAccount"  value="' . $un . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
                                     <button class="modal-open showArchiveAccount" data-modal="modal2" value="' . $un . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
                                 </td>';   ?>
-                    </tr>
-                </tbody>
-            <?php
-            }
-            ?>
-        </table>
+                        </tr>
+                    </tbody>
+                <?php
+                }
+                ?>
+            </table>
+            <div class="createaccount">
+                            <h1>Create An Account</h1>
+                            <div>
+                                <div class="accountrecords ">
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        <div class="profilepicture">
+                                            <img src="../images/R.png" class="img-style" id="image-preview" />
+                                            <label for="file-upload" class="custom-file-upload">
+                                                <span class="material-symbols-sharp"> upload </span>
+                                            </label>
+                                            <input type="file" id="file-upload" name="my_image" title="Insert photo..." onchange="previewImage(event)" required />
 
+                                        </div>
+                                        <div class="formprofile">
+                                            <div>
+                                                <input type="text" name="username" placeholder="Enter Username" required>
+                                                <span>Username</span>
+                                            </div>
+                                            <div>
+                                                <input type="password" name="password" placeholder="Enter Password" id="password" required>
+                                                <span>Password</span>
+                                            </div>
+                                            <div class="show">
+                                                <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggle()"></i>
+                                            </div>
+                                            <div>
+                                                <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Enter Confirm Password" required>
+                                                <span>Confirm Password</span>
+                                            </div>
+                                            <div class="showcp">
+                                                <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="togglecp()"></i>
+                                            </div>
+                                            <div>
+                                                <select class="radiobtn" name="usertype" id="ut">
+                                                <option disabled selected style="display: none">Choose</option>
+                                                    <?php
+                                                    while ($r = mysqli_fetch_array($s)) {
+                                                    ?>
+                                                        <option value="<?php echo $r['usertype']; ?>"><?php echo $r['usertype']; ?> </option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>Usertype
+                                            </div>
+                                            <div>
+                                                <input type="email" name="email" placeholder="Enter Email" required>
+                                                <span>Email Address</span>
+                                            </div>
+                                            <div class="buttonflex">
+                                                <button name="saveaccount" type="submit" class="save" title="Save the record">Save</button>
+                                                <button class="cancel" title="Clear all inputs" id="clear-button">Clear</button>
+                                            </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+        </div>
     <?php
 
     } else {
@@ -784,7 +842,7 @@ include 'scriptingfiles.php';
 
         $(".showUpdateAccount").click(function() {
             var accountid = this.value;
-            $("#updateAccount").load("submit.php", {
+            $("#edituserAccount").load("submit.php", {
                 accountID: accountid
             })
         })

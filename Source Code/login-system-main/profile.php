@@ -394,7 +394,7 @@
                                 <div class="formprofile">
                                     <div>
                                         <select class="radiobtn" name="ownersname" id="ut">
-                                            <option value="">Select Owner's Name</option>
+                                            <option disabled selected style="display: none" value="">Select Owner's Name</option>
                                             <?php
                                             while ($r = mysqli_fetch_array($s)) {
                                             ?>
@@ -412,14 +412,14 @@
                                     </div>
                                     <div>
                                         <select class="radiobtn" name="sex" id="ut" required>
-                                            <option value="">Select Sex</option>
+                                            <option disabled selected style="display: none" value="">Select Sex</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select> <span>Sex</span>
                                     </div>
                                     <div>
                                         <select class="radiobtn" name="pettype" id="pettypeid" required>
-                                            <option value="">Select Pet Type</option>
+                                            <option disabled selected style="display: none" value="">Select Pet Type</option>
                                             <?php
                                             while ($r = mysqli_fetch_array($p)) {
                                             ?>

@@ -17,31 +17,36 @@ if (isset($_POST['accountID'])) {
 
 ?>
     <section class="tableaccountrecords">
-        <div class="accountrecordsbg">
-            <div class="accountrecords ">
+        <div class="accountrecordsbgr">
+            <div class="accountrecords">
                 <form action="useraccount.php" method="POST" enctype="multipart/form-data">
-                    <div class="profilepicture">
-                        <div class="updatephoto">
+                    <div class="fleximage">
+                        <div class="updatephotoedit">
+                            <label for="file-upload" class="custom-file-uploadedit">
+                                <span class="material-symbols-sharp"> upload </span>
+                            </label>
                             <img src="uploads/<?php echo $img; ?>">
+
+                        </div>
+                        <div class="upload">
+                            <h2>Insert only jpg, jpeg, png files.</h2>
+                            <button type="submit" name="uploadphoto" class="uploadbtn">Upload</button>
                         </div>
                         <input type="hidden" name="username" placeholder="Enter Username" value="<?= $un;  ?>" readonly>
-                        <input type="file" name="image" title="Insert photo..." value=" <?= $img; ?> ">
+                        <input type="file" id="file-upload" name="image" title="Insert photo..." value="<?= $img;  ?>" onchange="previewImage(event)" required />
+                        
                     </div>
-                    <button type="submit" name="uploadphoto" class="uploadbtn">Upload</button>
+                    
                 </form>
                 <form action="useraccount.php" method="POST">
-                    <div class="formprofile">
+                    <div class="formprofileedit">
                         <div>
                             <input type="text" name="username" placeholder="Enter Username" value="<?= $un;  ?>" readonly>
-                            <span>Username</span>
+                            <h2>Username</h2>
                         </div>
                         <div>
-                            <input type="password" name="password" placeholder="Contact Admin" id="passwordup" value="<?= $pw;  ?>" readonly>
-                            <span>Password</span>
-                        </div>
-                        <div>
-                            <select class="radiobtn" name="usertype" id="ut">
-                                <option value="<?= $ut; ?>"><?php echo $ut; ?></option>
+                            <select class="radiobtn" name="usertype" id="utedit">
+                                <option disabled selected value="<?= $ut; ?>"><?php echo $ut; ?></option>
                                 <?php
                                 while ($r = mysqli_fetch_array($s)) {
                                 ?>
@@ -49,16 +54,17 @@ if (isset($_POST['accountID'])) {
                                 <?php
                                 }
                                 ?>
-                            </select>Usertype
+                            </select>
+                            <h2>Usertype</h2>
                         </div>
                         <div>
                             <input type="email" name="email" placeholder="Enter Email" value="<?= $ea;  ?>">
-                            <span>Email Address</span>
+                            <h2>Email Address</h2>
                         </div>
 
                         <div class="buttonflex">
-                            <button name="updateaccount" type="submit" class="yes" title="Save Record">Update</button>
-                            <button name="clear" class="cancel" title="Cancel input">Cancel</button>
+                            <button name="updateaccount" type="submit" class="yesedit" title="Save Record">Update</button>
+                            <button name="clear" class="canceledit" title="Cancel input">Cancel</button>
                         </div>
                 </form>
             </div>
@@ -125,7 +131,7 @@ if (isset($_POST['productID'])) {
                     </div>
                     <div>
                         <select class="radiobtn" name="category" id="ut">
-                            <option value="<?= $cat; ?>">Select Category</option>
+                            <option disabled selected value="<?= $cat; ?>">Select Category</option>
                             <?php
                             while ($r = mysqli_fetch_array($s)) {
                             ?>
@@ -205,33 +211,33 @@ if (isset($_POST['ownersprofileID'])) {
     $ea = $upRow['emailaddress'];
 ?>
     <section class="tableproduct">
-            <form action="profile.php" method="POST">
-                <div class="formprofile">
-                        <input type="hidden" name="cusid" placeholder="Enter Name" value="<?= $cid; ?>">
-                    <div>
-                        <input type="text" name="ownersprofile" placeholder="Enter Name" value="<?= $op; ?>" readonly>
-                        <span>Owner's Name</span>
-                    </div>
-                    <div>
-                        <input type="text" name="contactno" placeholder="Enter Phone Number" value="<?= $cno; ?>">
-                        <span>Contact No.</span>
-                    </div>
-                    <div>
-                        <input type="text" name="address" placeholder="Enter Address" value="<?= $add; ?>">
-                        <span>Address</span>
-                    </div>
-                    <div>
-                        <input type="text" name="emailaddress" placeholder="Enter Email Address" value="<?= $ea; ?>">
-                        <span>Email Address</span>
-                    </div>
+        <form action="profile.php" method="POST">
+            <div class="formprofile">
+                <input type="hidden" name="cusid" placeholder="Enter Name" value="<?= $cid; ?>">
+                <div>
+                    <input type="text" name="ownersprofile" placeholder="Enter Name" value="<?= $op; ?>" readonly>
+                    <span>Owner's Name</span>
+                </div>
+                <div>
+                    <input type="text" name="contactno" placeholder="Enter Phone Number" value="<?= $cno; ?>">
+                    <span>Contact No.</span>
+                </div>
+                <div>
+                    <input type="text" name="address" placeholder="Enter Address" value="<?= $add; ?>">
+                    <span>Address</span>
+                </div>
+                <div>
+                    <input type="text" name="emailaddress" placeholder="Enter Email Address" value="<?= $ea; ?>">
+                    <span>Email Address</span>
+                </div>
 
-                </div>
-                <div class="buttonflex">
-                    <button name="updateownersprofile" type="submit" class="yes" title="Update the record">Update Record</button>
-                    <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
-                </div>
-            </form>
-     
+            </div>
+            <div class="buttonflex">
+                <button name="updateownersprofile" type="submit" class="yes" title="Update the record">Update Record</button>
+                <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
+            </div>
+        </form>
+
     </section>
 <?php
 }
@@ -327,6 +333,36 @@ if (isset($_POST['ptID'])) {
             </div>
         </form>
 
+    </section>
+<?php
+}
+
+// DISPLAY SETTINGS BREED SQL STATEMENTS
+if (isset($_POST['bID'])) {
+    $bID = $_POST['bID'];
+    $sql = "Select * from tblbreed where bid ='$bID'";
+    $res = mysqli_query($conn, $sql);
+    $upRow = mysqli_fetch_assoc($res);
+    $bid = $upRow['bid'];
+    $br = $upRow['breed'];
+
+?>
+    <section class="tableproduct">
+        <form action="settings.php" method="POST">
+            <div class="formprofile">
+                <div>
+                    <input type="hidden" name="bid" placeholder="Enter Product ID" value="<?= $bid; ?>" readonly>
+                </div>
+                <div>
+                    <input type="text" name="breed" placeholder="Enter Pet type" value="<?= $br; ?>">
+                    <span>Breed</span>
+                </div>
+            </div>
+            <div class="buttonflex">
+                <button name="updatebreed" type="submit" class="yes" title="Update the record">Update Changes</button>
+                <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
+            </div>
+        </form>
     </section>
 <?php
 }
@@ -477,6 +513,31 @@ if (isset($_POST['rptID'])) {
 <?php
 }
 
+// DISPLAY SETTINGS REMOVE BREED SQL STATEMENTS
+if (isset($_POST['rbID'])) {
+    $rbID = $_POST['rbID'];
+    $sql = "Select * from tblbreed where bid ='$rbID'";
+    $res = mysqli_query($conn, $sql);
+    $deRow = mysqli_fetch_assoc($res);
+    $bid = $deRow['bid'];
+?>
+    <section class="tableproduct">
+        <div>
+            <form action="settings.php" method="POST">
+                <div class="formprofile formarchive">
+                    <input type="text" name="bid" placeholder="Enter Product ID" value="<?= $bid; ?>">
+                </div>
+                <h3>Are you sure you want to remove this record?</h3>
+                <div class="buttonflex">
+                    <button name="removebreed" class="yes" title="Remove the record">Yes</button>
+                    <button class="no" title="Cancel activity">No</button>
+                </div>
+            </form>
+        </div>
+    </section>
+<?php
+}
+
 // DISPLAY SETTINGS REMOVE CATEGORY SQL STATEMENTS
 if (isset($_POST['rcatID'])) {
     $rcatID = $_POST['rcatID'];
@@ -574,7 +635,7 @@ if (isset($_POST['pettypeid'])) {
     $result = $conn->query("SELECT * FROM tblbreed WHERE pettypeid = $pettypeid ORDER BY breed");
 
     if (mysqli_num_rows($result) > 0) {
-        echo '<option value="">Select Breed</option>';
+        echo '<option disabled selected style="display: none" value="">Select Breed</option>';
         while ($row = $result->fetch_assoc()) {
             echo '<option value="' . $row['breed'] . '">' . $row['breed'] . '</option>';
         }
@@ -593,7 +654,7 @@ if (isset($_POST['selectprofileID'])) {
 ?>
     <section class="tableproduct">
         <div>
-            <h3>Do you want to select this record?</h3>
+            <h3>Do you want to select this profile?</h3>
             <form action="productsandservices.php" method="POST">
                 <div class="buttonflex">
                     <button name="saveselectprofile" type="submit" class="yes" title="Confirm activity">Yes</button>
@@ -621,7 +682,7 @@ if (isset($_POST['selectproductID'])) {
 ?>
     <section class="tableproduct">
         <div>
-            <h3>Do you want to select this record?</h3>
+            <h3>Do you want to select this product?</h3>
             <form action="productsandservices.php" method="POST">
                 <div class="buttonflex">
                     <button name="saveselectproduct" type="submit" class="yes" title="Confirm activity">Yes</button>

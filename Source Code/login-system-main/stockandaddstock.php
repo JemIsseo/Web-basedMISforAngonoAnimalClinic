@@ -220,7 +220,7 @@ if (isset($_POST['restoreproduct'])) {
                             </div>
                             <div>
                                 <select class="radiobtn" name="category" id="ut" required>
-                                    <option value="">Select Category</option>
+                                    <option disabled selected style="display: none" value="">Select Category</option>
                                     <?php
                                     while ($r = mysqli_fetch_array($s)) {
                                     ?>
