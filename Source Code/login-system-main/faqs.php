@@ -64,6 +64,11 @@
               <p>- Veterinary Emergency and Critical Care </p>
               <p>- Elective, Corrective, and Curative Surgical Services </p>
               <p>- Hospitalization</p>
+              <p>- Pet Grooming Services </p>
+              <p>- Deworming </p>
+              <p>- Vaccination </p>
+              <p>- Anti-Rabies </p>
+              <p>- 5 IN 1 </p>
             </div>
           </div>
           <p>

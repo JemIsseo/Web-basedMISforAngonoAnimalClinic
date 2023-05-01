@@ -383,6 +383,10 @@ aside .sidebar a:hover span {
   height: 45vh;
 }
 
+.table-checkoutnow {
+  height: 60vh;
+}
+
 .table-profile:hover {
   box-shadow: none;
 }
@@ -431,7 +435,7 @@ aside .sidebar a:hover span {
 
 .tblcart th,
 .tblcart td {
-  padding: 12px 35px;
+  padding: 12px 40px;
 }
 
 .tblhistory th,
@@ -593,6 +597,9 @@ aside .sidebar a:hover span {
   margin-left: 50%;
 }
 
+#modal8 .modal-content{
+  width: 55%;
+}
 
 #modal9 .modal-content {
   font-family: 'Courier New', Courier, monospace;
@@ -634,7 +641,7 @@ aside .sidebar a:hover span {
 }
 
 #modal3 .modal-content {
-  width: 45%;
+  width: 50%;
 }
 
 #modal3 .modal-body {
@@ -642,7 +649,7 @@ aside .sidebar a:hover span {
 }
 
 #modal3 .modal-header .modal-close {
-  margin-left: 50%;
+  margin-left: 70%;
 }
 
 .buttonflex {
@@ -895,6 +902,32 @@ aside .sidebar a:hover span {
     position: relative;
     margin-top: 5rem;
   }
+
+  main .insights {
+    grid-template-columns: 1fr;
+  }
+
+  main .listoftrans {
+    width: 96%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 2rem 0 0 10rem;
+  }
+
+  main .listoftrans table {
+    width: 83vw;
+  }
+
+  main table thead tr td:last-child,
+  main table thead tr td:first-child {
+    display: none;
+  }
+
+  main table tbody tr td:last-child,
+  main table tbody tr td:first-child {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -927,7 +960,7 @@ aside .sidebar a:hover span {
   }
 
   aside .sidebar h3 {
-    display: inline;
+    display: none;
   }
 
   aside .sidebar a {
@@ -940,10 +973,11 @@ aside .sidebar a:hover span {
     bottom: 5rem;
   }
 
+
   aside .close {
     display: inline-block;
     cursor: pointer;
-    margin-right: 0.8rem;
+    margin-right: 1rem;
   }
 
   main {
@@ -951,8 +985,15 @@ aside .sidebar a:hover span {
     padding: 0 1rem;
   }
 
-  #menu-btn {
-    display: inline;
+  main .listoftrans {
+    position: relative;
+    margin: 3rem 0 0 0;
+    width: 100%;
+  }
+
+  main .listoftrans table {
+    width: 100%;
+    margin: 0;
   }
 
   .right {
@@ -973,6 +1014,10 @@ aside .sidebar a:hover span {
     margin: 0;
     z-index: 2;
     box-shadow: 0 1rem 1rem var(--color-light);
+  }
+
+  #menu-btn {
+    display: inline;
   }
 
   .right .top #dark-mode-toggle {

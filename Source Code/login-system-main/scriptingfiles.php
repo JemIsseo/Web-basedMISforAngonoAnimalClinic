@@ -9,6 +9,16 @@
         const warningMessage = document.querySelector("#closewarning");
         const messageBox = document.querySelector('.message-box');
 
+
+        // show sidebar
+        menuBtn.addEventListener('click', () => {
+            sideMenu.style.display = 'block';
+        });
+        // close sidebar
+        closeBtn.addEventListener('click', () => {
+            sideMenu.style.display = 'none';
+        });
+
         // Fade out the message box after a delay
         setTimeout(function() {
             messageBox.style.opacity = 0;
@@ -46,14 +56,7 @@
             warningMessage.style.display = 'none';
         });
 
-        // show sidebar
-        menuBtn.addEventListener('click', () => {
-            sideMenu.style.display = 'block';
-        });
-        // close sidebar
-        closeBtn.addEventListener('click', () => {
-            sideMenu.style.display = 'none';
-        });
+
 
         var state = "false";
 
@@ -116,5 +119,4 @@
                 window.location.href = "index.php";
             }
         }
-        
     </script>

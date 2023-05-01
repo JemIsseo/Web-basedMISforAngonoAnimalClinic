@@ -409,8 +409,12 @@ main .insights .number {
 /*  Table Transaction  */
 .content-table {
   border-collapse: collapse;
+  display: block;
   font-size: 1em;
   width: 100%;
+  height: 360px;
+  overflow-x: hidden;
+  text-align: center;
 }
 
 .content-tabletrail {
@@ -418,7 +422,7 @@ main .insights .number {
   font-size: 1em;
   width: 100%;
   display: block;
-  height: 695px;
+  height: 690px;
   overflow: auto;
   white-space: nowrap;
 }
@@ -431,6 +435,15 @@ main .insights .number {
   text-transform: uppercase;
 }
 
+.content-tabletrail thead tr {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+
 .content-table th:first-child {
   border-top-left-radius: 15px;
 }
@@ -438,6 +451,15 @@ main .insights .number {
 .content-table th:last-child {
   border-top-right-radius: 15px;
 }
+
+.content-tabletrail th:first-child {
+  border-top-left-radius: 15px;
+}
+
+.content-tabletrail th:last-child {
+  border-top-right-radius: 15px;
+}
+
 
 .content-table th,
 .content-table td {
@@ -650,7 +672,7 @@ main .insights .number {
   }
 
   aside .sidebar h3 {
-    display: inline;
+    display: none;
   }
 
   aside .sidebar a {
@@ -663,10 +685,11 @@ main .insights .number {
     bottom: 5rem;
   }
 
+
   aside .close {
     display: inline-block;
     cursor: pointer;
-    margin-right: 0.8rem;
+    margin-right: 1rem;
   }
 
   main {

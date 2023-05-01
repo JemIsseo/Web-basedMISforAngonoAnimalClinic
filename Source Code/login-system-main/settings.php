@@ -742,7 +742,7 @@ if (isset($_POST['removeprice'])) {
                     <section class="tableaccountrecords">
                         <div class="accountrecordsbg">
                             <div class="accountrecords">
-                                <table class="content-table table-fixed">
+                                <table class="content-tablechargefee table-fixed">
                                     <thead>
                                         <tr>
                                             <th>Service ID</th>

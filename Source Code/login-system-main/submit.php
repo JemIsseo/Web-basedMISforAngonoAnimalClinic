@@ -34,9 +34,7 @@ if (isset($_POST['accountID'])) {
                         </div>
                         <input type="hidden" name="username" placeholder="Enter Username" value="<?= $un;  ?>" readonly>
                         <input type="file" id="file-upload" name="image" title="Insert photo..." value="<?= $img;  ?>" onchange="previewImage(event)" required />
-                        
                     </div>
-                    
                 </form>
                 <form action="useraccount.php" method="POST">
                     <div class="formprofileedit">
@@ -623,7 +621,7 @@ if (isset($_POST['cusid'])) {
     $result = $conn->query("SELECT * FROM tblpet WHERE cusid = $cusid ORDER BY petname");
 
     if (mysqli_num_rows($result) > 0) {
-        echo '<option value="">Choose Pet</option>';
+        echo '<option disabled selected style="display: none" value="">Choose Pet</option>';
         while ($row = $result->fetch_assoc()) {
             echo '<option value="' . $row['petname'] . '">' . $row['petname'] . '</option>';
         }
@@ -700,7 +698,7 @@ if (isset($_POST['removecartID'])) {
     $removecartID = $_POST['removecartID'];
     $sql = "update tblorder set cart = 'Removed' where orderid ='$removecartID'";
     $res = mysqli_query($conn, $sql);
-}
+} 
 
 // REPORT TRANSACTION SALES INVOICE
 if (isset($_POST['printreceiptID'])) {
@@ -755,9 +753,6 @@ if (isset($_POST['printreceiptID'])) {
 
 }
 ?>
-
-</form>
-</section>
 <?php
 
 include 'scriptingfiles.php';

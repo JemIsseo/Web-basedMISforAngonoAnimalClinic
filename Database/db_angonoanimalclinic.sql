@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 23, 2023 at 02:34 AM
+-- Generation Time: May 01, 2023 at 01:20 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `tbladdedstock` (
   `quantityadded` int NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`stockid`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbladdedstock`
@@ -47,7 +47,10 @@ INSERT INTO `tbladdedstock` (`stockid`, `prodname`, `category`, `quantityadded`,
 (3, 'NutriChunks (beef)20kg', 'Food', 5, '2023-04-12 14:40:07'),
 (4, 'Cosi pets milk (1Liter)', 'Medicine', 5, '2023-04-13 15:23:14'),
 (5, 'Amoxcicillin', 'Medicine', 5, '2023-04-16 07:09:43'),
-(6, 'Amoxcicillin', 'Medicine', 10, '2023-04-16 07:09:54');
+(6, 'Amoxcicillin', 'Medicine', 10, '2023-04-16 07:09:54'),
+(7, 'VitaPet (for adult cat) 1.5kg', 'Accessories', 0, '2023-04-26 04:01:16'),
+(8, 'VitaPet (for adult cat) 1.5kg', 'Food', 5, '2023-04-26 04:01:47'),
+(9, 'Immunol', 'Medicine', 10, '2023-04-26 04:03:20');
 
 -- --------------------------------------------------------
 
@@ -61,10 +64,10 @@ CREATE TABLE IF NOT EXISTS `tblappointments` (
   `clientname` varchar(45) NOT NULL,
   `petname` varchar(45) NOT NULL,
   `services` varchar(100) NOT NULL,
-  `price` int NOT NULL,
+  `price` int DEFAULT NULL,
   `dateandtime` datetime NOT NULL,
   PRIMARY KEY (`queueno`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblappointments`
@@ -72,10 +75,13 @@ CREATE TABLE IF NOT EXISTS `tblappointments` (
 
 INSERT INTO `tblappointments` (`queueno`, `clientname`, `petname`, `services`, `price`, `dateandtime`) VALUES
 (5, ' Vann Oliveros', 'Coco', 'Veterinary Emergency and Critical Care', 0, '2023-02-13 10:42:00'),
-(11, ' Divina Amio', 'Gekgek', 'Wellness Clinic', 0, '2023-02-28 10:50:00'),
-(37, 'Jeremy Liberty', 'Tsaris', 'Hospitalization', 0, '2023-04-16 05:28:00'),
-(36, 'Jeremy Liberty', 'Hannah', 'Wellness Clinic', 0, '2023-04-12 08:11:00'),
-(38, ' Vann Oliveros', 'Coco', 'Elective, Corrective, and, Curative Surgical Services', 0, '2023-04-16 05:40:00');
+(53, 'Jeremy Liberty', 'Tsaris', 'Pet Grooming', NULL, '2023-05-01 09:00:00'),
+(40, ' Bim Salinga', 'Chichi', 'Elective, Corrective, and, Curative Surgical Services', NULL, '2023-04-29 00:00:00'),
+(51, 'Jessica Young', 'Kris', 'Vaccination', NULL, '2023-05-01 19:10:00'),
+(50, 'Jessica Young', 'Kris', 'Veterinary Emergency and Critical Care', NULL, '2023-05-01 09:00:00'),
+(48, 'Jeremy Liberty', 'Tsaris', 'Deworming', NULL, '2023-05-01 09:00:00'),
+(47, 'Catherine Jacobs', 'Mocha', 'Pet Grooming', NULL, '2023-05-01 09:00:00'),
+(46, ' Vann Oliveros', 'Coco', '5 IN 1', NULL, '2023-04-29 18:14:00');
 
 -- --------------------------------------------------------
 
@@ -91,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `tblaudittrail` (
   `ipaddress` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   `actionmode` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`atid`)
-) ENGINE=MyISAM AUTO_INCREMENT=131 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=175 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblaudittrail`
@@ -227,7 +233,51 @@ INSERT INTO `tblaudittrail` (`atid`, `username`, `datetime`, `ipaddress`, `actio
 (127, 'Veterinarian', '2023-04-23 02:29:08', '::1', 'Removed breed in settings'),
 (128, 'Veterinarian', '2023-04-23 02:32:44', '::1', 'Updated pettype in settings'),
 (129, 'Veterinarian', '2023-04-23 02:33:25', '::1', 'Updated pettype in settings'),
-(130, 'Veterinarian', '2023-04-23 02:33:55', '::1', 'Logged Out');
+(130, 'Veterinarian', '2023-04-23 02:33:55', '::1', 'Logged Out'),
+(131, 'Secretary', '2023-04-23 02:35:58', '::1', 'Logged In'),
+(132, 'Secretary', '2023-04-23 02:36:02', '::1', 'Logged Out'),
+(133, 'Jemlibs', '2023-04-23 02:36:08', '::1', 'Logged In'),
+(134, 'Jemlibs', '2023-04-23 02:36:16', '::1', 'Logged Out'),
+(135, 'Veterinarian', '2023-04-23 02:45:57', '::1', 'Logged In'),
+(136, 'Veterinarian', '2023-04-23 02:46:01', '::1', 'Logged Out'),
+(137, 'Veterinarian', '2023-04-25 06:27:16', '::1', 'Logged In'),
+(138, 'Veterinarian', '2023-04-25 06:34:42', '::1', 'Removed breed in settings'),
+(139, 'Veterinarian', '2023-04-25 06:35:13', '::1', 'Removed breed in settings'),
+(140, 'Veterinarian', '2023-04-25 06:35:34', '::1', 'Removed pettype in settings'),
+(141, 'Veterinarian', '2023-04-25 06:36:47', '::1', 'Added new breed in settings'),
+(142, 'Veterinarian', '2023-04-25 06:37:18', '::1', 'Updated pettype in settings'),
+(143, 'Veterinarian', '2023-04-25 07:20:21', '::1', 'Logged Out'),
+(144, 'Secretary', '2023-04-25 07:20:28', '::1', 'Logged In'),
+(145, 'Secretary', '2023-04-25 07:20:36', '::1', 'Logged Out'),
+(146, 'Jemlibs', '2023-04-25 07:20:43', '::1', 'Logged In'),
+(147, 'Jemlibs', '2023-04-25 07:21:28', '::1', 'Logged Out'),
+(148, 'Veterinarian', '2023-04-25 07:28:31', '::1', 'Logged In'),
+(149, 'Veterinarian', '2023-04-25 08:37:57', '::1', 'Logged In'),
+(150, 'Veterinarian', '2023-04-25 09:42:33', '::1', 'Successful Transaction of product in transaction module'),
+(151, 'Veterinarian', '2023-04-25 09:49:50', '::1', 'Successful Transaction of product in transaction module'),
+(152, 'Veterinarian', '2023-04-25 13:08:32', '::1', 'Logged In'),
+(153, 'Veterinarian', '2023-04-26 03:52:17', '::1', 'Logged In'),
+(154, 'Veterinarian', '2023-04-26 04:01:16', '::1', 'Updated product in stocks module'),
+(155, 'Veterinarian', '2023-04-26 04:01:47', '::1', 'Updated product in stocks module'),
+(156, 'Veterinarian', '2023-04-26 04:03:20', '::1', 'Updated product in stocks module'),
+(157, 'Veterinarian', '2023-04-27 09:33:52', '::1', 'Logged In'),
+(158, 'Veterinarian', '2023-04-27 09:44:16', '::1', 'Updated category in settings'),
+(159, 'Veterinarian', '2023-04-27 09:44:24', '::1', 'Updated category in settings'),
+(160, 'Veterinarian', '2023-04-27 10:05:33', '::1', 'Added new services in settings'),
+(161, 'Veterinarian', '2023-04-27 10:05:46', '::1', 'Added new services in settings'),
+(162, 'Veterinarian', '2023-04-27 10:05:54', '::1', 'Added new services in settings'),
+(163, 'Veterinarian', '2023-04-27 10:06:24', '::1', 'Added new services in settings'),
+(164, 'Veterinarian', '2023-04-27 10:06:30', '::1', 'Added new services in settings'),
+(165, 'Veterinarian', '2023-04-27 10:51:43', '::1', 'Added pet profile in customer module'),
+(166, 'Veterinarian', '2023-05-01 12:18:31', '::1', 'Logged In'),
+(167, 'Veterinarian', '2023-05-01 12:47:39', '::1', 'Successful Transaction of product in transaction module'),
+(168, 'Veterinarian', '2023-05-01 12:50:26', '::1', 'Successful Transaction of product in transaction module'),
+(169, 'Veterinarian', '2023-05-01 13:00:25', '::1', 'Logged Out'),
+(170, 'Jemlibs', '2023-05-01 13:00:30', '::1', 'Logged In'),
+(171, 'Jemlibs', '2023-05-01 13:01:01', '::1', 'Successful Transaction of product in transaction module'),
+(172, 'Jemlibs', '2023-05-01 13:04:10', '::1', 'Logged Out'),
+(173, 'Veterinarian', '2023-05-01 13:04:24', '::1', 'Logged In'),
+(174, 'Veterinarian', '2023-05-01 13:04:57', '::1', 'Successful Transaction of product in transaction module');
 
 -- --------------------------------------------------------
 
@@ -241,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `tblbreed` (
   `pettypeid` int NOT NULL,
   `breed` varchar(45) NOT NULL,
   PRIMARY KEY (`bid`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblbreed`
@@ -253,9 +303,8 @@ INSERT INTO `tblbreed` (`bid`, `pettypeid`, `breed`) VALUES
 (3, 1, 'Aspin'),
 (4, 1, 'Japanese Spitz'),
 (5, 1, 'Chihuahua'),
-(6, 1, 'Rottweiler'),
-(12, 3, 'TWITWIT'),
-(11, 2, 'Pusa');
+(13, 2, 'Persian'),
+(11, 2, 'British Shorthair');
 
 -- --------------------------------------------------------
 
@@ -295,19 +344,27 @@ CREATE TABLE IF NOT EXISTS `tblorder` (
   `price` int NOT NULL,
   `cart` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`orderid`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblorder`
 --
 
 INSERT INTO `tblorder` (`orderid`, `transactionid`, `prodname`, `category`, `quantity`, `price`, `cart`) VALUES
+(42, 15, 'Pet Bowl (for eating purpose)', 'Accessories', 3, 150, 'Checkout'),
 (25, 1, 'NutriChunks (beef)20kg', 'Food', 10, 15000, 'Checkout'),
 (26, 1, 'D-Glucose Monohydrate', 'Medicine', 34, 3230, 'Checkout'),
 (23, 1, 'BRONCure', 'Medicine', 7, 1540, 'Checkout'),
 (11, 1, 'Dextrose Monohydrate', 'Medicine', 34, 1768, 'Checkout'),
-(28, NULL, 'BRONCure', 'Medicine', 3, 660, 'Yes'),
-(39, NULL, 'D-Glucose Monohydrate', 'Medicine', 3, 285, 'Yes');
+(41, 15, 'VitaPet (for adult cat) 1.5kg', 'Food', 10, 3600, 'Checkout'),
+(28, 12, 'BRONCure', 'Medicine', 3, 660, 'Checkout'),
+(40, 12, 'Cosi pets milk (1Liter)', 'Medicine', 5, 1250, 'Checkout'),
+(39, 12, 'D-Glucose Monohydrate', 'Medicine', 3, 285, 'Checkout'),
+(43, 15, 'Cosi pets milk (1Liter)', 'Medicine', 3, 750, 'Checkout'),
+(44, 15, 'Immunol', 'Medicine', 7, 4550, 'Checkout'),
+(45, 16, 'NutriChunks (beef)20kg', 'Food', 4, 6000, 'Checkout'),
+(49, NULL, 'Dextrose Monohydrate', 'Medicine', 3, 165, 'Yes'),
+(48, NULL, 'Pet Collar', 'Accessories', 2, 80, 'Yes');
 
 -- --------------------------------------------------------
 
@@ -362,7 +419,7 @@ CREATE TABLE IF NOT EXISTS `tblpet` (
   `weight` varchar(45) NOT NULL,
   `archive` varchar(10) NOT NULL,
   PRIMARY KEY (`petid`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblpet`
@@ -375,7 +432,8 @@ INSERT INTO `tblpet` (`petid`, `cusid`, `ownersname`, `petname`, `pettype`, `age
 (6, 10, ' Bim Salinga', 'Chichi', 'Dog', 3, 'Female', 'Shih Tzu', '10kg', 'false'),
 (20, 15, 'Jeremy Liberty', 'Tsaris', 'Dog', 2, 'Female', 'Aspin', '15kg', 'false'),
 (18, 15, 'Jeremy Liberty', 'Gekgek', 'Dog', 11, 'Male', 'Aspin', '15kg', 'false'),
-(25, 6, 'Jessica Young', 'Kris', 'Dog', 3, 'Female', 'Shih Tzu', '8kg', 'false');
+(25, 6, 'Jessica Young', 'Kris', 'Dog', 3, 'Female', 'Shih Tzu', '8kg', 'false'),
+(27, 8, 'Catherine Jacobs', 'Mocha', 'Dog', 6, 'Female', 'Shih Tzu', '8kg', 'false');
 
 -- --------------------------------------------------------
 
@@ -397,8 +455,7 @@ CREATE TABLE IF NOT EXISTS `tblpettype` (
 INSERT INTO `tblpettype` (`pettypeid`, `pettype`) VALUES
 (1, 'Dog'),
 (2, 'Cat'),
-(3, 'Bird'),
-(6, 'Snake');
+(3, 'Bird');
 
 -- --------------------------------------------------------
 
@@ -412,7 +469,7 @@ CREATE TABLE IF NOT EXISTS `tblservices` (
   `services` varchar(100) NOT NULL,
   `price` int NOT NULL,
   PRIMARY KEY (`sid`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tblservices`
@@ -423,7 +480,12 @@ INSERT INTO `tblservices` (`sid`, `services`, `price`) VALUES
 (2, 'Disease Diagnostics and Treatment', 500),
 (3, 'Veterinary Emergency and Critical Care', 500),
 (4, 'Elective, Corrective, and, Curative Surgical Services', 600),
-(5, 'Hospitalization', 500);
+(5, 'Hospitalization', 500),
+(6, 'Pet Grooming', 0),
+(7, 'Deworming', 0),
+(8, 'Vaccination', 0),
+(9, 'Anti-Rabies', 0),
+(10, '5 IN 1', 0);
 
 -- --------------------------------------------------------
 
@@ -450,16 +512,16 @@ CREATE TABLE IF NOT EXISTS `tblstock` (
 --
 
 INSERT INTO `tblstock` (`proid`, `prodname`, `category`, `description`, `price`, `quantity`, `minstocklevel`, `maxstocklevel`, `archive`) VALUES
-(13, 'Dextrose Monohydrate', 'Medicine', 'is a carbohydrate and valuable source of energy rapidly and easily absorb.', 55, 23, 10, 5000, 'false'),
+(13, 'Dextrose Monohydrate', 'Medicine', 'is a carbohydrate and valuable source of energy rapidly and easily absorb.', 55, 20, 10, 5000, 'false'),
 (15, 'BRONCure', 'Medicine', 'For acute treatment of colds and respiratory infections in pets. to reduce symptoms of sneezing, coughing, watery eyes and nose.', 220, 80, 10, 5000, 'true'),
 (16, 'D-Glucose Monohydrate', 'Medicine', 'is useful in rebuilding stamina and vigor after every activity.', 95, 29, 10, 5000, 'false'),
-(17, 'Pet Collar', 'Accessories', 'use for restrain, identification and protection.', 40, 80, 10, 5000, 'false'),
-(18, 'Pet Bowl (for eating purpose)', 'Accessories', 'Food containers use for feeding pets made up of different types of materials.', 50, 50, 10, 5000, 'false'),
-(20, 'NutriChunks (beef)20kg', 'Food', 'An optimum blend of proteins, fats and carbohydrates that support a puppies high energy needs.', 1500, 25, 10, 5000, 'false'),
-(21, 'VitaPet (for adult cat) 1.5kg', 'Food', 'It has tuna flavor, to support the immune system for a healthy cat with calcium and phosporus to help maintain healthy bones and teeth.', 360, 26, 10, 5000, 'false'),
-(22, 'Cosi pets milk (1Liter)', 'Medicine', 'Cosi is a formulated and highly delicious milk for pets of all ages. Cosi pets milk has broken down the lactose making it easier for your pet to digest.', 250, 30, 10, 5000, 'false'),
+(17, 'Pet Collar', 'Accessories', 'use for restrain, identification and protection.', 40, 78, 10, 5000, 'false'),
+(18, 'Pet Bowl (for eating purpose)', 'Accessories', 'Food containers use for feeding pets made up of different types of materials.', 50, 47, 10, 5000, 'false'),
+(20, 'NutriChunks (beef)20kg', 'Food', 'An optimum blend of proteins, fats and carbohydrates that support a puppies high energy needs.', 1500, 21, 10, 5000, 'false'),
+(21, 'VitaPet (for adult cat) 1.5kg', 'Food', 'It has tuna flavor, to support the immune system for a healthy cat with calcium and phosporus to help maintain healthy bones and teeth.', 360, 21, 10, 5000, 'false'),
+(22, 'Cosi pets milk (1Liter)', 'Medicine', 'Cosi is a formulated and highly delicious milk for pets of all ages. Cosi pets milk has broken down the lactose making it easier for your pet to digest.', 250, 22, 10, 5000, 'false'),
 (36, 'Pet Harness', 'Medicine', 'Equipment consisting of straps of webbing that loop nearly around that fasten together using side release buckles.', 300, 50, 10, 5000, 'true'),
-(37, 'Amoxcicillin', 'Medicine', 'Gamot', 250, 15, 10, 5000, 'false');
+(37, 'Immunol', 'Medicine', 'Immunol syrup is clinically proven an immunomodulator / immunostimulant and phagocytosis enhancer for dogs and cats to enhance immunity and fights pathogens.', 650, 8, 10, 5000, 'false');
 
 -- --------------------------------------------------------
 
@@ -475,14 +537,17 @@ CREATE TABLE IF NOT EXISTS `tbltransaction` (
   `totalprice` int NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`transactionid`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbltransaction`
 --
 
 INSERT INTO `tbltransaction` (`transactionid`, `username`, `ownersname`, `totalprice`, `date`) VALUES
-(1, 'Veterinarian', 'White Lee', 21538, '2023-04-09 12:40:06');
+(1, 'Veterinarian', 'White Lee', 21538, '2023-04-09 12:40:06'),
+(16, 'Veterinarian', 'Samantha Priz', 6000, '2023-05-01 21:04:57'),
+(12, 'Veterinarian', 'Jeremy Liberty', 2195, '2023-04-25 17:49:50'),
+(15, 'Jemlibs', 'Bim Salinga', 9050, '2023-05-01 21:01:01');
 
 -- --------------------------------------------------------
 
@@ -492,6 +557,7 @@ INSERT INTO `tbltransaction` (`transactionid`, `username`, `ownersname`, `totalp
 
 DROP TABLE IF EXISTS `tbluseraccount`;
 CREATE TABLE IF NOT EXISTS `tbluseraccount` (
+  `userid` int NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `password` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `usertype` varchar(45) NOT NULL,
@@ -499,19 +565,19 @@ CREATE TABLE IF NOT EXISTS `tbluseraccount` (
   `status` int NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   `archive` varchar(10) NOT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`userid`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `tbluseraccount`
 --
 
-INSERT INTO `tbluseraccount` (`username`, `password`, `usertype`, `email`, `status`, `image`, `archive`) VALUES
-('Veterinarian', '$2y$10$j9C8tNEwjT7IAFkYy1BYXu69vBS9C3t23am9qGjLqcNv5vHJc0Ti6', 'Veterinarian', 'imepogi23@gmail.com', 1, 'IMG-6438186b526e22.70470279.png', 'false'),
-('notverified', '$2y$10$eGgX2Gjwf8aMf0OC2S.tK.mstFL3YA8affK9YbhJ./hIJcwxCGqii', 'Assistant', 'libertypogi@gmail.com', 0, 'IMG-644366039f8d40.34808656.png', 'false'),
-('Jemlibs', '$2y$10$iFvnSJNYDfjFc1JLq2SvNeIVF7039/YsJSlDy0vsqrGlsBdDzW1ie', 'Assistant', 'ruelitopogi04@gmail.com', 1, 'IMG-6437e118a9e020.19642347.jpg', 'false'),
-('Secretary', '$2y$10$OBoQWVpwNXlS0qMaPJ18e.9xp10KjtrBjH6Z6MBRDo9tJ1k3Q32Du', 'Secretary', 'libertyjeremy23@gmail.com', 1, 'IMG-643d827b091268.29902057.jpeg', 'false'),
-('sample', '$2y$10$CReGriHfvl0SZjPIgEq8LOcTzXKV3/pOaqiWae0VlPGEVxs2VUmlu', 'Assistant', 'sample123@gmail.com', 0, 'IMG-643917f0b7ab53.21250259.png', 'true');
+INSERT INTO `tbluseraccount` (`userid`, `username`, `password`, `usertype`, `email`, `status`, `image`, `archive`) VALUES
+(8, 'Veterinarian', '$2y$10$j9C8tNEwjT7IAFkYy1BYXu69vBS9C3t23am9qGjLqcNv5vHJc0Ti6', 'Veterinarian', 'imepogi23@gmail.com', 1, 'IMG-6438186b526e22.70470279.png', 'false'),
+(9, 'notverified', '$2y$10$eGgX2Gjwf8aMf0OC2S.tK.mstFL3YA8affK9YbhJ./hIJcwxCGqii', 'Assistant', 'libertypogi@gmail.com', 0, 'IMG-644366039f8d40.34808656.png', 'false'),
+(10, 'Jemlibs', '$2y$10$iFvnSJNYDfjFc1JLq2SvNeIVF7039/YsJSlDy0vsqrGlsBdDzW1ie', 'Assistant', 'ruelitopogi04@gmail.com', 1, 'IMG-6437e118a9e020.19642347.jpg', 'false'),
+(11, 'Secretary', '$2y$10$OBoQWVpwNXlS0qMaPJ18e.9xp10KjtrBjH6Z6MBRDo9tJ1k3Q32Du', 'Secretary', 'libertyjeremy23@gmail.com', 1, 'IMG-643d827b091268.29902057.jpeg', 'false'),
+(12, 'sample', '$2y$10$CReGriHfvl0SZjPIgEq8LOcTzXKV3/pOaqiWae0VlPGEVxs2VUmlu', 'Assistant', 'sample123@gmail.com', 0, 'IMG-643917f0b7ab53.21250259.png', 'true');
 
 -- --------------------------------------------------------
 

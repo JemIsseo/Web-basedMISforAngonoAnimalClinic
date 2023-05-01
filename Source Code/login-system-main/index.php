@@ -1,4 +1,3 @@
-<!--REGISTRATION -->
 <?php
 session_start();
 include 'connect.php';
@@ -7,14 +6,14 @@ if (isset($_POST['login'])) {
     $un = $_POST['username'];
     $pw = $_POST['password'];
 
-    $sql = "Select * from tbluseraccount where username = '$un'";
-    $res = mysqli_query($conn, $sql);
+    $stmt = mysqli_prepare($conn, "SELECT * FROM tbluseraccount WHERE username = ?");
+    mysqli_stmt_bind_param($stmt, "s", $un);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
 
     if ($res) {
-        $arr = array(0);
-        $element = $arr[0] ?? "Doesnt exist";
         $fetch = mysqli_fetch_assoc($res);
-        $username = $fetch["username"];
+        $username = $fetch['username'];
         if ($un != $username) {
 ?>
             <div class="statusmessageerror message-box" id="close">

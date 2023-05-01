@@ -49,11 +49,6 @@ $totalappointments = $rowSumAppointments['totalappointments'];
                             <h3>Total Sales</h3>
                             <h1><?php echo '₱ ' . number_format($totalsales); ?></h1>
                         </div>
-                        <div class="progress">
-                            <svg>
-                                <circle cx='38' cy='38' r='36'></circle>
-                            </svg>
-                        </div>
                     </div>
                     <small class="text-muted">Last 30 Days</small>
                 </div>
@@ -65,11 +60,6 @@ $totalappointments = $rowSumAppointments['totalappointments'];
                             <h3>Total Stocks</h3>
                             <h1><?php echo $totalstock; ?></h1>
                         </div>
-                        <div class="progress">
-                            <svg>
-                                <circle cx='38' cy='38' r='36'></circle>
-                            </svg>
-                        </div>
                     </div>
                     <small class="text-muted">Last 30 Days</small>
                 </div>
@@ -80,11 +70,6 @@ $totalappointments = $rowSumAppointments['totalappointments'];
                         <div class="left">
                             <h3>Total Reservations</h3>
                             <h1><?php echo $totalappointments; ?></h1>
-                        </div>
-                        <div class="progress">
-                            <svg>
-                                <circle cx='38' cy='38' r='36'></circle>
-                            </svg>
                         </div>
                     </div>
                     <small class="text-muted">Last 30 Days</small>
@@ -101,7 +86,7 @@ $totalappointments = $rowSumAppointments['totalappointments'];
                         <div class="modal-body">
                             <section class="tableprofile">
                                 <div class="table-profile">
-                                    <table class="content-table tblhistory" id="searchTransaction">
+                                    <table class="content-tabletrail tblhistory" id="searchTransaction">
                                         <thead>
                                             <tr>
                                                 <th>Transaction ID</th>
@@ -109,7 +94,6 @@ $totalappointments = $rowSumAppointments['totalappointments'];
                                                 <th>Owner's Name</th>
                                                 <th>Total Price</th>
                                                 <th>Date</th>
-                                                <th> </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -171,7 +155,7 @@ $totalappointments = $rowSumAppointments['totalappointments'];
                                         while ($row = mysqli_fetch_assoc($res)) {
                                             $qno = $row['queueno'];
                                             $cname = $row['clientname'];
-                                            $dt = $row['dateandtime'];
+                                            $dt = date("M d, Y \n,h:i:sA ", strtotime($row['dateandtime']));
 
 
                                             echo '<tr>

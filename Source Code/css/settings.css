@@ -250,7 +250,7 @@ aside .sidebar a:hover span {
   margin: 2em auto;
   margin-top: 0.5em;
   padding: 1em;
-  height: 14%;
+  height: 15%;
   width: 50%;
 }
 
@@ -310,18 +310,21 @@ aside .sidebar a:hover span {
 }
 
 /*  Table Transaction  */
-.content-table {
+.content-table,.content-tablechargefee {
   border-collapse: collapse;
+  display: block;
   font-size: 1em;
-  width: 80%;
-  height: 280px;
-  overflow: auto;
-  white-space: nowrap;
-  margin: 1em auto;
-  margin-bottom: 1em;
+  width: 50%;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: hidden;
+  text-align: center;
 }
 
-.content-table thead tr {
+
+.content-table thead tr,
+.content-tablechargefee thead tr {
   background-color: var(--color-primary);
   color: var(--color-background);
   text-align: center;
@@ -329,11 +332,13 @@ aside .sidebar a:hover span {
   text-transform: uppercase;
 }
 
-.content-table th:first-child {
+.content-table th:first-child,
+.content-tablechargefee th:first-child {
   border-top-left-radius: 15px;
 }
 
-.content-table th:last-child {
+.content-table th:last-child,
+.content-tablechargefee th:last-child {
   border-top-right-radius: 15px;
 }
 
@@ -342,6 +347,13 @@ aside .sidebar a:hover span {
   padding: 12px 29px;
   border-bottom: 1px solid rgb(238, 233, 233);
 }
+
+.content-tablechargefee th,
+.content-tablechargefee td {
+  padding: 12px 20px;
+  border-bottom: 1px solid rgb(238, 233, 233);
+}
+
 
 .table-archive th,
 .table-archive td {
@@ -813,6 +825,32 @@ aside .sidebar a:hover span {
     position: relative;
     margin-top: 5rem;
   }
+
+  main .insights {
+    grid-template-columns: 1fr;
+  }
+
+  main .listoftrans {
+    width: 96%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 2rem 0 0 10rem;
+  }
+
+  main .listoftrans table {
+    width: 83vw;
+  }
+
+  main table thead tr td:last-child,
+  main table thead tr td:first-child {
+    display: none;
+  }
+
+  main table tbody tr td:last-child,
+  main table tbody tr td:first-child {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -845,7 +883,7 @@ aside .sidebar a:hover span {
   }
 
   aside .sidebar h3 {
-    display: inline;
+    display: none;
   }
 
   aside .sidebar a {
@@ -858,10 +896,11 @@ aside .sidebar a:hover span {
     bottom: 5rem;
   }
 
+
   aside .close {
     display: inline-block;
     cursor: pointer;
-    margin-right: 0.8rem;
+    margin-right: 1rem;
   }
 
   main {
@@ -869,8 +908,15 @@ aside .sidebar a:hover span {
     padding: 0 1rem;
   }
 
-  #menu-btn {
-    display: inline;
+  main .listoftrans {
+    position: relative;
+    margin: 3rem 0 0 0;
+    width: 100%;
+  }
+
+  main .listoftrans table {
+    width: 100%;
+    margin: 0;
   }
 
   .right {
@@ -891,6 +937,10 @@ aside .sidebar a:hover span {
     margin: 0;
     z-index: 2;
     box-shadow: 0 1rem 1rem var(--color-light);
+  }
+
+  #menu-btn {
+    display: inline;
   }
 
   .right .top #dark-mode-toggle {

@@ -1056,7 +1056,7 @@ input[type="file"] {
   }
 
   aside .sidebar h3 {
-    display: inline;
+    display: none;
   }
 
   aside .sidebar a {
@@ -1069,10 +1069,11 @@ input[type="file"] {
     bottom: 5rem;
   }
 
+
   aside .close {
     display: inline-block;
     cursor: pointer;
-    margin-right: 0.8rem;
+    margin-right: 1rem;
   }
 
   main {
@@ -1089,10 +1090,6 @@ input[type="file"] {
   main .listoftrans table {
     width: 100%;
     margin: 0;
-  }
-
-  #menu-btn {
-    display: inline;
   }
 
   .right {
@@ -1113,6 +1110,10 @@ input[type="file"] {
     margin: 0;
     z-index: 2;
     box-shadow: 0 1rem 1rem var(--color-light);
+  }
+
+  #menu-btn {
+    display: inline;
   }
 
   .right .top #dark-mode-toggle {

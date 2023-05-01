@@ -768,7 +768,7 @@ if (isset($_POST['queryaudittrail'])) {
     // display the results in tables
     if (mysqli_num_rows($result) > 0) {
     ?>
-        <table class="content-table table-fixed">
+        <table class="content-tabletrail table-fixed">
             <thead>
                 <tr>
                     <th>#</th>

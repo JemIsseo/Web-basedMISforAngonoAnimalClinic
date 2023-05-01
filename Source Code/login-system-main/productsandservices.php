@@ -16,7 +16,7 @@ if (isset($_POST['saveaddtocart'])) {
     $initialPrice = $qty * $prc;
 
     if ($initialPrice) {
-        
+
         $currentQuantity = $row1['quantity'];
         // Check if the requested quantity is less than or equal to the available quantity in stock
         if ($qty <= $currentQuantity) {
@@ -71,7 +71,7 @@ if (isset($_POST['checkout'])) {
             <h2>Transaction has been completed!</h2>
             <button class="icon"><span class="material-symbols-sharp">close</span></button>
         </div>
-    <?php
+<?php
     }
 }
 
@@ -147,131 +147,107 @@ if (isset($_POST['checkout'])) {
                         <input type="text" placeholder="Search here" id="search-boxcart"><span class="material-symbols-sharp">search</span>
                     </div>
                 </div>
-                <form action="" method="POST">
-                    <div class="table-profile table-checkout">
-                        <div class="formcart">
-                            <div class="formprofile inputspan">
-                                <input type="hidden" name="ownersname" value="<?php echo $op; ?>" disabled required>
-                            </div>
+                <div class="table-profile table-checkout">
+                    <div class="formcart">
+                        <div class="formprofile inputspan">
+                            <input type="hidden" name="ownersname" value="<?php echo $op; ?>" disabled required>
                         </div>
-                        <table class="content-table tblcart" id="searchCart">
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Category</th>
-                                    <th>Product Name</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $sql = "Select * from tblorder where cart = 'Yes' order by orderid desc";
-                                $res = mysqli_query($conn, $sql);
+                    </div>
+                    <table class="content-table tblcart" id="searchCart">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Category</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $sql = "Select * from tblorder where cart = 'Yes' order by orderid desc";
+                            $res = mysqli_query($conn, $sql);
 
-                                if ($res) {
-                                    while ($row = mysqli_fetch_assoc($res)) {
-                                        $oid = $row['orderid'];
-                                        $cat = $row['category'];
-                                        $pname = $row['prodname'];
-                                        $prc = $row['price'];
-                                        $qty = $row['quantity'];
-                                        echo '<tr>
+                            if ($res) {
+                                while ($row = mysqli_fetch_assoc($res)) {
+                                    $oid = $row['orderid'];
+                                    $cat = $row['category'];
+                                    $pname = $row['prodname'];
+                                    $prc = $row['price'];
+                                    $qty = $row['quantity'];
+                                    echo '<tr>
                                     <td>' . $oid . '</td>
                                     <td>' . $cat . '</td>
                                     <td>' . $pname . '</td>
                                     <td>' . $qty . '</td>
                                     <td>' . number_format($prc, 2) . '</td>
                                     <td>
-                                        <button class="modal-open showRemoveCart" data-modal="modal7" value="' . $oid . '" ><span class="material-symbols-sharp remove" title="Remove this product">delete</span></button>
+                                        <form>
+                                            <button class="modal-open showRemoveCart" data-modal="modal7" value="' . $oid . '" ><span class="material-symbols-sharp remove" title="Remove this product">delete</span></button>
+                                        </form>
                                     </td>
                                     </tr>';
-                                    }
                                 }
-                                ?>
-                            </tbody>
-                        </table>
-                        <div class="buttonmodify checkoutright">
-                            <button name="checkout" title="View list of profile"><span class="material-symbols-sharp">shopping_cart_checkout</span>
-                                <h3>Proceed Checkout</h3>
-                            </button>
-                        </div>
-                </form>
-    </div>
-    </section>
-    </main>
-
-    <!--  End of Main Tag  -->
-    <?php include 'systemaccountanddate.php'; ?>
-    <!--  Start of Transaction History  -->
-    <h1>Transaction History</h1>
-    <div class="buttonmodify checkhistorystyle">
-        <button class="modal-open" data-modal="modal8" title="View and Restore Account"><span class="material-symbols-sharp">table_view</span>Check History</button>
-    </div>
-
-
-
-    <!-- Start of Modal -->
-
-    <!-- Modal of Restore Stock MessageBox -->
-    <div class="modal" id="modal3">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1>Unarchive Stock</h1>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
-            <div class="modal-body">
-                <h3>THIS IS TABLE TRANSACTION HISTORY</h3>
-            </div>
-            <div class="modal-footer">
-                <div class="buttonflexright">
-                    <button name="savearchiveprofile" type="submit" class="yes">Yes</button>
-                    <button type="submit" class="cancel no modal-close">No</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
-    <!-- Modal of Select Profile -->
-    <div class="modal" id="modal4">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1>Select Profile</h1>
-                <div class="accrecsearch">
-                    <div class="searchbar">
-                        <input type="text" placeholder="Search here" id="search-box"><span class="material-symbols-sharp">search</span>
-                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                    <div class="buttonmodify checkoutright">
+                        <button class="modal-open" data-modal="modal3" title="View list of profile"><span class="material-symbols-sharp">shopping_cart_checkout</span>
+                            <h3>Proceed Checkout</h3>
+                        </button>
                     </div>
                 </div>
-            </div>
+            </section>
+        </main>
 
-            <div class="modal-body">
-                <section class="tableprofile">
-                    <div class="table-profile">
-                        <table class="content-table" id="ownersName">
-                            <thead>
-                                <tr>
-                                    <th>Owner's Name</th>
-                                    <th>Contact No.</th>
-                                    <th>Address</th>
-                                    <th>Email Address</th>
-                                    <th> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $sql = "Select * from tblownersprofile where archive = 'false' order by ownersname";
-                                $res = mysqli_query($conn, $sql);
+        <!--  End of Main Tag  -->
+        <?php include 'systemaccountanddate.php'; ?>
+        <!--  Start of Transaction History  -->
+        <h1>Transaction History</h1>
+        <div class="buttonmodify checkhistorystyle">
+            <button class="modal-open" data-modal="modal8" title="View and Restore Account"><span class="material-symbols-sharp">table_view</span>Check History</button>
+        </div>
 
-                                if ($res) {
-                                    while ($row = mysqli_fetch_assoc($res)) {
-                                        $op = $row['ownersname'];
-                                        $cn = $row['contactno'];
-                                        $add = $row['address'];
-                                        $emailadd = $row['emailaddress'];
-                                        echo '<tr>
+        <!-- Modal of Select Profile -->
+        <div class="modal" id="modal4">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Select Profile</h1>
+                    <div class="accrecsearch">
+                        <div class="searchbar">
+                            <input type="text" placeholder="Search here" id="search-box"><span class="material-symbols-sharp">search</span>
+                            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <section class="tableprofile">
+                        <div class="table-profile">
+                            <table class="content-table" id="ownersName">
+                                <thead>
+                                    <tr>
+                                        <th>Owner's Name</th>
+                                        <th>Contact No.</th>
+                                        <th>Address</th>
+                                        <th>Email Address</th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql = "Select * from tblownersprofile where archive = 'false' order by ownersname";
+                                    $res = mysqli_query($conn, $sql);
+
+                                    if ($res) {
+                                        while ($row = mysqli_fetch_assoc($res)) {
+                                            $op = $row['ownersname'];
+                                            $cn = $row['contactno'];
+                                            $add = $row['address'];
+                                            $emailadd = $row['emailaddress'];
+                                            echo '<tr>
                                         <td>' . $op . '</td>
                                         <td>' . $cn . '</td>
                                         <td>' . $add . '</td>
@@ -280,82 +256,82 @@ if (isset($_POST['checkout'])) {
                                             <button name="selectprofile" data-modal="modal2" class="modal-open showSelectProfile" value="' . $op . '"><span class="material-symbols-sharp archive">done</span></button>
                                         </td>
                                         </tr>';
+                                        }
                                     }
-                                }
-                                ?>
+                                    ?>
 
-                            </tbody>
+                                </tbody>
 
-                        </table>
-                    </div>
-                </section>
-                <div class="modal-footer">
-                    <div class="buttonflexright">
-                        <button type="submit" class="cancel modal-close" title="Cancel">Cancel</button>
+                            </table>
+                        </div>
+                    </section>
+                    <div class="modal-footer">
+                        <div class="buttonflexright">
+                            <button type="submit" class="cancel modal-close" title="Cancel">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal of  Select Profile MessageBox -->
-    <div class="modal" id="modal2">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1>Selecting Profile</h1>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
-            <div class="modal-body" id="selectProfile">
+        <!-- Modal of  Select Profile MessageBox -->
+        <div class="modal" id="modal2">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Selecting Profile</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="selectProfile">
 
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal of Select Profile -->
-    <div class="modal" id="modal5">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1>Select Product</h1>
-                <div class="accrecsearch">
-                    <div class="searchbar">
-                        <input type="text" placeholder="Search here" id="search-boxstock"><span class="material-symbols-sharp">search</span>
-                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="modal-body">
-                <!--  Start of Products Table   -->
-                <section class="tableprofile">
-                    <div class="table-profile">
+        <!-- Modal of Select Profile -->
+        <div class="modal" id="modal5">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Select Product</h1>
+                    <div class="accrecsearch">
+                        <div class="searchbar">
+                            <input type="text" placeholder="Search here" id="search-boxstock"><span class="material-symbols-sharp">search</span>
+                            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                        </div>
+                    </div>
+                </div>
 
-                        <div class="table-product" id="searchStock">
-                            <table class="content-table">
-                                <thead>
-                                    <tr>
-                                        <th>ProductID</th>
-                                        <th>Product Name</th>
-                                        <th>Category</th>
-                                        <th>Description</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th> </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $sql = "Select * from tblstock where archive = 'false' order by proid desc";
-                                    $res = mysqli_query($conn, $sql);
+                <div class="modal-body">
+                    <!--  Start of Products Table   -->
+                    <section class="tableprofile">
+                        <div class="table-profile">
 
-                                    if ($res) {
-                                        while ($row = mysqli_fetch_assoc($res)) {
-                                            $pid = $row['proid'];
-                                            $pname = $row['prodname'];
-                                            $cat = $row['category'];
-                                            $desc = $row['description'];
-                                            $prc = $row['price'];
-                                            $qty = $row['quantity'];
-                                            echo '<tr>
+                            <div class="table-product" id="searchStock">
+                                <table class="content-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ProductID</th>
+                                            <th>Product Name</th>
+                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $sql = "Select * from tblstock where archive = 'false' order by proid desc";
+                                        $res = mysqli_query($conn, $sql);
+
+                                        if ($res) {
+                                            while ($row = mysqli_fetch_assoc($res)) {
+                                                $pid = $row['proid'];
+                                                $pname = $row['prodname'];
+                                                $cat = $row['category'];
+                                                $desc = $row['description'];
+                                                $prc = $row['price'];
+                                                $qty = $row['quantity'];
+                                                echo '<tr>
                                             <td>' . $pid . '</td>
                                             <td>' . $pname . '</td>
                                             <td>' . $cat . '</td>
@@ -366,63 +342,63 @@ if (isset($_POST['checkout'])) {
                                             <button name="selectprofile" data-modal="modal6" class="modal-open showSelectProduct" value="' . $pid . '"><span class="material-symbols-sharp archive">done</span></button>
                                             </td>
                                             </tr>';
+                                            }
                                         }
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                </section>
-                <div class="modal-footer">
-                    <div class="buttonflexright">
-                        <button type="submit" class="cancel modal-close" title="Cancel">Cancel</button>
+                    </section>
+                    <div class="modal-footer">
+                        <div class="buttonflexright">
+                            <button type="submit" class="cancel modal-close" title="Cancel">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal of Transaction History -->
-    <div class="modal" id="modal8">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1>View Transaction</h1>
-                <div class="accrecsearch">
-                    <div class="searchbar">
-                        <input type="text" placeholder="Search here" id="search-boxtransact"><span class="material-symbols-sharp">search</span>
-                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        <!-- Modal of Transaction History -->
+        <div class="modal" id="modal8">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>View Transaction</h1>
+                    <div class="accrecsearch">
+                        <div class="searchbar">
+                            <input type="text" placeholder="Search here" id="search-boxtransact"><span class="material-symbols-sharp">search</span>
+                            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="modal-body">
-                <section class="tableprofile">
-                    <div class="table-profile">
-                        <table class="content-table tblhistory" id="searchTransaction">
-                            <thead>
-                                <tr>
-                                    <th>Transaction ID</th>
-                                    <th>Username</th>
-                                    <th>Owner's Name</th>
-                                    <th>Total Price</th>
-                                    <th>Date</th>
-                                    <th> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $sql = "Select * from tbltransaction order by transactionid desc";
-                                $res = mysqli_query($conn, $sql);
+                <div class="modal-body">
+                    <section class="tableprofile">
+                        <div class="table-profile">
+                            <table class="content-table tblhistory" id="searchTransaction">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction ID</th>
+                                        <th>Username</th>
+                                        <th>Owner's Name</th>
+                                        <th>Total Price</th>
+                                        <th>Date</th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql = "Select * from tbltransaction order by transactionid desc";
+                                    $res = mysqli_query($conn, $sql);
 
-                                if ($res) {
-                                    while ($row = mysqli_fetch_assoc($res)) {
-                                        $tid = $row['transactionid'];
-                                        $un = $row['username'];
-                                        $op = $row['ownersname'];
-                                        $tprc = $row['totalprice'];
-                                        $date = $row['date'];
-                                        echo '<tr>
+                                    if ($res) {
+                                        while ($row = mysqli_fetch_assoc($res)) {
+                                            $tid = $row['transactionid'];
+                                            $un = $row['username'];
+                                            $op = $row['ownersname'];
+                                            $tprc = $row['totalprice'];
+                                            $date = $row['date'];
+                                            echo '<tr>
                                         <td>' . $tid . '</td>
                                         <td>' . $un . '</td>
                                         <td>' . $op . '</td>
@@ -432,65 +408,128 @@ if (isset($_POST['checkout'])) {
                                             <button name="printreceipt" data-modal="modal9" class="modal-open showPrintReceipt" value="' . $tid . '"><span class="material-symbols-sharp print">print</span></button>
                                         </td>
                                         </tr>';
+                                        }
                                     }
-                                }
-                                ?>
+                                    ?>
 
-                            </tbody>
+                                </tbody>
 
-                        </table>
-                    </div>
-                </section>
-                <div class="modal-footer">
-                    <div class="buttonflexright">
-                        <button type="submit" class="cancel modal-close" title="Cancel">Cancel</button>
+                            </table>
+                        </div>
+                    </section>
+                    <div class="modal-footer">
+                        <div class="buttonflexright">
+                            <button type="submit" class="cancel modal-close" title="Cancel">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <!-- Modal of  Select Profile MessageBox -->
-    <div class="modal" id="modal6">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1>Selecting Product</h1>
-                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-            </div>
-            <div class="modal-body" id="selectProduct">
+        <!-- Modal of  Select Profile MessageBox -->
+        <div class="modal" id="modal6">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Selecting Product</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body" id="selectProduct">
 
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal of  Select Profile MessageBox -->
-    <div class="modal">
-        <div class="modal-content">
-            <div class="modal-body" id="removeCart">
-
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal of  Select Profile MessageBox -->
-    <div class="modal" id="modal9">
-        <div class="modal-content">
-            <div class="centerreceipt">
-                <h1><b>ANGONO ANIMAL CLINIC AND PET GROOMING CENTER</b></h1>
-                <p>173 Ingal Bldg. M. L. Quezon Ave. </p>
-                <p>San Isidro Angono, Rizal </p>
-                <p>Cell. No.: 0921-502-2956 / 0966-456-8460</p>
-            </div>
-            <div class="modal-body" id="printReceipt">
+        <!-- Modal of  Select Profile MessageBox -->
+        <div class="modal">
+            <div class="modal-content">
+                <div class="modal-body" id="removeCart">
 
-            </div>
-            <div class="buttonflex printreceipt-center" id="PrintButton">
-                <button onclick="window.print()" class="savechanges" title="Print the receipt">Print</button>
-                <button class="cancel modal-close" title="Cancel activity">Cancel</button>
+                </div>
             </div>
         </div>
-    </div>
+
+        <!-- Modal of  Select Profile MessageBox -->
+        <div class="modal" id="modal9">
+            <div class="modal-content">
+                <div class="centerreceipt">
+                    <h1><b>ANGONO ANIMAL CLINIC AND PET GROOMING CENTER</b></h1>
+                    <p>173 Ingal Bldg. M. L. Quezon Ave. </p>
+                    <p>San Isidro Angono, Rizal </p>
+                    <p>Cell. No.: 0921-502-2956 / 0966-456-8460</p>
+                </div>
+                <div class="modal-body" id="printReceipt">
+
+                </div>
+                <div class="buttonflex printreceipt-center" id="PrintButton">
+                    <button onclick="window.print()" class="savechanges" title="Print the receipt">Print</button>
+                    <button class="cancel modal-close" title="Cancel activity">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start of Modal -->
+        <div class="modal" id="modal3">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>Checkout Cart</h1>
+                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        <div class="table-profile table-checkoutnow">
+                            <div class="formcart">
+                                <div class="formprofile inputspan">
+                                    <input type="hidden" name="ownersname" value="<?php echo $op; ?>" disabled required>
+                                </div>
+                            </div>
+                            <table class="content-table tblcart">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Category</th>
+                                        <th>Product Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $sql = "Select * from tblorder where cart = 'Yes' order by orderid desc";
+                                    $res = mysqli_query($conn, $sql);
+
+                                    if ($res) {
+                                        while ($row = mysqli_fetch_assoc($res)) {
+                                            $oid = $row['orderid'];
+                                            $cat = $row['category'];
+                                            $pname = $row['prodname'];
+                                            $prc = $row['price'];
+                                            $qty = $row['quantity'];
+                                            echo '<tr>
+                                    <td>' . $oid . '</td>
+                                    <td>' . $cat . '</td>
+                                    <td>' . $pname . '</td>
+                                    <td>' . $qty . '</td>
+                                    <td>' . number_format($prc, 2) . '</td>
+                                    </tr>';
+                                        }
+                                    }
+                                    $resultSumTotal = $conn->query("SELECT SUM(price) AS totalprice FROM tblorder WHERE cart = 'Yes'");
+                                    $rowSumTotal = $resultSumTotal->fetch_assoc();
+                                    $totalprice = $rowSumTotal['totalprice'];
+                                    ?>
+                                </tbody>
+                            </table>
+                            <h1>Total Amount: <?php echo '₱ ' . number_format($totalprice, 2); ?></h1>
+                            <div class="buttonmodify checkoutright">
+                                <button name="checkout" title="Checkout Now">
+                                    <h2 style="margin: 0 auto">Checkout</h2>
+                                </button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
     </div>
 
