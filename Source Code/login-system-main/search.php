@@ -304,7 +304,7 @@ if (isset($_POST['queryrestorestock'])) {
 if (isset($_POST['querypetprofile'])) {
     $querypetprofile = $_POST['querypetprofile'];
 
-    $sql = "SELECT * FROM tblpet WHERE archive = 'false' AND petname LIKE '%" . $querypetprofile . "%' ORDER BY petid desc";
+    $sql = "SELECT * FROM tblpet WHERE archive = 'false' AND petname LIKE '%" . $querypetprofile . "%' ORDER BY petname desc";
     $result = mysqli_query($conn, $sql);
 
     // display the results in tables
@@ -313,6 +313,7 @@ if (isset($_POST['querypetprofile'])) {
         <table class="content-table table-fixed">
             <thead>
                 <tr>
+                    <th>Pet ID</th>
                     <th>Owner's Name</th>
                     <th>Pet Name</th>
                     <th>Pet Type</th>
@@ -338,6 +339,7 @@ if (isset($_POST['querypetprofile'])) {
                     $weight = $row['weight'];
                     ?>
                     <tr>
+                        <td><?php echo $pid; ?></td>
                         <td><?php echo $op; ?></td>
                         <td><?php echo $pname; ?></td>
                         <td><?php echo $pt; ?></td>
@@ -348,7 +350,7 @@ if (isset($_POST['querypetprofile'])) {
                         <?php echo '
                                             <td>
                                                 <button class="modal-open showUpdateAccount" data-modal="modal1" value="' . $pid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                                <button class="modal-open showArchiveAccount" data-modal="modal2" value="' . $pid . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
+                                                <button class="modal-open showArchivePet" data-modal="modal11" value="' . $pid . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
                                             </td>';   ?>
                     </tr>
                 </tbody>
@@ -471,6 +473,70 @@ if (isset($_POST['queryrestoreowner'])) {
     }
 }
 
+// SEARCH TABLE FOR CUSTOMERS MODULE OWNERSNAME
+if (isset($_POST['queryrestorepet'])) {
+    $queryrestorepet = $_POST['queryrestorepet'];
+
+    $sql = "SELECT * FROM tblpet WHERE archive = 'true' AND petname LIKE '%" . $queryrestorepet . "%' ORDER BY petname desc";
+    $result = mysqli_query($conn, $sql);
+
+    // display the results in tables
+    if (mysqli_num_rows($result) > 0) {
+    ?>
+        <table class="content-table table-fixed">
+            <thead>
+                <tr>
+                    <th>Pet ID</th>
+                    <th>Owner's Name</th>
+                    <th>Pet Name</th>
+                    <th>Pet Type</th>
+                    <th>Age</th>
+                    <th>Sex</th>
+                    <th>Breed</th>
+                    <th>Weight</th>
+                    <th> </th>
+                </tr>
+            </thead>
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                <tbody>
+                    <?php
+                    $pid = $row['petid'];
+                    $op = $row['ownersname'];
+                    $pname = $row['petname'];
+                    $pt = $row['pettype'];
+                    $age = $row['age'];
+                    $sex = $row['sex'];
+                    $breed = $row['breed'];
+                    $weight = $row['weight'];
+                    ?>
+                    <tr>
+                        <td><?php echo $pid; ?></td>
+                        <td><?php echo $op; ?></td>
+                        <td><?php echo $pname; ?></td>
+                        <td><?php echo $pt; ?></td>
+                        <td><?php echo $age; ?></td>
+                        <td><?php echo $sex; ?></td>
+                        <td><?php echo $breed; ?></td>
+                        <td><?php echo $weight; ?></td>
+                        <?php echo '
+                            <td>
+                            <button class="modal-open showRestorePet" data-modal="modal12" value="' . $pid . '" ><span class="material-symbols-sharp restore" title="Restore this account">unarchive</span></button>
+                            </td>';   ?>
+                    </tr>
+                </tbody>
+            <?php
+            }
+            ?>
+        </table>
+
+    <?php
+
+    } else {
+        echo "<h2 style='text-align: center'>No results found</h2>";
+    }
+}
 
 
 // SEARCH TABLE FOR TRANSACTION MODULE SELECT PROFILE
@@ -681,8 +747,8 @@ if (isset($_POST['queryaddtocart'])) {
                         <td><?php echo $oid; ?></td>
                         <td><?php echo $cat; ?></td>
                         <td><?php echo $pname; ?></td>
-                        <td><?php echo number_format($prc, 2); ?></td>
                         <td><?php echo $qty; ?></td>
+                        <td><?php echo number_format($prc, 2); ?></td>
                         <?php echo '
                         <td>
                             <button class="modal-open showRemoveCart" data-modal="modal7" value="' . $oid . '" ><span class="material-symbols-sharp remove" title="Remove this product">delete</span></button>
@@ -700,63 +766,6 @@ if (isset($_POST['queryaddtocart'])) {
         echo "<h2 style='text-align: center'>No results found</h2>";
     }
 }
-
-// SEARCH TABLE FOR CUSTOMERS MODULE OWNERSNAME
-if (isset($_POST['queryappointments'])) {
-    $queryappointments = $_POST['queryappointments'];
-
-    $sql = "SELECT * FROM tblappointments WHERE clientname LIKE '%" . $queryappointments . "%' ORDER BY queueno desc";
-    $result = mysqli_query($conn, $sql);
-
-    // display the results in tables
-    if (mysqli_num_rows($result) > 0) {
-    ?>
-        <table class="content-table table-fixed">
-            <thead>
-                <tr>
-                    <th>Queue No</th>
-                    <th>Client Name</th>
-                    <th>Pet Name</th>
-                    <th>Services</th>
-                    <th>Date and Time</th>
-                    <th> </th>
-                </tr>
-            </thead>
-            <?php
-            while ($row = mysqli_fetch_assoc($result)) {
-            ?>
-                <tbody>
-                    <?php
-                    $qno = $row['queueno'];
-                    $cname = $row['clientname'];
-                    $pname = $row['petname'];
-                    $ser = $row['services'];
-                    $dt = $row['dateandtime'];
-                    ?>
-                    <tr>
-                        <td><?php echo $qno; ?></td>
-                        <td><?php echo $cname; ?></td>
-                        <td><?php echo $pname; ?></td>
-                        <td><?php echo $ser; ?></td>
-                        <td><?php echo $dt; ?></td>
-                        <?php echo '
-                                                <td>
-                                                <button class="modal-open showUpdateAppointment" data-modal="modal1" value="' . $qno . '" ><span class="material-symbols-sharp remove" title="Delete this appointment">delete</span></button>
-                                                </td>';   ?>
-                    </tr>
-                </tbody>
-            <?php
-            }
-            ?>
-        </table>
-
-    <?php
-
-    } else {
-        echo "<h2 style='text-align: center'>No results found</h2>";
-    }
-}
-
 
 // SEARCH TABLE FOR AUDIT TRAIL
 if (isset($_POST['queryaudittrail'])) {
@@ -808,6 +817,73 @@ if (isset($_POST['queryaudittrail'])) {
         echo "<h2 style='text-align: center'>No results found</h2>";
     }
 }
+
+// SEARCH TABLE FOR APPOINTMENTS
+if (isset($_POST['queryappointment'])) {
+    $queryappointment = $_POST['queryappointment'];
+
+    $sql = "SELECT * FROM tblappointments WHERE scheduled = 'Yes' AND clientname LIKE '%" . $queryappointment . "%' ORDER BY queueno desc";
+    $result = mysqli_query($conn, $sql);
+
+    // display the results in tables
+    if (mysqli_num_rows($result) > 0) {
+    ?>
+        <table class="content-table table-fixed">
+            <thead>
+                <tr>
+                    <th>Queue No.</th>
+                    <th>Date and Time</th>
+                    <th>Client Name</th>
+                    <th>Pet Name</th>
+                    <th>Service to Avail</th>
+                    <th>Status</th>
+                    <th>   </th>
+                </tr>
+            </thead>
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+            ?>
+                <tbody>
+                    <?php
+                                            $qno = $row['queueno'];
+                                            $dt = date("M d, Y \n,h:i:sA ", strtotime($row['dateandtime']));
+                                            $cname = $row['clientname'];
+                                            $pname = $row['petname'];
+                                            $ser = $row['services'];
+                                            $stat = strtotime($row['status']);
+                                            
+                                        $current_date = date("M d, Y \n,h:i:sA");
+
+                                        if ($current_date > $dt) {
+                                          $curstat = "Completed";
+                                        } else {
+                                          $curstat = "In progress";
+                                        }
+                    echo '<tr>
+                        <td>' . $qno . '</td>
+                        <td>' . $dt . '</td>
+                        <td>' . $cname . '</td>
+                        <td>' . $pname . '</td>
+                        <td>' . $ser . '</td>
+                        <td>' . $curstat . '</td>
+                        <td>
+                            <button class="modal-open showRemoveAppointment" value="' . $qno . '" ><span class="material-symbols-sharp remove" title="Delete this appointment">delete</span></button>
+                        </td>
+                        </tr>';  ?>
+                    </tr>
+                </tbody>
+            <?php
+            }
+            ?>
+        </table>
+
+<?php
+
+    } else {
+        echo "<h2 style='text-align: center'>No results found</h2>";
+    }
+}
+
 
 
 
@@ -908,12 +984,31 @@ include 'scriptingfiles.php';
 
 
     // PET PROFILE AJAX DOCUMENTS
-
-
-
-
-
-
+    $(document).ready(function() {
+        $(".showArchivePet").click(function() {
+            var archivepetprofileid = this.value;
+            $("#archivePet").load("submit.php", {
+                archivepetprofileID : archivepetprofileid
+            })
+        })
+        $(".showRestorePet").click(function() {
+            var restorepetprofileid = this.value;
+            $("#restorePet").load("submit.php", {
+            restorepetprofileID : restorepetprofileid
+            })
+        })
+    })
+                    
+    // APPOINTMENT AJAX DOCUMENT
+    $(document).ready(function() {
+        // REMOVE APPOINTMENT DOCUMENT FORMS
+        $(".showRemoveAppointment").click(function() {
+            var removeappointmentid = this.value;
+            $("#removeAppointment").load("submit.php", {
+                removeappointmentID  : removeappointmentid
+            })
+        })
+    })
 
     // TRANSACTION AJAX DOCUMENTS
     $(document).ready(function() {

@@ -187,14 +187,14 @@ aside .top {
 }
 
 aside .logo {
-  display: flex;
   gap: 1.5rem;
-  margin-left: 6%;
+  margin-left: 8%;
 }
 
 aside .logo img {
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
 }
 
 aside .close {
@@ -247,10 +247,11 @@ aside .sidebar a:hover span {
   margin-left: 1rem;
 }
 /*  Start of Main  */
-/*  Section Account Records  */
-.tableaccountrecords {
-  margin-top: 1em;
+main h1 {
+    margin-top: .5em;
 }
+
+/*  Section Account Records  */
 
 .edith1 {
   margin-top: 1em;
@@ -259,7 +260,7 @@ aside .sidebar a:hover span {
 .accountrecordsbgedit {
   background: var(--color-white);
   padding: 1em;
-  height: 88vh;
+  height: 85vh;
   border-radius: var(--card-border-radius);
   box-shadow: var(--box-shadow);
   transition: all 300ms ease;
@@ -272,7 +273,6 @@ aside .sidebar a:hover span {
 
 .accountrecordsbg {
   background: var(--color-white);
-  padding: 1em;
   height: 45vh;
   border-radius: var(--card-border-radius);
   box-shadow: var(--box-shadow);
@@ -446,6 +446,7 @@ aside .sidebar a:hover span {
   right: 41%;
   color: var(--color-primary);
 }
+
 
 /* 
  Status Message */
@@ -674,13 +675,13 @@ input[type="file"] {
 .content-table th,
 .content-table td {
   text-align: center;
-  padding: 12px 20px;
+  padding: 10px 20px;
   border-bottom: 1px solid rgb(238, 233, 233);
 }
 
 .table-archive th,
 .table-archive td {
-  padding: 12px 56px;
+  padding: 12px 40px;
 }
 
 /* Start of Right */
@@ -806,13 +807,13 @@ input[type="file"] {
 .showcp,
 .modalshow {
   position: absolute;
-  right: 36.8%;
-  bottom: 40.5%;
+  right: 34.8%;
+  bottom: 31.5%;
   cursor: pointer;
 }
 
 .showcp {
-  bottom: 35%;
+  bottom: 26.5%;
 }
 .modalshow {
   top: 33%;
@@ -970,6 +971,14 @@ input[type="file"] {
 .buttonflex {
   margin-top: 1em;
 }
+
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 /*  Media Queries  */
 @media screen and (max-width: 1200px) {

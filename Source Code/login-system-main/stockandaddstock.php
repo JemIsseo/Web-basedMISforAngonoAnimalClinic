@@ -11,9 +11,10 @@ if (isset($_POST['saveproduct'])) {
     $desc = $_POST['description'];
     $prc = $_POST['price'];
     $qty = $_POST['quantity'];
+    $xdt = $_POST['expirydate'];
 
-    $sql = "insert into tblstock(prodname, category, description, price, quantity, minstocklevel, maxstocklevel, archive) 
-            values('$pname','$cat','$desc','$prc','$qty', 10, 5000, 'false')";
+    $sql = "insert into tblstock(prodname, category, description, price, quantity, minstocklevel, maxstocklevel, archive, expirydate) 
+            values('$pname','$cat','$desc','$prc','$qty', 10, 5000, 'false','$xdt')";
     $res = mysqli_query($conn, $sql);
 
     if ($res) {
@@ -39,6 +40,7 @@ if (isset($_POST['updateproduct'])) {
     $desc = $_POST['description'];
     $prc = $_POST['price'];
     $addedqty = $_POST['quantity'];
+    $xdt = $_POST['expirydate'];
 
     $sql1 = "select quantity from tblstock where proid ='$pid'";
     $res1 = mysqli_query($conn, $sql1);
@@ -51,8 +53,8 @@ if (isset($_POST['updateproduct'])) {
                 where proid= '$pid'";
     $res = mysqli_query($conn, $sql);
 
-    $sql2 = "insert into tbladdedstock (prodname, category, quantityadded) 
-    values('$pname','$cat','$addedqty')";
+    $sql2 = "insert into tbladdedstock (prodname, category, quantityadded, expirydate) 
+    values('$pname','$cat','$addedqty','$xdt')";
     $res2 = mysqli_query($conn, $sql2);
 
 
@@ -155,7 +157,7 @@ if (isset($_POST['restoreproduct'])) {
             <!--  Start of Products Table   -->
             <section class="tableprofile">
                 <div class="accrecsearch">
-                    <h1>Products</h1>
+                    <h1 class="primary-variant">ANGONO<span class="success"> ANIMAL CLINIC</span> & PET GROOMING CENTER</h1>
                     <div class="searchbar">
                         <input type="text" placeholder="Search here" id="search-box"><span class="material-symbols-sharp">search</span>
                     </div>
@@ -242,6 +244,10 @@ if (isset($_POST['restoreproduct'])) {
                             <div>
                                 <input type="number" name="quantity" placeholder="Enter Quantity" required>
                                 <span>Quantity</span>
+                            </div>
+                            <div>
+                                <input type="date" name="expirydate">
+                                <span>Expiration Date</span>
                             </div>
 
                         </div>

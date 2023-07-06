@@ -185,14 +185,14 @@ aside .top {
 }
 
 aside .logo {
-  display: flex;
   gap: 1.5rem;
-  margin-left: 6%;
+  margin-left: 8%;
 }
 
 aside .logo img {
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
 }
 
 aside .close {
@@ -373,9 +373,10 @@ aside .sidebar a:hover span {
 .table-profile-buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows:  repeat(2, 1fr);
+  place-items: center;
+  margin: 10em 0;
   gap: 7em;
-  margin: 11em;
-  margin-left: 12em;
 }
 
 .buttonmodify span {

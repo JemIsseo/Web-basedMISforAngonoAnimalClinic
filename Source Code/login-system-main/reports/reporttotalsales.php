@@ -3,6 +3,13 @@ include '../connect.php';
 $result = $conn->query("SELECT SUM(totalprice) AS totalsales FROM tbltransaction");
 $rowSumSales = $result->fetch_assoc();
 $totalsales = $rowSumSales['totalsales'];
+
+
+$start_date = $_POST['start_date'] ?? "";
+$end_date = $_POST['end_date'] ?? "";
+
+$query = "SELECT SUM(totalprice) FROM tbltransaction WHERE date BETWEEN '$start_date' AND '$end_date'";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -149,7 +156,8 @@ $totalsales = $rowSumSales['totalsales'];
         .dataTables_filter,
         .dataTables_paginate,
         .dataTables_info,
-        .print-button {
+        .print-button,
+        form {
             visibility: hidden;
         }
     }
@@ -187,7 +195,13 @@ $totalsales = $rowSumSales['totalsales'];
         </div>
         <div class="reportContainer">
             <label class="tblTitle">Total Sales</label>
-
+                <form method="POST" action="">
+                  <label>Start Date:</label>
+                  <input type="date" name="start_date">
+                  <label>End Date:</label>
+                  <input type="date" name="end_date">
+                  <input type="submit" value="Filter">
+                </form>
             <table class="tblReportData" id="tblReportData">
                 <thead>
                     <tr>

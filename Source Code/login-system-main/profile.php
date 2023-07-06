@@ -1,4 +1,4 @@
-    <?php
+<?php
     session_start();
     include 'authcheck.php';
     include 'connect.php';
@@ -88,6 +88,22 @@
         </div>
     <?php
     }
+    
+     // archive pet profile statement
+    if (isset($_POST['savearchivepet'])) {
+        $sql = "update tblpet set archive = 'true' where petid ='" . $_SESSION['archivepetprofileID'] . "'";
+        $res = mysqli_query($conn, $sql);
+
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Archived petprofile in customer module')");
+        ?>
+        <div class="statusmessagesuccesslight message-box" id="close">
+            <h2>Pet has been archived</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
+    }
 
     // restore statement
     if (isset($_POST['saverestoreprofile'])) {
@@ -129,7 +145,7 @@
         // Insert into database
 
         $sql = "insert into tblpet(cusid, ownersname, petname, pettype, age, sex, breed, weight, archive) 
-            values('$cusid','$op','$pname','$ptype','$age','$sex','$breed','$weight','false')";
+            values('$cusid','$op','$pname','$ptype','$age','$sex','$breed','$weight kg','false')";
         $res = mysqli_query($conn, $sql);
         if ($res) {
             $ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -142,6 +158,102 @@
             </div>
     <?php
         }
+    }
+    
+    // update pet statement
+     // upload photo statement 
+        if (isset($_POST['uploadphoto']) && isset($_FILES['image'])) {
+            $pid = $_POST['petid'];
+
+            $img_name = $_FILES['image']['name'];
+            $img_size = $_FILES['image']['size'];
+            $tmp_name = $_FILES['image']['tmp_name'];
+
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+            $img_ex_lc = strtolower($img_ex);
+
+            $allowed_exs = array("jpg", "jpeg", "png");
+
+            if (in_array($img_ex_lc, $allowed_exs)) {
+                $img = uniqid("IMG-", true) . '.' . $img_ex_lc;
+                $img_upload_path = 'uploads/' . $img;
+                move_uploaded_file($tmp_name,  $img_upload_path);
+
+                $sql = "update tblpet set image='$img' 
+                        where petid= '$pid'";
+                $res = mysqli_query($conn, $sql);
+                if ($res) {
+                    $ipaddress = $_SERVER['REMOTE_ADDR'];
+                    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+                    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Uploaded a photo in pet profile')");
+                            ?>
+            <div class="statusmessagesuccess message-box" id="close">
+                <h2>Pet Photo Completed!</h2>
+                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+            </div>
+        <?php
+                }
+            } else {
+        ?>
+        <div class="statusmessageerror message-box" id="close">
+            <h2>Uploading failed. Only image is allowed!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+        <?php
+            }
+        }
+    
+    // account update statement 
+        if (isset($_POST['updatepet'])) {
+            $pid = $_POST['petid'];
+            $op = $_POST['ownersname'];
+            $pname = $_POST['petname'];
+            $pt = $_POST['pettype'];
+            $age = $_POST['age'];
+            $sex = $_POST['sex'];
+            $breed = $_POST['breed'];
+            $weight = $_POST['weight'];
+            
+            $sql1 = "SELECT * FROM tblpettype WHERE pettypeid = '$pt'";
+            $res1 = mysqli_query($conn, $sql1);
+            $row = mysqli_fetch_assoc($res1);
+            $pettype = $row['pettype'];
+
+            $sql = "update tblpet set petname ='$pname', pettype='$pettype', age ='$age', sex='$sex', breed ='$breed', weight='$weight' where petid= '$pid'";
+            $res = mysqli_query($conn, $sql);
+            if ($res) {
+                $ipaddress = $_SERVER['REMOTE_ADDR'];
+                $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+                VALUES ('" . $_SESSION['username'] . "','$ipaddress','Edited pet profile in customers module')");
+    ?>
+        <div class="statusmessagesuccess message-box" id="close">
+            <h2>Pet Profile Updated Successfully!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+    <?php
+            } else {
+                die(mysqli_error($conn));
+            }
+        }
+    
+    
+    
+    
+    // restore statement
+    if (isset($_POST['saverestorepet'])) {
+        $sql = "update tblpet set archive = 'false' where petid ='" . $_SESSION['restorepetprofileid'] . "'";
+        $res = mysqli_query($conn, $sql);
+
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+        $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
+        VALUES ('" . $_SESSION['username'] . "','$ipaddress','Restored ownersprofile in customer module')");
+    ?>
+        <div class="statusmessagesuccess message-box" id="close">
+            <h2>Pet Profile has been restored!</h2>
+            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+        </div>
+
+        <?php
     }
 
     ?>
@@ -167,8 +279,8 @@
 
             <!--  Main Tag  -->
             <main>
-                <h1>Customers</h1>
-                <section class="table-profile">
+                <h1 class="primary-variant">ANGONO<span class="success"> ANIMAL CLINIC</span> & PET GROOMING CENTER</h1>
+                <section class="table-profile" id="editPet">
                     <div class="allbuttons">
                         <div class="buttons">
                             <div class="buttonmodify">
@@ -178,13 +290,7 @@
                         </div>
                         <div class="buttons">
                             <div class="buttonmodify">
-                                <button class="modal-open" data-modal="modal2" title="Pet Medical History"><img src="../images/medicalhistory.png"></button>
-                                <h2>Pet Medical History</h2>
-                            </div>
-                        </div>
-                        <div class="buttons">
-                            <div class="buttonmodify">
-                                <button class="modal-open" data-modal="modal3" title="Pet Profile"><img src="../images/petprofile.jpg"></button>
+                                <button class="modal-open" data-modal="modal3" title="Pet Profile"><img src="../images/pets.png"></button>
                                 <h2>Pet Profile</h2>
                             </div>
                         </div>
@@ -383,7 +489,7 @@
                         </div>
                     </div>
                     <?php
-                    $s = mysqli_query($conn, "select * from tblownersprofile");
+                    $s = mysqli_query($conn, "select * from tblownersprofile where archive ='false' ");
                     $p = mysqli_query($conn, "select * from tblpettype");
                     $b = mysqli_query($conn, "select * from tblbreed");
                     ?>
@@ -393,7 +499,7 @@
                             <form action="" method="POST">
                                 <div class="formprofile">
                                     <div>
-                                        <select class="radiobtn" name="ownersname" id="ut">
+                                        <select class="radiobtn cbo" name="ownersname" id="ut">
                                             <option disabled selected style="display: none" value="">Select Owner's Name</option>
                                             <?php
                                             while ($r = mysqli_fetch_array($s)) {
@@ -411,14 +517,14 @@
                                         <span>Pet Name</span>
                                     </div>
                                     <div>
-                                        <select class="radiobtn" name="sex" id="ut" required>
+                                        <select class="radiobtn cbo" name="sex" id="ut" required>
                                             <option disabled selected style="display: none" value="">Select Sex</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select> <span>Sex</span>
                                     </div>
                                     <div>
-                                        <select class="radiobtn" name="pettype" id="pettypeid" required>
+                                        <select class="radiobtn cbo" name="pettype" id="pettypeid" required>
                                             <option disabled selected style="display: none" value="">Select Pet Type</option>
                                             <?php
                                             while ($r = mysqli_fetch_array($p)) {
@@ -440,12 +546,12 @@
                                     </div>
                                     <div>
                                         <input type="text" name="weight" placeholder="Enter Weight" required>
-                                        <span>Weight</span>
+                                        <span>Weight (in kg)</span>
                                     </div>
                                 </div>
                                 <div class="buttonflexright">
                                     <button name="savepetprofile" type="submit" class="yes" title="Add record">Add</button>
-                                    <button class="cancel" title="Clear all inputs" id="clear-button">Cancel</button>
+                                    <button class="cancel modal-close" title="Clear all inputs">Cancel</button>
                                 </div>
                             </form>
                         </div>
@@ -469,6 +575,7 @@
                                 <table class="content-table" id="petProfile">
                                     <thead>
                                         <tr>
+                                            <th>Pet ID</th>
                                             <th>Owner's Name</th>
                                             <th>Pet Name</th>
                                             <th>Pet Type</th>
@@ -495,6 +602,7 @@
                                                 $breed = $row['breed'];
                                                 $weight = $row['weight'];
                                                 echo '<tr>
+                                        <td>' . $pid . '</td>
                                         <td>' . $op . '</td>
                                         <td>' . $pname . '</td>
                                         <td>' . $pt . '</td>
@@ -503,8 +611,8 @@
                                         <td>' . $breed . '</td>
                                         <td>' . $weight . '</td>
                                         <td>
-                                        <button class="modal-open showUpdateProfile" data-modal="modal1" value="' . $pid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
-                                        <button class="modal-open showArchiveProfile" data-modal="modal2" value="' . $pid . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
+                                        <button class="showUpdatePet modal-close"  value="' . $pid . '" ><span class="material-symbols-sharp edit" title="Edit this record">edit</span></button>
+                                        <button class="modal-open showArchivePet" data-modal="modal11" value="' . $pid . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
                                         </td>
                                         </tr>';
                                             }
@@ -627,18 +735,123 @@
                     </section>
                 </div>
             </div>
+            
+            
+            
+            <!-- Modal of Archive Pet Profile -->
+            <div class="modal" id="modal11">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Archiving Pet Profile</h1>
+                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                    </div>
+                    <div class="table-product" id="archivePet">
+
+                    </div>
+                    </section>
+                </div>
+            </div>
 
             <!-- Modal of Restore Profile MessageBox -->
             <div class="modal" id="modal5">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1>Unarchive Profile</h1>
+                        <h1>Unarchive Owners Profile</h1>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                     </div>
                     <div class="modal-body" id="restoreProfile">
                     </div>
                 </div>
             </div>
+            
+            
+            <!-- Modal of Restore Owners Profile  -->
+            <div class="modal" id="modal10">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Restore Pet Profile</h1>
+                        <div class="accrecsearch">
+                            <div class="searchbar">
+                                <input type="text" placeholder="Search here" id="search-boxrestorepet"><span class="material-symbols-sharp">search</span>
+                                <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <section class="tableproduct">
+                            <div class="table-product" id="searchPetProfile">
+                                <table class="content-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Pet ID</th>
+                                            <th>Owner's Name</th>
+                                            <th>Pet Name</th>
+                                            <th>Pet Type</th>
+                                            <th>Age</th>
+                                            <th>Sex</th>
+                                            <th>Breed</th>
+                                            <th>Weight</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $sql = "Select * from tblpet where archive = 'true' order by petname";
+                                        $res = mysqli_query($conn, $sql);
+
+                                        if ($res) {
+                                            while ($row = mysqli_fetch_assoc($res)) {
+                                                $pid = $row['petid'];
+                                                $op = $row['ownersname'];
+                                                $pname = $row['petname'];
+                                                $pt = $row['pettype'];
+                                                $age = $row['age'];
+                                                $sex = $row['sex'];
+                                                $breed = $row['breed'];
+                                                $weight = $row['weight'];
+                                                echo '<tr>
+                                        <td>' . $pid . '</td>
+                                        <td>' . $op . '</td>
+                                        <td>' . $pname . '</td>
+                                        <td>' . $pt . '</td>
+                                        <td>' . $age . '</td>
+                                        <td>' . $sex . '</td>
+                                        <td>' . $breed . '</td>
+                                        <td>' . $weight . '</td>
+                                        <td>
+                                        <button class="modal-open showRestorePet" data-modal="modal12" value="' . $pid . '" ><span class="material-symbols-sharp restore" title="Restore this account">unarchive</span></button>
+                                        </td>
+                                        </tr>';
+                                            }
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <div class="modal-footer">
+                            <div class="buttonflexright">
+                                <button type="submit" class="cancel modal-close" title="Cancel">Cancel</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal of Restore Profile MessageBox -->
+            <div class="modal" id="modal12">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Unarchive Pet Profile</h1>
+                        <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
+                    </div>
+                    <div class="modal-body" id="restorePet">
+                    </div>
+                </div>
+            </div>
+            
             <?php include 'scriptingfiles.php'; ?>
             <script>
                 $(document).ready(function() {
@@ -661,6 +874,24 @@
                             restoreownersprofileID: restoreownersprofileid
                         })
                     })
+                    $(".showUpdatePet").click(function() {
+                        var updatepetid = this.value;
+                        $("#editPet").load("submit.php", {
+                            updatepetID: updatepetid
+                        })
+                    })
+                    $(".showArchivePet").click(function() {
+                        var archivepetprofileid = this.value;
+                        $("#archivePet").load("submit.php", {
+                            archivepetprofileID : archivepetprofileid
+                        })
+                    })
+                    $(".showRestorePet").click(function() {
+                        var restorepetprofileid = this.value;
+                        $("#restorePet").load("submit.php", {
+                            restorepetprofileID : restorepetprofileid
+                        })
+                    })
                 })
 
 
@@ -670,7 +901,7 @@
                         if (pettypeid) {
                             $.ajax({
                                 type: 'POST',
-                                url: 'submit.php',
+                                url: 'cascadingdropdown.php',
                                 data: 'pettypeid=' + pettypeid,
                                 success: function(html) {
                                     $("#bid").html(html);
@@ -727,6 +958,35 @@
                         });
                     });
                 });
+                
+                $(document).ready(function() {
+                    $('#search-boxrestorepet').on('keyup', function() {
+                        var queryrestorepet = $(this).val();
+                        $.ajax({
+                            url: 'search.php',
+                            method: 'POST',
+                            data: {
+                                search: 1,
+                                queryrestorepet: queryrestorepet
+                            },
+                            success: function(data) {
+                                $('#searchPetProfile').html(data);
+                            }
+                        });
+                    });
+                });
+                
+                function previewImage(event) {
+                    var input = event.target;
+                    var preview = document.getElementById("image-preview");
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            preview.src = e.target.result;
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
             </script>
     </body>
 

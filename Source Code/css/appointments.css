@@ -185,14 +185,14 @@ aside .top {
 }
 
 aside .logo {
-  display: flex;
   gap: 1.5rem;
-  margin-left: 6%;
+  margin-left: 8%;
 }
 
 aside .logo img {
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
 }
 
 aside .close {
@@ -269,7 +269,8 @@ main h1 {
 .formprofile input,
 #cusid,
 #ut,
-#petid {
+#petid,
+#option {
   height: 4vh;
   width: 15vw;
   border: 2px solid var(--color-primary);

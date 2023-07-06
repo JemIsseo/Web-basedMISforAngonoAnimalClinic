@@ -45,14 +45,14 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
                 </div>
                 <?php
             } else {
-                if ($pw === $cpw) {
+                if ($pw == $cpw) {
                     $password_hash = password_hash($pw, PASSWORD_BCRYPT);
                     // Insert into database
                     $ipaddress = $_SERVER['REMOTE_ADDR'];
-                    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) VALUES ('$un','$ipaddress','Created account in useraccount module')");
+                    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) VALUES (''".$_SESSION['username']."'','$ipaddress','Created account in useraccount module')");
 
-                    $sql = "insert into tbluseraccount(username,password,usertype,email,image, archive) 
-                            values('$un','$password_hash','$ut','$ea','$img','false')";
+                    $sql = "insert into tbluseraccount(username,password,usertype,email, status,image, archive) 
+                            values('$un','$password_hash','$ut','$ea',0,'$img','false')";
                     $res = mysqli_query($conn, $sql);
                     if ($res) {
                 ?>
@@ -194,6 +194,7 @@ if (isset($_POST['saveaccount']) && isset($_FILES['my_image'])) {
         <?php include 'aside.php'; ?>
         <!--  Main Tag  -->
         <main>
+        <h1 class="primary-variant">ANGONO<span class="success"> ANIMAL CLINIC</span> & PET GROOMING CENTER</h1>
             <section class="tableaccountrecords">
                 <div class="accrecsearch">
                     <h1>Account Records</h1>

@@ -2,6 +2,10 @@
 session_start();
 include 'connect.php';
 
+    $s = mysqli_query($conn, "select * from tblownersprofile");
+    $p = mysqli_query($conn, "select * from tblpettype");
+    $b = mysqli_query($conn, "select * from tblbreed");
+
 // USER ACCOUNT SQL STATEMENTSSSSSSS
 if (isset($_POST['accountID'])) {
     $accountID = $_POST['accountID'];
@@ -26,10 +30,10 @@ if (isset($_POST['accountID'])) {
                                 <span class="material-symbols-sharp"> upload </span>
                             </label>
                             <img src="uploads/<?php echo $img; ?>">
-
+                
                         </div>
                         <div class="upload">
-                            <h2>Insert only jpg, jpeg, png files.</h2>
+                            <h2>Insert jpg, jpeg, and png files only.</h2>
                             <button type="submit" name="uploadphoto" class="uploadbtn">Upload</button>
                         </div>
                         <input type="hidden" name="username" placeholder="Enter Username" value="<?= $un;  ?>" readonly>
@@ -43,8 +47,8 @@ if (isset($_POST['accountID'])) {
                             <h2>Username</h2>
                         </div>
                         <div>
-                            <select class="radiobtn" name="usertype" id="utedit">
-                                <option disabled selected value="<?= $ut; ?>"><?php echo $ut; ?></option>
+                            <select class="radiobtn" name="usertype" id="utedit" value="<?= $ut; ?>">
+                                <option><?php echo $ut; ?></option>
                                 <?php
                                 while ($r = mysqli_fetch_array($s)) {
                                 ?>
@@ -128,8 +132,8 @@ if (isset($_POST['productID'])) {
                         <span>Item Name</span>
                     </div>
                     <div>
-                        <select class="radiobtn" name="category" id="ut">
-                            <option disabled selected value="<?= $cat; ?>">Select Category</option>
+                        <select class="radiobtn" name="category" id="ut" value="<?= $cat; ?>">
+                            <option><?php echo $cat; ?></option>
                             <?php
                             while ($r = mysqli_fetch_array($s)) {
                             ?>
@@ -151,6 +155,10 @@ if (isset($_POST['productID'])) {
                     <div>
                         <input type="number" name="quantity" placeholder="Enter Quantity" value="0">
                         <span>Quantity</span>
+                    </div>
+                    <div>
+                        <input type="date" name="expirydate">
+                        <span>Expiration Date</span>
                     </div>
 
                 </div>
@@ -240,6 +248,108 @@ if (isset($_POST['ownersprofileID'])) {
 <?php
 }
 
+// PET PROFILEL SQL STATEMENTSSSSSSS
+if (isset($_POST['updatepetID'])) {
+    $updatepetID = $_POST['updatepetID'];
+    $sql = "Select * from tblpet where petid ='$updatepetID'";
+    $res = mysqli_query($conn, $sql);
+    $upRow = mysqli_fetch_assoc($res);
+    $pid = $upRow['petid'];
+    $op = $upRow['ownersname'];
+    $pname = $upRow['petname'];
+    $pt = $upRow['pettype'];
+    $age = $upRow['age'];
+    $sex = $upRow['sex'];
+    $breed = $upRow['breed'];
+    $weight = $upRow['weight'];
+  
+    $s = mysqli_query($conn, "select * from tblusertype");
+
+?>
+    <section class="tableaccountrecords">
+        <div class="accountrecordsbgr">
+            <div class="accountrecords">
+                <form action="profile.php" method="POST" enctype="multipart/form-data">
+                    <div class="fleximage">
+                        <div class="updatephotoedit">
+                            <label for="file-upload" class="custom-file-uploadedit">
+                                <span class="material-symbols-sharp"> upload </span>
+                            </label>
+                            <img src="../images/dog.png" class="img-style" id="image-preview" />
+                        </div>
+                        <div class="upload">
+                            <h2>Insert jpg, jpeg, and png files only.</h2>
+                            <button type="submit" name="uploadphoto" class="uploadbtn">Upload</button>
+                        </div>
+                        <div class="medhis">
+                            <a href="medicalhistory.php?petid=<?php echo $pid;?>" class="yesmh"><h2>Medical History</h2></a>
+                        </div>
+                        <input type="hidden" name="petid" value="<?= $pid ?>">
+                        <input type="file" id="file-upload" name="image" title="Insert photo..." onchange="previewImage(event)" required />
+                    </div>
+                </form>
+                <form action="profile.php" method="POST">
+                    <div class="formprofileedit">
+                         <input type="hidden" name="petid" value="<?= $pid ?>">
+                        <div>
+                            <input type="text" name="ownersname" value="<?= $op;  ?>" readonly>
+                            <h3>Owner's Name</h3>
+                        </div>
+                        <div>
+                            <input type="text" name="petname" value="<?= $pname;  ?>">
+                            <h3>Pet Name</h3>
+                        </div>
+                        <div>
+                            <select class="radiobtn" name="pettype" id="pettypeid" value="<?= $pt; ?>">
+                                <?php
+                                    while ($r = mysqli_fetch_array($p)) {
+                                ?>
+                                        <option value="<?php echo $r['pettypeid']; ?>"><?php echo $r['pettype']; ?> </option>
+                                <?php
+                                    }
+                                ?>
+                            </select><h3>Pet Type</h3>
+                        </div>
+                        <div>
+                            <input type="number" name="age" value="<?= $age;  ?>">
+                            <h3>Age</h3>
+                        </div>
+                        <div>
+                            <select class="radiobtn" name="sex" id="utedit" value="<?= $sex; ?>">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select><h3>Sex</h3>
+                        </div>
+                        <div>
+                            <select class="radiobtn" name="breed" id="bid" value="<?= $breed; ?>">
+                                <option><?php echo $breed; ?></option>
+                                <?php
+                                    while ($r = mysqli_fetch_array($b)) {
+                                ?>
+                                        <option value="<?php echo $r['breed']; ?>"><?php echo $r['breed']; ?> </option>
+                                <?php
+                                    }
+                                ?>
+                            </select><h3>Breed</h3>
+                        </div>
+                        <div>
+                            <input type="text" name="weight" value="<?= $weight; ?>">
+                            <h3>Weight</h3>
+                        </div>
+                        <div class="buttonflex">
+                            <button name="updatepet" type="submit" class="yesedit" title="Save Record">Update</button>
+                            <button name="clear" class="canceledit" title="Cancel input">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+<?php
+}
+
+
+
 // archive owners profile statement
 if (isset($_POST['archiveownersprofileID'])) {
     $archiveownersprofileID = $_POST['archiveownersprofileID'];
@@ -255,6 +365,21 @@ if (isset($_POST['archiveownersprofileID'])) {
 <?php
 }
 
+// archive pet profile statement
+if (isset($_POST['archivepetprofileID'])) {
+    $archivepetprofileID = $_POST['archivepetprofileID'];
+    $_SESSION['archivepetprofileID'] = $archivepetprofileID;
+?>
+    <form action="profile.php" method="POST">
+        <h3>Are you sure you want to archive this record?</h3>
+        <div class="buttonflex">
+            <button name="savearchivepet" type="submit" class="yes">Yes</button>
+            <button class="no modal-close">No</button>
+        </div>
+    </form>
+<?php
+}
+
 // archive owners profile statement
 if (isset($_POST['restoreownersprofileID'])) {
     $restoreownersprofileID = $_POST['restoreownersprofileID'];
@@ -264,6 +389,22 @@ if (isset($_POST['restoreownersprofileID'])) {
         <h3>Are you sure you want to restore this record?</h3>
         <div class="buttonflex">
             <button name="saverestoreprofile" type="submit" class="yes">Yes</button>
+            <button class="no modal-close">No</button>
+        </div>
+    </form>
+<?php
+}
+
+
+// archive owners profile statement
+if (isset($_POST['restorepetprofileID'])) {
+    $restorepetprofileID = $_POST['restorepetprofileID'];
+    $_SESSION['restorepetprofileid'] = $restorepetprofileID;
+?>
+    <form action="profile.php" method="POST">
+        <h3>Are you sure you want to restore this record?</h3>
+        <div class="buttonflex">
+            <button name="saverestorepet" type="submit" class="yes">Yes</button>
             <button class="no modal-close">No</button>
         </div>
     </form>
@@ -445,7 +586,7 @@ if (isset($_POST['sID'])) {
                 </div>
             </div>
             <div class="buttonflex">
-                <button name="updatecategory" type="submit" class="yes" title="Update the record">Update Changes</button>
+                <button name="updateservices" type="submit" class="yes" title="Update the record">Update Changes</button>
                 <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
             </div>
         </form>
@@ -615,30 +756,7 @@ if (isset($_POST['rproID'])) {
 
 
 
-// Cascading Dropdown in Customer's Module
-if (isset($_POST['cusid'])) {
-    $cusid = $_POST['cusid'];
-    $result = $conn->query("SELECT * FROM tblpet WHERE cusid = $cusid ORDER BY petname");
 
-    if (mysqli_num_rows($result) > 0) {
-        echo '<option disabled selected style="display: none" value="">Choose Pet</option>';
-        while ($row = $result->fetch_assoc()) {
-            echo '<option value="' . $row['petname'] . '">' . $row['petname'] . '</option>';
-        }
-    }
-}
-
-if (isset($_POST['pettypeid'])) {
-    $pettypeid = $_POST['pettypeid'];
-    $result = $conn->query("SELECT * FROM tblbreed WHERE pettypeid = $pettypeid ORDER BY breed");
-
-    if (mysqli_num_rows($result) > 0) {
-        echo '<option disabled selected style="display: none" value="">Select Breed</option>';
-        while ($row = $result->fetch_assoc()) {
-            echo '<option value="' . $row['breed'] . '">' . $row['breed'] . '</option>';
-        }
-    }
-}
 // Transaction Module Forms
 
 // Selecting Profile form
@@ -700,13 +818,21 @@ if (isset($_POST['removecartID'])) {
     $res = mysqli_query($conn, $sql);
 } 
 
+// REMOVE APPOINTMENT SQL STATEMENTS 
+if (isset($_POST['removeappointmentID'])) {
+    $removeappointmentID = $_POST['removeappointmentID'];
+    $sql = "update tblappointments set scheduled = 'Removed' where queueno ='$removeappointmentID'";
+    $res = mysqli_query($conn, $sql);
+} 
+
+
 // REPORT TRANSACTION SALES INVOICE
 if (isset($_POST['printreceiptID'])) {
     $printreceiptID = $_POST['printreceiptID'];
     $sql = "Select * from tblorder where transactionid ='$printreceiptID'";
     $res = mysqli_query($conn, $sql);
 ?>
-    <table class="content-table tblcart">
+    <table class="content-table tblreceipt">
         <thead>
             <tr>
                 <th>Order ID</th>
@@ -752,7 +878,25 @@ if (isset($_POST['printreceiptID'])) {
 <?php
 
 }
+
 ?>
+<script>
+                $(document).ready(function() {
+                    $("#pettypeid").on('click', function() {
+                        var pettypeid = $(this).val();
+                        if (pettypeid) {
+                            $.ajax({
+                                type: 'POST',
+                                url: 'cascadingdropdown.php',
+                                data: 'pettypeid=' + pettypeid,
+                                success: function(html) {
+                                    $("#bid").html(html);
+                                }
+                            });
+                        }
+                    });
+                });
+</script>
 <?php
 
 include 'scriptingfiles.php';

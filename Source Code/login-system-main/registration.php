@@ -54,15 +54,14 @@ if (isset($_POST["login"])) {
                             $mail = new PHPMailer(true);
 
                             $mail->isSMTP();
-
-                            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-
-                            $mail->Host = 'smtp.gmail.com';
+                            $mail->Host = 'smtp.gmail.com';     
+                            $mail->Port = 587;
                             $mail->SMTPAuth = true;
+                            $mail->SMTPSecure = 'tls';
+                            
                             $mail->Username = 'angonoanimalclinic.mail2@gmail.com';
                             $mail->Password = 'sfbsjeeovkyxokqv';
-                            $mail->SMTPSecure = 'tls';
-                            $mail->Port = 587;
+                       
 
                             $mail->setFrom('angonoanimalclinicmail@gmail.com', 'Angono Animal Clinic');
                             $mail->addAddress($_POST["email"]);
@@ -158,7 +157,7 @@ if (isset($_POST["login"])) {
                         <span>Email Address</span>
                     </div>
                     <select class="radiobtn" name="usertype">
-                        <option value="">Choose</option>
+                        <option disabled selected style="display: none" value="">Choose</option>
                         <?php
                         while ($r = mysqli_fetch_array($s)) {
                         ?>

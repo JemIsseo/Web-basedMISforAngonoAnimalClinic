@@ -13,7 +13,7 @@ $resultSumStock = $conn->query("SELECT SUM(quantity) AS totalstock FROM tblstock
 $rowSumStock = $resultSumStock->fetch_assoc();
 $totalstock = $rowSumStock['totalstock'];
 
-$resultSumAppointments = $conn->query("SELECT COUNT(queueno) AS totalappointments FROM tblappointments");
+$resultSumAppointments = $conn->query("SELECT COUNT(queueno) AS totalappointments FROM tblappointments WHERE scheduled ='Yes'");
 $rowSumAppointments = $resultSumAppointments->fetch_assoc();
 $totalappointments = $rowSumAppointments['totalappointments'];
 
@@ -40,7 +40,7 @@ $totalappointments = $rowSumAppointments['totalappointments'];
         <?php include 'aside.php'; ?>
         <!--  Main Tag  -->
         <main>
-            <h1>Dashboard</h1>
+            <h1 class="primary-variant">ANGONO<span class="success"> ANIMAL CLINIC</span> & PET GROOMING CENTER</h1>
             <div class="insights">
                 <div class="sales">
                     <span class="material-symbols-sharp">analytics</span>
@@ -148,7 +148,7 @@ $totalappointments = $rowSumAppointments['totalappointments'];
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "Select * from tblappointments order by queueno desc";
+                                    $sql = "Select * from tblappointments where status ='In Progress' order by queueno desc";
                                     $res = mysqli_query($conn, $sql);
 
                                     if ($res) {

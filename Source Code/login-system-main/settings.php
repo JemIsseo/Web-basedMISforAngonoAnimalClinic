@@ -409,7 +409,8 @@ if (isset($_POST['removeprice'])) {
         <!--  Main Tag  -->
         <main>
             <section class="tableprofile">
-                <h1>Settings</h1>
+                
+                <h1 class="primary-variant">ANGONO<span class="success"> ANIMAL CLINIC</span> & PET GROOMING CENTER</h1>
                 <div class="table-profile">
                     <div class="table-profile-buttons">
                         <!--  Start of Settings Section  -->
@@ -665,7 +666,7 @@ if (isset($_POST['removeprice'])) {
 
         <!-- Modal of Services -->
 
-        <!-- Start of Modal -->
+         <!-- Start of Modal -->
         <div class="modal" id="modal5">
             <div class="modal-content">
                 <div class="modal-header">
@@ -699,7 +700,7 @@ if (isset($_POST['removeprice'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "Select * from tblservices";
+                                        $sql = "Select * from tblservices order by sid desc";
                                         $res = mysqli_query($conn, $sql);
 
                                         if ($res) {

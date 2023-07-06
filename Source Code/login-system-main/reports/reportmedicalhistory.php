@@ -1,6 +1,6 @@
 <?php
 include '../connect.php';
-$result = $conn->query("SELECT * FROM tblappointments ORDER BY queueno DESC");
+$result = $conn->query("SELECT * FROM tblappointments WHERE scheduled = 'Yes' ORDER BY queueno DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">

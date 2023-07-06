@@ -73,6 +73,9 @@ if (isset($_POST['checkout'])) {
         </div>
 <?php
     }
+     unset($_SESSION['ownersname']);
+    unset($_SESSION['prodname']);
+    unset($_SESSION['category']);
 }
 
 ?>
@@ -89,6 +92,19 @@ if (isset($_POST['checkout'])) {
     <!-- Stylesheet  -->
     <link rel="stylesheet" href="../css/productsandservices.css">
     <link rel="shortcut icon" type="image/x-icon" href="../images/aac.jpg" />
+    <script>
+        $(document).ready(function() {
+            $("#amount").on("input", function() {
+              var amount = parseFloat($(this).val());
+              if (amount >= <?php echo $totalprice ?>) {
+              var change = (amount - <?php echo $totalprice; ?>).toFixed(2);;
+                  } else {
+                    var change = "0.00";
+                  }
+                $("#change").val(change);
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -98,7 +114,7 @@ if (isset($_POST['checkout'])) {
         <!--  Main Tag  -->
         <main>
             <section class="tableprofile">
-                <h1>Products Available</h1>
+                <h1 class="primary-variant">ANGONO<span class="success"> ANIMAL CLINIC</span> & PET GROOMING CENTER</h1>
                 <div class="table-profile">
                     <form action="" method="POST">
                         <div class="formprofile">
@@ -153,7 +169,7 @@ if (isset($_POST['checkout'])) {
                             <input type="hidden" name="ownersname" value="<?php echo $op; ?>" disabled required>
                         </div>
                     </div>
-                    <table class="content-table tblcart" id="searchCart">
+                    <table class="content-table tblcheckoutcart" id="searchCart">
                         <thead>
                             <tr>
                                 <th>Order ID</th>
@@ -520,7 +536,13 @@ if (isset($_POST['checkout'])) {
                                     ?>
                                 </tbody>
                             </table>
-                            <h1>Total Amount: <?php echo '₱ ' . number_format($totalprice, 2); ?></h1>
+                            <h1>Total Amount: <?php echo '₱ ' . number_format($totalprice, 2); ?></h1> 
+                                <div class="formprofile notgrid">
+                                    <label for="amount">Enter amount:</label>
+                                    <input type="number" id="amount" name="amount">
+                                    <label for="change">Change:</label>
+                                    <input type="number" id="change" name="change" value="0.00" readonly>
+                                </div>
                             <div class="buttonmodify checkoutright">
                                 <button name="checkout" title="Checkout Now">
                                     <h2 style="margin: 0 auto">Checkout</h2>
@@ -561,6 +583,8 @@ if (isset($_POST['checkout'])) {
                     printreceiptID: printreceiptid
                 })
             })
+            
+           
         })
         $(document).ready(function() {
             $('#search-box').on('keyup', function() {
@@ -626,6 +650,7 @@ if (isset($_POST['checkout'])) {
                 });
             });
         });
+        
     </script>
 
 </body>

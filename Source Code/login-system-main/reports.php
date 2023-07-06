@@ -25,7 +25,7 @@ include 'authcheck.php';
         <main>
 
         <section class="tableprofile">
-                <h1>Reports</h1>
+                <h1 class="primary-variant">ANGONO<span class="success"> ANIMAL CLINIC</span> & PET GROOMING CENTER</h1>
                 <div class="table-profile">
                     <div class="table-profile-buttons">
                         <!--  Start of Settings Section  -->

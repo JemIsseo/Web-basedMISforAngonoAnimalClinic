@@ -190,14 +190,14 @@ aside .top {
 }
 
 aside .logo {
-  display: flex;
   gap: 1.5rem;
-  margin-left: 6%;
+  margin-left: 8%;
 }
 
 aside .logo img {
-  width: 4rem;
-  height: 4rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
 }
 
 aside .close {
@@ -319,6 +319,11 @@ aside .sidebar a:hover span {
   gap: 1em;
 }
 
+.notgrid {
+    height: 20%;
+    width: 65%;
+}
+
 .inputspan {
   padding: 0;
 }
@@ -384,7 +389,7 @@ aside .sidebar a:hover span {
 }
 
 .table-checkoutnow {
-  height: 60vh;
+  height: 70vh;
 }
 
 .table-profile:hover {
@@ -397,13 +402,17 @@ aside .sidebar a:hover span {
   font-size: 0.9em;
   width: 100%;
   display: block;
-  height: 250px;
+  height: 290px;
   overflow-x: hidden;
   text-align: center;
 }
 
 .table-receipt-small {
   height: 590px;
+}
+
+.tblcart {
+    height: 250px;
 }
 
 .content-table thead tr {
@@ -438,9 +447,19 @@ aside .sidebar a:hover span {
   padding: 12px 40px;
 }
 
+.tblcheckoutcart th,
+.tblcheckoutcart td {
+  padding: 12px 55px;
+}
+
+.tblreceipt th,
+.tblreceipt td {
+  padding: 12px 50px;
+}
+
 .tblhistory th,
 .tblhistory td {
-  padding: 12px 30px;
+  padding: 12px 35px;
 }
 
 .table-archive th,
@@ -499,7 +518,6 @@ aside .sidebar a:hover span {
     rgb(37, 209, 94),
     var(--color-primary)
   );
-  margin-top: 1em;
 }
 
 .checkhistorystyle {
@@ -604,8 +622,9 @@ aside .sidebar a:hover span {
 #modal9 .modal-content {
   font-family: 'Courier New', Courier, monospace;
   margin-top: 10px;
-  width: 63%;
+  width: 80%;
   height: 97%;
+  font-size: 1.2em;
 }
 
 

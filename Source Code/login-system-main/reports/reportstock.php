@@ -195,6 +195,7 @@ $result = $conn->query("SELECT * FROM tblstock WHERE archive = 'false' ORDER BY 
                         <th>Description</th>
                         <th>Price</th>
                         <th>Quantity</th>
+                        <th>Expiration</th>
                     </tr>
                 </thead>
                 <?php while ($row = $result->fetch_assoc()) { ?>
@@ -205,6 +206,7 @@ $result = $conn->query("SELECT * FROM tblstock WHERE archive = 'false' ORDER BY 
                         <td><?php echo $row['description']; ?></td>
                         <td><?php echo number_format($row['price'], 2); ?></td>
                         <td><?php echo $row['quantity']; ?></td>
+                        <td><?php echo $row['expirydate']; ?></td>
                     </tr>
                 <?php } ?>
 

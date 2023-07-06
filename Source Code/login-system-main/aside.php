@@ -2,8 +2,7 @@
 <aside>
     <div class="top">
         <div class="logo">
-            <a href="dashboard.php"><img src="../Images/aac.jpg" alt="IVET Logo"></a>
-            <h2><span class="primary-variant">ANIMAL</span><span class="success"> CLINIC</span></h2>
+            <a href="dashboard.php"><img src="../images/aac.jpg" alt="IVET Logo"></a>
         </div>
         <div class="close" id="close-btn">
             <span class="material-symbols-sharp">close</span>

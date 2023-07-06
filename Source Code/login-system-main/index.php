@@ -6,7 +6,7 @@ if (isset($_POST['login'])) {
     $un = $_POST['username'];
     $pw = $_POST['password'];
 
-    $stmt = mysqli_prepare($conn, "SELECT * FROM tbluseraccount WHERE username = ?");
+    $stmt = mysqli_prepare($conn, "SELECT * FROM tbluseraccount WHERE archive='false' AND username = ?");
     mysqli_stmt_bind_param($stmt, "s", $un);
     mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);

@@ -1,6 +1,7 @@
 <?php
 include '../connect.php';
 $result = $conn->query("SELECT * FROM tbladdedstock ORDER BY stockid DESC");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -147,7 +148,8 @@ $result = $conn->query("SELECT * FROM tbladdedstock ORDER BY stockid DESC");
         .dataTables_filter,
         .dataTables_paginate,
         .dataTables_info,
-        .print-button {
+        .print-button,
+        form {
             visibility: hidden;
         }
     }
@@ -193,6 +195,7 @@ $result = $conn->query("SELECT * FROM tbladdedstock ORDER BY stockid DESC");
                         <th>Category</th>
                         <th>Quantity Added</th>
                         <th>Date</th>
+                        <th>Expiration</th>
                     </tr>
                 </thead>
                 <?php while ($row = $result->fetch_assoc()) { ?>
@@ -201,6 +204,7 @@ $result = $conn->query("SELECT * FROM tbladdedstock ORDER BY stockid DESC");
                         <td><?php echo $row['category']; ?></td>
                         <td><?php echo $row['quantityadded']; ?></td>
                         <td><?php echo $row['date']; ?></td>
+                        <td><?php echo $row['expirydate']; ?></td>
                     </tr>
                 <?php } ?>
 

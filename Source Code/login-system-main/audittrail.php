@@ -25,16 +25,16 @@ include 'connect.php';
         <?php include 'aside.php'; ?>
 
         <!--  Main Tag  -->
-        <main>
+        <main class="mainaudit">
             <section class="tableaudittrail">
-                <div class="accrecsearch">
-                    <h1>Audit Trail</h1>
+                <div class="accrecsearch auditsearch">
+                    <h1 class="primary-variant">ANGONO<span class="success"> ANIMAL CLINIC</span> & PET GROOMING CENTER</h1>
                     <div class="searchbar">
                         <input type="text" placeholder="Search here" id="search-box"><span class="material-symbols-sharp">search</span>
                     </div>
                 </div>
                 <div class="table-profiletrail">
-                    <table class="content-table content-tabletrail" id="auditTrail">
+                    <table class="content-table content-tableaudit" id="auditTrail">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -53,7 +53,8 @@ include 'connect.php';
                                 while ($row = mysqli_fetch_assoc($res)) {
                                     $atid = $row['atid'];
                                     $un = $row['username'];
-                                    $dt = $row['datetime'];
+                                    date_default_timezone_set('Asia/Manila');
+                                    $dt = date("M d, Y \n,h:i:sA ", strtotime($row['datetime']));
                                     $ip = $row['ipaddress'];
                                     $am = $row['actionmode'];
                                     echo '<tr>
