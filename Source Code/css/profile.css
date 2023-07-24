@@ -152,12 +152,19 @@ b {
 }
 
 /*   Style for Icon Buttons   */
+
 .edit,
 .archive,
-.restore {
+.restore,
+.add,
+.pet {
   color: var(--color-success);
   background: var(--color-white);
   cursor: pointer;
+}
+
+.pet {
+  color: var(--color-danger);
 }
 
 .archive {
@@ -166,6 +173,15 @@ b {
 
 .restore {
   color: var(--color-warning);
+}
+
+.add {
+  font-size: 1.5em;
+}
+
+.flexadd {
+  display: flex;
+  gap: 10em;
 }
 
 aside {
@@ -257,6 +273,10 @@ main h1 {
   gap: 3em;
 }
 
+.profile {
+  padding-left: 2em;
+}
+
 .medhis {
     position: absolute;
     top: 30%;
@@ -264,7 +284,7 @@ main h1 {
 }
 
 .formmodify {
-  height: 20%;
+  height: 50%;
 }
 
 .formprofileedit {
@@ -495,10 +515,14 @@ input[type="file"] {
 .table-profile-sample {
   background: var(--color-white);
   padding: 1em;
-  height: 45vh;
+  height: 75vh;
   border-radius: var(--card-border-radius);
   box-shadow: var(--box-shadow);
   transition: all 300ms ease;
+}
+
+.profile-sample-short {
+  height: 45vh;
 }
 
 .table-profile:hover,
@@ -512,9 +536,13 @@ input[type="file"] {
   font-size: 0.9em;
   width: 100%;
   display: block;
-  height: 370px;
+  height: 73vh;
   overflow-x: hidden;
   text-align: center;
+}
+
+.content-table-short {
+  height: 44vh;
 }
 
 .content-table thead tr {
@@ -537,6 +565,11 @@ input[type="file"] {
 .content-table td {
   padding: 12px 32px;
   border-bottom: 1px solid rgb(238, 233, 233);
+}
+
+.content-table-short th,
+.content-table-short td {
+  padding: 12px 26px;
 }
 
 .table-archive th,
@@ -658,7 +691,7 @@ input[type="file"] {
 }
 
 .modal-body {
-  padding: 1em 0;
+  padding: 2em;
 }
 
 .modal-footer {
@@ -670,7 +703,7 @@ input[type="file"] {
 }
 
 #modal1 .modal-content {
-  height: 80vh;
+  height: 30vh;
 }
 
 #modal2 .modal-content {
@@ -687,8 +720,12 @@ input[type="file"] {
   padding: 1em;
 }
 
+#modal4 {
+  z-index: 20;
+}
+
 #modal4 .modal-content {
-  width: 65%;
+  width: 65%;  
 }
 
 #modal4 .modal-header {

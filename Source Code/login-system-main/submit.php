@@ -2,9 +2,9 @@
 session_start();
 include 'connect.php';
 
-    $s = mysqli_query($conn, "select * from tblownersprofile");
-    $p = mysqli_query($conn, "select * from tblpettype");
-    $b = mysqli_query($conn, "select * from tblbreed");
+$s = mysqli_query($conn, "select * from tblownersprofile");
+$p = mysqli_query($conn, "select * from tblpettype");
+$b = mysqli_query($conn, "select * from tblbreed");
 
 // USER ACCOUNT SQL STATEMENTSSSSSSS
 if (isset($_POST['accountID'])) {
@@ -30,7 +30,7 @@ if (isset($_POST['accountID'])) {
                                 <span class="material-symbols-sharp"> upload </span>
                             </label>
                             <img src="uploads/<?php echo $img; ?>">
-                
+
                         </div>
                         <div class="upload">
                             <h2>Insert jpg, jpeg, and png files only.</h2>
@@ -248,6 +248,64 @@ if (isset($_POST['ownersprofileID'])) {
 <?php
 }
 
+
+// VIEW PET PROFILE 
+if (isset($_POST['petviewID'])) {
+    $petviewID = $_POST['petviewID'];
+?>
+    <table class="content-table content-table-short">
+        <thead>
+            <tr>
+                <th>Pet ID</th>
+                <th>Owner's Name</th>
+                <th>Pet Name</th>
+                <th>Pet Type</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Breed</th>
+                <th>Weight</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $sql = "Select * from tblpet where ownersname = '". $petviewID ."' and archive = 'false' ";
+            $res = mysqli_query($conn, $sql);
+
+            if ($res) {
+                while ($row = mysqli_fetch_assoc($res)) {
+                    $pid = $row['petid'];
+                    $op = $row['ownersname'];
+                    $pname = $row['petname'];
+                    $pt = $row['pettype'];
+                    $age = $row['age'];
+                    $sex = $row['sex'];
+                    $breed = $row['breed'];
+                    $weight = $row['weight'];
+                    echo '<tr>
+                                        <td>' . $pid . '</td>
+                                        <td>' . $op . '</td>
+                                        <td>' . $pname . '</td>
+                                        <td>' . $pt . '</td>
+                                        <td>' . $age . '</td>
+                                        <td>' . $sex . '</td>
+                                        <td>' . $breed . '</td>
+                                        <td>' . $weight . '</td>
+                                        <td>
+                                        <button class="showUpdatePet modal-close"  value="' . $pid . '" ><span class="material-symbols-sharp edit" title="Edit this record">edit</span></button>
+                                        <button class="modal-open showArchivePet" data-modal="modal11" value="' . $pid . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
+                                        </td>
+                                        </tr>';
+                }
+            }
+            ?>
+        </tbody>
+    </table>
+<?php
+}
+
+
+
 // PET PROFILEL SQL STATEMENTSSSSSSS
 if (isset($_POST['updatepetID'])) {
     $updatepetID = $_POST['updatepetID'];
@@ -262,7 +320,7 @@ if (isset($_POST['updatepetID'])) {
     $sex = $upRow['sex'];
     $breed = $upRow['breed'];
     $weight = $upRow['weight'];
-  
+
     $s = mysqli_query($conn, "select * from tblusertype");
 
 ?>
@@ -282,7 +340,9 @@ if (isset($_POST['updatepetID'])) {
                             <button type="submit" name="uploadphoto" class="uploadbtn">Upload</button>
                         </div>
                         <div class="medhis">
-                            <a href="medicalhistory.php?petid=<?php echo $pid;?>" class="yesmh"><h2>Medical History</h2></a>
+                            <a href="medicalhistory.php?petid=<?php echo $pid; ?>" class="yesmh">
+                                <h2>Medical History</h2>
+                            </a>
                         </div>
                         <input type="hidden" name="petid" value="<?= $pid ?>">
                         <input type="file" id="file-upload" name="image" title="Insert photo..." onchange="previewImage(event)" required />
@@ -290,7 +350,7 @@ if (isset($_POST['updatepetID'])) {
                 </form>
                 <form action="profile.php" method="POST">
                     <div class="formprofileedit">
-                         <input type="hidden" name="petid" value="<?= $pid ?>">
+                        <input type="hidden" name="petid" value="<?= $pid ?>">
                         <div>
                             <input type="text" name="ownersname" value="<?= $op;  ?>" readonly>
                             <h3>Owner's Name</h3>
@@ -302,13 +362,14 @@ if (isset($_POST['updatepetID'])) {
                         <div>
                             <select class="radiobtn" name="pettype" id="pettypeid" value="<?= $pt; ?>">
                                 <?php
-                                    while ($r = mysqli_fetch_array($p)) {
+                                while ($r = mysqli_fetch_array($p)) {
                                 ?>
-                                        <option value="<?php echo $r['pettypeid']; ?>"><?php echo $r['pettype']; ?> </option>
+                                    <option value="<?php echo $r['pettypeid']; ?>"><?php echo $r['pettype']; ?> </option>
                                 <?php
-                                    }
+                                }
                                 ?>
-                            </select><h3>Pet Type</h3>
+                            </select>
+                            <h3>Pet Type</h3>
                         </div>
                         <div>
                             <input type="number" name="age" value="<?= $age;  ?>">
@@ -318,19 +379,21 @@ if (isset($_POST['updatepetID'])) {
                             <select class="radiobtn" name="sex" id="utedit" value="<?= $sex; ?>">
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
-                            </select><h3>Sex</h3>
+                            </select>
+                            <h3>Sex</h3>
                         </div>
                         <div>
                             <select class="radiobtn" name="breed" id="bid" value="<?= $breed; ?>">
                                 <option><?php echo $breed; ?></option>
                                 <?php
-                                    while ($r = mysqli_fetch_array($b)) {
+                                while ($r = mysqli_fetch_array($b)) {
                                 ?>
-                                        <option value="<?php echo $r['breed']; ?>"><?php echo $r['breed']; ?> </option>
+                                    <option value="<?php echo $r['breed']; ?>"><?php echo $r['breed']; ?> </option>
                                 <?php
-                                    }
+                                }
                                 ?>
-                            </select><h3>Breed</h3>
+                            </select>
+                            <h3>Breed</h3>
                         </div>
                         <div>
                             <input type="text" name="weight" value="<?= $weight; ?>">
@@ -816,14 +879,14 @@ if (isset($_POST['removecartID'])) {
     $removecartID = $_POST['removecartID'];
     $sql = "update tblorder set cart = 'Removed' where orderid ='$removecartID'";
     $res = mysqli_query($conn, $sql);
-} 
+}
 
 // REMOVE APPOINTMENT SQL STATEMENTS 
 if (isset($_POST['removeappointmentID'])) {
     $removeappointmentID = $_POST['removeappointmentID'];
     $sql = "update tblappointments set scheduled = 'Removed' where queueno ='$removeappointmentID'";
     $res = mysqli_query($conn, $sql);
-} 
+}
 
 
 // REPORT TRANSACTION SALES INVOICE
@@ -881,24 +944,26 @@ if (isset($_POST['printreceiptID'])) {
 
 ?>
 <script>
-                $(document).ready(function() {
-                    $("#pettypeid").on('click', function() {
-                        var pettypeid = $(this).val();
-                        if (pettypeid) {
-                            $.ajax({
-                                type: 'POST',
-                                url: 'cascadingdropdown.php',
-                                data: 'pettypeid=' + pettypeid,
-                                success: function(html) {
-                                    $("#bid").html(html);
-                                }
-                            });
-                        }
-                    });
+    $(document).ready(function() {
+        $("#pettypeid").on('click', function() {
+            var pettypeid = $(this).val();
+            if (pettypeid) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'cascadingdropdown.php',
+                    data: 'pettypeid=' + pettypeid,
+                    success: function(html) {
+                        $("#bid").html(html);
+                    }
                 });
+            }
+        });
+    });
+
+    
 </script>
 <?php
 
 include 'scriptingfiles.php';
-
+include 'search.php';
 ?>

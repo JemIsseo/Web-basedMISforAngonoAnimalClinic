@@ -8,7 +8,6 @@ $msg = "";
 if (isset($_POST["login"])) {
     $un = $_POST['username'];
     $pw = $_POST['password'];
-    $cpw = $_POST['confirmpassword'];
     $ut = $_POST['usertype'];
     $ea = $_POST['email'];
 
@@ -27,8 +26,7 @@ if (isset($_POST["login"])) {
 
             <?php
         } else {
-            $password_hash = password_hash($pw, PASSWORD_BCRYPT);
-
+        
             $sqls = "Select * from tbluseraccount where username = '$un'";
             $results = mysqli_query($conn, $sqls);
 
@@ -36,14 +34,14 @@ if (isset($_POST["login"])) {
                 $num = mysqli_num_rows($results);
                 if ($num > 0) { ?>
                     <div class="statusmessageerror message-box" id="close">
-                        <h2>Sorry username already exist!</h2>
+                        <h2>Sorry name already exist!</h2>
                         <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
                     </div>
                     <?php
                 } else {
-                    if ($pw === $cpw) {
+                    if ($pw) {
                         // Insert into database
-                        $result = mysqli_query($conn, "INSERT INTO tbluseraccount (username, password, usertype, email, status, archive) VALUES ('$un','$password_hash','$ut','$ea', 0, 'false')");
+                        $result = mysqli_query($conn, "INSERT INTO tblownersprofile (username, password, usertype, email, archive) VALUES ('$un','$pw','$ut','$ea','false')");
 
                         if ($result) {
                             $otp = rand(100000, 999999);
@@ -133,39 +131,25 @@ if (isset($_POST["login"])) {
                     <div class="input-box space">
                         <i class="fa-solid fa-user"></i>
                         <input type="text" name="username" required>
-                        <span>Username</span>
+                        <span>Full Name</span>
                     </div>
                     <div class="input-box space">
-                        <i class="fa-solid fa-lock"></i>
-                        <input type="password" name="password" id="password" required>
-                        <span>Password</span>
+                        <i class="fa-solid fa-phone"></i>
+                        <input type="text" name="password" id="password" required>
+                        <span>Contact No.</span>
                     </div>
-                    <div class="show">
-                        <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggle()"></i>
-                    </div>
+                   
                     <div class="input-box">
-                        <i class="fa-solid fa-check"></i>
-                        <input type="password" name="confirmpassword" id="confirmpassword" required>
-                        <span>Confirm Password</span>
+                        <i class="fa-solid fa-address-book"></i>
+                        <input type="text" name="confirmpassword" id="confirmpassword" required>
+                        <span>Address</span>
                     </div>
-                    <div class="showcp">
-                        <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="togglecp()"></i>
-                    </div>
+                   
                     <div class="input-box">
                         <i class="fa-solid fa-envelope"></i>
                         <input type="email" name="email" required>
                         <span>Email Address</span>
                     </div>
-                    <select class="radiobtn" name="usertype">
-                        <option disabled selected style="display: none" value="">Choose</option>
-                        <?php
-                        while ($r = mysqli_fetch_array($s)) {
-                        ?>
-                            <option value="<?php echo $r['usertype']; ?>"><?php echo $r['usertype']; ?> </option>
-                        <?php
-                        }
-                        ?>
-                    </select>
                     <button name="login" type="submit" class="login-btn">Register</button>
                     <p class="already">Already have an account? <a href="index.php">Click Here!</a></p>
                 </form>

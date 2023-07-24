@@ -57,61 +57,61 @@ if (isset($_POST['query'])) {
                 ?>
             </table>
             <div class="createaccount">
-                            <h1>Create An Account</h1>
-                            <div>
-                                <div class="accountrecords ">
-                                    <form action="" method="POST" enctype="multipart/form-data">
-                                        <div class="profilepicture">
-                                            <img src="../images/R.png" class="img-style" id="image-preview" />
-                                            <label for="file-upload" class="custom-file-upload">
-                                                <span class="material-symbols-sharp"> upload </span>
-                                            </label>
-                                            <input type="file" id="file-upload" name="my_image" title="Insert photo..." onchange="previewImage(event)" required />
+                <h1>Create An Account</h1>
+                <div>
+                    <div class="accountrecords ">
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            <div class="profilepicture">
+                                <img src="../images/R.png" class="img-style" id="image-preview" />
+                                <label for="file-upload" class="custom-file-upload">
+                                    <span class="material-symbols-sharp"> upload </span>
+                                </label>
+                                <input type="file" id="file-upload" name="my_image" title="Insert photo..." onchange="previewImage(event)" required />
 
-                                        </div>
-                                        <div class="formprofile">
-                                            <div>
-                                                <input type="text" name="username" placeholder="Enter Username" required>
-                                                <span>Username</span>
-                                            </div>
-                                            <div>
-                                                <input type="password" name="password" placeholder="Enter Password" id="password" required>
-                                                <span>Password</span>
-                                            </div>
-                                            <div class="show">
-                                                <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggle()"></i>
-                                            </div>
-                                            <div>
-                                                <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Enter Confirm Password" required>
-                                                <span>Confirm Password</span>
-                                            </div>
-                                            <div class="showcp">
-                                                <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="togglecp()"></i>
-                                            </div>
-                                            <div>
-                                                <select class="radiobtn" name="usertype" id="ut">
-                                                <option disabled selected style="display: none">Choose</option>
-                                                    <?php
-                                                    while ($r = mysqli_fetch_array($s)) {
-                                                    ?>
-                                                        <option value="<?php echo $r['usertype']; ?>"><?php echo $r['usertype']; ?> </option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </select>Usertype
-                                            </div>
-                                            <div>
-                                                <input type="email" name="email" placeholder="Enter Email" required>
-                                                <span>Email Address</span>
-                                            </div>
-                                            <div class="buttonflex">
-                                                <button name="saveaccount" type="submit" class="save" title="Save the record">Save</button>
-                                                <button class="cancel" title="Clear all inputs" id="clear-button">Clear</button>
-                                            </div>
-                                    </form>
-                                </div>
                             </div>
-                        </div>
+                            <div class="formprofile">
+                                <div>
+                                    <input type="text" name="username" placeholder="Enter Username" required>
+                                    <span>Username</span>
+                                </div>
+                                <div>
+                                    <input type="password" name="password" placeholder="Enter Password" id="password" required>
+                                    <span>Password</span>
+                                </div>
+                                <div class="show">
+                                    <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="toggle()"></i>
+                                </div>
+                                <div>
+                                    <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Enter Confirm Password" required>
+                                    <span>Confirm Password</span>
+                                </div>
+                                <div class="showcp">
+                                    <i class="fa-solid fa-eye" aria-hidden="true" id="eye" onclick="togglecp()"></i>
+                                </div>
+                                <div>
+                                    <select class="radiobtn" name="usertype" id="ut">
+                                        <option disabled selected style="display: none">Choose</option>
+                                        <?php
+                                        while ($r = mysqli_fetch_array($s)) {
+                                        ?>
+                                            <option value="<?php echo $r['usertype']; ?>"><?php echo $r['usertype']; ?> </option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>Usertype
+                                </div>
+                                <div>
+                                    <input type="email" name="email" placeholder="Enter Email" required>
+                                    <span>Email Address</span>
+                                </div>
+                                <div class="buttonflex">
+                                    <button name="saveaccount" type="submit" class="save" title="Save the record">Save</button>
+                                    <button class="cancel" title="Clear all inputs" id="clear-button">Clear</button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     <?php
 
@@ -404,6 +404,7 @@ if (isset($_POST['queryownersname'])) {
                                                 <td>
                                                     <button class="modal-open showUpdateProfile" data-modal="modal6" value="' . $op . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
                                                     <button class="modal-open showArchiveProfile" data-modal="modal9" value="' . $op . '"><span class="material-symbols-sharp archive" title="Archive the record">archive</span></button>
+                                                    <button class="modal-open showPetProfile" data-modal="modal3" value="' . $op . '"><span class="material-symbols-sharp pet">sound_detection_dog_barking</span></button>
                                                 </td>';   ?>
                     </tr>
                 </tbody>
@@ -811,7 +812,7 @@ if (isset($_POST['queryaudittrail'])) {
             ?>
         </table>
 
-<?php
+    <?php
 
     } else {
         echo "<h2 style='text-align: center'>No results found</h2>";
@@ -837,7 +838,7 @@ if (isset($_POST['queryappointment'])) {
                     <th>Pet Name</th>
                     <th>Service to Avail</th>
                     <th>Status</th>
-                    <th>   </th>
+                    <th> </th>
                 </tr>
             </thead>
             <?php
@@ -845,20 +846,20 @@ if (isset($_POST['queryappointment'])) {
             ?>
                 <tbody>
                     <?php
-                                            $qno = $row['queueno'];
-                                            $dt = date("M d, Y \n,h:i:sA ", strtotime($row['dateandtime']));
-                                            $cname = $row['clientname'];
-                                            $pname = $row['petname'];
-                                            $ser = $row['services'];
-                                            $stat = strtotime($row['status']);
-                                            
-                                        $current_date = date("M d, Y \n,h:i:sA");
+                    $qno = $row['queueno'];
+                    $dt = date("M d, Y \n,h:i:sA ", strtotime($row['dateandtime']));
+                    $cname = $row['clientname'];
+                    $pname = $row['petname'];
+                    $ser = $row['services'];
+                    $stat = strtotime($row['status']);
 
-                                        if ($current_date > $dt) {
-                                          $curstat = "Completed";
-                                        } else {
-                                          $curstat = "In progress";
-                                        }
+                    $current_date = date("M d, Y \n,h:i:sA");
+
+                    if ($current_date > $dt) {
+                        $curstat = "Completed";
+                    } else {
+                        $curstat = "In progress";
+                    }
                     echo '<tr>
                         <td>' . $qno . '</td>
                         <td>' . $dt . '</td>
@@ -961,6 +962,7 @@ include 'scriptingfiles.php';
 
     // OWNERSNAME AJAX DOCUMENTS
     $(document).ready(function() {
+
         $(".showUpdateProfile").click(function() {
             var ownersprofileid = this.value;
             $("#updateOwner").load("submit.php", {
@@ -985,27 +987,39 @@ include 'scriptingfiles.php';
 
     // PET PROFILE AJAX DOCUMENTS
     $(document).ready(function() {
+        $(".showUpdatePet").click(function() {
+            var updatepetid = this.value;
+            $("#editPet").load("submit.php", {
+                updatepetID: updatepetid
+            })
+        })
         $(".showArchivePet").click(function() {
             var archivepetprofileid = this.value;
             $("#archivePet").load("submit.php", {
-                archivepetprofileID : archivepetprofileid
+                archivepetprofileID: archivepetprofileid
+            })
+        })
+        $(".showPetProfile").click(function() {
+            var petviewid = this.value;
+            $("#viewPet").load("submit.php", {
+                petviewID: petviewid
             })
         })
         $(".showRestorePet").click(function() {
             var restorepetprofileid = this.value;
             $("#restorePet").load("submit.php", {
-            restorepetprofileID : restorepetprofileid
+                restorepetprofileID: restorepetprofileid
             })
         })
     })
-                    
+
     // APPOINTMENT AJAX DOCUMENT
     $(document).ready(function() {
         // REMOVE APPOINTMENT DOCUMENT FORMS
         $(".showRemoveAppointment").click(function() {
             var removeappointmentid = this.value;
             $("#removeAppointment").load("submit.php", {
-                removeappointmentID  : removeappointmentid
+                removeappointmentID: removeappointmentid
             })
         })
     })
