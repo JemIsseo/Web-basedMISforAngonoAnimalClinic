@@ -28,7 +28,7 @@
         </a>
         <a style="display: <?php echo $display_style; ?>" href="productsandservices.php">
             <span class="material-symbols-sharp">medical_information</span>
-            <h3>Transactions</h3>
+            <h3>Transactions / Appointment</h3>
         </a>
         <a href="appointments.php">
             <span class="material-symbols-sharp">book_online</span>

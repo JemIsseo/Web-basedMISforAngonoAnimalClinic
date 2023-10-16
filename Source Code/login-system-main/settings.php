@@ -278,10 +278,11 @@ if (isset($_POST['removecategory'])) {
 // Save Services
 if (isset($_POST['saveservices'])) {
     $ser = $_POST['services'];
+    $prc = $_POST['price'];
 
     // Insert into database
-    $sql = "insert into tblservices(services) 
-                 values('$ser')";
+    $sql = "insert into tblservices(services,price) 
+                 values('$ser','$prc')";
     $res = mysqli_query($conn, $sql);
 
     $ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -301,8 +302,9 @@ if (isset($_POST['saveservices'])) {
 if (isset($_POST['updateservices'])) {
     $sid = $_POST['sid'];
     $ser = $_POST['services'];
+    $prc = $_POST['price'];
 
-    $sql = "update tblservices set services ='$ser' 
+    $sql = "update tblservices set services ='$ser', price = '$prc'
                 where sid= $sid";
     $res = mysqli_query($conn, $sql);
 
@@ -338,50 +340,6 @@ if (isset($_POST['removeservices'])) {
             <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
         </div>
     <?php
-    }
-}
-
-// Charges and Fees Update Statement
-if (isset($_POST['updateprice'])) {
-    $proid = $_POST['sid'];
-    $caf = $_POST['price'];
-
-    $sql = "update tblservices set price ='$caf' 
-                where sid = '$proid'";
-    $res = mysqli_query($conn, $sql);
-
-    $ipaddress = $_SERVER['REMOTE_ADDR'];
-    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
-    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Updated price in settings')");
-    if ($res) { ?>
-        <div class="statusmessagesuccesslight message-box" id="close">
-            <h2>Charges and Fees Updated Successfully!</h2>
-            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-        </div>
-    <?php
-    } else {
-        die(mysqli_error($conn));
-    }
-}
-
-//Services remove statement
-if (isset($_POST['removeprice'])) {
-    $rproid = $_POST['rproid'];
-
-    $sql = "delete from tblchargesandfees where proid = '$rproid'";
-    $res = mysqli_query($conn, $sql);
-
-    $ipaddress = $_SERVER['REMOTE_ADDR'];
-    $result = mysqli_query($conn, "INSERT INTO tblaudittrail (username, ipaddress, actionmode) 
-    VALUES ('" . $_SESSION['username'] . "','$ipaddress','Removed price in settings')");
-
-    if ($res) {
-    ?>
-        <div class="statusmessageerror message-box" id="close">
-            <h2>Charges and Fees has been removed</h2>
-            <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-        </div>
-<?php
     }
 }
 
@@ -428,9 +386,6 @@ if (isset($_POST['removeprice'])) {
                         </div>
                         <div class="buttonmodify">
                             <button class="modal-open" data-modal="modal5" title="View Services"><span class="material-symbols-sharp">medical_services</span>Services</button>
-                        </div>
-                        <div class="buttonmodify">
-                            <button class="modal-open" data-modal="modal6" title="View Charges and Fees"><span class="material-symbols-sharp">payments</span>Charges and Fees</button>
                         </div>
                     </div>
                 </div>
@@ -680,6 +635,10 @@ if (isset($_POST['removeprice'])) {
                                 <input type="text" name="services" placeholder="Add New Services" required>
                                 <span>Services</span>
                             </div>
+                            <div>
+                                <input type="text" name="price" placeholder="Add New Price" required>
+                                <span>Price</span>
+                            </div>
                             <div class="buttonflex">
                                 <button name="saveservices" type="submit" class="save" title="Update services">Save</button>
                                 <button class="cancel modal-close" title="Cancel">Cancel</button>
@@ -695,6 +654,7 @@ if (isset($_POST['removeprice'])) {
                                         <tr>
                                             <th>Services ID</th>
                                             <th>Services</th>
+                                            <th>Price</th>
                                             <th> </th>
                                         </tr>
                                     </thead>
@@ -707,69 +667,16 @@ if (isset($_POST['removeprice'])) {
                                             while ($row = mysqli_fetch_assoc($res)) {
                                                 $sid = $row['sid'];
                                                 $services = $row['services'];
+                                                $prc = $row['price'];
                                         ?>
                                                 <tr>
                                                     <td><?php echo $sid; ?></td>
                                                     <td><?php echo $services; ?></td>
+                                                    <td><?php echo $prc; ?></td>
                                                     <?php echo '
                                 <td>
                                     <button class="modal-open showUpdateServices" data-modal="modal15" value="' . $sid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
                                     <button class="modal-open showRemoveServices" data-modal="modal16" value="' . $sid . '"><span class="material-symbols-sharp remove" title="Remove the record">delete</span></button>
-                                </td>';   ?>
-                                                </tr>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal of Charges and Fees -->
-
-        <!-- Start of Modal -->
-        <div class="modal" id="modal6">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1>Charges and Fees</h1>
-                    <button class="icon modal-close"><span class="material-symbols-sharp">close</span></button>
-                </div>
-                <div class="modal-body">
-                    <section class="tableaccountrecords">
-                        <div class="accountrecordsbg">
-                            <div class="accountrecords">
-                                <table class="content-tablechargefee table-fixed">
-                                    <thead>
-                                        <tr>
-                                            <th>Service ID</th>
-                                            <th>Service Name</th>
-                                            <th>Price</th>
-                                            <th> </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $sql = "Select * from tblservices order by sid desc ";
-                                        $res = mysqli_query($conn, $sql);
-
-                                        if ($res) {
-                                            while ($row = mysqli_fetch_assoc($res)) {
-                                                $proid = $row['sid'];
-                                                $prodname = $row['services'];
-                                                $price = $row['price'];
-                                        ?>
-                                                <tr>
-                                                    <td><?php echo $proid; ?></td>
-                                                    <td><?php echo $prodname; ?></td>
-                                                    <td><?php echo number_format($price, 2); ?></td>
-                                                    <?php echo '
-                                <td>
-                                    <button class="modal-open showUpdatePrice" data-modal="modal17" value="' . $proid . '" ><span class="material-symbols-sharp edit" title="Edit this account">edit</span></button>
                                 </td>';   ?>
                                                 </tr>
                                         <?php

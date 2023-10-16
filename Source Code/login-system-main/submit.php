@@ -634,6 +634,7 @@ if (isset($_POST['sID'])) {
     $upRow = mysqli_fetch_assoc($res);
     $sid = $upRow['sid'];
     $ser = $upRow['services'];
+    $prc = $upRow['price'];
 
 ?>
     <section class="tableproduct">
@@ -647,40 +648,13 @@ if (isset($_POST['sID'])) {
                     <input type="text" name="services" placeholder="Enter New Services" value="<?= $ser; ?>">
                     <span>Services</span>
                 </div>
+                <div>
+                    <input type="text" name="price" placeholder="Edit Price" value="<?= $prc; ?>">
+                    <span>Price</span>
+                </div>
             </div>
             <div class="buttonflex">
                 <button name="updateservices" type="submit" class="yes" title="Update the record">Update Changes</button>
-                <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
-            </div>
-        </form>
-
-    </section>
-<?php
-}
-// DISPLAY SETTINGS CHARGES AND FEES SQL STATEMENTS
-if (isset($_POST['proID'])) {
-    $proID = $_POST['proID'];
-    $sql = "Select * from tblservices where sid ='$proID'";
-    $res = mysqli_query($conn, $sql);
-    $upRow = mysqli_fetch_assoc($res);
-    $proid = $upRow['sid'];
-    $caf = $upRow['price'];
-
-?>
-    <section class="tableproduct">
-
-        <form action="settings.php" method="POST">
-            <div class="formprofile">
-                <div>
-                    <input type="hidden" name="sid" placeholder="Enter Service ID" value="<?= $proid; ?>" readonly>
-                </div>
-                <div>
-                    <input type="text" name="price" placeholder="Enter Service Price" value="<?= $caf; ?>">
-                    <span>New Stock Price</span>
-                </div>
-            </div>
-            <div class="buttonflex">
-                <button name="updateprice" type="submit" class="yes" title="Update the record">Update Changes</button>
                 <button type="submit" class="cancel modal-close" title="Cancel activity">Cancel</button>
             </div>
         </form>
