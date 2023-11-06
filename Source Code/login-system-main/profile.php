@@ -489,7 +489,7 @@ if (isset($_POST['saverestorepet'])) {
                         <form action="" method="POST">
                             <div class="formprofile">
                                 <div>
-                                    <input type="text" name="ownersname" placeholder="Enter Pet Name" required>
+                                    <input type="text" name="ownersname" disabled value="<?php echo $op; ?>" required>
                                     <span>Ownersname</span>
                                 </div>
 

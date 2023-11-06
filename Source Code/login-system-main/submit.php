@@ -863,6 +863,18 @@ if (isset($_POST['removeappointmentID'])) {
 }
 
 
+
+// ADD PET SYNTAX
+if (isset($_POST['petviewID'])) {
+    $petviewID = $_POST['petviewID'];
+    $_SESSION['ownersname'] = $petviewID;
+}
+
+
+
+
+
+
 // REPORT TRANSACTION SALES INVOICE
 if (isset($_POST['printreceiptID'])) {
     $printreceiptID = $_POST['printreceiptID'];
